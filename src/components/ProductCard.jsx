@@ -24,10 +24,10 @@ export const ProductCard = ({ product }) => {
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
         <img
-          src={product.images[0] || '/images/butterfly_clip.jpg'}
+          src={product.images[0] || 'images/butterfly_clip.jpg'}
           alt={product.name}
           onError={(e) => {
-            e.target.src = '/images/butterfly_clip.jpg';
+            e.target.src = 'images/butterfly_clip.jpg';
           }}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
         />

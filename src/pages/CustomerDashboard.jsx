@@ -145,7 +145,7 @@ export const CustomerDashboard = () => {
                         {order.items.map((item, idx) => (
                           <div key={idx} className="flex items-center justify-between text-xs font-poppins">
                             <div className="flex items-center gap-3">
-                              <img src={item.image || "/images/butterfly_clip.jpg"} alt={item.name} className="w-12 h-12 rounded-xl object-cover" />
+                              <img src={item.image || "images/butterfly_clip.jpg"} alt={item.name} className="w-12 h-12 rounded-xl object-cover" />
                               <div>
                                 <h4 className="font-bold text-[#2C2C2C]">{item.name}</h4>
                                 <span className="text-gray-500">Qty: {item.quantity} × ₹{item.price}</span>

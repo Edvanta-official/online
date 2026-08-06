@@ -29,7 +29,7 @@ export const AdminDashboard = () => {
     isNew: true,
     isTrending: false,
     isFlashSale: false,
-    images: ['/images/butterfly_clip.jpg']
+    images: ['images/butterfly_clip.jpg']
   });
 
   const totalRevenue = orders.reduce((sum, o) => sum + o.finalAmount, 0);
@@ -54,7 +54,7 @@ export const AdminDashboard = () => {
       isNew: true,
       isTrending: false,
       isFlashSale: false,
-      images: ['/images/butterfly_clip.jpg']
+      images: ['images/butterfly_clip.jpg']
     });
   };
 

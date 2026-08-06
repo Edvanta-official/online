@@ -43,10 +43,10 @@ export const CustomerReviews = () => {
               <div className="pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <img
-                    src={review.avatar || '/images/hero_model.jpg'}
+                    src={review.avatar || 'images/hero_model.jpg'}
                     alt={review.name}
                     onError={(e) => {
-                      e.target.src = '/images/hero_model.jpg';
+                      e.target.src = 'images/hero_model.jpg';
                     }}
                     className="w-11 h-11 rounded-full object-cover border-2 border-[#D4AF7F]"
                   />

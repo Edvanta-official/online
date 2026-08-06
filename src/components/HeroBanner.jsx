@@ -84,7 +84,7 @@ export const HeroBanner = () => {
               {/* Main Model Frame */}
               <div className="relative rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white aspect-[4/5] group">
                 <img
-                  src="/images/hero_model.jpg"
+                  src="images/hero_model.jpg"
                   alt="Sparkel @KKL Luxury Fashion Accessories Model"
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
