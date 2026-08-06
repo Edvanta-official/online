@@ -84,7 +84,7 @@ export const CATEGORIES = [
     icon: "🌸",
     count: 45,
     description: "Plumeria flower clips, large & mini claw clips, silk scrunchies",
-    image: "/images/plumeria_flower.jpg"
+    image: "images/plumeria_flower.jpg"
   },
   {
     id: "earrings",
@@ -92,7 +92,7 @@ export const CATEGORIES = [
     icon: "✨",
     count: 38,
     description: "Studs, Kundan drops, pearl earrings & party wear dangles",
-    image: "/images/kundan_earrings.jpg"
+    image: "images/kundan_earrings.jpg"
   },
   {
     id: "necklaces",
@@ -100,7 +100,7 @@ export const CATEGORIES = [
     icon: "📿",
     count: 29,
     description: "Bridal Kundan chokers, temple style gold & daily wear pendants",
-    image: "/images/rose_necklace.jpg"
+    image: "images/rose_necklace.jpg"
   },
   {
     id: "bangles",
@@ -108,7 +108,7 @@ export const CATEGORIES = [
     icon: "💍",
     count: 32,
     description: "Gold finish, silver stone, velvet & antique metallic bangles",
-    image: "/images/pearl_bangles.jpg"
+    image: "images/pearl_bangles.jpg"
   },
   {
     id: "bracelets",
@@ -116,7 +116,7 @@ export const CATEGORIES = [
     icon: "💎",
     count: 24,
     description: "Delicate zircon crystal chain bracelets & charm cuffs",
-    image: "/images/black_zircon.jpg"
+    image: "images/black_zircon.jpg"
   },
   {
     id: "gift-sets",
@@ -124,7 +124,7 @@ export const CATEGORIES = [
     icon: "🎁",
     count: 18,
     description: "Curated boutique hampers & velvet festival gift boxes",
-    image: "/images/gift_set.jpg"
+    image: "images/gift_set.jpg"
   }
 ];
 
@@ -146,9 +146,9 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 35,
     images: [
-      "/images/plumeria_flower.jpg",
-      "/images/butterfly_clip.jpg",
-      "/images/hero_model.jpg"
+      "images/plumeria_flower.jpg",
+      "images/butterfly_clip.jpg",
+      "images/hero_model.jpg"
     ],
     colors: ["Pink", "Peach", "Blue", "Yellow", "White", "Green", "Orange", "Multicolor"],
     description: "Handcrafted Hawaiian Frangipani Plumeria flower hair clips set as featured in boutique collection. Non-slip alligator clip grip.",
@@ -177,8 +177,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 40,
     images: [
-      "/images/butterfly_clip.jpg",
-      "/images/plumeria_flower.jpg"
+      "images/butterfly_clip.jpg",
+      "images/plumeria_flower.jpg"
     ],
     colors: ["Black", "Brown", "Cream", "White", "Grey", "Beige", "Transparent", "Coffee"],
     description: "Extra strong hold large claw clips in matte aesthetic and crystal transparent finishes.",
@@ -206,8 +206,8 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 12,
     images: [
-      "/images/rose_necklace.jpg",
-      "/images/hero_model.jpg"
+      "images/rose_necklace.jpg",
+      "images/hero_model.jpg"
     ],
     colors: ["Gold & Pearl", "Rose Gold", "Silver"],
     description: "Royal Indian Kundan choker necklace set mounted on white display card with matching drop earrings.",
@@ -235,7 +235,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 25,
     images: [
-      "/images/pearl_bangles.jpg"
+      "images/pearl_bangles.jpg"
     ],
     colors: ["Gold", "Silver", "Antique Finish", "Velvet Red"],
     description: "Complete stack of 24 metallic gold, silver and antique finish glass-velvet bangles as displayed in stock.",
@@ -262,7 +262,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 50,
     images: [
-      "/images/silk_scrunchies.jpg"
+      "images/silk_scrunchies.jpg"
     ],
     colors: ["Pink", "Purple", "Grey", "Black", "Brown", "Green", "White"],
     description: "22-Momme Mulberry Silk & soft velvet hair scrunchies pack. Gentle elasticity prevents hair breakage.",
@@ -289,7 +289,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 30,
     images: [
-      "/images/kundan_earrings.jpg"
+      "images/kundan_earrings.jpg"
     ],
     colors: ["Gold & Pearl White", "Silver", "Antique Gold"],
     description: "Royal Jhumka Kundan drop earrings mounted on white jewelry cards. Perfect for weddings & festive drapes.",
@@ -316,7 +316,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 20,
     images: [
-      "/images/black_zircon.jpg"
+      "images/black_zircon.jpg"
     ],
     colors: ["Gold", "Silver", "Black Zircon"],
     description: "Delicate cubic zirconia crystal chain bracelet with lobster clasp. Tarnish resistant.",
@@ -343,7 +343,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 15,
     images: [
-      "/images/gift_set.jpg"
+      "images/gift_set.jpg"
     ],
     colors: ["Rose Pink Velvet Box", "Gold Velvet Box"],
     description: "Curated luxury hamper containing 1 Plumeria Clip, 1 Large Claw Clip, 1 Kundan Earrings Set & Gold Bangles.",
@@ -363,7 +363,7 @@ export const TESTIMONIALS = [
     rating: 5,
     review: "Sparkel @KKL accessories look even more luxurious in real life! The Plumeria Flower Clip and Kundan Choker have incredible shine.",
     product: "Hawaiian Plumeria Floral Hair Clip Set",
-    avatar: "/images/hero_model.jpg"
+    avatar: "images/hero_model.jpg"
   },
   {
     id: "t2",
@@ -372,7 +372,7 @@ export const TESTIMONIALS = [
     rating: 5,
     review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The Choker Set is lightweight and super elegant!",
     product: "Royal Kundan & Pearl Bridal Choker Set",
-    avatar: "/images/plumeria_flower.jpg"
+    avatar: "images/plumeria_flower.jpg"
   },
   {
     id: "t3",
@@ -381,7 +381,7 @@ export const TESTIMONIALS = [
     rating: 5,
     review: "Ordered the Deluxe Gift Box for my sister's birthday. She was in tears! The silk scrunchies and bangles are top quality.",
     product: "Sparkel Luxury Velvet Festival Gift Box",
-    avatar: "/images/hero_model.jpg"
+    avatar: "images/hero_model.jpg"
   }
 ];
 
@@ -392,8 +392,8 @@ export const COUPONS = [
 ];
 
 export const INSTAGRAM_POSTS = [
-  { id: "ig1", image: "/images/hero_model.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkl_official" },
-  { id: "ig2", image: "/images/butterfly_clip.jpg", likes: "1.9k", comments: "94", tag: "#SparkelGirl" },
-  { id: "ig3", image: "/images/rose_necklace.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
-  { id: "ig4", image: "/images/plumeria_flower.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
+  { id: "ig1", image: "images/hero_model.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkl_official" },
+  { id: "ig2", image: "images/butterfly_clip.jpg", likes: "1.9k", comments: "94", tag: "#SparkelGirl" },
+  { id: "ig3", image: "images/rose_necklace.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
+  { id: "ig4", image: "images/plumeria_flower.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
 ];
