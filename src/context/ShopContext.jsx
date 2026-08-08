@@ -8,15 +8,12 @@ export const ShopProvider = ({ children }) => {
   const [categories, setCategories] = useState(CATEGORIES);
   const [cart, setCart] = useState(() => {
     const saved = localStorage.getItem('sparkel_cart');
-    return saved ? JSON.parse(saved) : [
-      { product: PRODUCTS[0], quantity: 1, selectedColor: "Rose Gold" },
-      { product: PRODUCTS[1], quantity: 1, selectedColor: "Rose Gold" }
-    ];
+    return saved ? JSON.parse(saved) : [];
   });
   
   const [wishlist, setWishlist] = useState(() => {
     const saved = localStorage.getItem('sparkel_wishlist');
-    return saved ? JSON.parse(saved) : [PRODUCTS[0].id, PRODUCTS[3].id];
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [orders, setOrders] = useState(() => {

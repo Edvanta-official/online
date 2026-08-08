@@ -87,53 +87,108 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* Why Choose Sparkel @kkv Banner */}
-      <section className="py-10 sm:py-16 bg-gradient-to-r from-[#FCE4EC]/50 via-[#FFF9F5] to-[#FCE4EC]/50 border-y border-[#D4AF7F]/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Why Choose SPARKEL @kkv Banner */}
+      <section className="py-12 sm:py-20 bg-gradient-to-b from-[#FFF9F5] via-white to-[#FFF9F5] border-y border-[#FCE4EC] relative overflow-hidden">
+        {/* Background glow effects */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#FCE4EC]/30 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <div className="text-center mb-8 sm:mb-12 space-y-2">
-            <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#2C2C2C]">
-              Why Choose Sparkel @kkv?
+          <div className="text-center mb-10 sm:mb-16 space-y-3">
+            <span className="text-[#C89B3C] font-montserrat text-xs tracking-widest uppercase font-semibold block">
+              The Sparkel Advantage
+            </span>
+            <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C] flex items-baseline justify-center gap-1">
+              Why Choose SPARKEL<span className="text-[#D4AF7F] font-poppins text-sm sm:text-lg font-semibold lowercase tracking-normal">@kkv</span>?
             </h2>
-            <p className="text-xs text-gray-600 max-w-lg mx-auto font-light">
-              We treat every accessory like a masterpiece crafted for your special moments.
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF7F] to-transparent mx-auto rounded-full" />
+            <p className="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto font-light leading-relaxed">
+              We treat every accessory like a masterpiece, combining traditional South Indian design heritage with modern micro-gold plating and anti-tarnish protection.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 text-center font-poppins">
+ 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-poppins">
             
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] shadow-xs space-y-2.5">
-              <div className="w-12 h-12 rounded-full bg-[#FCE4EC] text-[#2C2C2C] flex items-center justify-center mx-auto text-xl">
+            {/* Card 1: Handcrafted Elegance */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
                 💎
               </div>
-              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C]">Handcrafted Elegance</h3>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                Handcrafted Elegance
+              </h3>
               <p className="text-xs text-gray-500 font-light leading-relaxed">
-                Made with premium cubic zirconia, Grade 6A mulberry silk, and durable 18K micro gold plating.
+                Made with premium cubic zirconia, Grade 6A mulberry silk, and durable 18K micro gold plating, meticulously crafted by master local designers.
               </p>
             </div>
-
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] shadow-xs space-y-2.5">
-              <div className="w-12 h-12 rounded-full bg-[#FCE4EC] text-[#2C2C2C] flex items-center justify-center mx-auto text-xl">
+ 
+            {/* Card 2: Signature Velvet Unboxing */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
                 🎁
               </div>
-              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C]">Signature Velvet Unboxing</h3>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                Signature Velvet Unboxing
+              </h3>
               <p className="text-xs text-gray-500 font-light leading-relaxed">
-                Every order arrives in our signature blush pink velvet drawer box wrapped with satin ribbons.
+                Every single accessory is delivered in our signature blush-pink velvet drawer box wrapped with gold-foiled satin ribbons, perfect for gifting.
               </p>
             </div>
-
-            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] shadow-xs space-y-2.5">
-              <div className="w-12 h-12 rounded-full bg-[#FCE4EC] text-[#2C2C2C] flex items-center justify-center mx-auto text-xl">
+ 
+            {/* Card 3: Pan-India Express Shipping */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
                 🚚
               </div>
-              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C]">Pan-India Express Shipping</h3>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                Free Express Shipping
+              </h3>
               <p className="text-xs text-gray-500 font-light leading-relaxed">
-                Free shipping over ₹999 with real-time order tracking and 7-day exchange guarantee.
+                Enjoy free express shipping on all orders over ₹999, shipped via top carriers (Delhivery & BlueDart) with live SMS/WhatsApp tracking notifications.
               </p>
             </div>
 
-          </div>
+            {/* Card 4: Anti-Tarnish Waterproof Finish */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
+                ✨
+              </div>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                Anti-Tarnish Polish
+              </h3>
+              <p className="text-xs text-gray-500 font-light leading-relaxed">
+                Our necklaces and chains feature a premium anti-tarnish finish on hypoallergenic stainless steel. Resistant to sweat, perfume, and daily wear.
+              </p>
+            </div>
 
+            {/* Card 5: Direct WhatsApp Support */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
+                📞
+              </div>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                Direct CEO Leadership
+              </h3>
+              <p className="text-xs text-gray-500 font-light leading-relaxed">
+                Get 24/7 dedicated support from Founder & CEO Koti Koushik via +91 9949157771 for order adjustments, customized sizing, and wholesale inquiries.
+              </p>
+            </div>
+
+            {/* Card 6: 7-Day Easy Exchange Policy */}
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
+                🔄
+              </div>
+              <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
+                7-Day Easy Exchanges
+              </h3>
+              <p className="text-xs text-gray-500 font-light leading-relaxed">
+                Shop with absolute confidence. If you're not completely satisfied with your accessories, request an easy product exchange within 7 days.
+              </p>
+            </div>
+ 
+          </div>
+ 
         </div>
       </section>
 
