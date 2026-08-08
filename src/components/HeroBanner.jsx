@@ -86,6 +86,9 @@ export const HeroBanner = () => {
                 <img
                   src="images/hero_model.jpg"
                   alt="Sparkel @kkv Luxury Fashion Accessories Model"
+                  onError={(e) => {
+                    e.target.src = './images/hero_model.jpg';
+                  }}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
 
