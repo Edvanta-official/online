@@ -12,6 +12,8 @@ export const Navbar = () => {
     setIsWishlistOpen,
     user,
     switchUserRole,
+    loginUser,
+    logoutUser,
     products
   } = useShop();
 
@@ -21,6 +23,8 @@ export const Navbar = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginForm, setLoginForm] = useState({ emailOrPhone: "", password: "" });
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -202,73 +206,95 @@ export const Navbar = () => {
 
               {/* User Account / Role Switcher Menu (Desktop) */}
               <div className="relative hidden sm:block">
-                <button
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] transition-all bg-[#FFF9F5]"
-                >
-                  <div className="w-7 h-7 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center text-xs font-bold font-montserrat">
-                    {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
-                  </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#2C2C2C]" />
-                </button>
-
-                {isUserMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 font-poppins text-xs">
-                    <div className="px-4 py-2 border-b border-gray-100">
-                      <p className="font-semibold text-[#2C2C2C]">{user.name}</p>
-                      <p className="text-[11px] text-gray-500">{user.email}</p>
-                      <span className="inline-block mt-1 px-2 py-0.5 bg-[#FCE4EC] text-[#2C2C2C] text-[10px] font-semibold rounded-full uppercase font-montserrat">
-                        Role: {user.role}
-                      </span>
-                    </div>
-
-                    <div className="py-1">
-                      {user.role === 'admin' ? (
-                        <Link
-                          to="/admin"
-                          onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#C89B3C] font-semibold"
-                        >
-                          <ShieldCheck className="w-4 h-4" /> Admin Portal
-                        </Link>
-                      ) : (
-                        <Link
-                          to="/dashboard"
-                          onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#2C2C2C]"
-                        >
-                          <User className="w-4 h-4" /> My Account & Orders
-                        </Link>
-                      )}
-                    </div>
-
-                    {/* Role Switcher Toggle */}
-                    <div className="border-t border-gray-100 pt-2 px-4 pb-1">
-                      <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Interactive Mode Switch</p>
-                      <div className="grid grid-cols-2 gap-1 bg-[#F5F5F5] p-1 rounded-xl">
-                        <button
-                          onClick={() => {
-                            switchUserRole('customer');
-                            setIsUserMenuOpen(false);
-                            navigate('/dashboard');
-                          }}
-                          className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'customer' ? 'bg-white shadow text-[#2C2C2C]' : 'text-gray-500'}`}
-                        >
-                          Customer
-                        </button>
-                        <button
-                          onClick={() => {
-                            switchUserRole('admin');
-                            setIsUserMenuOpen(false);
-                            navigate('/admin');
-                          }}
-                          className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'admin' ? 'bg-[#C89B3C] text-white shadow' : 'text-gray-500'}`}
-                        >
-                          Admin Mode
-                        </button>
+                {user.isLoggedIn ? (
+                  <>
+                    <button
+                      onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                      className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] transition-all bg-[#FFF9F5]"
+                    >
+                      <div className="w-7 h-7 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center text-xs font-bold font-montserrat">
+                        {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
                       </div>
-                    </div>
-                  </div>
+                      <ChevronDown className="w-3.5 h-3.5 text-[#2C2C2C]" />
+                    </button>
+
+                    {isUserMenuOpen && (
+                      <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 font-poppins text-xs">
+                        <div className="px-4 py-2 border-b border-gray-100">
+                          <p className="font-semibold text-[#2C2C2C]">{user.name}</p>
+                          <p className="text-[11px] text-gray-500">{user.email}</p>
+                          <span className="inline-block mt-1 px-2 py-0.5 bg-[#FCE4EC] text-[#2C2C2C] text-[10px] font-semibold rounded-full uppercase font-montserrat">
+                            Role: {user.role}
+                          </span>
+                        </div>
+
+                        <div className="py-1">
+                          {user.role === 'admin' ? (
+                            <Link
+                              to="/admin"
+                              onClick={() => setIsUserMenuOpen(false)}
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#C89B3C] font-semibold"
+                            >
+                              <ShieldCheck className="w-4 h-4" /> Admin Portal
+                            </Link>
+                          ) : (
+                            <Link
+                              to="/dashboard"
+                              onClick={() => setIsUserMenuOpen(false)}
+                              className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#2C2C2C]"
+                            >
+                              <User className="w-4 h-4" /> My Account & Orders
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => {
+                              logoutUser();
+                              setIsUserMenuOpen(false);
+                              navigate('/');
+                            }}
+                            className="w-full text-left flex items-center gap-2 px-4 py-2 hover:bg-red-50 text-red-600 font-semibold"
+                          >
+                            <X className="w-4 h-4" /> Sign Out
+                          </button>
+                        </div>
+
+                        {/* Role Switcher Toggle */}
+                        <div className="border-t border-gray-100 pt-2 px-4 pb-1">
+                          <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Interactive Mode Switch</p>
+                          <div className="grid grid-cols-2 gap-1 bg-[#F5F5F5] p-1 rounded-xl">
+                            <button
+                              onClick={() => {
+                                switchUserRole('customer');
+                                setIsUserMenuOpen(false);
+                                navigate('/dashboard');
+                              }}
+                              className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'customer' ? 'bg-white shadow text-[#2C2C2C]' : 'text-gray-500'}`}
+                            >
+                              Customer
+                            </button>
+                            <button
+                              onClick={() => {
+                                switchUserRole('admin');
+                                setIsUserMenuOpen(false);
+                                navigate('/admin');
+                              }}
+                              className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'admin' ? 'bg-[#C89B3C] text-white shadow' : 'text-gray-500'}`}
+                            >
+                              Admin Mode
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <button
+                    onClick={() => setIsLoginModalOpen(true)}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] text-xs font-semibold font-montserrat hover:bg-[#2C2C2C] hover:text-[#FCE4EC] transition-all bg-[#FFF9F5] text-[#2C2C2C]"
+                  >
+                    <User className="w-3.5 h-3.5 text-[#D4AF7F]" />
+                    <span>Sign In</span>
+                  </button>
                 )}
               </div>
 
@@ -500,17 +526,122 @@ export const Navbar = () => {
                 🛍️ Cart ({totalCartItems})
               </button>
               <span className="text-gray-300">•</span>
-              {user.role === 'admin' ? (
-                <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-[#C89B3C] font-semibold">
-                  Admin Portal
-                </Link>
+              {user.isLoggedIn ? (
+                <>
+                  {user.role === 'admin' ? (
+                    <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-[#C89B3C] font-semibold">
+                      Admin
+                    </Link>
+                  ) : (
+                    <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#C89B3C]">
+                      My Orders
+                    </Link>
+                  )}
+                  <span className="text-gray-300">•</span>
+                  <button
+                    onClick={() => {
+                      logoutUser();
+                      setIsMobileMenuOpen(false);
+                      navigate('/');
+                    }}
+                    className="text-red-500 font-semibold"
+                  >
+                    Sign Out
+                  </button>
+                </>
               ) : (
-                <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#C89B3C]">
-                  My Orders
-                </Link>
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-[#C89B3C] font-semibold"
+                >
+                  Sign In
+                </button>
               )}
             </div>
 
+          </div>
+        )}
+        {/* Premium Sign In / Login Modal */}
+        {isLoginModalOpen && (
+          <div className="fixed inset-0 bg-[#2C2C2C]/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+            <div className="bg-[#FFF9F5] w-full max-w-md rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-2xl relative animate-in zoom-in-95 duration-200">
+              {/* Close Button */}
+              <button
+                onClick={() => setIsLoginModalOpen(false)}
+                className="absolute right-4 top-4 w-8 h-8 rounded-full bg-white border border-[#FCE4EC] text-gray-500 hover:text-gray-800 flex items-center justify-center hover:scale-105 transition-all shadow-xs"
+                aria-label="Close modal"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Modal Header */}
+              <div className="p-6 pb-4 text-center bg-gradient-to-b from-[#FCE4EC]/40 to-transparent">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] p-[2px] mx-auto shadow-md mb-3">
+                  <div className="w-full h-full bg-[#FFF9F5] rounded-[14px] flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-[#C89B3C]" />
+                  </div>
+                </div>
+                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">Welcome to SPARKEL @kkv</h3>
+                <p className="text-[11px] text-gray-500 font-poppins mt-1">Access your orders, custom sizes & exclusive coupons</p>
+              </div>
+
+              {/* Modal Form */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!loginForm.emailOrPhone) return;
+                  loginUser(loginForm.emailOrPhone, loginForm.password);
+                  setIsLoginModalOpen(false);
+                  setLoginForm({ emailOrPhone: "", password: "" });
+                }}
+                className="p-6 pt-2 space-y-4 font-poppins text-xs text-[#2C2C2C]"
+              >
+                <div className="space-y-1">
+                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Email Address or Phone Number</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. ananya@example.com or +91 99491..."
+                    value={loginForm.emailOrPhone}
+                    onChange={(e) => setLoginForm(prev => ({ ...prev, emailOrPhone: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password / OTP</label>
+                  <input
+                    type="password"
+                    placeholder="Enter Password"
+                    value={loginForm.password}
+                    onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                  />
+                </div>
+
+                <div className="flex justify-between items-center text-[10px] font-medium text-gray-500 pt-1">
+                  <label className="flex items-center gap-1.5 cursor-pointer">
+                    <input type="checkbox" className="accent-[#C89B3C]" defaultChecked />
+                    Remember me
+                  </label>
+                  <a href="#forgot" onClick={(e) => { e.preventDefault(); alert("Verification code sent to your details!"); }} className="hover:text-[#C89B3C] underline">Forgot?</a>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-[#FCE4EC] hover:text-white font-bold py-3.5 rounded-xl uppercase tracking-wider transition-all duration-300 shadow-md font-montserrat mt-2 text-xs"
+                >
+                  Sign In securely
+                </button>
+
+                <div className="text-center pt-3 border-t border-gray-100 text-[10px] text-gray-400">
+                  Don't have an account? No worries, checkout as a Guest and an account will be created automatically!
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </nav>

@@ -37,23 +37,26 @@ export const ShopProvider = ({ children }) => {
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponError, setCouponError] = useState("");
-  const [user, setUser] = useState({
-    name: "Ananya Sharma",
-    email: "ananya@example.com",
-    role: "customer", // 'customer' or 'admin'
-    isLoggedIn: true,
-    savedAddresses: [
-      {
-        id: "addr1",
-        fullName: "Ananya Sharma",
-        phone: "+91 9949157771",
-        street: "Flat 402, Rosewood Heights, Bandra West",
-        city: "Mumbai",
-        state: "Maharashtra",
-        pincode: "400050",
-        isDefault: true
-      }
-    ]
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('sparkel_user');
+    return saved ? JSON.parse(saved) : {
+      name: "Ananya Sharma",
+      email: "ananya@example.com",
+      role: "customer", // 'customer' or 'admin'
+      isLoggedIn: false, // Start logged out by default
+      savedAddresses: [
+        {
+          id: "addr1",
+          fullName: "Ananya Sharma",
+          phone: "+91 9949157771",
+          street: "Flat 402, Rosewood Heights, Bandra West",
+          city: "Mumbai",
+          state: "Maharashtra",
+          pincode: "400050",
+          isDefault: true
+        }
+      ]
+    };
   });
 
   // UI States
@@ -71,6 +74,10 @@ export const ShopProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('sparkel_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
+
+  useEffect(() => {
+    localStorage.setItem('sparkel_user', JSON.stringify(user));
+  }, [user]);
 
   useEffect(() => {
     localStorage.setItem('sparkel_orders', JSON.stringify(orders));
@@ -207,6 +214,41 @@ export const ShopProvider = ({ children }) => {
     showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
   };
 
+  const loginUser = (emailOrPhone, password) => {
+    const role = emailOrPhone.toLowerCase().includes('admin') ? 'admin' : 'customer';
+    const name = role === 'admin' ? "Sparkel Admin @kkv" : "Ananya Sharma";
+    const email = role === 'admin' ? "admin@sparkelkkv.com" : emailOrPhone;
+
+    setUser({
+      name,
+      email,
+      role,
+      isLoggedIn: true,
+      savedAddresses: [
+        {
+          id: "addr1",
+          fullName: name,
+          phone: "+91 9949157771",
+          street: "Flat 402, Rosewood Heights, Bandra West",
+          city: "Mumbai",
+          state: "Maharashtra",
+          pincode: "400050",
+          isDefault: true
+        }
+      ]
+    });
+    showToast(`👋 Welcome back, ${name}!`);
+    return true;
+  };
+
+  const logoutUser = () => {
+    setUser(prev => ({
+      ...prev,
+      isLoggedIn: false
+    }));
+    showToast("Logged out successfully.", "info");
+  };
+
   // Product CRUD for Admin
   const addProduct = (newProd) => {
     const prod = {
@@ -265,6 +307,8 @@ export const ShopProvider = ({ children }) => {
       removeCoupon,
       placeOrder,
       switchUserRole,
+      loginUser,
+      logoutUser,
       addProduct,
       updateProduct,
       deleteProduct

@@ -3,8 +3,66 @@ import { useShop } from '../context/ShopContext';
 import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles } from 'lucide-react';
 
 export const CustomerDashboard = () => {
-  const { user, orders, wishlist, products, COUPONS } = useShop();
+  const { user, orders, wishlist, products, COUPONS, loginUser } = useShop();
   const [activeTab, setActiveTab] = useState('orders');
+
+  if (!user || !user.isLoggedIn) {
+    return (
+      <div className="py-20 bg-[#FFF9F5] min-h-screen flex items-center justify-center p-4">
+        <div className="bg-white w-full max-w-md rounded-3xl border border-[#FCE4EC] shadow-xl p-8 space-y-6 relative overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F]" />
+          
+          <div className="text-center space-y-2">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] p-[2px] mx-auto shadow-md mb-3 flex items-center justify-center">
+              <span className="text-[#C89B3C] text-xl">✨</span>
+            </div>
+            <h2 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C]">Sign In to Your Account</h2>
+            <p className="text-xs text-gray-500 font-poppins">Please sign in to view your order history and track deliveries.</p>
+          </div>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const email = e.target.email.value;
+              const password = e.target.password.value;
+              if (email) {
+                loginUser(email, password);
+              }
+            }}
+            className="space-y-4 font-poppins text-xs text-[#2C2C2C]"
+          >
+            <div className="space-y-1">
+              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Email Address / Phone Number</label>
+              <input
+                name="email"
+                type="text"
+                required
+                placeholder="e.g. ananya@example.com or +91 99491..."
+                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password / OTP</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="Enter Password"
+                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-[#FCE4EC] hover:text-white font-bold py-3.5 rounded-xl uppercase tracking-wider transition-all duration-300 shadow-md font-montserrat mt-2 text-xs"
+            >
+              Sign In
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-12 bg-[#FFF9F5] min-h-screen">
