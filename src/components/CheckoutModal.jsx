@@ -224,13 +224,19 @@ export const CheckoutModal = () => {
                   {paymentMethod === 'PhonePe' && (
                     <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-3 text-center">
                       
-                      {/* Clean Scanner Image Only */}
-                      <div className="max-w-[280px] mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-black">
-                        <img
-                          src={phonepeQrImg}
-                          alt="PhonePe QR Code KOTI KOUSHIK"
-                          className="w-full h-auto object-contain"
-                        />
+                      {/* Clean Square QR Code Display */}
+                      <div className="max-w-[220px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#5f259f] shadow-md text-center">
+                        <p className="text-[11px] font-bold text-[#2C2C2C] mb-2 uppercase tracking-wider font-montserrat">
+                          KOTI KOUSHIK
+                        </p>
+                        <div className="aspect-square w-full rounded-xl overflow-hidden bg-black p-1">
+                          <img
+                            src={phonepeQrImg}
+                            alt="PhonePe QR Code KOTI KOUSHIK"
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <p className="text-[10px] text-gray-500 mt-2 font-mono font-semibold">UPI: 9949157771@ybl</p>
                       </div>
 
                       {/* Instant PhonePe Mobile App Payment Button */}
