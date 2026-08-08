@@ -94,6 +94,13 @@ export const CustomerDashboard = () => {
               <span className="block font-bold text-base text-[#F48FB1]">{wishlist.length}</span>
               <span className="text-[10px] uppercase tracking-wider text-gray-300">Wishlist</span>
             </div>
+            <button
+              onClick={() => logoutUser()}
+              className="bg-red-500/20 hover:bg-red-600 text-red-200 hover:text-white px-5 py-3 rounded-2xl border border-red-500/30 hover:border-red-600 transition-all font-bold flex items-center gap-2 cursor-pointer shadow-sm uppercase tracking-wider text-[10px]"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
 
