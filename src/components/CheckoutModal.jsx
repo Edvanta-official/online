@@ -21,7 +21,7 @@ export const CheckoutModal = () => {
 
   const [shippingForm, setShippingForm] = useState({
     fullName: user.name || '',
-    phone: '+91 98765 43210',
+    phone: '+91 9949157771',
     email: user.email || '',
     street: 'Flat 402, Rosewood Heights, Bandra West',
     city: 'Mumbai',

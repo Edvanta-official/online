@@ -23,7 +23,7 @@ export const CustomerDashboard = () => {
                   Sparkel VIP Member
                 </span>
               </div>
-              <p className="text-xs text-gray-300 font-poppins">{user.email} • +91 98765 12345</p>
+              <p className="text-xs text-gray-300 font-poppins">{user.email} • +91 9949157771</p>
             </div>
           </div>
 

@@ -3,7 +3,7 @@ export const BRAND_INFO = {
   tagline: "Where Every Accessory Tells Your Story.",
   secondaryTagline: "Luxury Fashion Accessories for Every Moment.",
   domain: "sparkelkkv.com",
-  phone: "+91 98765 43210",
+  phone: "+91 9949157771",
   email: "support@sparkelkkv.com",
   address: "Sparkel Luxury Boutique, MG Road, Fashion District, Mumbai 400001",
   socials: {
