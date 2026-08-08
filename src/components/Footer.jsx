@@ -44,7 +44,7 @@ export const Footer = () => {
                 <Sparkles className="w-4 h-4 text-[#2C2C2C]" />
               </div>
               <span className="font-serif-luxury text-2xl font-bold tracking-tight text-white flex items-baseline">
-                SPARKEL<span className="text-[#D4AF7F] font-poppins text-xs font-semibold lowercase ml-1 tracking-normal">@kkv</span>
+                SPARKEL @<span className="text-[#D4AF7F] font-poppins text-xs font-semibold lowercase ml-0.5 tracking-normal">kkv</span>
               </span>
             </div>
 

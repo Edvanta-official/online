@@ -107,7 +107,7 @@ export const Navbar = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-serif-luxury text-base sm:text-2xl font-bold tracking-tight text-[#2C2C2C] leading-none group-hover:text-[#C89B3C] transition-colors flex items-baseline">
-                  SPARKEL<span className="text-[#D4AF7F] font-poppins text-[10px] sm:text-xs font-semibold lowercase ml-1 tracking-normal">@kkv</span>
+                  SPARKEL @<span className="text-[#D4AF7F] font-poppins text-[10px] sm:text-xs font-semibold lowercase ml-0.5 tracking-normal">kkv</span>
                 </span>
                 <span className="text-[8px] sm:text-[8.5px] text-[#D4AF7F] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-medium">
                   Luxury Fashion Accessories
