@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
+import phonepeQrImg from '../assets/phonepe_qr.png';
 
 export const CheckoutModal = () => {
   const {
@@ -226,8 +227,8 @@ export const CheckoutModal = () => {
                       {/* Clean Scanner Image Only */}
                       <div className="max-w-[280px] mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-black">
                         <img
-                          src="images/phonepe_qr.jpg"
-                          alt="PhonePe QR Code"
+                          src={phonepeQrImg}
+                          alt="PhonePe QR Code KOTI KOUSHIK"
                           className="w-full h-auto object-contain"
                         />
                       </div>
