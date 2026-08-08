@@ -224,13 +224,27 @@ export const CheckoutModal = () => {
                   {paymentMethod === 'PhonePe' && (
                     <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-3 text-center">
                       
-                      {/* Exact Square Black & White PhonePe QR Code Image */}
-                      <div className="max-w-[240px] mx-auto rounded-2xl overflow-hidden border-2 border-[#5f259f] shadow-lg bg-black p-2">
-                        <img
-                          src={exactScannerImg}
-                          alt="PhonePe QR Code KOTI KOUSHIK"
-                          className="w-full h-auto object-contain bg-black"
-                        />
+                      {/* Dynamic Live Auto-Filling QR Code */}
+                      <div className="max-w-[240px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
+                        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                          <span className="text-[10px] text-gray-400 font-montserrat font-bold uppercase tracking-wider">Dynamic QR</span>
+                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">KOTI KOUSHIK</span>
+                        </div>
+                        <div className="aspect-square w-full rounded-2xl overflow-hidden bg-white p-2 border border-gray-100 flex items-center justify-center">
+                          <img
+                            src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=10&data=${encodeURIComponent(upiDeepLink)}`}
+                            alt="Scan to Pay KOTI KOUSHIK"
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="pt-2">
+                          <p className="text-[11px] text-[#2C2C2C] font-semibold">
+                            Scan with PhonePe / Any UPI App
+                          </p>
+                          <p className="text-xs font-extrabold text-[#5f259f] mt-0.5">
+                            Auto-fills ₹{cartTotal}
+                          </p>
+                        </div>
                       </div>
 
                       {/* Instant PhonePe Mobile App Payment Button */}
