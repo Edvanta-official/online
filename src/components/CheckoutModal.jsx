@@ -38,7 +38,7 @@ export const CheckoutModal = () => {
   if (!isCheckoutOpen) return null;
 
   // Generate UPI Deep Link for PhonePe & GPay with exact order total pre-filled automatically
-  const upiDeepLink = `upi://pay?pa=9949157771@ybl&pn=KOTI%20KOUSHIK&am=${cartTotal}&cu=INR&tn=Sparkel%20Order%20Payment`;
+  const upiDeepLink = `upi://pay?pa=7981714189-4@ibl&pn=Koti%20Koushik&am=${cartTotal}&cu=INR&tn=Sparkel%20Order%20Payment`;
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
@@ -228,12 +228,12 @@ export const CheckoutModal = () => {
                       <div className="max-w-[240px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
                         <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                           <span className="text-[10px] text-gray-400 font-montserrat font-bold uppercase tracking-wider">Dynamic QR</span>
-                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">KOTI KOUSHIK</span>
+                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">Koti Koushik</span>
                         </div>
                         <div className="aspect-square w-full rounded-2xl overflow-hidden bg-white p-2 border border-gray-100 flex items-center justify-center">
                           <img
                             src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=10&data=${encodeURIComponent(upiDeepLink)}`}
-                            alt="Scan to Pay KOTI KOUSHIK"
+                            alt="Scan to Pay Koti Koushik"
                             className="w-full h-full object-contain"
                           />
                         </div>
@@ -244,6 +244,7 @@ export const CheckoutModal = () => {
                           <p className="text-xs font-extrabold text-[#5f259f] mt-0.5">
                             Auto-fills ₹{cartTotal}
                           </p>
+                          <p className="text-[9px] text-gray-400 font-mono mt-1">UPI: 7981714189-4@ibl</p>
                         </div>
                       </div>
 
