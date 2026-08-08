@@ -43,8 +43,8 @@ export const Footer = () => {
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-[#2C2C2C]" />
               </div>
-              <span className="font-serif-luxury text-2xl font-bold tracking-tight text-white">
-                Sparkel <span className="gold-gradient-text lowercase font-serif italic font-normal">@kkv</span>
+              <span className="font-serif-luxury text-2xl font-bold tracking-tight text-white flex items-baseline">
+                SPARKEL<span className="text-[#D4AF7F] font-poppins text-xs font-semibold lowercase ml-1 tracking-normal">@kkv</span>
               </span>
             </div>
 
