@@ -89,7 +89,7 @@ export const HeroBanner = () => {
                   onError={(e) => {
                     e.target.src = './images/hero_model.jpg';
                   }}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
 
                 {/* Floating Badge Top Right */}
