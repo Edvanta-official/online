@@ -221,41 +221,25 @@ export const CheckoutModal = () => {
                   </div>
 
                   {paymentMethod === 'PhonePe' && (
-                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-4 text-center">
+                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-3 text-center">
                       
-                      <div className="bg-white p-3 rounded-2xl border border-gray-200 max-w-xs mx-auto shadow-sm">
-                        <p className="text-[11px] font-bold text-[#2C2C2C] mb-2 uppercase tracking-wider font-montserrat">
-                          Scan to Pay ₹{cartTotal} (KOTI KOUSHIK)
-                        </p>
-                        
-                        {/* Display User's Uploaded PhonePe Scanner Image */}
-                        <div className="relative aspect-square max-w-[220px] mx-auto rounded-xl overflow-hidden border-2 border-[#5f259f]">
-                          <img
-                            src="images/phonepe_qr.jpg"
-                            alt="PhonePe QR Code KOTI KOUSHIK"
-                            className="w-full h-full object-contain bg-black"
-                          />
-                        </div>
-
-                        <p className="text-[10px] text-gray-500 mt-2 font-mono">UPI ID: 9949157771@ybl</p>
+                      {/* Clean Scanner Image Only */}
+                      <div className="max-w-[280px] mx-auto rounded-2xl overflow-hidden border border-gray-200 shadow-md bg-black">
+                        <img
+                          src="images/phonepe_qr.jpg"
+                          alt="PhonePe QR Code"
+                          className="w-full h-auto object-contain"
+                        />
                       </div>
 
-                      {/* Instant PhonePe Mobile App Deep Link Button */}
-                      <div className="space-y-2 max-w-xs mx-auto">
+                      {/* Instant PhonePe Mobile App Payment Button */}
+                      <div className="max-w-[280px] mx-auto pt-1">
                         <a
                           href={upiDeepLink}
                           className="w-full bg-[#5f259f] hover:bg-[#4a1c7d] text-white font-montserrat font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
                         >
                           <Smartphone className="w-4 h-4" />
                           <span>Pay ₹{cartTotal} via PhonePe App</span>
-                        </a>
-
-                        <a
-                          href={upiDeepLink}
-                          className="w-full bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] font-montserrat font-bold py-2.5 px-4 rounded-xl text-[11px] uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs"
-                        >
-                          <QrCode className="w-3.5 h-3.5 text-[#D4AF7F]" />
-                          <span>2nd Scanner: GPay / Paytm / BHIM</span>
                         </a>
                       </div>
 
