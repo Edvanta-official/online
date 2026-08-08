@@ -227,7 +227,7 @@ export const CheckoutModal = () => {
                       <p className="text-gray-600">Scan QR Code or enter VPA id:</p>
                       <div className="w-32 h-32 bg-white border border-gray-300 p-2 rounded-xl mx-auto flex items-center justify-center shadow-inner">
                         <div className="text-center font-mono text-[10px] text-gray-500">
-                          [SPARKEL@KKL QR CODE SIMULATION]
+                          [SPARKEL@kkv QR CODE SIMULATION]
                         </div>
                       </div>
                     </div>
@@ -302,7 +302,7 @@ export const CheckoutModal = () => {
                   Order Successfully Confirmed!
                 </span>
                 <h3 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C]">
-                  Thank You for Shopping at Sparkel @KKL
+                  Thank You for Shopping at Sparkel @kkv
                 </h3>
                 <p className="text-xs text-gray-500 font-poppins">
                   Order Reference: <strong className="text-[#C89B3C] font-mono">{placedOrderInfo.id}</strong>

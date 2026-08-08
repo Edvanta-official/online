@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, ShoppingBag, Heart, User, Sparkles, Menu, X, ShieldCheck, ChevronDown } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Search, ShoppingBag, Heart, User, Sparkles, Menu, X, ShieldCheck, ChevronDown, Home, Grid } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { NAVIGATION_TREE } from '../data/mockData';
 
@@ -20,9 +20,21 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Active Route Helpers
+  const currentPath = location.pathname;
+  const searchParams = new URLSearchParams(location.search);
+  const activeCategory = searchParams.get('category');
+  const isSearchActive = !!searchParams.get('search');
+
+  const isHomeActive = currentPath === '/' && !activeCategory && !isSearchActive;
+  const isShopAllActive = currentPath === '/shop' && !activeCategory && !isSearchActive;
 
   const searchFilteredProducts = searchQuery.trim() === "" ? [] : products.filter(p => 
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -35,142 +47,110 @@ export const Navbar = () => {
     if (searchQuery.trim()) {
       navigate(`/shop?search=${encodeURIComponent(searchQuery)}`);
       setShowSearchResults(false);
+      setIsMobileMenuOpen(false);
     }
   };
 
   return (
     <header className="sticky top-0 z-40 transition-all duration-300">
-      {/* Announcement Bar */}
-      <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] text-xs py-2 px-4 text-center tracking-widest font-montserrat flex items-center justify-center gap-2 shadow-sm">
-        <Sparkles className="w-3.5 h-3.5 text-[#D4AF7F] animate-pulse" />
-        <span className="truncate">LUXURY FASHION ACCESSORIES • FREE PAN-INDIA EXPRESS SHIPPING ON ORDERS OVER ₹999</span>
-        <span className="hidden sm:inline-block bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] ml-2 shrink-0">
-          CODE: SPARKEL10
-        </span>
+      {/* Announcement Bar with Marquee Tag */}
+      <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center">
+        <marquee behavior="scroll" direction="left" scrollamount="6" className="font-montserrat text-[11px] sm:text-xs tracking-widest uppercase flex items-center gap-4 py-0.5">
+          ✨ LUXURY FASHION ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA EXPRESS SHIPPING ON ALL ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKEL30</span> FOR 30% OFF • 100% HANDCRAFTED ANTI-TARNISH FINISH • SIGNATURE VELVET BOX PACKAGING ✨
+        </marquee>
       </div>
 
       {/* Main Glass Header */}
-      <nav className="glass-header">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-4">
+      <nav className="glass-header border-b border-[#FCE4EC]/60 shadow-xs">
+        
+        {/* Tier 1: Brand Bar (Logo + Search Bar + Actions) */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-4">
             
-            {/* Mobile Hamburger */}
+            {/* Mobile Hamburger Button */}
             <div className="flex items-center lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
+                className="p-1.5 text-[#2C2C2C] hover:text-[#C89B3C] bg-[#FFF9F5] rounded-xl border border-[#D4AF7F]/30 transition-colors shadow-xs"
                 aria-label="Toggle menu"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
 
-            {/* Brand Logo */}
-            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                <Sparkles className="w-5 h-5 text-[#2C2C2C]" />
+            {/* Brand Logo - Sparkel @kkv with smaller kkv size */}
+            <Link to="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0">
+              <div className="relative flex items-center justify-center">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-2xl bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] p-[2px] shadow-md group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-[#FFF9F5] rounded-[6px] sm:rounded-[14px] flex items-center justify-center">
+                    <Sparkles className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-tight text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
-                  Sparkel <span className="gold-gradient-text">@KKL</span>
+                <span className="font-serif-luxury text-base sm:text-2xl font-bold tracking-tight text-[#2C2C2C] leading-none group-hover:text-[#C89B3C] transition-colors flex items-baseline">
+                  Sparkel<span className="gold-gradient-text font-serif italic text-[10px] sm:text-xs font-semibold lowercase ml-1 tracking-tight">@kkv</span>
                 </span>
-                <span className="text-[9px] text-[#D4AF7F] font-montserrat tracking-widest uppercase hidden sm:block">
+                <span className="text-[8px] sm:text-[8.5px] text-[#D4AF7F] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-medium">
                   Luxury Fashion Accessories
                 </span>
               </div>
             </Link>
 
-            {/* Navigation Links - Desktop with Dropdowns */}
-            <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-montserrat text-xs uppercase tracking-widest font-semibold text-[#2C2C2C]">
-              <Link to="/" className="hover:text-[#C89B3C] transition-colors whitespace-nowrap">Home</Link>
-              <Link to="/shop" className="hover:text-[#C89B3C] transition-colors whitespace-nowrap">Shop All</Link>
-
-              {/* Dynamic Category Navigation Tree */}
-              {NAVIGATION_TREE.map(cat => (
-                <div
-                  key={cat.id}
-                  className="relative group py-6"
-                  onMouseEnter={() => setActiveDropdown(cat.id)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <Link
-                    to={`/shop?category=${cat.id}`}
-                    className="hover:text-[#C89B3C] transition-colors flex items-center gap-1 whitespace-nowrap"
-                  >
-                    <span>{cat.name}</span>
-                    <ChevronDown className="w-3 h-3 text-[#D4AF7F]" />
-                  </Link>
-
-                  {/* Dropdown Menu */}
-                  {activeDropdown === cat.id && (
-                    <div className="absolute top-full left-0 w-48 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 animate-in fade-in">
-                      {cat.subcategories.map(sub => (
-                        <Link
-                          key={sub.id}
-                          to={`/shop?category=${cat.id}&subcategory=${sub.id}`}
-                          className="block px-4 py-2 hover:bg-[#FFF9F5] text-[11px] text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Right Action Controls */}
-            <div className="flex items-center gap-3 shrink-0">
-              
-              {/* Search Bar - Desktop */}
-              <div className="relative hidden xl:block w-48">
-                <form onSubmit={handleSearchSubmit}>
+            {/* Search Bar - Center (Desktop Tier 1) */}
+            <div className="relative hidden lg:block flex-1 max-w-md mx-6">
+              <form onSubmit={handleSearchSubmit}>
+                <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search SKU or item..."
+                    placeholder="Search SKU, Kundan, Hair Clips..."
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value);
                       setShowSearchResults(true);
                     }}
                     onFocus={() => setShowSearchResults(true)}
-                    className="w-full bg-[#FFF9F5]/90 border border-[#D4AF7F]/40 focus:border-[#C89B3C] rounded-full py-1.5 pl-4 pr-9 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#FCE4EC] transition-all"
+                    className="w-full bg-[#FFF9F5]/90 border border-[#D4AF7F]/40 focus:border-[#C89B3C] rounded-full py-2 pl-4 pr-10 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#FCE4EC] shadow-inner transition-all"
                   />
-                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4AF7F] hover:text-[#C89B3C]">
-                    <Search className="w-3.5 h-3.5" />
+                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4AF7F] hover:text-[#C89B3C] p-1">
+                    <Search className="w-4 h-4" />
                   </button>
-                </form>
+                </div>
+              </form>
 
-                {/* Search Autocomplete Results */}
-                {showSearchResults && searchFilteredProducts.length > 0 && (
-                  <div className="absolute top-full mt-2 w-72 right-0 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] p-2 z-50 animate-in fade-in slide-in-from-top-2">
-                    <p className="text-[10px] font-montserrat uppercase tracking-wider text-[#D4AF7F] px-3 py-1 font-semibold">Suggested Items</p>
-                    {searchFilteredProducts.map(prod => (
-                      <div
-                        key={prod.id}
-                        onClick={() => {
-                          navigate(`/product/${prod.id}`);
-                          setShowSearchResults(false);
-                          setSearchQuery("");
-                        }}
-                        className="flex items-center gap-3 p-2 hover:bg-[#FFF9F5] rounded-xl cursor-pointer transition-colors"
-                      >
-                        <img src={prod.images[0]} alt={prod.name} className="w-10 h-10 object-cover rounded-lg" />
-                        <div className="flex flex-col min-w-0">
-                          <span className="text-xs font-medium truncate text-[#2C2C2C]">{prod.name}</span>
-                          <span className="text-[10px] text-gray-400 font-mono">SKU: {prod.sku}</span>
-                          <span className="text-xs font-semibold text-[#C89B3C]">₹{prod.price}</span>
-                        </div>
+              {/* Search Autocomplete Results */}
+              {showSearchResults && searchFilteredProducts.length > 0 && (
+                <div className="absolute top-full mt-2 w-full left-0 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] p-2 z-50 animate-in fade-in slide-in-from-top-2">
+                  <p className="text-[10px] font-montserrat uppercase tracking-wider text-[#D4AF7F] px-3 py-1 font-semibold">Suggested Items</p>
+                  {searchFilteredProducts.map(prod => (
+                    <div
+                      key={prod.id}
+                      onClick={() => {
+                        navigate(`/product/${prod.id}`);
+                        setShowSearchResults(false);
+                        setSearchQuery("");
+                      }}
+                      className="flex items-center gap-3 p-2 hover:bg-[#FFF9F5] rounded-xl cursor-pointer transition-colors"
+                    >
+                      <img src={prod.images[0]} alt={prod.name} className="w-10 h-10 object-cover rounded-lg" />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-xs font-medium truncate text-[#2C2C2C]">{prod.name}</span>
+                        <span className="text-[10px] text-gray-400 font-mono">SKU: {prod.sku}</span>
+                        <span className="text-xs font-semibold text-[#C89B3C]">₹{prod.price}</span>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
+            {/* Right Action Controls (Wishlist, Cart, User Menu) */}
+            <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+              
               {/* Wishlist Icon */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
-                className="relative p-2 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
+                className="relative p-1.5 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
@@ -184,21 +164,26 @@ export const Navbar = () => {
               {/* Cart Drawer Trigger */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-1.5 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors group"
+                className="relative p-1 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors group"
                 aria-label="Cart"
               >
-                <div className="bg-[#FCE4EC] p-2 rounded-full group-hover:bg-[#D4AF7F]/20 transition-colors">
-                  <ShoppingBag className="w-5 h-5 text-[#2C2C2C]" />
+                <div className="bg-[#FCE4EC] p-1.5 sm:p-2 rounded-full group-hover:bg-[#D4AF7F]/20 transition-colors flex items-center gap-2">
+                  <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[#2C2C2C]" />
+                  {totalCartItems > 0 && (
+                    <span className="text-xs font-bold text-[#2C2C2C] pr-1 hidden sm:inline">
+                      {totalCartItems} {totalCartItems === 1 ? 'Item' : 'Items'}
+                    </span>
+                  )}
                 </div>
                 {totalCartItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-[#C89B3C] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-bounce">
+                  <span className="absolute -top-0.5 -right-0.5 bg-[#C89B3C] text-white text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-md animate-bounce sm:hidden">
                     {totalCartItems}
                   </span>
                 )}
               </button>
 
-              {/* User Account / Role Switcher Menu */}
-              <div className="relative">
+              {/* User Account / Role Switcher Menu (Desktop) */}
+              <div className="relative hidden sm:block">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] transition-all bg-[#FFF9F5]"
@@ -239,7 +224,7 @@ export const Navbar = () => {
                       )}
                     </div>
 
-                    {/* Role Switcher Demo Toggle */}
+                    {/* Role Switcher Toggle */}
                     <div className="border-t border-gray-100 pt-2 px-4 pb-1">
                       <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Interactive Mode Switch</p>
                       <div className="grid grid-cols-2 gap-1 bg-[#F5F5F5] p-1 rounded-xl">
@@ -273,46 +258,219 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer Menu */}
+        {/* Tier 2: Category Navigation Bar (Desktop Dedicated Row) */}
+        <div className="hidden lg:block border-t border-[#FCE4EC]/80 bg-white/60 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center gap-6 xl:gap-9 font-montserrat text-xs uppercase tracking-widest font-semibold text-[#2C2C2C] h-11">
+              
+              <Link
+                to="/"
+                className={`transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 ${
+                  isHomeActive ? 'text-[#C89B3C] font-bold' : 'hover:text-[#C89B3C]'
+                }`}
+              >
+                <span>Home</span>
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 ${
+                  isHomeActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
+              </Link>
+
+              <Link
+                to="/shop"
+                className={`transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 ${
+                  isShopAllActive ? 'text-[#C89B3C] font-bold' : 'hover:text-[#C89B3C]'
+                }`}
+              >
+                <span>Shop All</span>
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 ${
+                  isShopAllActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
+              </Link>
+
+              {NAVIGATION_TREE.map(cat => {
+                const isCatActive = activeCategory === cat.id;
+
+                return (
+                  <div
+                    key={cat.id}
+                    className="relative group py-3"
+                    onMouseEnter={() => setActiveDropdown(cat.id)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <Link
+                      to={`/shop?category=${cat.id}`}
+                      className={`transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+                        isCatActive ? 'text-[#C89B3C] font-bold' : 'hover:text-[#C89B3C]'
+                      }`}
+                    >
+                      <span>{cat.name}</span>
+                      <ChevronDown className="w-3 h-3 text-[#D4AF7F] group-hover:rotate-180 transition-transform duration-200" />
+                    </Link>
+
+                    <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 ${
+                      isCatActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`} />
+
+                    {activeDropdown === cat.id && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-52 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 animate-in fade-in">
+                        {cat.subcategories.map(sub => (
+                          <Link
+                            key={sub.id}
+                            to={`/shop?category=${cat.id}&subcategory=${sub.id}`}
+                            className="block px-4 py-2 hover:bg-[#FFF9F5] text-[11px] text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Slide-down Drawer Menu - Ultra Clear & Spacious */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#FCE4EC] bg-white px-4 pt-3 pb-6 font-montserrat text-xs uppercase tracking-wider space-y-3 animate-in fade-in">
-            <form onSubmit={handleSearchSubmit} className="mb-4">
+          <div className="lg:hidden border-t border-[#FCE4EC] bg-white/95 backdrop-blur-2xl px-4 pt-4 pb-8 font-montserrat text-xs uppercase tracking-wider space-y-4 animate-in fade-in shadow-2xl">
+            
+            {/* User Account Info Bar on Mobile */}
+            <div className="bg-[#FFF9F5] p-3 rounded-2xl border border-[#D4AF7F]/30 flex items-center justify-between font-poppins text-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center font-bold font-montserrat text-xs">
+                  {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-[#2C2C2C]">{user.name}</p>
+                  <p className="text-[10px] text-gray-500">{user.role === 'admin' ? 'Administrator' : user.email}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1 bg-[#F5F5F5] p-1 rounded-xl">
+                <button
+                  onClick={() => switchUserRole(user.role === 'admin' ? 'customer' : 'admin')}
+                  className="px-2.5 py-1 bg-white shadow-xs rounded-lg text-[10px] font-bold text-[#C89B3C]"
+                >
+                  {user.role === 'admin' ? 'Customer Mode' : 'Admin Mode'}
+                </button>
+              </div>
+            </div>
+
+            {/* Mobile Search Input */}
+            <form onSubmit={handleSearchSubmit} className="mb-2">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search products or SKU..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-full py-2 pl-4 pr-10 text-xs font-poppins"
+                  className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/50 focus:border-[#C89B3C] rounded-full py-2.5 pl-4 pr-10 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#FCE4EC]"
                 />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4AF7F]">
+                <button type="submit" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#D4AF7F]">
                   <Search className="w-4 h-4" />
                 </button>
               </div>
             </form>
 
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-gray-100">Home</Link>
-            <Link to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 border-b border-gray-100">Shop All</Link>
+            {/* Navigation Links */}
+            <div className="space-y-1.5">
+              
+              {/* HOME LINK IN MOBILE DRAWER */}
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold transition-all ${
+                  isHomeActive
+                    ? 'bg-[#FFF9F5] text-[#C89B3C] border-l-4 border-[#C89B3C] shadow-xs'
+                    : 'text-[#2C2C2C] hover:bg-[#FFF9F5] hover:text-[#C89B3C]'
+                }`}
+              >
+                <Home className="w-4 h-4 text-[#D4AF7F]" />
+                <span>Home</span>
+              </Link>
 
-            {NAVIGATION_TREE.map(cat => (
-              <div key={cat.id} className="py-2 border-b border-gray-100">
-                <Link to={`/shop?category=${cat.id}`} onClick={() => setIsMobileMenuOpen(false)} className="font-bold text-[#C89B3C] block mb-1">
-                  {cat.name}
+              {/* SHOP ALL LINK IN MOBILE DRAWER */}
+              <Link
+                to="/shop"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold transition-all ${
+                  isShopAllActive
+                    ? 'bg-[#FFF9F5] text-[#C89B3C] border-l-4 border-[#C89B3C] shadow-xs'
+                    : 'text-[#2C2C2C] hover:bg-[#FFF9F5] hover:text-[#C89B3C]'
+                }`}
+              >
+                <Grid className="w-4 h-4 text-[#D4AF7F]" />
+                <span>Shop All</span>
+              </Link>
+
+              {/* CATEGORY ACCORDION LIST */}
+              {NAVIGATION_TREE.map(cat => {
+                const isCatActive = activeCategory === cat.id;
+                const isExpanded = expandedMobileCategory === cat.id;
+
+                return (
+                  <div key={cat.id} className="rounded-xl border border-gray-100 overflow-hidden">
+                    <div className="flex items-center justify-between">
+                      <Link
+                        to={`/shop?category=${cat.id}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex-1 px-3.5 py-2.5 font-bold transition-colors ${
+                          isCatActive ? 'text-[#C89B3C] bg-[#FFF9F5]' : 'text-[#2C2C2C] hover:text-[#C89B3C]'
+                        }`}
+                      >
+                        {cat.name}
+                      </Link>
+
+                      <button
+                        onClick={() => setExpandedMobileCategory(isExpanded ? null : cat.id)}
+                        className="p-2.5 text-[#D4AF7F] hover:text-[#C89B3C]"
+                        aria-label="Expand category"
+                      >
+                        <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    </div>
+
+                    {isExpanded && (
+                      <div className="bg-[#FFF9F5]/70 px-4 py-2 space-y-1.5 border-t border-gray-100 text-[11px] font-medium lowercase font-poppins">
+                        {cat.subcategories.map(sub => (
+                          <Link
+                            key={sub.id}
+                            to={`/shop?category=${cat.id}&subcategory=${sub.id}`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block py-1 text-gray-600 hover:text-[#C89B3C] transition-colors"
+                          >
+                            • {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Quick Action Links inside Mobile Drawer */}
+            <div className="pt-2 border-t border-gray-100 flex items-center justify-around text-xs font-poppins text-gray-600 font-medium">
+              <button onClick={() => { setIsWishlistOpen(true); setIsMobileMenuOpen(false); }} className="hover:text-[#C89B3C]">
+                💖 Wishlist ({wishlist.length})
+              </button>
+              <span className="text-gray-300">•</span>
+              <button onClick={() => { setIsCartOpen(true); setIsMobileMenuOpen(false); }} className="hover:text-[#C89B3C]">
+                🛍️ Cart ({totalCartItems})
+              </button>
+              <span className="text-gray-300">•</span>
+              {user.role === 'admin' ? (
+                <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-[#C89B3C] font-semibold">
+                  Admin Portal
                 </Link>
-                <div className="pl-3 space-y-1 text-gray-600">
-                  {cat.subcategories.map(sub => (
-                    <Link
-                      key={sub.id}
-                      to={`/shop?category=${cat.id}&subcategory=${sub.id}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block py-0.5 hover:text-black"
-                    >
-                      • {sub.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ) : (
+                <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#C89B3C]">
+                  My Orders
+                </Link>
+              )}
+            </div>
+
           </div>
         )}
       </nav>

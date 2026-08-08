@@ -44,7 +44,7 @@ export const Footer = () => {
                 <Sparkles className="w-4 h-4 text-[#2C2C2C]" />
               </div>
               <span className="font-serif-luxury text-2xl font-bold tracking-tight text-white">
-                Sparkel <span className="gold-gradient-text">@KKL</span>
+                Sparkel <span className="gold-gradient-text lowercase font-serif italic font-normal">@kkv</span>
               </span>
             </div>
 
@@ -121,7 +121,7 @@ export const Footer = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 font-poppins gap-4">
-          <p>© {new Date().getFullYear()} Sparkel @KKL. All Rights Reserved. Luxury Accessories Brand.</p>
+          <p>© {new Date().getFullYear()} Sparkel @kkv. All Rights Reserved. Luxury Accessories Brand.</p>
           <div className="flex gap-4">
             <a href="#privacy" className="hover:underline">Privacy Policy</a>
             <a href="#terms" className="hover:underline">Terms of Service</a>

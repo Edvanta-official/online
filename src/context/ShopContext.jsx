@@ -161,7 +161,11 @@ export const ShopProvider = ({ children }) => {
 
   // Subtotals and totals
   const cartSubtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  const discountAmount = appliedCoupon ? Math.round((cartSubtotal * appliedCoupon.discountPercent) / 100) : 0;
+  const auto30PercentDiscount = cartSubtotal >= 999 ? 30 : 0;
+  const effectiveDiscountPercent = appliedCoupon 
+    ? Math.max(appliedCoupon.discountPercent, auto30PercentDiscount) 
+    : auto30PercentDiscount;
+  const discountAmount = Math.round((cartSubtotal * effectiveDiscountPercent) / 100);
   const shippingFee = cartSubtotal >= 999 || cartSubtotal === 0 ? 0 : 70;
   const cartTotal = Math.max(0, cartSubtotal - discountAmount + shippingFee);
 
@@ -201,7 +205,7 @@ export const ShopProvider = ({ children }) => {
     setUser(prev => ({
       ...prev,
       role,
-      name: role === 'admin' ? "Sparkel Admin @KKL" : "Ananya Sharma"
+      name: role === 'admin' ? "Sparkel Admin @kkv" : "Ananya Sharma"
     }));
     showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
   };
@@ -240,6 +244,8 @@ export const ShopProvider = ({ children }) => {
       appliedCoupon,
       couponError,
       cartSubtotal,
+      auto30PercentDiscount,
+      effectiveDiscountPercent,
       discountAmount,
       shippingFee,
       cartTotal,

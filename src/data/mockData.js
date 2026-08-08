@@ -1,15 +1,15 @@
 export const BRAND_INFO = {
-  name: "Sparkel @KKL",
+  name: "Sparkel @kkv",
   tagline: "Where Every Accessory Tells Your Story.",
   secondaryTagline: "Luxury Fashion Accessories for Every Moment.",
-  domain: "sparkelkkl.com",
+  domain: "sparkelkkv.com",
   phone: "+91 98765 43210",
-  email: "support@sparkelkkl.com",
+  email: "support@sparkelkkv.com",
   address: "Sparkel Luxury Boutique, MG Road, Fashion District, Mumbai 400001",
   socials: {
-    instagram: "@sparkelkkl_official",
-    facebook: "SparkelKKL",
-    pinterest: "sparkelkkl"
+    instagram: "@sparkelkkv_official",
+    facebook: "SparkelKKV",
+    pinterest: "sparkelkkv"
   }
 };
 
@@ -19,60 +19,33 @@ export const NAVIGATION_TREE = [
     name: "Hair Accessories",
     subcategories: [
       { id: "flower-clips", name: "Flower Clips" },
-      { id: "claw-clips", name: "Claw Clips" },
-      { id: "mini-claws", name: "Mini Claw Clips" },
-      { id: "hair-bands", name: "Hair Bands" },
-      { id: "scrunchies", name: "Scrunchies" }
-    ]
-  },
-  {
-    id: "earrings",
-    name: "Earrings",
-    subcategories: [
-      { id: "studs", name: "Studs" },
-      { id: "floral-earrings", name: "Floral" },
-      { id: "party-earrings", name: "Party Wear" },
-      { id: "traditional-earrings", name: "Traditional" },
-      { id: "pearl-earrings", name: "Pearl" }
+      { id: "claw-clips", name: "Claw Clips" }
     ]
   },
   {
     id: "necklaces",
     name: "Necklace Sets",
     subcategories: [
-      { id: "daily-wear", name: "Daily Wear" },
-      { id: "bridal-sets", name: "Bridal" },
-      { id: "temple-style", name: "Temple Style" },
-      { id: "party-wear-necklaces", name: "Party Wear" },
-      { id: "chokers", name: "Choker Style" }
-    ]
-  },
-  {
-    id: "bangles",
-    name: "Bangles",
-    subcategories: [
-      { id: "gold-bangles", name: "Gold Finish" },
-      { id: "silver-bangles", name: "Silver Finish" },
-      { id: "antique-bangles", name: "Antique Finish" },
-      { id: "stone-bangles", name: "Stone Bangles" }
+      { id: "daily-wear", name: "Daily Wear Chains" },
+      { id: "chokers", name: "Choker Sets" },
+      { id: "temple-style", name: "Traditional Temple Sets" }
     ]
   },
   {
     id: "bracelets",
     name: "Bracelets",
     subcategories: [
-      { id: "chain-bracelets", name: "Chain Bracelet" },
-      { id: "stone-bracelets", name: "Stone Bracelet" },
-      { id: "fashion-bracelets", name: "Fashion Bracelet" }
+      { id: "chain-bracelets", name: "Chain & Kada Bracelets" },
+      { id: "stone-bracelets", name: "Stone Link Bracelets" },
+      { id: "fashion-bracelets", name: "Charm & Beaded Bracelets" }
     ]
   },
   {
-    id: "gift-sets",
-    name: "Gift Sets & Combos",
+    id: "earrings",
+    name: "Earrings",
     subcategories: [
-      { id: "hair-combos", name: "Hair Clip Combos" },
-      { id: "festival-boxes", name: "Festival Gift Box" },
-      { id: "bridal-combos", name: "Bridal Combo Box" }
+      { id: "traditional-earrings", name: "Traditional Chandbali" },
+      { id: "studs", name: "Studs & Drops" }
     ]
   }
 ];
@@ -82,276 +55,664 @@ export const CATEGORIES = [
     id: "hair-accessories",
     name: "Hair Accessories",
     icon: "🌸",
-    count: 45,
-    description: "Plumeria flower clips, large & mini claw clips, silk scrunchies",
+    count: 8,
+    description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
     image: "images/plumeria_flower.jpg"
   },
   {
-    id: "earrings",
-    name: "Earrings",
-    icon: "✨",
-    count: 38,
-    description: "Studs, Kundan drops, pearl earrings & party wear dangles",
-    image: "images/kundan_earrings.jpg"
-  },
-  {
     id: "necklaces",
-    name: "Necklace Sets",
+    name: "Necklace Sets & Chains",
     icon: "📿",
-    count: 29,
-    description: "Bridal Kundan chokers, temple style gold & daily wear pendants",
-    image: "images/rose_necklace.jpg"
-  },
-  {
-    id: "bangles",
-    name: "Bangles",
-    icon: "💍",
-    count: 32,
-    description: "Gold finish, silver stone, velvet & antique metallic bangles",
-    image: "images/pearl_bangles.jpg"
+    count: 16,
+    description: "Traditional South Indian chokers, Manga Malai, Kemp sets & anti-tarnish chains",
+    image: "images/kundan_choker_set.jpg"
   },
   {
     id: "bracelets",
     name: "Bracelets",
     icon: "💎",
-    count: 24,
-    description: "Delicate zircon crystal chain bracelets & charm cuffs",
+    count: 4,
+    description: "Adjustable gold kada bracelets, multi-color stone link & charm bracelets",
     image: "images/black_zircon.jpg"
   },
   {
-    id: "gift-sets",
-    name: "Gift Sets & Combos",
-    icon: "🎁",
-    count: 18,
-    description: "Curated boutique hampers & velvet festival gift boxes",
-    image: "images/gift_set.jpg"
+    id: "earrings",
+    name: "Earrings",
+    icon: "✨",
+    count: 1,
+    description: "Traditional Kundan Chandbali statement earrings",
+    image: "images/chandbali_earrings.jpg"
   }
 ];
 
 export const PRODUCTS = [
+  // ==========================================
+  // 1. HAIR ACCESSORIES (Claw Clips & Flower Clips)
+  // ==========================================
   {
     id: "SPK-HC-001",
     sku: "SPK-HC-001",
-    name: "Hawaiian Plumeria Tropical Flower Clips Set",
+    name: "Plumeria Flower Claw Clip",
     category: "hair-accessories",
     subcategory: "flower-clips",
     categoryName: "Hair Accessories",
-    price: 199,
-    originalPrice: 299,
+    price: 149,
+    originalPrice: 249,
     rating: 4.9,
     reviewsCount: 142,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 35,
-    images: [
-      "images/plumeria_flower.jpg",
-      "images/butterfly_clip.jpg",
-      "images/hero_model.jpg"
-    ],
-    colors: ["Pink", "Peach", "Blue", "Yellow", "White", "Green", "Orange", "Multicolor"],
-    description: "Handcrafted Hawaiian Frangipani Plumeria flower hair clips set as featured in boutique collection. Non-slip alligator clip grip.",
-    details: [
-      "SKU: SPK-HC-001",
-      "Colors: Pink, Peach, Blue, Yellow, White, Green, Orange, Multicolor",
-      "Material: Premium Matte Resin & Rust-Free Stainless Steel Clip",
-      "Ideal for: Vacations, Weddings, Daily Wear & Festivals",
-      "Packaging: Velvet Sparkel Gift Pouch"
-    ]
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/plumeria_flower.jpg", "images/flower_clips_set.jpg"],
+    colors: ["Pink", "Peach", "White"],
+    description: "Handcrafted Plumeria flower hair claw clip with durable spring grip.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹86/Set (₹7.1/Piece)", "Material: Premium Resin & Rust-Proof Spring", "Packaging: Velvet Sparkel Pouch"]
   },
   {
-    id: "SPK-CC-002",
-    sku: "SPK-CC-002",
-    name: "Matte & Transparent Large Butterfly Hair Claws",
+    id: "SPK-HC-002",
+    sku: "SPK-HC-002",
+    name: "Claw Clips",
     category: "hair-accessories",
     subcategory: "claw-clips",
     categoryName: "Hair Accessories",
-    price: 179,
-    originalPrice: 249,
+    price: 189,
+    originalPrice: 299,
+    rating: 4.8,
+    reviewsCount: 110,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 24, // 2 Sets (24 Pcs)
+    images: ["images/pastel_claw_clips.jpg", "images/butterfly_clip.jpg"],
+    colors: ["Pastel Beige", "Dusty Pink", "Sage Green"],
+    description: "Premium pastel claw clips set designed for secure daily hair updos.",
+    details: ["Quantity: 2 Sets (24 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Material: High-Impact Matte Acrylic"]
+  },
+  {
+    id: "SPK-HC-003",
+    sku: "SPK-HC-003",
+    name: "Cross Claw Clips",
+    category: "hair-accessories",
+    subcategory: "claw-clips",
+    categoryName: "Hair Accessories",
+    price: 189,
+    originalPrice: 299,
     rating: 4.9,
-    reviewsCount: 128,
+    reviewsCount: 88,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/butterfly_clip.jpg", "images/metallic_claw.jpg"],
+    colors: ["Rose Gold", "Glossy Black"],
+    description: "Trendy criss-cross design hair claw clip with high tension steel spring.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Style: Cross Metal Jaw"]
+  },
+  {
+    id: "SPK-HC-004",
+    sku: "SPK-HC-004",
+    name: "Whale Tail Hair Claw Clips",
+    category: "hair-accessories",
+    subcategory: "claw-clips",
+    categoryName: "Hair Accessories",
+    price: 189,
+    originalPrice: 299,
+    rating: 4.7,
+    reviewsCount: 76,
+    isNew: true,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/metallic_claw.jpg", "images/pastel_claw_clips.jpg"],
+    colors: ["Metallic Gold", "Silver"],
+    description: "Aesthetic whale tail shaped metallic hair claw clip for French twist updos.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Finish: 18K Micro Gold Polish"]
+  },
+  {
+    id: "SPK-HC-005",
+    sku: "SPK-HC-005",
+    name: "Rectangle Hair Claw Clips",
+    category: "hair-accessories",
+    subcategory: "claw-clips",
+    categoryName: "Hair Accessories",
+    price: 199,
+    originalPrice: 319,
+    rating: 4.8,
+    reviewsCount: 94,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/mini_claws.jpg", "images/metallic_claw.jpg"],
+    colors: ["Amber Tortoise", "Matte Nude"],
+    description: "Minimalist rectangular hollow hair claw clip suitable for thick and medium hair.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹148/Set (₹12.3/Piece)", "Material: Durable Cellulose Acetate"]
+  },
+  {
+    id: "SPK-HC-006",
+    sku: "SPK-HC-006",
+    name: "Pastel Flower Design Hair Claw Clips",
+    category: "hair-accessories",
+    subcategory: "flower-clips",
+    categoryName: "Hair Accessories",
+    price: 299,
+    originalPrice: 499,
+    rating: 5.0,
+    reviewsCount: 165,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/organza_rose.jpg", "images/flower_clips_set.jpg"],
+    colors: ["Pastel Blossom Pink", "Lilac"],
+    description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹702/Set (₹58.5/Piece)", "Craftsmanship: Handcrafted Premium"]
+  },
+  {
+    id: "SPK-HC-007",
+    sku: "SPK-HC-007",
+    name: "Hawaiian Plumeria Flower Claw Clips",
+    category: "hair-accessories",
+    subcategory: "flower-clips",
+    categoryName: "Hair Accessories",
+    price: 179,
+    originalPrice: 279,
+    rating: 4.9,
+    reviewsCount: 130,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/jasmine_pins.jpg", "images/plumeria_flower.jpg"],
+    colors: ["White & Yellow", "Coral"],
+    description: "Tropical Hawaiian Frangipani Plumeria flower hair claws for vacation and beachwear.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹129/Set (₹10.7/Piece)", "Ideal for: Beach Wear & Vacations"]
+  },
+  {
+    id: "SPK-HC-008",
+    sku: "SPK-HC-008",
+    name: "Flower Claw Clips",
+    category: "hair-accessories",
+    subcategory: "flower-clips",
+    categoryName: "Hair Accessories",
+    price: 189,
+    originalPrice: 289,
+    rating: 4.8,
+    reviewsCount: 102,
+    isNew: true,
+    isTrending: false,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 12, // 1 Set (12 Pcs)
+    images: ["images/flower_clips_set.jpg", "images/organza_rose.jpg"],
+    colors: ["Multicolor Floral"],
+    description: "Elegant 5-petal floral claw clip set featuring matte anti-slip grip.",
+    details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹137/Set (₹11.4/Piece)"]
+  },
+
+  // ==========================================
+  // 2. NECKLACE SETS (South Indian Traditional & Temple)
+  // ==========================================
+  {
+    id: "SPK-NK-101",
+    sku: "SPK-NK-101",
+    name: "Traditional South Indian Matte Gold Plated Antique Droplet Choker Necklace Set",
+    category: "necklaces",
+    subcategory: "chokers",
+    categoryName: "Necklace Sets",
+    price: 599,
+    originalPrice: 899,
+    rating: 5.0,
+    reviewsCount: 195,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 40,
-    images: [
-      "images/butterfly_clip.jpg",
-      "images/plumeria_flower.jpg"
-    ],
-    colors: ["Black", "Brown", "Cream", "White", "Grey", "Beige", "Transparent", "Coffee"],
-    description: "Extra strong hold large claw clips in matte aesthetic and crystal transparent finishes.",
-    details: [
-      "SKU: SPK-CC-002",
-      "Colors: Black, Brown, Cream, White, Grey, Beige, Transparent, Coffee",
-      "Spring mechanism: Heavy-duty spring for thick & thin hair",
-      "Size: 11 cm x 5 cm"
-    ]
+    stock: 1, // 1 Pc
+    images: ["images/kundan_choker_set.jpg", "images/rose_necklace.jpg"],
+    colors: ["Antique Matte Gold & Ruby Droplets"],
+    description: "Heritage South Indian antique gold plated choker featuring delicate droplet hangings and matching earrings.",
+    details: ["Quantity: 1 Piece Set", "Purchase Price: ₹150", "Finish: 24K Antique Matte Gold Plating", "Includes: 1 Choker + Matching Earrings"]
   },
   {
-    id: "SPK-NK-007",
-    sku: "SPK-NK-007",
-    name: "Royal Kundan & Pearl Bridal Choker Set",
+    id: "SPK-NK-102",
+    sku: "SPK-NK-102",
+    name: "Traditional South Indian Kemp Floral Necklace Set",
     category: "necklaces",
-    subcategory: "bridal-sets",
+    subcategory: "temple-style",
+    categoryName: "Necklace Sets",
+    price: 699,
+    originalPrice: 999,
+    rating: 4.9,
+    reviewsCount: 148,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 2, // 2 Pcs
+    images: ["images/rose_necklace.jpg", "images/temple_necklace.jpg"],
+    colors: ["Ruby Red Kemp & Gold"],
+    description: "Auspicious South Indian Kemp floral motif necklace set encrusted with traditional red Kemp stones.",
+    details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹202/Piece (Total: ₹404)", "Stones: Traditional Red Kemp Glass", "Includes: Necklace + Earrings Pair"]
+  },
+  {
+    id: "SPK-NK-103",
+    sku: "SPK-NK-103",
+    name: "Manga Malai (Mango Mala)",
+    category: "necklaces",
+    subcategory: "temple-style",
+    categoryName: "Necklace Sets",
+    price: 649,
+    originalPrice: 949,
+    rating: 4.9,
+    reviewsCount: 160,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/temple_necklace.jpg", "images/chandbali_earrings.jpg"],
+    colors: ["Antique Gold & Ruby Kemp"],
+    description: "Classic South Indian Manga Malai (Mango Mala) necklace featuring auspicious raw mango shaped pendants.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹160", "Design: Traditional South Indian Mango Motif", "Adjustable Silk Thread Dori"]
+  },
+  {
+    id: "SPK-NK-104",
+    sku: "SPK-NK-104",
+    name: "Traditional South Indian Mango Leaf Choker",
+    category: "necklaces",
+    subcategory: "chokers",
+    categoryName: "Necklace Sets",
+    price: 549,
+    originalPrice: 799,
+    rating: 4.8,
+    reviewsCount: 112,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 2, // 2 Pcs
+    images: ["images/kundan_choker_set.jpg", "images/temple_necklace.jpg"],
+    colors: ["Antique Gold & Green Kemp"],
+    description: "Royal mango leaf motif choker necklace set with antique copper gold micro polish.",
+    details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹140/Piece (Total: ₹280)", "Includes: 1 Choker + 1 Pair Earrings"]
+  },
+  {
+    id: "SPK-NK-105",
+    sku: "SPK-NK-105",
+    name: "Traditional South Indian Kemp Necklace",
+    category: "necklaces",
+    subcategory: "temple-style",
     categoryName: "Necklace Sets",
     price: 899,
     originalPrice: 1299,
     rating: 5.0,
-    reviewsCount: 94,
+    reviewsCount: 175,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 12,
-    images: [
-      "images/rose_necklace.jpg",
-      "images/hero_model.jpg"
-    ],
-    colors: ["Gold & Pearl", "Rose Gold", "Silver"],
-    description: "Royal Indian Kundan choker necklace set mounted on white display card with matching drop earrings.",
-    details: [
-      "SKU: SPK-NK-007",
-      "Includes: 1 Kundan Choker Necklace + 1 Pair Matching Drop Earrings",
-      "Finish: 18K Micro Gold Plated & Anti-Tarnish Coating",
-      "Adjustable Dori/Link chain for custom neck fit"
-    ]
+    stock: 1, // 1 Pc
+    images: ["images/temple_necklace.jpg", "images/kundan_choker_set.jpg"],
+    colors: ["Ruby & Emerald Kemp Gold"],
+    description: "Grand traditional South Indian temple Kemp necklace adorned with Kundan glass stones and pearl drops.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹320", "Craftsmanship: Antique Temple Polish"]
   },
   {
-    id: "SPK-BG-010",
-    sku: "SPK-BG-010",
-    name: "Traditional Gold & Metallic Velvet Bangle Stack",
-    category: "bangles",
-    subcategory: "gold-bangles",
-    categoryName: "Bangles",
+    id: "SPK-NK-106",
+    sku: "SPK-NK-106",
+    name: "Traditional South Indian Attigai Choker Set",
+    category: "necklaces",
+    subcategory: "chokers",
+    categoryName: "Necklace Sets",
     price: 499,
-    originalPrice: 799,
-    rating: 4.7,
-    reviewsCount: 85,
+    originalPrice: 749,
+    rating: 4.8,
+    reviewsCount: 90,
     isNew: false,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 25,
-    images: [
-      "images/pearl_bangles.jpg"
-    ],
-    colors: ["Gold", "Silver", "Antique Finish", "Velvet Red"],
-    description: "Complete stack of 24 metallic gold, silver and antique finish glass-velvet bangles as displayed in stock.",
-    details: [
-      "SKU: SPK-BG-010",
-      "Available Sizes: 2.4 (Small), 2.6 (Medium), 2.8 (Large)",
-      "Finish: Metallic Gold & Filigree Embossed"
-    ]
+    stock: 1, // 1 Pc
+    images: ["images/kundan_choker_set.jpg", "images/rose_necklace.jpg"],
+    colors: ["Gold & Ruby Kemp"],
+    description: "Classic South Indian Attigai (Addigai) choker necklace set with flower cluster centerpiece.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹127", "Style: Traditional Addigai Choker"]
   },
   {
-    id: "SPK-SC-004",
-    sku: "SPK-SC-004",
-    name: "Mulberry Silk & Velvet Scrunchie Combo Box",
-    category: "hair-accessories",
-    subcategory: "scrunchies",
-    categoryName: "Hair Accessories",
-    price: 349,
-    originalPrice: 499,
+    id: "SPK-NK-107",
+    sku: "SPK-NK-107",
+    name: "Traditional South Indian Antique Matte Gold Ruby Strand",
+    category: "necklaces",
+    subcategory: "temple-style",
+    categoryName: "Necklace Sets",
+    price: 749,
+    originalPrice: 1099,
     rating: 4.9,
-    reviewsCount: 156,
+    reviewsCount: 135,
+    isNew: true,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 1, // 1 Pc
+    images: ["images/temple_necklace.jpg", "images/rose_necklace.jpg"],
+    colors: ["Antique Gold & Ruby Beads"],
+    description: "Multi-strand antique matte gold necklace detailed with synthetic ruby beads and central pendant.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹230", "Finish: Antique Matte Gold Polish"]
+  },
+  {
+    id: "SPK-NK-108",
+    sku: "SPK-NK-108",
+    name: "Kasu Mala",
+    category: "necklaces",
+    subcategory: "temple-style",
+    categoryName: "Necklace Sets",
+    price: 649,
+    originalPrice: 949,
+    rating: 5.0,
+    reviewsCount: 210,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/temple_necklace.jpg", "images/kundan_choker_set.jpg"],
+    colors: ["Antique Gold Lakshmi Coins"],
+    description: "Traditional South Indian Kasu Mala (Coin Necklace) featuring engraved Goddess Lakshmi coins.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹160", "Design: Heritage Lakshmi Kasu Coin Necklace"]
+  },
+
+  // ==========================================
+  // 3. CHAINS & PENDANTS
+  // ==========================================
+  {
+    id: "SPK-CN-201",
+    sku: "SPK-CN-201",
+    name: "Faux Pearl Charm Necklace",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 299,
+    originalPrice: 449,
+    rating: 4.8,
+    reviewsCount: 84,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 50,
-    images: [
-      "images/silk_scrunchies.jpg"
-    ],
-    colors: ["Pink", "Purple", "Grey", "Black", "Brown", "Green", "White"],
-    description: "22-Momme Mulberry Silk & soft velvet hair scrunchies pack. Gentle elasticity prevents hair breakage.",
-    details: [
-      "SKU: SPK-SC-004",
-      "Pack of 4 luxurious scrunchies",
-      "Colors: Pink, Purple, Grey, Black, Brown, Green, White"
-    ]
+    stock: 2, // 2 Pcs
+    images: ["images/rose_necklace.jpg", "images/stud_earrings.jpg"],
+    colors: ["Gold & White Faux Pearl"],
+    description: "Minimalist delicate gold chain necklace centered with a smooth ivory faux pearl charm.",
+    details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹72/Piece (Total: ₹144)", "Length: 40 cm + 5 cm Extender"]
   },
   {
-    id: "SPK-ER-005",
-    sku: "SPK-ER-005",
-    name: "Kundan & Pearl Drop Traditional Earrings",
-    category: "earrings",
-    subcategory: "traditional-earrings",
-    categoryName: "Earrings",
-    price: 329,
+    id: "SPK-CN-202",
+    sku: "SPK-CN-202",
+    name: "Adjustable Floral Bolo Necklace",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 199,
+    originalPrice: 299,
+    rating: 4.7,
+    reviewsCount: 62,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/hero_model.jpg", "images/rose_necklace.jpg"],
+    colors: ["Rose Gold Floral"],
+    description: "Adjustable bolo style chain necklace featuring a delicate crystal flower slider charm.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Closure: Sliding Adjuster Knot"]
+  },
+  {
+    id: "SPK-CN-203",
+    sku: "SPK-CN-203",
+    name: "Green Oval Stone Anti-Tarnish Gold Plated Stainless Chain",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 349,
     originalPrice: 499,
     rating: 4.9,
-    reviewsCount: 110,
-    isNew: false,
+    reviewsCount: 140,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    colors: ["Emerald Green & Gold"],
+    description: "Waterproof anti-tarnish 18K gold plated stainless steel chain with a deep emerald green oval gemstone pendant.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹95", "Material: 18K Gold Plated Stainless Steel (Anti-Tarnish)"]
+  },
+  {
+    id: "SPK-CN-204",
+    sku: "SPK-CN-204",
+    name: "Flat Snake Chain",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 399,
+    originalPrice: 599,
+    rating: 4.9,
+    reviewsCount: 155,
+    isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 30,
-    images: [
-      "images/kundan_earrings.jpg"
-    ],
-    colors: ["Gold & Pearl White", "Silver", "Antique Gold"],
-    description: "Royal Jhumka Kundan drop earrings mounted on white jewelry cards. Perfect for weddings & festive drapes.",
-    details: [
-      "SKU: SPK-ER-005",
-      "Fastening: Push Back Stud",
-      "Hypoallergenic nickel-free lead-free alloy"
-    ]
+    stock: 1, // 1 Pc
+    images: ["images/black_zircon.jpg", "images/rose_necklace.jpg"],
+    colors: ["Glossy 18K Gold"],
+    description: "Sleek liquid-smooth flat herringbone snake chain necklace crafted in high-luster gold finish.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹110", "Width: 3 mm Flat Snake Chain"]
   },
   {
-    id: "SPK-BR-012",
-    sku: "SPK-BR-012",
-    name: "Zirconia Crystal Night Party Bracelet",
-    category: "bracelets",
-    subcategory: "stone-bracelets",
-    categoryName: "Bracelets",
-    price: 299,
-    originalPrice: 399,
+    id: "SPK-CN-205",
+    sku: "SPK-CN-205",
+    name: "Satellite Chain",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 249,
+    originalPrice: 379,
+    rating: 4.7,
+    reviewsCount: 72,
+    isNew: false,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/stud_earrings.jpg", "images/rose_necklace.jpg"],
+    colors: ["Gold Beaded Chain"],
+    description: "Charming satellite cable chain featuring tiny textured gold beads spaced throughout.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹48", "Style: Layering Satellite Bead Chain"]
+  },
+  {
+    id: "SPK-CN-206",
+    sku: "SPK-CN-206",
+    name: "Crystal Heart Pendant Minimal Gold Chain Necklace",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 329,
+    originalPrice: 479,
     rating: 4.8,
-    reviewsCount: 78,
+    reviewsCount: 98,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/pave_studs.jpg", "images/rose_necklace.jpg"],
+    colors: ["Clear Crystal & Rose Gold"],
+    description: "Romantic faceted crystal heart pendant suspended from a dainty rose gold chain.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹85", "Pendant: AAA Zirconia Heart"]
+  },
+  {
+    id: "SPK-CN-207",
+    sku: "SPK-CN-207",
+    name: "North Star Pendant Necklace",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 299,
+    originalPrice: 429,
+    rating: 4.8,
+    reviewsCount: 86,
     isNew: true,
     isTrending: true,
     isBestSeller: false,
     isFlashSale: false,
-    stock: 20,
-    images: [
-      "images/black_zircon.jpg"
-    ],
-    colors: ["Gold", "Silver", "Black Zircon"],
-    description: "Delicate cubic zirconia crystal chain bracelet with lobster clasp. Tarnish resistant.",
-    details: [
-      "SKU: SPK-BR-012",
-      "Chain Length: 16 cm + 4 cm extender",
-      "Finish: High-polish Rose Gold / Silver"
-    ]
+    stock: 1, // 1 Pc
+    images: ["images/hero_model.jpg", "images/pave_studs.jpg"],
+    colors: ["Gold & Zircon Star"],
+    description: "Celestial North Star compass pendant necklace encrusted with a central zircon gem.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹75", "Style: Celestial Compass Medallion"]
   },
   {
-    id: "SPK-GS-013",
-    sku: "SPK-GS-013",
-    name: "Sparkel Luxury Velvet Festival Gift Box",
-    category: "gift-sets",
-    subcategory: "festival-boxes",
-    categoryName: "Gift Sets & Combos",
-    price: 1199,
-    originalPrice: 1799,
-    rating: 5.0,
-    reviewsCount: 230,
+    id: "SPK-CN-208",
+    sku: "SPK-CN-208",
+    name: "Round Snake Neck",
+    category: "necklaces",
+    subcategory: "daily-wear",
+    categoryName: "Necklace Sets",
+    price: 349,
+    originalPrice: 499,
+    rating: 4.7,
+    reviewsCount: 68,
+    isNew: false,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/black_zircon.jpg", "images/rose_necklace.jpg"],
+    colors: ["High Polish Gold"],
+    description: "Classic round flexible snake chain necklace with smooth mirror shine.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹90", "Type: Round Snake Chain"]
+  },
+
+  // ==========================================
+  // 4. BRACELETS
+  // ==========================================
+  {
+    id: "SPK-BR-101",
+    sku: "SPK-BR-101",
+    name: "Bracelet Charm",
+    category: "bracelets",
+    subcategory: "fashion-bracelets",
+    categoryName: "Bracelets",
+    price: 199,
+    originalPrice: 299,
+    rating: 4.8,
+    reviewsCount: 92,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 15,
-    images: [
-      "images/gift_set.jpg"
-    ],
-    colors: ["Rose Pink Velvet Box", "Gold Velvet Box"],
-    description: "Curated luxury hamper containing 1 Plumeria Clip, 1 Large Claw Clip, 1 Kundan Earrings Set & Gold Bangles.",
-    details: [
-      "SKU: SPK-GS-013",
-      "Includes personalized printed gift message card",
-      "Velvet drawer box wrapped in satin bow ribbon"
-    ]
+    stock: 4, // 4 Pcs
+    images: ["images/black_zircon.jpg", "images/rose_necklace.jpg"],
+    colors: ["Gold & Multi-Charms"],
+    description: "Playful charm bracelet strung with delicate gold heart, star, and pearl charms.",
+    details: ["Quantity: 4 Pieces in Stock", "Purchase Price: ₹36/Piece (Total: ₹144)", "Style: Multi-Charm Daintiness"]
+  },
+  {
+    id: "SPK-BR-102",
+    sku: "SPK-BR-102",
+    name: "Adjustable Gold Plated Kada Bracelet",
+    category: "bracelets",
+    subcategory: "chain-bracelets",
+    categoryName: "Bracelets",
+    price: 499,
+    originalPrice: 749,
+    rating: 5.0,
+    reviewsCount: 165,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 5, // 5 Pcs
+    images: ["images/pearl_bangles.jpg", "images/silver_bangles.jpg"],
+    colors: ["18K Gold Polish"],
+    description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish.",
+    details: ["Quantity: 5 Pieces in Stock", "Purchase Price: ₹172/Piece (Total: ₹860)", "Fit: Openable Adjustable Size"]
+  },
+  {
+    id: "SPK-BR-103",
+    sku: "SPK-BR-103",
+    name: "Gold Plated Multicolour Square Stone Link Bracelet",
+    category: "bracelets",
+    subcategory: "stone-bracelets",
+    categoryName: "Bracelets",
+    price: 199,
+    originalPrice: 299,
+    rating: 4.9,
+    reviewsCount: 120,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 9, // 9 Pcs
+    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    colors: ["Multicolor Gemstones & Gold"],
+    description: "Vibrant rainbow link bracelet set with square-cut multi-color crystal gemstones.",
+    details: ["Quantity: 9 Pieces in Stock", "Purchase Price: ₹36/Piece (Total: ₹324)", "Closure: Secure Fold-over Clasp"]
+  },
+  {
+    id: "SPK-BR-104",
+    sku: "SPK-BR-104",
+    name: "Sunflower Beaded Chain Bracelet",
+    category: "bracelets",
+    subcategory: "fashion-bracelets",
+    categoryName: "Bracelets",
+    price: 229,
+    originalPrice: 349,
+    rating: 4.7,
+    reviewsCount: 78,
+    isNew: true,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 5, // 5 Pcs
+    images: ["images/silk_scrunchies.jpg", "images/flower_clips_set.jpg"],
+    colors: ["Yellow Sunflower & Gold Beads"],
+    description: "Handcrafted yellow sunflower enamel charm chain bracelet with pastel accent beads.",
+    details: ["Quantity: 5 Pieces in Stock", "Purchase Price: ₹42/Piece (Total: ₹210)"]
+  },
+
+  // ==========================================
+  // 5. EARRINGS
+  // ==========================================
+  {
+    id: "SPK-ER-101",
+    sku: "SPK-ER-101",
+    name: "Kundan Chandbali Earrings",
+    category: "earrings",
+    subcategory: "traditional-earrings",
+    categoryName: "Earrings",
+    price: 449,
+    originalPrice: 649,
+    rating: 5.0,
+    reviewsCount: 190,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1, // 1 Pc
+    images: ["images/chandbali_earrings.jpg", "images/kundan_earrings.jpg"],
+    colors: ["Antique Gold & Pearl Hangings"],
+    description: "Traditional Indian Kundan crescent moon Chandbali earrings with pearl cluster drops.",
+    details: ["Quantity: 1 Piece", "Purchase Price: ₹162", "Finish: 24K Micro Antique Gold Finish", "Ideal for: Weddings, Festivals & Ethnic Wear"]
   }
 ];
 
@@ -361,8 +722,8 @@ export const TESTIMONIALS = [
     name: "Ananya Sharma",
     location: "Mumbai",
     rating: 5,
-    review: "Sparkel @KKL accessories look even more luxurious in real life! The Plumeria Flower Clip and Kundan Choker have incredible shine.",
-    product: "Hawaiian Plumeria Floral Hair Clip Set",
+    review: "Sparkel @kkv accessories look even more luxurious in real life! The Plumeria Flower Clip and Traditional South Indian Choker have incredible shine.",
+    product: "Plumeria Flower Claw Clip",
     avatar: "images/hero_model.jpg"
   },
   {
@@ -370,29 +731,29 @@ export const TESTIMONIALS = [
     name: "Rhea Kapoor",
     location: "Delhi",
     rating: 5,
-    review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The Choker Set is lightweight and super elegant!",
-    product: "Royal Kundan & Pearl Bridal Choker Set",
-    avatar: "images/plumeria_flower.jpg"
+    review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The South Indian Addigai Choker Set is lightweight and super elegant!",
+    product: "Traditional South Indian Matte Gold Plated Antique Droplet Choker Necklace Set",
+    avatar: "images/organza_rose.jpg"
   },
   {
     id: "t3",
     name: "Pooja Varma",
     location: "Bangalore",
     rating: 5,
-    review: "Ordered the Deluxe Gift Box for my sister's birthday. She was in tears! The silk scrunchies and bangles are top quality.",
-    product: "Sparkel Luxury Velvet Festival Gift Box",
+    review: "Ordered the Green Oval Stone Anti-Tarnish Chain. Incredible quality! Anti-tarnish finish with rich gold color.",
+    product: "Green Oval Stone Anti-Tarnish Gold Plated Stainless Chain",
     avatar: "images/hero_model.jpg"
   }
 ];
 
 export const COUPONS = [
-  { code: "SPARKEL10", discountPercent: 10, minAmount: 499, description: "10% OFF on orders over ₹499" },
-  { code: "LUXURY20", discountPercent: 20, minAmount: 999, description: "20% OFF on orders over ₹999" },
-  { code: "FESTIVE30", discountPercent: 30, minAmount: 1499, description: "30% OFF on orders over ₹1499" }
+  { code: "SPARKEL30", discountPercent: 30, minAmount: 999, description: "30% OFF on orders over ₹999 (Automatic)" },
+  { code: "LUXURY30", discountPercent: 30, minAmount: 999, description: "30% OFF on orders over ₹999" },
+  { code: "SPARKEL10", discountPercent: 10, minAmount: 499, description: "10% OFF on orders over ₹499" }
 ];
 
 export const INSTAGRAM_POSTS = [
-  { id: "ig1", image: "images/hero_model.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkl_official" },
+  { id: "ig1", image: "images/hero_model.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkv_official" },
   { id: "ig2", image: "images/butterfly_clip.jpg", likes: "1.9k", comments: "94", tag: "#SparkelGirl" },
   { id: "ig3", image: "images/rose_necklace.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
   { id: "ig4", image: "images/plumeria_flower.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
