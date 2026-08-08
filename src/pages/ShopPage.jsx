@@ -20,10 +20,11 @@ export const ShopPage = () => {
   const [onlyFlashSale, setOnlyFlashSale] = useState(flashSaleParam);
   const [maxPriceFilter, setMaxPriceFilter] = useState('all');
 
-  // Sync category state when searchParams change
+  // Sync category and search query state when URL searchParams change
   React.useEffect(() => {
     setSelectedCategory(currentCategory);
-  }, [currentCategory]);
+    setSearchQuery(searchQueryParam);
+  }, [currentCategory, searchQueryParam]);
 
   const activeCategoryObj = useMemo(() => {
     return NAVIGATION_TREE.find(c => c.id === selectedCategory);

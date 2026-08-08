@@ -47,6 +47,15 @@ export const NAVIGATION_TREE = [
       { id: "traditional-earrings", name: "Traditional Chandbali" },
       { id: "studs", name: "Studs & Drops" }
     ]
+  },
+  {
+    id: "gift-sets",
+    name: "Gift Sets & Combos",
+    subcategories: [
+      { id: "hair-combos", name: "Hair Clip Combos" },
+      { id: "festival-boxes", name: "Festival Gift Box" },
+      { id: "bridal-combos", name: "Bridal Combo Box" }
+    ]
   }
 ];
 
@@ -82,6 +91,14 @@ export const CATEGORIES = [
     count: 1,
     description: "Traditional Kundan Chandbali statement earrings",
     image: "images/chandbali_earrings.jpg"
+  },
+  {
+    id: "gift-sets",
+    name: "Gift Sets & Combos",
+    icon: "🎁",
+    count: 3,
+    description: "Curated boutique hampers & velvet festival gift boxes",
+    image: "images/gift_set.jpg"
   }
 ];
 
@@ -713,6 +730,73 @@ export const PRODUCTS = [
     colors: ["Antique Gold & Pearl Hangings"],
     description: "Traditional Indian Kundan crescent moon Chandbali earrings with pearl cluster drops.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹162", "Finish: 24K Micro Antique Gold Finish", "Ideal for: Weddings, Festivals & Ethnic Wear"]
+  },
+
+  // ==========================================
+  // 6. GIFT SETS & COMBOS
+  // ==========================================
+  {
+    id: "SPK-GS-001",
+    sku: "SPK-GS-001",
+    name: "Sparkel Luxury Hair Clip & Scrunchie Combo Box",
+    category: "gift-sets",
+    subcategory: "hair-combos",
+    categoryName: "Gift Sets & Combos",
+    price: 449,
+    originalPrice: 649,
+    rating: 5.0,
+    reviewsCount: 185,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 20,
+    images: ["images/gift_set.jpg", "images/plumeria_flower.jpg"],
+    colors: ["Blush Pink Velvet Hamper"],
+    description: "Boutique gift hamper containing 2 Plumeria Flower Clips, 1 Swarovski Butterfly Claw Clip, and 1 Silk Scrunchie.",
+    details: ["Includes: 2 Plumeria Clips + 1 Butterfly Clip + 1 Silk Scrunchie", "Packaging: Sparkel Blush Pink Gift Box with Satin Ribbon"]
+  },
+  {
+    id: "SPK-GS-002",
+    sku: "SPK-GS-002",
+    name: "Sparkel Royal Velvet Festival Gift Box",
+    category: "gift-sets",
+    subcategory: "festival-boxes",
+    categoryName: "Gift Sets & Combos",
+    price: 1199,
+    originalPrice: 1799,
+    rating: 5.0,
+    reviewsCount: 230,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 15,
+    images: ["images/gift_set.jpg", "images/kundan_earrings.jpg"],
+    colors: ["Signature Velvet Chest"],
+    description: "Curated luxury hamper featuring 1 Kundan Earrings Set, 1 Plumeria Flower Clip, 1 Silk Scrunchie, and Gold Bangle Stack.",
+    details: ["Includes: 4 Premium Accessories", "Packaging: Double-Drawer Velvet Box"]
+  },
+  {
+    id: "SPK-GS-003",
+    sku: "SPK-GS-003",
+    name: "Royal Kundan Bridal Trousseau Hamper Box",
+    category: "gift-sets",
+    subcategory: "bridal-combos",
+    categoryName: "Gift Sets & Combos",
+    price: 1699,
+    originalPrice: 2499,
+    rating: 5.0,
+    reviewsCount: 160,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: ["images/gift_set.jpg", "images/kundan_choker_set.jpg"],
+    colors: ["Ivory & Gold Velvet Trunk"],
+    description: "Grand bridal trousseau box including Kundan Choker Set, Heavy Jhumkas, Maang Tikka, and Hair Ornaments.",
+    details: ["Includes: Complete 5-Piece Bridal Set", "Packaging: Wooden Velvet Trunk Box"]
   }
 ];
 
