@@ -803,7 +803,7 @@ export const PRODUCTS = [
 export const TESTIMONIALS = [
   {
     id: "t1",
-    name: "Ananya Sharma",
+    name: "Divya",
     location: "Mumbai",
     rating: 5,
     review: "Sparkel @kkv accessories look even more luxurious in real life! The Plumeria Flower Clip and Traditional South Indian Choker have incredible shine.",
@@ -812,7 +812,7 @@ export const TESTIMONIALS = [
   },
   {
     id: "t2",
-    name: "Rhea Kapoor",
+    name: "Jhansi",
     location: "Delhi",
     rating: 5,
     review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The South Indian Addigai Choker Set is lightweight and super elegant!",
@@ -821,7 +821,7 @@ export const TESTIMONIALS = [
   },
   {
     id: "t3",
-    name: "Pooja Varma",
+    name: "Srimukhi",
     location: "Bangalore",
     rating: 5,
     review: "Ordered the Green Oval Stone Anti-Tarnish Chain. Incredible quality! Anti-tarnish finish with rich gold color.",

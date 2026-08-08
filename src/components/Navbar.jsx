@@ -51,6 +51,24 @@ export const Navbar = () => {
     }
   };
 
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    if (currentPath !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById('about');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      const element = document.getElementById('about');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 transition-all duration-300">
       {/* Announcement Bar with Marquee Tag */}
@@ -275,6 +293,15 @@ export const Navbar = () => {
                 }`} />
               </Link>
 
+              <a
+                href="#about"
+                onClick={handleAboutClick}
+                className="transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 hover:text-[#C89B3C]"
+              >
+                <span>About Us</span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 scale-x-0 group-hover:scale-x-100" />
+              </a>
+
               <Link
                 to="/shop"
                 className={`transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 ${
@@ -389,6 +416,19 @@ export const Navbar = () => {
                 <Home className="w-4 h-4 text-[#D4AF7F]" />
                 <span>Home</span>
               </Link>
+
+              {/* ABOUT US LINK IN MOBILE DRAWER */}
+              <a
+                href="#about"
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  handleAboutClick(e);
+                }}
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-[#2C2C2C] hover:bg-[#FFF9F5] hover:text-[#C89B3C] transition-all"
+              >
+                <Sparkles className="w-4 h-4 text-[#D4AF7F]" />
+                <span>About Us</span>
+              </a>
 
               {/* SHOP ALL LINK IN MOBILE DRAWER */}
               <Link

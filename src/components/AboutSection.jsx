@@ -47,13 +47,13 @@ export const AboutSection = () => {
 
                 <div className="space-y-1">
                   <span className="text-[11px] font-montserrat uppercase tracking-widest text-[#D4AF7F] font-bold block">
-                    Founder & Director
+                    Founder & CEO
                   </span>
                   <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-tight">
                     Koti Koushik
                   </h3>
                   <p className="text-xs text-gray-300 font-light">
-                    Founder & Managing Director, Sparkel @kkv
+                    Founder & CEO, Sparkel @kkv
                   </p>
                 </div>
 
@@ -103,7 +103,7 @@ export const AboutSection = () => {
                 <div>
                   <h4 className="font-serif-luxury text-sm font-bold text-[#2C2C2C]">Direct Leadership</h4>
                   <p className="text-[11px] text-gray-500 font-light mt-0.5">
-                    Guided by Founder Koti Koushik with 100% commitment to customer satisfaction.
+                    Guided by Founder & CEO Koti Koushik with 100% commitment to customer satisfaction.
                   </p>
                 </div>
               </div>
