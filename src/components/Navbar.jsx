@@ -14,6 +14,8 @@ export const Navbar = () => {
     switchUserRole,
     loginUser,
     logoutUser,
+    isLoginModalOpen,
+    setIsLoginModalOpen,
     products
   } = useShop();
 
@@ -23,8 +25,7 @@ export const Navbar = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loginForm, setLoginForm] = useState({ emailOrPhone: "", password: "" });
+  const [loginForm, setLoginForm] = useState({ name: "", phone: "", password: "" });
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -592,21 +593,33 @@ export const Navbar = () => {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  if (!loginForm.emailOrPhone) return;
-                  loginUser(loginForm.emailOrPhone, loginForm.password);
+                  if (!loginForm.name || !loginForm.phone) return;
+                  loginUser(loginForm.name, loginForm.phone, loginForm.password);
                   setIsLoginModalOpen(false);
-                  setLoginForm({ emailOrPhone: "", password: "" });
+                  setLoginForm({ name: "", phone: "", password: "" });
                 }}
                 className="p-6 pt-2 space-y-4 font-poppins text-xs text-[#2C2C2C]"
               >
                 <div className="space-y-1">
-                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Email Address or Phone Number</label>
+                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. ananya@example.com or +91 99491..."
-                    value={loginForm.emailOrPhone}
-                    onChange={(e) => setLoginForm(prev => ({ ...prev, emailOrPhone: e.target.value }))}
+                    placeholder="Enter Your Name"
+                    value={loginForm.name}
+                    onChange={(e) => setLoginForm(prev => ({ ...prev, name: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Enter Phone Number"
+                    value={loginForm.phone}
+                    onChange={(e) => setLoginForm(prev => ({ ...prev, phone: e.target.value }))}
                     className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
                   />
                 </div>
@@ -615,6 +628,7 @@ export const Navbar = () => {
                   <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password / OTP</label>
                   <input
                     type="password"
+                    required
                     placeholder="Enter Password"
                     value={loginForm.password}
                     onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
@@ -638,7 +652,7 @@ export const Navbar = () => {
                 </button>
 
                 <div className="text-center pt-3 border-t border-gray-100 text-[10px] text-gray-400">
-                  Don't have an account? No worries, checkout as a Guest and an account will be created automatically!
+                  Please sign in to complete your checkout and track orders securely.
                 </div>
               </form>
             </div>

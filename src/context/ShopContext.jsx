@@ -63,6 +63,7 @@ export const ShopProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [toast, setToast] = useState(null);
 
@@ -214,21 +215,21 @@ export const ShopProvider = ({ children }) => {
     showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
   };
 
-  const loginUser = (emailOrPhone, password) => {
-    const role = emailOrPhone.toLowerCase().includes('admin') ? 'admin' : 'customer';
-    const name = role === 'admin' ? "Sparkel Admin @kkv" : "Ananya Sharma";
-    const email = role === 'admin' ? "admin@sparkelkkv.com" : emailOrPhone;
+  const loginUser = (name, phone, password) => {
+    const role = name.toLowerCase().includes('admin') ? 'admin' : 'customer';
+    const email = `${name.toLowerCase().replace(/\s+/g, '')}@example.com`;
 
     setUser({
       name,
       email,
+      phone,
       role,
       isLoggedIn: true,
       savedAddresses: [
         {
           id: "addr1",
           fullName: name,
-          phone: "+91 9949157771",
+          phone: phone,
           street: "Flat 402, Rosewood Heights, Bandra West",
           city: "Mumbai",
           state: "Maharashtra",
@@ -237,7 +238,7 @@ export const ShopProvider = ({ children }) => {
         }
       ]
     });
-    showToast(`👋 Welcome back, ${name}!`);
+    showToast(`👋 Welcome, ${name}!`);
     return true;
   };
 
@@ -294,6 +295,8 @@ export const ShopProvider = ({ children }) => {
       setIsWishlistOpen,
       isCheckoutOpen,
       setIsCheckoutOpen,
+      isLoginModalOpen,
+      setIsLoginModalOpen,
       quickViewProduct,
       setQuickViewProduct,
       toast,

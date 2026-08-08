@@ -17,7 +17,10 @@ export const CartDrawer = () => {
     couponError,
     applyCoupon,
     removeCoupon,
-    setIsCheckoutOpen
+    setIsCheckoutOpen,
+    user,
+    setIsLoginModalOpen,
+    showToast
   } = useShop();
 
   const [couponInput, setCouponInput] = useState('');
@@ -220,6 +223,12 @@ export const CartDrawer = () => {
               {/* Checkout CTA */}
               <button
                 onClick={() => {
+                  if (!user || !user.isLoggedIn) {
+                    setIsCartOpen(false);
+                    showToast("⚠️ Please sign in to purchase items!", "error");
+                    setIsLoginModalOpen(true);
+                    return;
+                  }
                   setIsCartOpen(false);
                   setIsCheckoutOpen(true);
                 }}

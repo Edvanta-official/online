@@ -23,21 +23,33 @@ export const CustomerDashboard = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              const email = e.target.email.value;
+              const name = e.target.username.value;
+              const phone = e.target.phone.value;
               const password = e.target.password.value;
-              if (email) {
-                loginUser(email, password);
+              if (name && phone) {
+                loginUser(name, phone, password);
               }
             }}
             className="space-y-4 font-poppins text-xs text-[#2C2C2C]"
           >
             <div className="space-y-1">
-              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Email Address / Phone Number</label>
+              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
               <input
-                name="email"
+                name="username"
                 type="text"
                 required
-                placeholder="e.g. ananya@example.com or +91 99491..."
+                placeholder="Enter Your Name"
+                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Phone Number</label>
+              <input
+                name="phone"
+                type="tel"
+                required
+                placeholder="Enter Phone Number"
                 className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
               />
             </div>
@@ -47,6 +59,7 @@ export const CustomerDashboard = () => {
               <input
                 name="password"
                 type="password"
+                required
                 placeholder="Enter Password"
                 className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
               />

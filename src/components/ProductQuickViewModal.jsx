@@ -3,7 +3,17 @@ import { X, Star, Heart, ShoppingBag, Check, ShieldCheck, Truck, RefreshCw, Zap 
 import { useShop } from '../context/ShopContext';
 
 export const ProductQuickViewModal = () => {
-  const { quickViewProduct, setQuickViewProduct, addToCart, toggleWishlist, wishlist, setIsCheckoutOpen } = useShop();
+  const { 
+    quickViewProduct, 
+    setQuickViewProduct, 
+    addToCart, 
+    toggleWishlist, 
+    wishlist, 
+    setIsCheckoutOpen,
+    user,
+    setIsLoginModalOpen,
+    showToast
+  } = useShop();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(quickViewProduct?.colors?.[0] || '');
   const [quantity, setQuantity] = useState(1);
@@ -14,6 +24,12 @@ export const ProductQuickViewModal = () => {
   const isWishlisted = wishlist.includes(quickViewProduct.id);
 
   const handleBuyNow = () => {
+    if (!user || !user.isLoggedIn) {
+      setQuickViewProduct(null);
+      showToast("⚠️ Please sign in to purchase items!", "error");
+      setIsLoginModalOpen(true);
+      return;
+    }
     addToCart(quickViewProduct, quantity, selectedColor);
     setQuickViewProduct(null);
     setIsCheckoutOpen(true);
