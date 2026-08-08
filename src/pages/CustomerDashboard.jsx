@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
-import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles } from 'lucide-react';
+import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles, LogOut } from 'lucide-react';
 
 export const CustomerDashboard = () => {
-  const { user, orders, wishlist, products, COUPONS, loginUser } = useShop();
+  const { user, orders, wishlist, products, COUPONS, loginUser, logoutUser } = useShop();
   const [activeTab, setActiveTab] = useState('orders');
 
   if (!user || !user.isLoggedIn) {
@@ -133,6 +133,14 @@ export const CustomerDashboard = () => {
               >
                 <Bell className="w-4 h-4 text-[#D4AF7F]" />
                 <span>Notifications</span>
+              </button>
+
+              <button
+                onClick={() => logoutUser()}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-600 hover:bg-red-50 transition-all font-bold"
+              >
+                <LogOut className="w-4 h-4 text-red-500" />
+                <span>Sign Out</span>
               </button>
             </div>
           </div>
