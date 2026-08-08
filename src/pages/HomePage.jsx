@@ -3,6 +3,7 @@ import { HeroBanner } from '../components/HeroBanner';
 import { FeaturedCategories } from '../components/FeaturedCategories';
 import { ProductCard } from '../components/ProductCard';
 import { FlashSaleCountdown } from '../components/FlashSaleCountdown';
+import { AboutSection } from '../components/AboutSection';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { InstagramGallery } from '../components/InstagramGallery';
 import { NewsletterSection } from '../components/NewsletterSection';
@@ -135,6 +136,9 @@ export const HomePage = () => {
 
         </div>
       </section>
+
+      {/* About Founder & Brand Section */}
+      <AboutSection />
 
       {/* Customer Reviews */}
       <CustomerReviews />

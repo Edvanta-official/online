@@ -837,8 +837,8 @@ export const COUPONS = [
 ];
 
 export const INSTAGRAM_POSTS = [
-  { id: "ig1", image: "images/hero_model.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkv_official" },
-  { id: "ig2", image: "images/butterfly_clip.jpg", likes: "1.9k", comments: "94", tag: "#SparkelGirl" },
-  { id: "ig3", image: "images/rose_necklace.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
-  { id: "ig4", image: "images/plumeria_flower.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
+  { id: "ig1", image: "images/plumeria_flower.jpg", likes: "2.4k", comments: "182", tag: "@sparkelkkv_official" },
+  { id: "ig2", image: "images/kundan_choker_set.jpg", likes: "1.9k", comments: "94", tag: "#SparkelGirl" },
+  { id: "ig3", image: "images/organza_rose.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
+  { id: "ig4", image: "images/emerald_dangles.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
 ];
