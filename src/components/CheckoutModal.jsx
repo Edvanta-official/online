@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
-import phonepePosterImg from '../assets/phonepe_full_poster.png';
+import myScannerImg from '../assets/my_scanner.png';
 
 export const CheckoutModal = () => {
   const {
@@ -224,13 +224,19 @@ export const CheckoutModal = () => {
                   {paymentMethod === 'PhonePe' && (
                     <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-3 text-center">
                       
-                      {/* Full Vertical PhonePe Standee Poster Image */}
-                      <div className="max-w-[280px] mx-auto rounded-2xl overflow-hidden border-2 border-[#5f259f] shadow-lg bg-black">
-                        <img
-                          src={phonepePosterImg}
-                          alt="PhonePe Accepted Here KOTI KOUSHIK"
-                          className="w-full h-auto object-contain"
-                        />
+                      {/* Clean Square QR Code Display */}
+                      <div className="max-w-[220px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#5f259f] shadow-md text-center">
+                        <p className="text-[11px] font-bold text-[#2C2C2C] mb-2 uppercase tracking-wider font-montserrat">
+                          KOTI KOUSHIK
+                        </p>
+                        <div className="aspect-square w-full rounded-xl overflow-hidden bg-black p-1">
+                          <img
+                            src={myScannerImg}
+                            alt="PhonePe QR Code KOTI KOUSHIK"
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <p className="text-[10px] text-gray-500 mt-2 font-mono font-semibold">UPI: 9949157771@ybl</p>
                       </div>
 
                       {/* Instant PhonePe Mobile App Payment Button */}
