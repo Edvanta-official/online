@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useShop } from '../context/ShopContext';
-import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles, LogOut } from 'lucide-react';
+import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles, LogOut, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 
 export const CustomerDashboard = () => {
   const { user, orders, wishlist, products, COUPONS, loginUser, logoutUser } = useShop();
   const [activeTab, setActiveTab] = useState('orders');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   if (!user || !user.isLoggedIn) {
     return (
@@ -23,47 +25,85 @@ export const CustomerDashboard = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              setPasswordError("");
               const name = e.target.username.value;
               const phone = e.target.phone.value;
               const password = e.target.password.value;
+
+              // Security Password Strength Check
+              const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/;
+              if (!passwordRegex.test(password)) {
+                setPasswordError("🔒 Security check failed: Password must be at least 6 characters long and contain both letters and numbers!");
+                return;
+              }
+
               if (name && phone) {
                 loginUser(name, phone, password);
+                setPasswordError("");
               }
             }}
             className="space-y-4 font-poppins text-xs text-[#2C2C2C]"
           >
+            {/* Secure Badge */}
+            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-2.5 flex items-center justify-center gap-1.5 font-montserrat text-[10px] font-bold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>🛡️ 256-Bit SSL Encrypted Secure Login</span>
+            </div>
+
             <div className="space-y-1">
               <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
-              <input
-                name="username"
-                type="text"
-                required
-                placeholder="Enter Your Name"
-                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-              />
+              <div className="relative">
+                <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  name="username"
+                  type="text"
+                  required
+                  placeholder="Enter Your Name"
+                  className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                />
+              </div>
             </div>
 
             <div className="space-y-1">
               <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Phone Number</label>
-              <input
-                name="phone"
-                type="tel"
-                required
-                placeholder="Enter Phone Number"
-                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-              />
+              <div className="relative">
+                <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  name="phone"
+                  type="tel"
+                  required
+                  placeholder="Enter Phone Number"
+                  className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                />
+              </div>
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password / OTP</label>
-              <input
-                name="password"
-                type="password"
-                required
-                placeholder="Enter Password"
-                className="w-full px-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-              />
+              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="Min 6 chars (letters & numbers)"
+                  className="w-full pl-9 pr-10 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
+
+            {passwordError && (
+              <p className="text-[10px] text-red-600 bg-red-50 border border-red-200 p-2.5 rounded-xl leading-relaxed font-medium">
+                {passwordError}
+              </p>
+            )}
 
             <button
               type="submit"
