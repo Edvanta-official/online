@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
-import phonepeQrImg from '../assets/phonepe_qr.png';
+import phonepeQrImg from '../assets/phonepe_qr_code.jpg';
 
 export const CheckoutModal = () => {
   const {
