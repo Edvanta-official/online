@@ -106,7 +106,7 @@ export const Navbar = () => {
             {/* Brand Logo - Sparkel @kkv with custom colors & styling */}
             <Link to="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0">
               <div className="relative flex items-center justify-center">
-                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-2xl border-2 border-[#D4AF7F]/40 bg-[#FFF9F5] p-[2px] shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
                   <div className="w-full h-full bg-[#FFF9F5] rounded-[6px] sm:rounded-[12px] flex items-center justify-center">
                     <Sparkles className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
                   </div>
@@ -117,7 +117,7 @@ export const Navbar = () => {
                   <span className="text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors">SPARKEL</span>
                   <span className="text-[#2C2C2C]">@kkv</span>
                 </div>
-                <span className="text-[8px] sm:text-[8.5px] text-[#A8586C] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-semibold">
+                <span className="text-[8px] sm:text-[8.5px] text-[#8C4A57] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-semibold">
                   Luxury Fashion Accessories
                 </span>
               </div>
