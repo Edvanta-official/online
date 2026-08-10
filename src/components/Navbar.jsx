@@ -103,21 +103,21 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Brand Logo - Increased size Sparkel @kkv */}
-            <Link to="/" className="flex items-center gap-2 sm:gap-3.5 group shrink-0 py-1">
+            {/* Brand Logo - Perfectly Sized Sparkel @kkv */}
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 py-1">
               <div className="relative flex items-center justify-center">
-                <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-sm group-hover:scale-105 transition-transform duration-300">
-                  <div className="w-full h-full bg-[#FFF9F5] rounded-[8px] sm:rounded-[12px] flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 sm:w-7 sm:h-7 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
+                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-[#FFF9F5] rounded-[7px] sm:rounded-[12px] flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="font-serif-luxury text-xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none flex items-baseline gap-1.5">
+              <div className="flex flex-col justify-center">
+                <div className="font-serif-luxury text-lg sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-none flex items-baseline gap-1">
                   <span className="text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors">SPARKEL</span>
                   <span className="text-[#2C2C2C]">@kkv</span>
                 </div>
-                <span className="text-[8.5px] sm:text-[10px] text-[#8C4A57] font-montserrat tracking-[0.22em] uppercase hidden sm:block mt-1.5 font-bold">
+                <span className="text-[8px] sm:text-[9.5px] text-[#8C4A57] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-bold">
                   Luxury Fashion Accessories
                 </span>
               </div>
