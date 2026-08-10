@@ -103,20 +103,21 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Brand Logo - Sparkel @kkv with smaller kkv size */}
+            {/* Brand Logo - Sparkel @kkv with custom colors & styling */}
             <Link to="/" className="flex items-center gap-1.5 sm:gap-3 group shrink-0">
               <div className="relative flex items-center justify-center">
-                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-2xl bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] p-[2px] shadow-md group-hover:scale-105 transition-transform duration-300">
-                  <div className="w-full h-full bg-[#FFF9F5] rounded-[6px] sm:rounded-[14px] flex items-center justify-center">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-2xl border-2 border-[#D4AF7F]/40 bg-[#FFF9F5] p-[2px] shadow-sm group-hover:scale-105 transition-transform duration-300">
+                  <div className="w-full h-full bg-[#FFF9F5] rounded-[6px] sm:rounded-[12px] flex items-center justify-center">
                     <Sparkles className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif-luxury text-base sm:text-2xl font-bold tracking-tight text-[#2C2C2C] leading-none group-hover:text-[#C89B3C] transition-colors flex items-baseline">
-                  SPARKEL @<span className="text-[#D4AF7F] font-poppins text-[10px] sm:text-xs font-semibold lowercase ml-0.5 tracking-normal">kkv</span>
-                </span>
-                <span className="text-[8px] sm:text-[8.5px] text-[#D4AF7F] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-medium">
+                <div className="font-serif-luxury text-base sm:text-2xl font-bold tracking-tight leading-none flex items-baseline gap-1">
+                  <span className="text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors">SPARKEL</span>
+                  <span className="text-[#2C2C2C]">@kkv</span>
+                </div>
+                <span className="text-[8px] sm:text-[8.5px] text-[#A8586C] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-semibold">
                   Luxury Fashion Accessories
                 </span>
               </div>
@@ -581,13 +582,13 @@ export const Navbar = () => {
               </button>
 
               {/* Modal Header */}
-              <div className="p-6 pb-4 text-center bg-gradient-to-b from-[#FCE4EC]/40 to-transparent">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] p-[2px] mx-auto shadow-md mb-3">
-                  <div className="w-full h-full bg-[#FFF9F5] rounded-[14px] flex items-center justify-center">
+              <div className="p-6 pb-4 text-center bg-gradient-to-b from-[#FFF9F5] to-transparent">
+                <div className="w-12 h-12 rounded-2xl border-2 border-[#D4AF7F]/40 bg-[#FFF9F5] p-[2px] mx-auto shadow-sm mb-3 flex items-center justify-center">
+                  <div className="w-full h-full bg-[#FFF9F5] rounded-[12px] flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-[#C89B3C]" />
                   </div>
                 </div>
-                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">Welcome to SPARKEL @kkv</h3>
+                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">Welcome to <span className="text-[#C89B3C]">SPARKEL</span> @kkv</h3>
                 <p className="text-[11px] text-gray-500 font-poppins mt-1">Access your orders, custom sizes & exclusive coupons</p>
               </div>
 
