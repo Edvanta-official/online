@@ -103,7 +103,7 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Brand Logo - Perfectly Sized Sparkel @kkv */}
+            {/* Brand Logo - SPARKEL and @kkv in exact same font size & style */}
             <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 py-1">
               <div className="relative flex items-center justify-center">
                 <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
@@ -113,7 +113,7 @@ export const Navbar = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-center">
-                <div className="font-serif-luxury text-lg sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-none flex items-baseline gap-1">
+                <div className="font-serif-luxury text-xl sm:text-3xl font-extrabold tracking-tight leading-none flex items-center gap-1.5">
                   <span className="text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors">SPARKEL</span>
                   <span className="text-[#2C2C2C]">@kkv</span>
                 </div>
