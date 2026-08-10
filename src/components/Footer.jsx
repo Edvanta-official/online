@@ -43,10 +43,14 @@ export const Footer = () => {
               <div className="w-11 h-11 rounded-2xl bg-[#FFF9F5]/10 border border-[#D4AF7F]/40 flex items-center justify-center shadow-xs">
                 <Sparkles className="w-5 h-5 text-[#C89B3C]" />
               </div>
-              <span className="font-serif-luxury text-3xl font-extrabold tracking-tight flex items-baseline gap-1.5">
-                <span className="text-[#C89B3C]">SPARKEL</span>
-                <span className="text-white">@kkv</span>
-              </span>
+              <div className="flex items-center gap-1.5 leading-none">
+                <span className="font-serif-luxury text-3xl font-extrabold tracking-tight text-[#C89B3C] leading-none">
+                  SPARKEL
+                </span>
+                <span className="font-serif-luxury text-lg font-bold text-white self-center leading-none">
+                  @kkv
+                </span>
+              </div>
             </div>
 
             <p className="text-xs text-gray-300 font-light leading-relaxed">

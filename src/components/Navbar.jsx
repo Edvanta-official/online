@@ -103,7 +103,7 @@ export const Navbar = () => {
               </button>
             </div>
 
-            {/* Brand Logo - SPARKEL and @kkv in exact same font size & style */}
+            {/* Brand Logo - SPARKEL with decreased @kkv aligned at middle */}
             <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 py-1">
               <div className="relative flex items-center justify-center">
                 <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
@@ -113,9 +113,13 @@ export const Navbar = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-center">
-                <div className="font-serif-luxury text-xl sm:text-3xl font-extrabold tracking-tight leading-none flex items-center gap-1.5">
-                  <span className="text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors">SPARKEL</span>
-                  <span className="text-[#2C2C2C]">@kkv</span>
+                <div className="flex items-center gap-1.5 leading-none">
+                  <span className="font-serif-luxury text-xl sm:text-3xl font-extrabold tracking-tight text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors leading-none">
+                    SPARKEL
+                  </span>
+                  <span className="font-serif-luxury text-sm sm:text-lg font-bold text-[#2C2C2C] self-center leading-none tracking-normal">
+                    @kkv
+                  </span>
                 </div>
                 <span className="text-[8px] sm:text-[9.5px] text-[#8C4A57] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-bold">
                   Luxury Fashion Accessories
