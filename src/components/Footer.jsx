@@ -119,7 +119,14 @@ export const Footer = () => {
 
             <div className="pt-2">
               <span className="text-xs text-gray-400 font-poppins block mb-1">Follow Our Journey</span>
-              <span className="text-xs font-semibold text-[#D4AF7F]">{brandInfo.socials.instagram}</span>
+              <a
+                href={brandInfo.socials.instagramUrl || "https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ=="}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-[#D4AF7F] hover:text-[#FCE4EC] hover:underline flex items-center gap-1.5 transition-colors"
+              >
+                {brandInfo.socials.instagram}
+              </a>
             </div>
           </div>
 

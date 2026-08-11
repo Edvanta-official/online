@@ -7,7 +7,8 @@ export const BRAND_INFO = {
   email: "support@sparklekkv.com",
   address: "iCONIC STAY MADHAPUR AYYAPA SOCITY",
   socials: {
-    instagram: "@sparklekkv_official",
+    instagram: "@sparklekkvoffical",
+    instagramUrl: "https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ==",
     facebook: "SparkleKKV",
     pinterest: "sparklekkv"
   }
@@ -1051,7 +1052,7 @@ export const COUPONS = [
 export const PROMO_CODES = COUPONS;
 
 export const INSTAGRAM_POSTS = [
-  { id: "ig1", image: "images/plumeria_flower.jpg", likes: "2.4k", comments: "182", tag: "@sparklekkv_official" },
+  { id: "ig1", image: "images/plumeria_flower.jpg", likes: "2.4k", comments: "182", tag: "@sparklekkvoffical" },
   { id: "ig2", image: "images/kundan_choker_set.jpg", likes: "1.9k", comments: "94", tag: "#SparkleGirl" },
   { id: "ig3", image: "images/organza_rose.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
   { id: "ig4", image: "images/emerald_dangles.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
