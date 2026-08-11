@@ -77,16 +77,16 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 transition-all duration-300">
+    <header className="sticky top-0 z-[100] transition-all duration-300 shadow-md">
       {/* Announcement Bar with Marquee Tag */}
-      <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center">
+      <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center relative z-[100]">
         <marquee behavior="scroll" direction="left" scrollamount="6" className="font-montserrat text-[11px] sm:text-xs tracking-widest uppercase flex items-center gap-4 py-0.5">
           ✨ LUXURY FASHION ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA EXPRESS SHIPPING ON ALL ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE30</span> FOR 30% OFF • 100% HANDCRAFTED ANTI-TARNISH FINISH • SIGNATURE VELVET BOX PACKAGING ✨
         </marquee>
       </div>
 
       {/* Main Glass Header */}
-      <nav className="glass-header border-b border-[#FCE4EC]/60 shadow-xs">
+      <nav className="glass-header border-b border-[#FCE4EC]/60 shadow-md relative z-[100] bg-white/98">
         
         {/* Tier 1: Brand Bar (Logo + Search Bar + Actions) */}
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">

@@ -19,7 +19,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+    <div className="group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full isolate">
       
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>

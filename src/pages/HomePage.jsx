@@ -98,8 +98,8 @@ export const HomePage = () => {
             <span className="text-[#C89B3C] font-montserrat text-xs tracking-widest uppercase font-semibold block">
               The Sparkel Advantage
             </span>
-            <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C] flex items-baseline justify-center gap-1">
-              Why Choose SPARKEL<span className="text-[#D4AF7F] font-poppins text-sm sm:text-lg font-semibold lowercase tracking-normal">@kkv</span>?
+            <h2 className="font-serif-luxury text-2xl sm:text-4xl font-bold text-[#2C2C2C] text-center tracking-tight leading-snug">
+              Why Choose SPARKLE <span className="text-[#C89B3C] font-poppins text-base sm:text-2xl font-semibold italic inline-block">@kkv</span>?
             </h2>
             <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF7F] to-transparent mx-auto rounded-full" />
             <p className="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto font-light leading-relaxed">
