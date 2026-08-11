@@ -17,23 +17,22 @@ export const HeroBanner = () => {
           <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
             
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3.5 py-1.5 rounded-full font-montserrat text-[10px] sm:text-xs tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" />
-              <span>Where Every Accessory Tells Your Story</span>
+            <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
+              <Sparkles className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
+              <span className="truncate sm:whitespace-normal">Where Every Accessory Tells Your Story</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#2C2C2C] leading-[1.2]">
-              Luxury Fashion <br className="hidden sm:inline" />
-              <span className="gold-gradient-text italic font-normal">Accessories</span>
+            <h1 className="font-serif-luxury text-2xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#2C2C2C] leading-snug sm:leading-[1.2] max-w-full">
+              Luxury Fashion <span className="gold-gradient-text italic font-normal">Accessories</span>
               <br />
-              <span className="text-2xl sm:text-4xl lg:text-5xl font-medium text-[#2C2C2C]/90">
+              <span className="text-base sm:text-3xl lg:text-4xl font-medium text-[#2C2C2C]/90 block mt-1.5 sm:mt-2">
                 Designed to Make Every Girl Shine.
               </span>
             </h1>
 
             {/* Category Pill Subtext */}
-            <p className="text-xs sm:text-base text-gray-600 font-poppins max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+            <p className="text-xs sm:text-base text-gray-600 font-poppins max-w-xl mx-auto lg:mx-0 font-light leading-relaxed px-1 sm:px-0">
               Explore our boutique collection of handcrafted Premium Earrings, Hair Flowers, Butterfly Clips, Bangles, Bracelets, and Choker Necklace Sets.
             </p>
 
