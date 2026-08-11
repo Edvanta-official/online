@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
 import exactScannerImg from '../assets/phonepe_scanner_exact.png';
@@ -163,7 +163,18 @@ export const CheckoutModal = () => {
                   </div>
                 </div>
 
-                <div className="pt-4 flex justify-end font-montserrat">
+                {/* Mandatory Unboxing Video Warning Banner */}
+                <div className="bg-amber-50/95 border border-amber-300/80 rounded-2xl p-3.5 space-y-1 text-left font-poppins">
+                  <div className="flex items-center gap-1.5 text-amber-900 font-montserrat text-xs font-bold">
+                    <Video className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>Mandatory Unboxing Video Policy</span>
+                  </div>
+                  <p className="text-[11px] text-amber-800 font-light leading-relaxed">
+                    ⚠️ <strong>Important Return & Damage Guarantee:</strong> Returns/replacements for damaged or defective products are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original parcel seal being opened on camera for the first time without edits).
+                  </p>
+                </div>
+
+                <div className="pt-2 flex justify-end font-montserrat">
                   <button
                     type="submit"
                     className="bg-[#2C2C2C] text-[#FCE4EC] px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:bg-[#3A2D32]"

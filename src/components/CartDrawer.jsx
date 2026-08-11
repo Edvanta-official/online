@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Trash2, ArrowRight, ShoppingBag, Sparkles, Tag, Check, ShieldCheck } from 'lucide-react';
+import { X, Trash2, ArrowRight, ShoppingBag, Sparkles, Tag, Check, ShieldCheck, Video, AlertTriangle } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 
 export const CartDrawer = () => {
@@ -165,7 +165,7 @@ export const CartDrawer = () => {
 
           {/* Footer Subtotal & Coupon Form */}
           {cart.length > 0 && (
-            <div className="p-6 bg-white border-t border-[#FCE4EC] space-y-4 shadow-xl">
+            <div className="p-6 bg-white border-t border-[#FCE4EC] space-y-3.5 shadow-xl">
               
               {/* Promo Coupon Input */}
               <form onSubmit={handleApplyCouponSubmit} className="space-y-1">
@@ -199,7 +199,7 @@ export const CartDrawer = () => {
               </form>
 
               {/* Price Breakdown */}
-              <div className="space-y-1.5 font-poppins text-xs pt-2 border-t border-gray-100">
+              <div className="space-y-1 font-poppins text-xs pt-2 border-t border-gray-100">
                 <div className="flex justify-between text-gray-600">
                   <span>Bag Subtotal</span>
                   <span className="font-semibold">₹{cartSubtotal}</span>
@@ -214,10 +214,21 @@ export const CartDrawer = () => {
                   <span>Estimated Shipping</span>
                   <span>{shippingFee === 0 ? <strong className="text-emerald-600">FREE</strong> : `₹${shippingFee}`}</span>
                 </div>
-                <div className="flex justify-between text-base font-bold text-[#2C2C2C] pt-2 border-t border-gray-100">
+                <div className="flex justify-between text-base font-bold text-[#2C2C2C] pt-1.5 border-t border-gray-100">
                   <span>Total Amount</span>
                   <span className="text-[#C89B3C]">₹{cartTotal}</span>
                 </div>
+              </div>
+
+              {/* Mandatory Unboxing Video & Damage Return Notice */}
+              <div className="bg-amber-50/95 border border-amber-300/80 rounded-2xl p-3 space-y-1 text-left font-poppins shadow-xs">
+                <div className="flex items-center gap-1.5 text-amber-900 font-montserrat text-[11px] font-bold">
+                  <Video className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <span>Mandatory Unboxing Video Policy</span>
+                </div>
+                <p className="text-[10.5px] text-amber-800 font-light leading-relaxed">
+                  ⚠️ <strong>Important Notice:</strong> For damaged or missing products, returns/replacements are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original courier seal being opened on camera for the first time).
+                </p>
               </div>
 
               {/* Checkout CTA */}
