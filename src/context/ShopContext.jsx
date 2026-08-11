@@ -277,6 +277,7 @@ export const ShopProvider = ({ children }) => {
       brandInfo: BRAND_INFO,
       products,
       categories,
+      COUPONS,
       cart,
       wishlist,
       orders,

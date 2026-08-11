@@ -81,7 +81,7 @@ export const Navbar = () => {
       {/* Announcement Bar with Marquee Tag */}
       <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center">
         <marquee behavior="scroll" direction="left" scrollamount="6" className="font-montserrat text-[11px] sm:text-xs tracking-widest uppercase flex items-center gap-4 py-0.5">
-          ✨ LUXURY FASHION ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA EXPRESS SHIPPING ON ALL ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKEL30</span> FOR 30% OFF • 100% HANDCRAFTED ANTI-TARNISH FINISH • SIGNATURE VELVET BOX PACKAGING ✨
+          ✨ LUXURY FASHION ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA EXPRESS SHIPPING ON ALL ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE30</span> FOR 30% OFF • 100% HANDCRAFTED ANTI-TARNISH FINISH • SIGNATURE VELVET BOX PACKAGING ✨
         </marquee>
       </div>
 
@@ -115,7 +115,7 @@ export const Navbar = () => {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-1.5 leading-none">
                   <span className="font-serif-luxury text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors leading-none">
-                    SPARKEL
+                    SPARKLE
                   </span>
                   <span className="inline-flex items-center text-[#2C2C2C] font-poppins text-xs sm:text-base font-bold tracking-tight self-center leading-none mt-0.5">
                     <span className="font-serif italic font-normal text-sm sm:text-lg mr-0.5">@</span>kkv
@@ -327,15 +327,6 @@ export const Navbar = () => {
                 }`} />
               </Link>
 
-              <a
-                href="#about"
-                onClick={handleAboutClick}
-                className="transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 hover:text-[#C89B3C]"
-              >
-                <span>About Us</span>
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 scale-x-0 group-hover:scale-x-100" />
-              </a>
-
               <Link
                 to="/shop"
                 className={`transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 ${
@@ -388,6 +379,15 @@ export const Navbar = () => {
                   </div>
                 );
               })}
+
+              <a
+                href="#about"
+                onClick={handleAboutClick}
+                className="transition-colors relative py-3 group whitespace-nowrap flex items-center gap-1.5 hover:text-[#C89B3C]"
+              >
+                <span>About Us</span>
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C89B3C] transition-transform duration-300 scale-x-0 group-hover:scale-x-100" />
+              </a>
             </div>
           </div>
         </div>
@@ -451,19 +451,6 @@ export const Navbar = () => {
                 <span>Home</span>
               </Link>
 
-              {/* ABOUT US LINK IN MOBILE DRAWER */}
-              <a
-                href="#about"
-                onClick={(e) => {
-                  setIsMobileMenuOpen(false);
-                  handleAboutClick(e);
-                }}
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-[#2C2C2C] hover:bg-[#FFF9F5] hover:text-[#C89B3C] transition-all"
-              >
-                <Sparkles className="w-4 h-4 text-[#D4AF7F]" />
-                <span>About Us</span>
-              </a>
-
               {/* SHOP ALL LINK IN MOBILE DRAWER */}
               <Link
                 to="/shop"
@@ -522,6 +509,19 @@ export const Navbar = () => {
                   </div>
                 );
               })}
+
+              {/* ABOUT US LINK IN MOBILE DRAWER (Moved after categories) */}
+              <a
+                href="#about"
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  handleAboutClick(e);
+                }}
+                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-bold text-[#2C2C2C] hover:bg-[#FFF9F5] hover:text-[#C89B3C] transition-all"
+              >
+                <Sparkles className="w-4 h-4 text-[#D4AF7F]" />
+                <span>About Us</span>
+              </a>
             </div>
 
             {/* Quick Action Links inside Mobile Drawer */}

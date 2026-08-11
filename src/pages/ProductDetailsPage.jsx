@@ -271,7 +271,7 @@ export const ProductDetailsPage = () => {
                         <div className="flex items-center gap-3 text-[11px] text-gray-600">
                           <span className="flex items-center gap-1"><Banknote className="w-3.5 h-3.5 text-[#C89B3C]" /> Cash on Delivery (COD) Available</span>
                           <span>•</span>
-                          <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-[#C89B3C]" /> Free Express Shipping</span>
+                          <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" /> Own Manufacture</span>
                         </div>
                       </div>
                     ) : (

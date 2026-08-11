@@ -135,16 +135,16 @@ export const HomePage = () => {
               </p>
             </div>
  
-            {/* Card 3: Pan-India Express Shipping */}
+            {/* Card 3: Own Manufacture */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-sm hover:shadow-xl transition-all duration-300 space-y-3.5 group">
               <div className="w-12 h-12 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300">
-                🚚
+                🏭
               </div>
               <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
-                Free Express Shipping
+                Own Manufacture
               </h3>
               <p className="text-xs text-gray-500 font-light leading-relaxed">
-                Enjoy free express shipping on all orders over ₹999, shipped via top carriers (Delhivery & BlueDart) with live SMS/WhatsApp tracking notifications.
+                Directly manufactured in our own boutique production facility with strict quality assurance, fine craftsmanship, and factory-direct pricing.
               </p>
             </div>
 

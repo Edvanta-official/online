@@ -85,6 +85,7 @@ export const Footer = () => {
               <li><Link to="/shop?category=scrunchies" className="hover:text-[#C89B3C] transition-colors">🎀 Pure Mulberry Silk Scrunchies</Link></li>
               <li><Link to="/shop?category=bangles" className="hover:text-[#C89B3C] transition-colors">💍 Pearl & Rose Gold Bangles</Link></li>
               <li><Link to="/shop?category=necklaces" className="hover:text-[#C89B3C] transition-colors">📿 Bridal Choker Necklace Sets</Link></li>
+              <li><Link to="/shop?category=chains" className="hover:text-[#C89B3C] transition-colors">⛓️ Anti-Tarnish Chains & Pendants</Link></li>
               <li><Link to="/shop?category=gift-sets" className="hover:text-[#C89B3C] text-[#D4AF7F] font-semibold transition-colors">🎁 Luxury Festive Gift Sets</Link></li>
             </ul>
           </div>

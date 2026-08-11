@@ -17,7 +17,7 @@ export const AboutSection = () => {
             <Sparkles className="w-3.5 h-3.5" /> Our Story & Leadership
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
-            About Sparkel <span className="gold-gradient-text lowercase italic font-serif">@kkv</span>
+            About Sparkle <span className="gold-gradient-text lowercase italic font-serif">@kkv</span>
           </h2>
           <p className="text-xs sm:text-sm text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
             Where heritage craftsmanship meets contemporary boutique fashion accessories.
@@ -72,7 +72,7 @@ export const AboutSection = () => {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-[#D4AF7F] shrink-0 mt-0.5" />
-                    <span>Sparkel Luxury Boutique, Fashion District, India</span>
+                    <span>iCONIC STAY MADHAPUR AYYAPA SOCITY</span>
                   </div>
                 </div>
 
@@ -89,7 +89,7 @@ export const AboutSection = () => {
                 Crafting Timeless Accessories for Every Moment
               </h3>
               <p className="text-xs sm:text-sm text-gray-600 font-light leading-relaxed">
-                Founded by <strong>Koti Koushik</strong>, <strong>Sparkel @kkv</strong> was born out of a vision to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
+                Founded by <strong>Koti Koushik</strong>, <strong>Sparkle @kkv</strong> was born out of a vision to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
               </p>
             </div>
 

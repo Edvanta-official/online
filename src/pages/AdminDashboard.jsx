@@ -353,6 +353,7 @@ export const AdminDashboard = () => {
                       <option value="bangles">Bangles</option>
                       <option value="bracelets">Bracelets</option>
                       <option value="necklaces">Necklace Sets</option>
+                      <option value="chains">Chains & Pendants</option>
                       <option value="gift-sets">Gift Sets</option>
                     </select>
                   </div>
