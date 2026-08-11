@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useShop } from '../context/ShopContext';
 import { ProductCard } from '../components/ProductCard';
 import { Star, Heart, ShoppingBag, Truck, ShieldCheck, RefreshCw, Zap, Share2, Sparkles, MapPin, CheckCircle2, PackageCheck, Banknote, ShieldAlert } from 'lucide-react';
+import { getDirectImageUrl } from '../utils/imageUtils';
 
 export const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ export const ProductDetailsPage = () => {
           <div className="lg:col-span-6 space-y-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-[#FFF9F5] border border-[#D4AF7F]/30 shadow-inner group">
               <img
-                src={product.images[selectedImageIndex] || product.images[0] || 'images/butterfly_clip.jpg'}
+                src={getDirectImageUrl(product.images[selectedImageIndex] || product.images[0]) || 'images/butterfly_clip.jpg'}
                 alt={product.name}
                 onError={(e) => {
                   e.target.src = 'images/butterfly_clip.jpg';
@@ -119,7 +120,7 @@ export const ProductDetailsPage = () => {
                     onClick={() => setSelectedImageIndex(idx)}
                     className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${selectedImageIndex === idx ? 'border-[#C89B3C] shadow-md scale-105' : 'border-transparent opacity-70 hover:opacity-100'}`}
                   >
-                    <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
+                    <img src={getDirectImageUrl(img)} alt="thumbnail" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

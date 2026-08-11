@@ -2,6 +2,7 @@ import React from 'react';
 import { Heart, ShoppingBag, Eye, Star, Zap } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { getDirectImageUrl } from '../utils/imageUtils';
 
 export const ProductCard = ({ product }) => {
   const { wishlist, toggleWishlist, addToCart, setQuickViewProduct, setIsCheckoutOpen } = useShop();
@@ -24,7 +25,7 @@ export const ProductCard = ({ product }) => {
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
         <img
-          src={product.images[0] || 'images/butterfly_clip.jpg'}
+          src={getDirectImageUrl(product.images[0]) || 'images/butterfly_clip.jpg'}
           alt={product.name}
           onError={(e) => {
             e.target.src = 'images/butterfly_clip.jpg';
