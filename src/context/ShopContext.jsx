@@ -7,56 +7,85 @@ export const ShopProvider = ({ children }) => {
   const [products, setProducts] = useState(PRODUCTS);
   const [categories, setCategories] = useState(CATEGORIES);
   const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem('sparkel_cart');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('sparkel_cart');
+      if (!saved) return [];
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed.filter(item => item && item.product && typeof item.product.price === 'number') : [];
+    } catch (e) {
+      return [];
+    }
   });
   
   const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem('sparkel_wishlist');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('sparkel_wishlist');
+      if (!saved) return [];
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
   });
 
+  const defaultOrders = [
+    {
+      id: "ORD-98241",
+      customerName: "Ananya Sharma",
+      items: [
+        { name: "Premium Swarovski Butterfly Hair Clip", price: 179, quantity: 2, image: "images/butterfly_clip.jpg" }
+      ],
+      finalAmount: 358,
+      paymentMethod: "Razorpay / UPI",
+      paymentStatus: "Paid",
+      orderStatus: "Shipped",
+      trackingNumber: "SPK-IN-9812489",
+      createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+    }
+  ];
+
   const [orders, setOrders] = useState(() => {
-    const saved = localStorage.getItem('sparkel_orders');
-    return saved ? JSON.parse(saved) : [
-      {
-        id: "ORD-98241",
-        customerName: "Ananya Sharma",
-        items: [
-          { name: "Premium Swarovski Butterfly Hair Clip", price: 179, quantity: 2, image: "images/butterfly_clip.jpg" }
-        ],
-        finalAmount: 358,
-        paymentMethod: "Razorpay / UPI",
-        paymentStatus: "Paid",
-        orderStatus: "Shipped",
-        trackingNumber: "SPK-IN-9812489",
-        createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-      }
-    ];
+    try {
+      const saved = localStorage.getItem('sparkel_orders');
+      if (!saved) return defaultOrders;
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : defaultOrders;
+    } catch (e) {
+      return defaultOrders;
+    }
   });
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponError, setCouponError] = useState("");
+
+  const defaultUser = {
+    name: "Ananya Sharma",
+    email: "ananya@example.com",
+    role: "customer",
+    isLoggedIn: false,
+    savedAddresses: [
+      {
+        id: "addr1",
+        fullName: "Ananya Sharma",
+        phone: "+91 9949157771",
+        street: "Flat 402, Rosewood Heights, Bandra West",
+        city: "Mumbai",
+        state: "Maharashtra",
+        pincode: "400050",
+        isDefault: true
+      }
+    ]
+  };
+
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('sparkel_user');
-    return saved ? JSON.parse(saved) : {
-      name: "Ananya Sharma",
-      email: "ananya@example.com",
-      role: "customer", // 'customer' or 'admin'
-      isLoggedIn: false, // Start logged out by default
-      savedAddresses: [
-        {
-          id: "addr1",
-          fullName: "Ananya Sharma",
-          phone: "+91 9949157771",
-          street: "Flat 402, Rosewood Heights, Bandra West",
-          city: "Mumbai",
-          state: "Maharashtra",
-          pincode: "400050",
-          isDefault: true
-        }
-      ]
-    };
+    try {
+      const saved = localStorage.getItem('sparkel_user');
+      if (!saved) return defaultUser;
+      const parsed = JSON.parse(saved);
+      return (parsed && typeof parsed === 'object') ? parsed : defaultUser;
+    } catch (e) {
+      return defaultUser;
+    }
   });
 
   // UI States
@@ -69,19 +98,27 @@ export const ShopProvider = ({ children }) => {
 
   // Sync to LocalStorage
   useEffect(() => {
-    localStorage.setItem('sparkel_cart', JSON.stringify(cart));
+    try {
+      localStorage.setItem('sparkel_cart', JSON.stringify(cart));
+    } catch (e) {}
   }, [cart]);
 
   useEffect(() => {
-    localStorage.setItem('sparkel_wishlist', JSON.stringify(wishlist));
+    try {
+      localStorage.setItem('sparkel_wishlist', JSON.stringify(wishlist));
+    } catch (e) {}
   }, [wishlist]);
 
   useEffect(() => {
-    localStorage.setItem('sparkel_user', JSON.stringify(user));
+    try {
+      localStorage.setItem('sparkel_user', JSON.stringify(user));
+    } catch (e) {}
   }, [user]);
 
   useEffect(() => {
-    localStorage.setItem('sparkel_orders', JSON.stringify(orders));
+    try {
+      localStorage.setItem('sparkel_orders', JSON.stringify(orders));
+    } catch (e) {}
   }, [orders]);
 
   const showToast = (message, type = "success") => {
@@ -93,20 +130,22 @@ export const ShopProvider = ({ children }) => {
 
   // Cart Management
   const addToCart = (product, quantity = 1, color = null) => {
+    if (!product || !product.id) return;
     setCart(prev => {
-      const existingIndex = prev.findIndex(item => item.product.id === product.id);
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const existingIndex = safePrev.findIndex(item => item && item.product && item.product.id === product.id);
       if (existingIndex > -1) {
-        const updated = [...prev];
+        const updated = [...safePrev];
         updated[existingIndex].quantity += quantity;
         return updated;
       }
-      return [...prev, { product, quantity, selectedColor: color || product.colors?.[0] || 'Default' }];
+      return [...safePrev, { product, quantity, selectedColor: color || product.colors?.[0] || 'Default' }];
     });
     showToast(`✨ Added "${product.name}" to your luxury cart!`);
   };
 
   const removeFromCart = (productId) => {
-    setCart(prev => prev.filter(item => item.product.id !== productId));
+    setCart(prev => (Array.isArray(prev) ? prev.filter(item => item && item.product && item.product.id !== productId) : []));
     showToast("Item removed from cart.", "info");
   };
 
@@ -115,7 +154,7 @@ export const ShopProvider = ({ children }) => {
       removeFromCart(productId);
       return;
     }
-    setCart(prev => prev.map(item => item.product.id === productId ? { ...item, quantity: newQuantity } : item));
+    setCart(prev => (Array.isArray(prev) ? prev.map(item => (item && item.product && item.product.id === productId) ? { ...item, quantity: newQuantity } : item) : []));
   };
 
   const clearCart = () => {
@@ -125,12 +164,14 @@ export const ShopProvider = ({ children }) => {
 
   // Wishlist Management
   const toggleWishlist = (product) => {
-    const isWishlisted = wishlist.includes(product.id);
+    if (!product || !product.id) return;
+    const safeWishlist = Array.isArray(wishlist) ? wishlist : [];
+    const isWishlisted = safeWishlist.includes(product.id);
     if (isWishlisted) {
-      setWishlist(prev => prev.filter(id => id !== product.id));
+      setWishlist(prev => (Array.isArray(prev) ? prev.filter(id => id !== product.id) : []));
       showToast(`Removed from wishlist`, "info");
     } else {
-      setWishlist(prev => [...prev, product.id]);
+      setWishlist(prev => [...(Array.isArray(prev) ? prev : []), product.id]);
       showToast(`💖 Saved "${product.name}" to wishlist!`);
     }
   };
@@ -139,7 +180,10 @@ export const ShopProvider = ({ children }) => {
   const applyCoupon = (code) => {
     setCouponError("");
     const found = COUPONS.find(c => c.code.toUpperCase() === code.trim().toUpperCase());
-    const cartSubtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    const cartSubtotal = Array.isArray(cart) ? cart.reduce((sum, item) => {
+      if (!item || !item.product || typeof item.product.price !== 'number') return sum;
+      return sum + (item.product.price * (item.quantity || 1));
+    }, 0) : 0;
 
     if (!found) {
       setCouponError("Invalid coupon code. Try SPARKEL10 or LUXURY20.");
@@ -165,7 +209,11 @@ export const ShopProvider = ({ children }) => {
   };
 
   // Subtotals and totals
-  const cartSubtotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const cartSubtotal = Array.isArray(cart) ? cart.reduce((sum, item) => {
+    if (!item || !item.product || typeof item.product.price !== 'number') return sum;
+    return sum + (item.product.price * (item.quantity || 1));
+  }, 0) : 0;
+
   const auto30PercentDiscount = cartSubtotal >= 999 ? 30 : 0;
   const effectiveDiscountPercent = appliedCoupon 
     ? Math.max(appliedCoupon.discountPercent, auto30PercentDiscount) 

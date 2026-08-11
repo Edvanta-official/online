@@ -40,35 +40,80 @@ const ToastNotification = () => {
   );
 };
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Session load error caught by ErrorBoundary:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#FFF9F5] flex flex-col items-center justify-center p-6 text-center font-poppins">
+          <div className="w-16 h-16 rounded-full bg-[#FCE4EC] flex items-center justify-center text-3xl mb-4 text-[#C89B3C] shadow-sm">
+            ✨
+          </div>
+          <h2 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C] mb-2">Sparkle @kkv Luxury Accessories</h2>
+          <p className="text-xs text-gray-500 max-w-sm mb-6 font-light">
+            We noticed an issue loading your cached browser session. Click below to reset your session and reload!
+          </p>
+          <button
+            onClick={() => {
+              try {
+                localStorage.clear();
+              } catch (e) {}
+              window.location.reload();
+            }}
+            className="bg-[#2C2C2C] text-[#FCE4EC] hover:bg-[#C89B3C] hover:text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-md font-montserrat"
+          >
+            Reset Session & Reload
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export function App() {
   return (
-    <ShopProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="min-h-screen flex flex-col justify-between selection:bg-[#FCE4EC] selection:text-[#C89B3C]">
-          <Navbar />
-          
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="/product/:id" element={<ProductDetailsPage />} />
-              <Route path="/dashboard" element={<CustomerDashboard />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-          </main>
+    <ErrorBoundary>
+      <ShopProvider>
+        <Router>
+          <ScrollToTop />
+          <div className="min-h-screen flex flex-col justify-between selection:bg-[#FCE4EC] selection:text-[#C89B3C]">
+            <Navbar />
+            
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/shop" element={<ShopPage />} />
+                <Route path="/product/:id" element={<ProductDetailsPage />} />
+                <Route path="/dashboard" element={<CustomerDashboard />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+              </Routes>
+            </main>
 
-          <Footer />
+            <Footer />
 
-          {/* Interactive Modals & Drawers */}
-          <CartDrawer />
-          <WishlistDrawer />
-          <ProductQuickViewModal />
-          <CheckoutModal />
-          <ToastNotification />
-        </div>
-      </Router>
-    </ShopProvider>
+            {/* Interactive Modals & Drawers */}
+            <CartDrawer />
+            <WishlistDrawer />
+            <ProductQuickViewModal />
+            <CheckoutModal />
+            <ToastNotification />
+          </div>
+        </Router>
+      </ShopProvider>
+    </ErrorBoundary>
   );
 }
 
