@@ -25,10 +25,15 @@ export const ProductCard = ({ product }) => {
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
         <img
-          src={getDirectImageUrl(product.images[0]) || 'images/plumeria_flower.jpg'}
+          src={getDirectImageUrl(product.images[0])}
           alt={product.name}
           onError={(e) => {
-            e.target.src = 'images/plumeria_flower.jpg';
+            if (product.images[1] && !e.target.dataset.triedFallback) {
+              e.target.dataset.triedFallback = "true";
+              e.target.src = getDirectImageUrl(product.images[1]);
+            } else {
+              e.target.src = 'https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS';
+            }
           }}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
         />
