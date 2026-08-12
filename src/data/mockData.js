@@ -84,7 +84,7 @@ export const CATEGORIES = [
     icon: "🌸",
     count: 8,
     description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
-    image: "images/plumeria_flower_clip_drive.jpg"
+    image: "images/plumeria_flower_claw_clip_drive.jpg"
   },
   {
     id: "necklaces",
@@ -153,7 +153,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["images/plumeria_flower_clip_drive.jpg", "https://lh3.googleusercontent.com/d/1rPZ8EhDkG-QtmE2KWQVOcR1OzuzxIoIc"],
+    images: ["images/plumeria_flower_claw_clip_drive.jpg", "https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS"],
     colors: ["Pink", "Peach", "White"],
     description: "Handcrafted Plumeria flower hair claw clip with durable spring grip.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹86/Set (₹7.1/Piece)", "Material: Premium Resin & Rust-Proof Spring", "Packaging: Velvet Sparkle Pouch"]
@@ -174,7 +174,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 24,
-    images: ["images/claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1vzveS5cSxJoQy5wSko9pi8dpyEB6PY9i"],
+    images: ["images/claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1j5CJZHQCf5JrCuyl5y1BO2xXOS9-CvXw"],
     colors: ["Pastel Beige", "Dusty Pink", "Sage Green"],
     description: "Premium pastel claw clips set designed for secure daily hair updos.",
     details: ["Quantity: 2 Sets (24 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Material: High-Impact Matte Acrylic"]
@@ -237,7 +237,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["images/mini_claws.jpg", "images/cross_claw_clips_drive.jpg"],
+    images: ["images/rectangle_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1qWVLGtZJGGMhnViLWIdvgGx-55-lYIk1"],
     colors: ["Amber Tortoise", "Matte Nude"],
     description: "Minimalist rectangular hollow hair claw clip suitable for thick and medium hair.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹148/Set (₹12.3/Piece)", "Material: Durable Cellulose Acetate"]
@@ -258,7 +258,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 12,
-    images: ["images/plumeria_flower_clip_drive.jpg", "images/organza_rose.jpg"],
+    images: ["images/plumeria_flower_claw_clip_drive.jpg", "images/organza_rose.jpg"],
     colors: ["Pastel Blossom Pink", "Lilac"],
     description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹702/Set (₹58.5/Piece)", "Craftsmanship: Handcrafted Premium"]
