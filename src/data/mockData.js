@@ -216,7 +216,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 12,
-    images: ["images/metallic_claw.jpg", "images/claw_clips_drive.jpg"],
+    images: ["images/whale_tail_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1azzeeH0n9VLMISo4jhWinLg4Du3Sh-lW"],
     colors: ["Metallic Gold", "Silver"],
     description: "Aesthetic whale tail shaped metallic hair claw clip for French twist updos.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Finish: 18K Micro Gold Polish"]
@@ -258,7 +258,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 12,
-    images: ["images/plumeria_flower_claw_clip_drive.jpg", "images/organza_rose.jpg"],
+    images: ["images/pastel_flower_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1Avy7_hVeWt62F0E1zHMAsMCbegy7yq1T"],
     colors: ["Pastel Blossom Pink", "Lilac"],
     description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹702/Set (₹58.5/Piece)", "Craftsmanship: Handcrafted Premium"]
@@ -279,7 +279,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["images/plumeria_flower_clip_drive.jpg", "images/jasmine_pins.jpg"],
+    images: ["images/hawaiian_plumeria_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/14fTD_dYkWHsblU46ABvTvfT4CmZIQxaY"],
     colors: ["White & Yellow", "Coral"],
     description: "Tropical Hawaiian Frangipani Plumeria flower hair claws for vacation and beachwear.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹129/Set (₹10.7/Piece)", "Ideal for: Beach Wear & Vacations"]
@@ -300,7 +300,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 12,
-    images: ["images/plumeria_flower_clip_drive.jpg", "images/flower_clips_set.jpg"],
+    images: ["images/flower_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1e0B0T2whbVQGI04CqjaDCwGzUwnOikaC"],
     colors: ["Multicolor Floral"],
     description: "Elegant 5-petal floral claw clip set featuring matte anti-slip grip.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹137/Set (₹11.4/Piece)"]
