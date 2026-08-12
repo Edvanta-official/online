@@ -23,43 +23,50 @@ export const InstagramGallery = () => {
             </h2>
           </div>
           
-          {/* Social Media Icons */}
-          <div className="flex items-center gap-3">
+          {/* Social Media Icons - Increased Size & Direct Links */}
+          <div className="flex items-center gap-3.5 sm:gap-4">
+            {/* Instagram */}
             <a
-              href="https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ=="
+              href="https://www.instagram.com/sparklekkvoffical?igsh=ZDZtcTUwdzZjaTF2"
               target="_blank"
               rel="noopener noreferrer"
-              title="Instagram"
-              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#E4405F] hover:bg-[#E4405F] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+              title="Follow us on Instagram"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FFF9F5] border-2 border-[#D4AF7F] text-[#E4405F] hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl hover:scale-115"
             >
-              <Instagram className="w-5 h-5" />
+              <Instagram className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>
+
+            {/* YouTube */}
             <a
-              href="https://youtube.com"
+              href="https://youtube.com/@sparklekkv_offical?si=8odtaXx_8ziRsyUn"
               target="_blank"
               rel="noopener noreferrer"
-              title="YouTube"
-              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#FF0000] hover:bg-[#FF0000] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+              title="Subscribe on YouTube"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FFF9F5] border-2 border-[#D4AF7F] text-[#FF0000] hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl hover:scale-115"
             >
-              <Youtube className="w-5 h-5" />
+              <Youtube className="w-6 h-6 sm:w-7 sm:h-7" />
             </a>
+
+            {/* WhatsApp Group */}
             <a
-              href="https://wa.me/919949157771"
+              href="https://chat.whatsapp.com/J8Sg0zst5Hb7X28XspxDCZ"
               target="_blank"
               rel="noopener noreferrer"
-              title="WhatsApp"
-              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#25D366] hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+              title="Join our WhatsApp Group"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FFF9F5] border-2 border-[#D4AF7F] text-[#25D366] hover:bg-[#25D366] hover:text-white hover:border-[#25D366] flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl hover:scale-115"
             >
-              <MessageCircle className="w-5 h-5 fill-current" />
+              <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-current" />
             </a>
+
+            {/* Facebook */}
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              title="Facebook"
-              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#1877F2] hover:bg-[#1877F2] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+              title="Follow us on Facebook"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FFF9F5] border-2 border-[#D4AF7F] text-[#1877F2] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-xl hover:scale-115"
             >
-              <Facebook className="w-5 h-5 fill-current" />
+              <Facebook className="w-6 h-6 sm:w-7 sm:h-7 fill-current" />
             </a>
           </div>
         </div>
