@@ -153,7 +153,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS"],
+    images: ["images/plumeria_flower_claw_clip_drive.jpg", "https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS"],
     colors: ["Pink", "Peach", "White"],
     description: "Handcrafted Plumeria flower hair claw clip with durable spring grip.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹86/Set (₹7.1/Piece)", "Material: Premium Resin & Rust-Proof Spring", "Packaging: Velvet Sparkle Pouch"]
@@ -174,7 +174,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 24,
-    images: ["https://lh3.googleusercontent.com/d/1j5CJZHQCf5JrCuyl5y1BO2xXOS9-CvXw"],
+    images: ["images/claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1j5CJZHQCf5JrCuyl5y1BO2xXOS9-CvXw"],
     colors: ["Pastel Beige", "Dusty Pink", "Sage Green"],
     description: "Premium pastel claw clips set designed for secure daily hair updos.",
     details: ["Quantity: 2 Sets (24 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Material: High-Impact Matte Acrylic"]
@@ -195,7 +195,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1wB8S5_kiNmVR5O6lHZDLEFIZi2iDtHkS"],
+    images: ["images/cross_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1wB8S5_kiNmVR5O6lHZDLEFIZi2iDtHkS"],
     colors: ["Rose Gold", "Glossy Black"],
     description: "Trendy criss-cross design hair claw clip with high tension steel spring.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Style: Cross Metal Jaw"]
@@ -216,7 +216,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1azzeeH0n9VLMISo4jhWinLg4Du3Sh-lW"],
+    images: ["images/whale_tail_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1azzeeH0n9VLMISo4jhWinLg4Du3Sh-lW"],
     colors: ["Metallic Gold", "Silver"],
     description: "Aesthetic whale tail shaped metallic hair claw clip for French twist updos.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Finish: 18K Micro Gold Polish"]
@@ -237,7 +237,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1qWVLGtZJGGMhnViLWIdvgGx-55-lYIk1"],
+    images: ["images/rectangle_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1qWVLGtZJGGMhnViLWIdvgGx-55-lYIk1"],
     colors: ["Amber Tortoise", "Matte Nude"],
     description: "Minimalist rectangular hollow hair claw clip suitable for thick and medium hair.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹148/Set (₹12.3/Piece)", "Material: Durable Cellulose Acetate"]
@@ -258,7 +258,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1Avy7_hVeWt62F0E1zHMAsMCbegy7yq1T"],
+    images: ["images/pastel_flower_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1Avy7_hVeWt62F0E1zHMAsMCbegy7yq1T"],
     colors: ["Pastel Blossom Pink", "Lilac"],
     description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹702/Set (₹58.5/Piece)", "Craftsmanship: Handcrafted Premium"]
@@ -279,7 +279,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/14fTD_dYkWHsblU46ABvTvfT4CmZIQxaY"],
+    images: ["images/hawaiian_plumeria_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/14fTD_dYkWHsblU46ABvTvfT4CmZIQxaY"],
     colors: ["White & Yellow", "Coral"],
     description: "Tropical Hawaiian Frangipani Plumeria flower hair claws for vacation and beachwear.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹129/Set (₹10.7/Piece)", "Ideal for: Beach Wear & Vacations"]
@@ -300,7 +300,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1e0B0T2whbVQGI04CqjaDCwGzUwnOikaC"],
+    images: ["images/flower_claw_clips_drive.jpg", "https://lh3.googleusercontent.com/d/1e0B0T2whbVQGI04CqjaDCwGzUwnOikaC"],
     colors: ["Multicolor Floral"],
     description: "Elegant 5-petal floral claw clip set featuring matte anti-slip grip.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹137/Set (₹11.4/Piece)"]
@@ -321,7 +321,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1M57vLuAjcvweWloQYD6KA0nceBLwDWu-", "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"],
+    images: ["images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1M57vLuAjcvweWloQYD6KA0nceBLwDWu-"],
     colors: ["Antique Matte Gold & Ruby Droplets"],
     description: "Heritage South Indian antique gold plated choker featuring delicate droplet hangings and matching earrings.",
     details: ["Quantity: 1 Piece Set", "Purchase Price: ₹150", "Finish: 24K Antique Matte Gold Plating", "Includes: 1 Choker + Matching Earrings"]
@@ -342,7 +342,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 2,
-    images: ["https://lh3.googleusercontent.com/d/1wPm5OcdM0MMAk-2VTFjE6ENODm8E9mFm", "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1wPm5OcdM0MMAk-2VTFjE6ENODm8E9mFm"],
     colors: ["Ruby Red Kemp & Gold"],
     description: "Auspicious South Indian Kemp floral motif necklace set encrusted with traditional red Kemp stones.",
     details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹202/Piece (Total: ₹404)", "Stones: Traditional Red Kemp Glass", "Includes: Necklace + Earrings Pair"]
@@ -363,7 +363,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1l-Ic-qfa0-tySOwddf_XZjF4RDr_umhg", "images/whatsapp_image_2026_08_10_at_6_08_20_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_6_08_20_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1l-Ic-qfa0-tySOwddf_XZjF4RDr_umhg"],
     colors: ["Antique Gold & Ruby Kemp"],
     description: "Classic South Indian Manga Malai (Mango Mala) necklace featuring auspicious raw mango shaped pendants.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹160", "Design: Traditional South Indian Mango Motif", "Adjustable Silk Thread Dori"]
@@ -384,7 +384,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 2,
-    images: ["https://lh3.googleusercontent.com/d/1cr9T8Zlfel_nol0eNflG5Bp_oO74L7ZM", "images/whatsapp_image_2026_08_10_at_6_16_24_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_6_16_24_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1cr9T8Zlfel_nol0eNflG5Bp_oO74L7ZM"],
     colors: ["Antique Gold & Green Kemp"],
     description: "Royal mango leaf motif choker necklace set with antique copper gold micro polish.",
     details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹140/Piece (Total: ₹280)", "Includes: 1 Choker + 1 Pair Earrings"]
@@ -405,7 +405,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 2,
-    images: ["https://lh3.googleusercontent.com/d/1wQnTQLFoNEQqxEM9yqR3UFbYUKv9_itx", "images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1wQnTQLFoNEQqxEM9yqR3UFbYUKv9_itx"],
     colors: ["Ruby & Emerald Kemp Gold"],
     description: "Grand traditional South Indian temple Kemp necklace adorned with Kundan glass stones and pearl drops.",
     details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹320/Piece (Total: ₹640)", "Craftsmanship: Antique Temple Polish"]
@@ -426,7 +426,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1UOfdm1YV8jjdFWRyPdyfUqwubXrlXksD", "images/whatsapp_image_2026_08_10_at_7_05_39_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_7_05_39_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1UOfdm1YV8jjdFWRyPdyfUqwubXrlXksD"],
     colors: ["Gold & Ruby Kemp"],
     description: "Classic South Indian Attigai (Addigai) choker necklace set with flower cluster centerpiece.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹127", "Style: Traditional Addigai Choker"]
@@ -447,7 +447,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1OiPExMJWTUxq8nvrWgc5eCflmAIQ8VYS", "images/whatsapp_image_2026_08_10_at_7_32_09_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_7_32_09_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1OiPExMJWTUxq8nvrWgc5eCflmAIQ8VYS"],
     colors: ["Antique Gold & Ruby Beads"],
     description: "Multi-strand antique matte gold necklace detailed with synthetic ruby beads and central pendant.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹230", "Finish: Antique Matte Gold Polish"]
@@ -468,7 +468,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1vlurOgFNBaRSs0gN4kJjn5BxFukCG1Uc", "images/whatsapp_image_2026_08_10_at_7_46_22_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_7_46_22_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1vlurOgFNBaRSs0gN4kJjn5BxFukCG1Uc"],
     colors: ["Antique Gold Lakshmi Coins"],
     description: "Traditional South Indian Kasu Mala (Coin Necklace) featuring engraved Goddess Lakshmi coins.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹160", "Design: Heritage Lakshmi Kasu Coin Necklace"]
@@ -489,7 +489,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1NIFgtcxSVt-4tFwBgGqquNzTIxrt_-iN", "images/whatsapp_image_2026_08_10_at_7_49_04_pm_jpeg_drive.jpg"],
+    images: ["images/whatsapp_image_2026_08_10_at_7_49_04_pm_jpeg_drive.jpg", "https://lh3.googleusercontent.com/d/1NIFgtcxSVt-4tFwBgGqquNzTIxrt_-iN"],
     colors: ["Rose Gold & Pearl Tulips"],
     description: "Delicate tulip floral vine motif necklace handcrafted with micro zircon stones and synthetic pearls.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹376", "Style: Designer Floral Vine"]
@@ -510,7 +510,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 2,
-    images: ["https://lh3.googleusercontent.com/d/139KvHDYL_SC9wdsO2f6AY49OcfimXhFA", "images/faux_pearl_charm_necklace_drive.jpg"],
+    images: ["images/faux_pearl_charm_necklace_drive.jpg", "https://lh3.googleusercontent.com/d/139KvHDYL_SC9wdsO2f6AY49OcfimXhFA"],
     colors: ["Gold & White Faux Pearl"],
     description: "Minimalist delicate gold chain necklace centered with a smooth ivory faux pearl charm.",
     details: ["Quantity: 2 Pieces in Stock", "Purchase Price: ₹72/Piece (Total: ₹144)", "Length: 40 cm + 5 cm Extender"]
@@ -531,7 +531,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1pmX0jKEGjIcMh_UQ48PznpxpRbTaa_ES", "images/adjustable_floral_bolo_necklace_drive.jpg"],
+    images: ["images/adjustable_floral_bolo_necklace_drive.jpg", "https://lh3.googleusercontent.com/d/1pmX0jKEGjIcMh_UQ48PznpxpRbTaa_ES"],
     colors: ["Rose Gold Floral"],
     description: "Adjustable bolo style chain necklace featuring a delicate crystal flower slider charm.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Closure: Sliding Adjuster Knot"]
@@ -552,7 +552,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1zLBnBdTIJk2T_PYI4sIEWBMHUddUnG7T", "images/green_oval_stone_chain_drive.jpg"],
+    images: ["images/green_oval_stone_chain_drive.jpg", "https://lh3.googleusercontent.com/d/1zLBnBdTIJk2T_PYI4sIEWBMHUddUnG7T"],
     colors: ["Emerald Green & Gold"],
     description: "Waterproof anti-tarnish 18K gold plated stainless steel chain with a deep emerald green oval gemstone pendant.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹95", "Material: 18K Gold Plated Stainless Steel (Anti-Tarnish)"]
@@ -573,7 +573,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1sJm6P9v9glJb2MdGzEEZQ0T9nJYI_eNc", "images/flat_snake_chain_drive.jpg"],
+    images: ["images/flat_snake_chain_drive.jpg", "https://lh3.googleusercontent.com/d/1sJm6P9v9glJb2MdGzEEZQ0T9nJYI_eNc"],
     colors: ["Glossy 18K Gold"],
     description: "Sleek liquid-smooth flat herringbone snake chain necklace crafted in high-luster gold finish.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹110", "Width: 3 mm Flat Snake Chain"]
@@ -594,7 +594,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1AXwsaAvaHduVDkBerbBNuW4YrHCkArYf", "images/satellite_chain_drive.jpg"],
+    images: ["images/satellite_chain_drive.jpg", "https://lh3.googleusercontent.com/d/1AXwsaAvaHduVDkBerbBNuW4YrHCkArYf"],
     colors: ["Gold Beaded Chain"],
     description: "Charming satellite cable chain featuring tiny textured gold beads spaced throughout.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹48", "Style: Layering Satellite Bead Chain"]
@@ -615,7 +615,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1DSQGhJoddNUNEWgR0taT8aQGjs7iwVcb", "images/crystal_heart_pendant_drive.jpg"],
+    images: ["images/crystal_heart_pendant_drive.jpg", "https://lh3.googleusercontent.com/d/1DSQGhJoddNUNEWgR0taT8aQGjs7iwVcb"],
     colors: ["Clear Crystal & Rose Gold"],
     description: "Romantic faceted crystal heart pendant suspended from a dainty rose gold chain.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹85", "Pendant: AAA Zirconia Heart"]
@@ -636,7 +636,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: false,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1G8aPgHIbWgoRSCSUFizYwMlw7JImILnx", "images/north_star_pendant_drive.jpg"],
+    images: ["images/north_star_pendant_drive.jpg", "https://lh3.googleusercontent.com/d/1G8aPgHIbWgoRSCSUFizYwMlw7JImILnx"],
     colors: ["Gold & Zircon Star"],
     description: "Celestial North Star compass pendant necklace encrusted with a central zircon gem.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹75", "Style: Celestial Compass Medallion"]
@@ -652,7 +652,7 @@ export const PRODUCTS = [
     originalPrice: 499,
     rating: 4.7,
     stock: 1,
-    images: ["https://lh3.googleusercontent.com/d/1TctZbGSDqRwR_huglWZ8Ay4xWFmMN2l8", "images/round_snake_necklace_drive.jpg"],
+    images: ["images/round_snake_necklace_drive.jpg", "https://lh3.googleusercontent.com/d/1TctZbGSDqRwR_huglWZ8Ay4xWFmMN2l8"],
     colors: ["High Polish Gold"],
     description: "Classic round flexible snake chain necklace with smooth mirror shine.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹90", "Type: Round Snake Chain"]
@@ -673,7 +673,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 4,
-    images: ["https://lh3.googleusercontent.com/d/1GN5njwa-284rkItujddvtnXIx7e3QuAb", "https://lh3.googleusercontent.com/d/1hjWegf-t9jq-MSfpde5x4tLHvnHAcqNs", "https://lh3.googleusercontent.com/d/1OcL3hulmSB8d-QW4TXA7Se7G-duxy741", "https://lh3.googleusercontent.com/d/1dHeANnSJHpdJy4GT4SV0UGOF9Bm_QnVP"],
+    images: ["images/1_beaded_charm_bracelet_1_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1GN5njwa-284rkItujddvtnXIx7e3QuAb", "https://lh3.googleusercontent.com/d/1hjWegf-t9jq-MSfpde5x4tLHvnHAcqNs", "https://lh3.googleusercontent.com/d/1OcL3hulmSB8d-QW4TXA7Se7G-duxy741"],
     colors: ["Gold & Multi-Charms"],
     description: "Playful charm bracelet strung with delicate gold heart, star, and pearl charms.",
     details: ["Quantity: 4 Pieces in Stock", "Purchase Price: ₹36/Piece (Total: ₹144)", "Style: Multi-Charm Daintiness"]
@@ -694,7 +694,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 5,
-    images: ["https://lh3.googleusercontent.com/d/1LNZbVRz78_Xqewqc3yIgiyn0qOgnNKP9", "https://lh3.googleusercontent.com/d/1Lc_zsVepHFD7oCJhGhdIUpz22ZawKxuq", "https://lh3.googleusercontent.com/d/1YEWmF8qZ4_sz-CMGIAyZiD_mibWEglSq", "https://lh3.googleusercontent.com/d/1nyRe_E9wOX5QdVrirH8xkD6yK8Dkkn7d", "https://lh3.googleusercontent.com/d/1ZpZQ5MVuZCPY8lEyuTH9RKeSBm6kfawP"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1LNZbVRz78_Xqewqc3yIgiyn0qOgnNKP9", "https://lh3.googleusercontent.com/d/1Lc_zsVepHFD7oCJhGhdIUpz22ZawKxuq", "https://lh3.googleusercontent.com/d/1YEWmF8qZ4_sz-CMGIAyZiD_mibWEglSq"],
     colors: ["18K Gold Polish"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish.",
     details: ["Quantity: 5 Pieces in Stock", "Purchase Price: ₹172/Piece (Total: ₹860)", "Fit: Openable Adjustable Size"]

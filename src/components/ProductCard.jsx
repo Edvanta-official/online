@@ -32,10 +32,10 @@ export const ProductCard = ({ product }) => {
               e.target.dataset.triedFallback = "true";
               e.target.src = getDirectImageUrl(product.images[1]);
             } else {
-              e.target.src = 'https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS';
+              e.target.src = 'images/plumeria_flower_claw_clip_drive.jpg';
             }
           }}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
         />
 
         {/* Floating Badges */}
