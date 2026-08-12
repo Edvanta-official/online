@@ -3,9 +3,9 @@ export const BRAND_INFO = {
   tagline: "Where Every Accessory Tells Your Story.",
   secondaryTagline: "Luxury Fashion Accessories for Every Moment.",
   domain: "sparklekkv.com",
-  phone: "+91 9949157771",
+  phone: "+91 99491 57771",
   email: "support@sparklekkv.com",
-  address: "iCONIC STAY MADHAPUR AYYAPA SOCITY",
+  address: "Ayyappa Society, Madhapur, Telangana, Hyderabad",
   socials: {
     instagram: "@sparklekkvoffical",
     instagramUrl: "https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ==",

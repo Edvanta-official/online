@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Heart, MessageCircle } from 'lucide-react';
+import { Instagram, Youtube, Facebook, MessageCircle, Heart } from 'lucide-react';
 import { INSTAGRAM_POSTS } from '../data/mockData';
 
 export const InstagramGallery = () => {
@@ -19,18 +19,49 @@ export const InstagramGallery = () => {
               <span>@sparklekkvoffical</span>
             </a>
             <h2 className="font-serif-luxury text-3xl font-bold text-[#2C2C2C] mt-1">
-              Shop The Instagram Look
+              Follow Us
             </h2>
           </div>
           
-          <a
-            href="https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ=="
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FCE4EC] font-montserrat text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md active:scale-95"
-          >
-            Follow Us On Instagram
-          </a>
+          {/* Social Media Icons */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ=="
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Instagram"
+              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#E4405F] hover:bg-[#E4405F] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="YouTube"
+              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#FF0000] hover:bg-[#FF0000] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+            >
+              <Youtube className="w-5 h-5" />
+            </a>
+            <a
+              href="https://wa.me/919949157771"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="WhatsApp"
+              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#25D366] hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+            >
+              <MessageCircle className="w-5 h-5 fill-current" />
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Facebook"
+              className="w-10 h-10 rounded-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#1877F2] hover:bg-[#1877F2] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110"
+            >
+              <Facebook className="w-5 h-5 fill-current" />
+            </a>
+          </div>
         </div>
 
         {/* Grid */}

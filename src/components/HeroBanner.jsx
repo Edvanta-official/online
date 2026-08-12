@@ -4,17 +4,17 @@ import { Sparkles, ArrowRight, ShieldCheck, Heart, Award } from 'lucide-react';
 
 export const HeroBanner = () => {
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 sm:pt-8 sm:pb-16 lg:py-20 bg-gradient-to-b from-[#FFF9F5] via-[#FCE4EC]/40 to-[#FFF9F5]">
+    <section className="relative overflow-hidden pt-3 pb-8 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-14 bg-gradient-to-b from-[#FFF9F5] via-[#FCE4EC]/40 to-[#FFF9F5]">
       
       {/* Decorative Blur Orbs */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-[#F48FB1]/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#D4AF7F]/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* Left Content Column */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+          {/* Left Content Column - Moved Up */}
+          <div className="lg:col-span-7 space-y-3 sm:space-y-4 text-center lg:text-left pt-0 lg:pt-1">
             
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
@@ -23,24 +23,24 @@ export const HeroBanner = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif-luxury text-2xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#2C2C2C] leading-snug sm:leading-[1.2] max-w-full">
+            <h1 className="font-serif-luxury text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#2C2C2C] leading-snug sm:leading-[1.25] max-w-full">
               Luxury Fashion <span className="gold-gradient-text italic font-normal">Accessories</span>
               <br />
-              <span className="text-base sm:text-3xl lg:text-4xl font-medium text-[#2C2C2C]/90 block mt-1.5 sm:mt-2">
+              <span className="text-base sm:text-2xl lg:text-3xl font-medium text-[#2C2C2C]/90 block mt-1">
                 Designed to Make Every Girl Shine.
               </span>
             </h1>
 
             {/* Category Pill Subtext */}
-            <p className="text-xs sm:text-base text-gray-600 font-poppins max-w-xl mx-auto lg:mx-0 font-light leading-relaxed px-1 sm:px-0">
+            <p className="text-xs sm:text-sm text-gray-600 font-poppins max-w-xl mx-auto lg:mx-0 font-light leading-relaxed px-1 sm:px-0">
               Explore our boutique collection of handcrafted Premium Earrings, Hair Flowers, Butterfly Clips, Bangles, Bracelets, and Choker Necklace Sets.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2 font-montserrat">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 font-montserrat">
               <Link
                 to="/shop"
-                className="shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-white w-full sm:w-auto justify-center px-8 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-widest font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-3"
+                className="shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-white w-full sm:w-auto justify-center px-7 py-3 rounded-full text-xs uppercase tracking-widest font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-3"
               >
                 <span>Shop Collection Now</span>
                 <ArrowRight className="w-4 h-4 text-[#D4AF7F]" />
@@ -48,7 +48,7 @@ export const HeroBanner = () => {
 
               <Link
                 to="/shop?category=gift-sets"
-                className="bg-white/90 border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC]/50 w-full sm:w-auto justify-center px-7 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-widest font-semibold shadow-md transition-all flex items-center gap-2"
+                className="bg-white/90 border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC]/50 w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs uppercase tracking-widest font-semibold shadow-md transition-all flex items-center gap-2"
               >
                 <span>Explore Gift Sets</span>
                 <Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" />
@@ -56,7 +56,7 @@ export const HeroBanner = () => {
             </div>
 
             {/* Trust Metrics */}
-            <div className="pt-6 border-t border-[#D4AF7F]/20 flex flex-wrap items-center justify-around sm:justify-between gap-3 text-[11px] sm:text-xs text-gray-600 font-poppins">
+            <div className="pt-4 border-t border-[#D4AF7F]/20 flex flex-wrap items-center justify-around sm:justify-between gap-3 text-[11px] sm:text-xs text-gray-600 font-poppins">
               <div className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-[#C89B3C] shrink-0" />
                 <span>100% Handcrafted</span>
@@ -73,15 +73,15 @@ export const HeroBanner = () => {
 
           </div>
 
-          {/* Right Image Showcase Column */}
-          <div className="lg:col-span-5 relative pt-4 pb-6">
-            <div className="relative mx-auto max-w-xs sm:max-w-md lg:max-w-none">
+          {/* Right Image Showcase Column - Decreased Size */}
+          <div className="lg:col-span-5 relative pt-1 pb-4">
+            <div className="relative mx-auto max-w-[280px] sm:max-w-xs lg:max-w-[360px] lg:ml-auto">
               
               {/* Outer Glowing Background Blur */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] rounded-3xl blur-lg opacity-50 pointer-events-none" />
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] rounded-3xl blur-md opacity-40 pointer-events-none" />
 
               {/* Main Model Frame */}
-              <div className="relative rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-white aspect-[4/5] group">
+              <div className="relative rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-white aspect-[4/5] group">
                 <img
                   src="images/hero_model.jpg"
                   alt="Sparkel @kkv Luxury Fashion Accessories Model"
@@ -92,25 +92,25 @@ export const HeroBanner = () => {
                 />
 
                 {/* Floating Badge Top Right */}
-                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 glass-card px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-2xl shadow-lg border border-white/80 animate-float-slow z-10">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm sm:text-lg">✨</span>
+                <div className="absolute top-3 right-3 glass-card px-2.5 py-1.5 rounded-2xl shadow-lg border border-white/80 animate-float-slow z-10">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs sm:text-sm">✨</span>
                     <div>
-                      <p className="text-[9px] sm:text-[10px] uppercase font-montserrat tracking-widest text-[#C89B3C] font-bold">New Arrival</p>
-                      <p className="text-[11px] sm:text-xs font-bold text-[#2C2C2C]">Swarovski Butterfly Clip</p>
+                      <p className="text-[8px] sm:text-[9px] uppercase font-montserrat tracking-widest text-[#C89B3C] font-bold">New Arrival</p>
+                      <p className="text-[10px] sm:text-xs font-bold text-[#2C2C2C]">Swarovski Butterfly Clip</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Floating Badge Bottom Left */}
-                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 glass-card px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl shadow-lg border border-white/80 z-10">
-                  <div className="flex items-center gap-2.5 sm:gap-3">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2C2C2C] text-[#FCE4EC] font-serif-luxury text-[11px] sm:text-xs font-bold flex items-center justify-center">
+                <div className="absolute bottom-3 left-3 glass-card px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl shadow-lg border border-white/80 z-10">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#2C2C2C] text-[#FCE4EC] font-serif-luxury text-[10px] sm:text-xs font-bold flex items-center justify-center">
                       ★ 4.9
                     </div>
                     <div>
-                      <p className="text-[11px] sm:text-xs font-bold text-[#2C2C2C]">Boutique Quality</p>
-                      <p className="text-[9px] sm:text-[10px] text-gray-500 font-montserrat">Over 2,400+ 5-Star Reviews</p>
+                      <p className="text-[10px] sm:text-xs font-bold text-[#2C2C2C]">Boutique Quality</p>
+                      <p className="text-[8px] sm:text-[9px] text-gray-500 font-montserrat">Over 2,400+ 5-Star Reviews</p>
                     </div>
                   </div>
                 </div>
