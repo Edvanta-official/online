@@ -195,7 +195,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 12,
-    images: ["https://lh3.googleusercontent.com/d/1YSl0U9DadhyOIwVg-njT-xUv67fQyRFf", "images/cross_claw_clips_drive.jpg"],
+    images: ["https://lh3.googleusercontent.com/d/1wB8S5_kiNmVR5O6lHZDLEFIZi2iDtHkS", "images/cross_claw_clips_drive.jpg"],
     colors: ["Rose Gold", "Glossy Black"],
     description: "Trendy criss-cross design hair claw clip with high tension steel spring.",
     details: ["Quantity: 1 Set (12 Pieces)", "Purchase Rate: ₹125/Set (₹10.4/Piece)", "Style: Cross Metal Jaw"]
