@@ -47,7 +47,7 @@ export const InstagramGallery = () => {
                 src={post.image}
                 alt="Instagram post"
                 onError={(e) => {
-                  e.target.src = 'images/img_2042.jpg';
+                  e.target.src = 'images/plumeria_flower.jpg';
                 }}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />

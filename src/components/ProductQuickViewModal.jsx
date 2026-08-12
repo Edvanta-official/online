@@ -53,10 +53,10 @@ export const ProductQuickViewModal = () => {
           <div className="p-6 bg-[#FFF9F5] flex flex-col items-center justify-between border-b md:border-b-0 md:border-r border-[#FCE4EC]">
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-inner bg-white border border-[#D4AF7F]/20 mb-4">
               <img
-                src={quickViewProduct.images[selectedImageIndex] || quickViewProduct.images[0] || 'images/img_2042.jpg'}
+                src={quickViewProduct.images[selectedImageIndex] || quickViewProduct.images[0] || 'images/plumeria_flower.jpg'}
                 alt={quickViewProduct.name}
                 onError={(e) => {
-                  e.target.src = 'images/img_2042.jpg';
+                  e.target.src = 'images/plumeria_flower.jpg';
                 }}
                 className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
               />

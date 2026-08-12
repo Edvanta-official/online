@@ -17,7 +17,7 @@ export const BRAND_INFO = {
 export const NAVIGATION_TREE = [
   {
     id: "hair-accessories",
-    name: "Hair Accessories",
+    name: "Clips",
     subcategories: [
       { id: "flower-clips", name: "Flower Clips" },
       { id: "claw-clips", name: "Claw Clips" }
@@ -33,7 +33,7 @@ export const NAVIGATION_TREE = [
   },
   {
     id: "chains",
-    name: "Chains & Pendants",
+    name: "Chains",
     subcategories: [
       { id: "daily-wear", name: "Daily Wear Chains" },
       { id: "anti-tarnish", name: "Anti-Tarnish Chains" }
@@ -50,7 +50,7 @@ export const NAVIGATION_TREE = [
   },
   {
     id: "earrings",
-    name: "Earrings",
+    name: "Ear Rings",
     subcategories: [
       { id: "traditional-earrings", name: "Traditional Chandbali" },
       { id: "studs", name: "Studs & Drops" },
@@ -80,7 +80,7 @@ export const NAVIGATION_TREE = [
 export const CATEGORIES = [
   {
     id: "hair-accessories",
-    name: "Hair Accessories",
+    name: "Clips",
     icon: "🌸",
     count: 8,
     description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
@@ -96,7 +96,7 @@ export const CATEGORIES = [
   },
   {
     id: "chains",
-    name: "Chains & Pendants",
+    name: "Chains",
     icon: "⛓️",
     count: 8,
     description: "Waterproof anti-tarnish 18K gold plated chains, snake chains, & pendant necklaces",
@@ -112,7 +112,7 @@ export const CATEGORIES = [
   },
   {
     id: "earrings",
-    name: "Earrings",
+    name: "Ear Rings",
     icon: "✨",
     count: 8,
     description: "Traditional Kundan Chandbali, danglers, studs & hoop combo sets",

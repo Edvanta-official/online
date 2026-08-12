@@ -84,10 +84,10 @@ export const ProductDetailsPage = () => {
           <div className="lg:col-span-6 space-y-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-[#FFF9F5] border border-[#D4AF7F]/30 shadow-inner group">
               <img
-                src={getDirectImageUrl(product.images[selectedImageIndex] || product.images[0]) || 'images/img_2042.jpg'}
+                src={getDirectImageUrl(product.images[selectedImageIndex] || product.images[0]) || 'images/plumeria_flower.jpg'}
                 alt={product.name}
                 onError={(e) => {
-                  e.target.src = 'images/img_2042.jpg';
+                  e.target.src = 'images/plumeria_flower.jpg';
                 }}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

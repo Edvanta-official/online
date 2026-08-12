@@ -346,15 +346,13 @@ export const AdminDashboard = () => {
                       })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-2.5 font-montserrat"
                     >
-                      <option value="earrings">Earrings</option>
-                      <option value="hair-flowers">Hair Flowers</option>
-                      <option value="hair-clips">Hair Clips</option>
-                      <option value="scrunchies">Scrunchies</option>
-                      <option value="bangles">Bangles</option>
-                      <option value="bracelets">Bracelets</option>
+                      <option value="hair-accessories">Clips</option>
                       <option value="necklaces">Necklace Sets</option>
-                      <option value="chains">Chains & Pendants</option>
-                      <option value="gift-sets">Gift Sets</option>
+                      <option value="chains">Chains</option>
+                      <option value="bracelets">Bracelets</option>
+                      <option value="earrings">Ear Rings</option>
+                      <option value="bangles">Bangles</option>
+                      <option value="gift-sets">Gift Sets & Combos</option>
                     </select>
                   </div>
 
