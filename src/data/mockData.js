@@ -673,11 +673,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 4,
     images: ["images/1_beaded_charm_bracelet_1_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1GN5njwa-284rkItujddvtnXIx7e3QuAb"],
     colors: ["Gold & Pearl Charms"],
     description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms (Design Model 1).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Style: Multi-Charm Daintiness Model 1"]
+    details: ["Quantity: 1 Set (4 Pieces)", "Purchase Rate: ₹144/Set (₹36/Piece)", "Style: Multi-Charm Daintiness Model 1"]
   },
   {
     id: "SPK-BR-301-2",
@@ -694,11 +694,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 4,
     images: ["images/1_beaded_charm_bracelet_2_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1hjWegf-t9jq-MSfpde5x4tLHvnHAcqNs"],
     colors: ["Gold & Crystal Charms"],
     description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms (Design Model 2).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Style: Multi-Charm Daintiness Model 2"]
+    details: ["Quantity: 1 Set (4 Pieces)", "Purchase Rate: ₹144/Set (₹36/Piece)", "Style: Multi-Charm Daintiness Model 2"]
   },
   {
     id: "SPK-BR-301-3",
@@ -715,11 +715,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 4,
     images: ["images/1_beaded_charm_bracelet_3_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1OcL3hulmSB8d-QW4TXA7Se7G-duxy741"],
     colors: ["Gold & Pastel Charms"],
     description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms (Design Model 3).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Style: Multi-Charm Daintiness Model 3"]
+    details: ["Quantity: 1 Set (4 Pieces)", "Purchase Rate: ₹144/Set (₹36/Piece)", "Style: Multi-Charm Daintiness Model 3"]
   },
   {
     id: "SPK-BR-301-4",
@@ -736,11 +736,11 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 4,
     images: ["images/1_beaded_charm_bracelet_4_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1dHeANnSJHpdJy4GT4SV0UGOF9Bm_QnVP"],
     colors: ["Gold & Floral Charms"],
     description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms (Design Model 4).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹36", "Style: Multi-Charm Daintiness Model 4"]
+    details: ["Quantity: 1 Set (4 Pieces)", "Purchase Rate: ₹144/Set (₹36/Piece)", "Style: Multi-Charm Daintiness Model 4"]
   },
 
   // --- 2nd Bracelet Item: 5 Distinct Models ---
@@ -759,11 +759,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 5,
     images: ["images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1LNZbVRz78_Xqewqc3yIgiyn0qOgnNKP9"],
     colors: ["18K Gold Polish"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish (Design Model 1).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹172", "Fit: Openable Adjustable Size Model 1"]
+    details: ["Quantity: 1 Set (5 Pieces)", "Purchase Rate: ₹860/Set (₹172/Piece)", "Fit: Openable Adjustable Size Model 1"]
   },
   {
     id: "SPK-BR-302-2",
@@ -780,11 +780,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 5,
     images: ["images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1Lc_zsVepHFD7oCJhGhdIUpz22ZawKxuq"],
     colors: ["18K Rose Gold Polish"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish (Design Model 2).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹172", "Fit: Openable Adjustable Size Model 2"]
+    details: ["Quantity: 1 Set (5 Pieces)", "Purchase Rate: ₹860/Set (₹172/Piece)", "Fit: Openable Adjustable Size Model 2"]
   },
   {
     id: "SPK-BR-302-3",
@@ -801,11 +801,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 5,
     images: ["images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1YEWmF8qZ4_sz-CMGIAyZiD_mibWEglSq"],
     colors: ["18K High Polish Gold"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish (Design Model 3).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹172", "Fit: Openable Adjustable Size Model 3"]
+    details: ["Quantity: 1 Set (5 Pieces)", "Purchase Rate: ₹860/Set (₹172/Piece)", "Fit: Openable Adjustable Size Model 3"]
   },
   {
     id: "SPK-BR-302-4",
@@ -822,11 +822,11 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 5,
     images: ["images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1nyRe_E9wOX5QdVrirH8xkD6yK8Dkkn7d"],
     colors: ["18K Matte Gold Polish"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish (Design Model 4).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹172", "Fit: Openable Adjustable Size Model 4"]
+    details: ["Quantity: 1 Set (5 Pieces)", "Purchase Rate: ₹860/Set (₹172/Piece)", "Fit: Openable Adjustable Size Model 4"]
   },
   {
     id: "SPK-BR-302-5",
@@ -843,11 +843,11 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 5,
     images: ["images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg", "https://lh3.googleusercontent.com/d/1ZpZQ5MVuZCPY8lEyuTH9RKeSBm6kfawP"],
     colors: ["18K Textured Gold Polish"],
     description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish (Design Model 5).",
-    details: ["Quantity: 1 Piece", "Purchase Price: ₹172", "Fit: Openable Adjustable Size Model 5"]
+    details: ["Quantity: 1 Set (5 Pieces)", "Purchase Rate: ₹860/Set (₹172/Piece)", "Fit: Openable Adjustable Size Model 5"]
   },
   {
     id: "SPK-BR-303",
