@@ -170,7 +170,7 @@ export const HomePage = () => {
                 Direct CEO Leadership
               </h3>
               <p className="text-xs text-gray-500 font-light leading-relaxed">
-                Get 24/7 dedicated support from Founder & CEO Koti Koushik via +91 9949157771 for order adjustments, customized sizing, and wholesale inquiries.
+                Get 24/7 dedicated support from Founder & CEO Koti Koushik via +91 99491 57771 for order adjustments, customized sizing, and wholesale inquiries.
               </p>
             </div>
 
@@ -185,6 +185,13 @@ export const HomePage = () => {
               <p className="text-xs text-gray-500 font-light leading-relaxed">
                 Shop with absolute confidence. If you're not completely satisfied with your accessories, request an easy product exchange within 7 days.
               </p>
+
+              {/* Mandatory Unboxing Video Notice */}
+              <div className="bg-amber-50/90 border border-amber-300/80 rounded-2xl p-3 text-left font-poppins mt-2">
+                <p className="text-[11px] text-amber-900 font-medium leading-relaxed">
+                  ⚠️ <strong>Important Notice:</strong> For damaged or missing products, returns/replacements are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original courier seal being opened on camera for the first time).
+                </p>
+              </div>
             </div>
  
           </div>

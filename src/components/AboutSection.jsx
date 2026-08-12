@@ -64,7 +64,7 @@ export const AboutSection = () => {
                 <div className="pt-4 border-t border-gray-700/60 flex flex-col gap-2.5 text-xs text-gray-300 font-light">
                   <div className="flex items-center gap-2.5">
                     <Phone className="w-4 h-4 text-[#D4AF7F]" />
-                    <span className="font-semibold text-white">+91 9949157771</span>
+                    <span className="font-semibold text-white">+91 99491 57771</span>
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Mail className="w-4 h-4 text-[#D4AF7F]" />
@@ -72,7 +72,7 @@ export const AboutSection = () => {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-[#D4AF7F] shrink-0 mt-0.5" />
-                    <span>iCONIC STAY MADHAPUR AYYAPA SOCITY</span>
+                    <span>Ayyappa Society, Madhapur, Telangana, Hyderabad</span>
                   </div>
                 </div>
 
