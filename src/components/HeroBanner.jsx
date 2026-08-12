@@ -4,22 +4,24 @@ import { Sparkles, ArrowRight, ShieldCheck, Heart, Award } from 'lucide-react';
 
 export const HeroBanner = () => {
   return (
-    <section className="relative overflow-hidden pt-3 pb-8 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-14 bg-gradient-to-b from-[#FFF9F5] via-[#FCE4EC]/40 to-[#FFF9F5]">
+    <section className="relative overflow-hidden py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-[#FFF9F5] via-[#FCE4EC]/40 to-[#FFF9F5]">
       
       {/* Decorative Blur Orbs */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-[#F48FB1]/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#D4AF7F]/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Content Column - Moved Up */}
-          <div className="lg:col-span-7 space-y-3 sm:space-y-4 text-center lg:text-left pt-0 lg:pt-1">
+          {/* Left Content Column - Vertically Centered in Middle */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5 text-center lg:text-left">
             
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
-              <Sparkles className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
-              <span className="truncate sm:whitespace-normal">Where Every Accessory Tells Your Story</span>
+            <div>
+              <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
+                <Sparkles className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
+                <span className="truncate sm:whitespace-normal">Where Every Accessory Tells Your Story</span>
+              </div>
             </div>
 
             {/* Main Headline */}
@@ -73,8 +75,8 @@ export const HeroBanner = () => {
 
           </div>
 
-          {/* Right Image Showcase Column - Decreased Size */}
-          <div className="lg:col-span-5 relative pt-1 pb-4">
+          {/* Right Image Showcase Column - Decreased Size & Centered */}
+          <div className="lg:col-span-5 relative py-2">
             <div className="relative mx-auto max-w-[280px] sm:max-w-xs lg:max-w-[360px] lg:ml-auto">
               
               {/* Outer Glowing Background Blur */}
