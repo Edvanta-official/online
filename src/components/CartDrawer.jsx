@@ -38,12 +38,12 @@ export const CartDrawer = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/50 backdrop-blur-sm animate-in fade-in">
+    <div className="fixed inset-0 z-[9999] overflow-hidden bg-black/60 backdrop-blur-sm animate-in fade-in">
       <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#FCE4EC]">
           
           {/* Header */}
-          <div className="p-6 bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-white flex items-center justify-between">
+          <div className="p-6 bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-white flex items-center justify-between shadow-md">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#D4AF7F]" />
               <h2 className="font-serif-luxury text-xl font-bold text-[#FCE4EC]">Your Luxury Cart</h2>
@@ -53,7 +53,8 @@ export const CartDrawer = () => {
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="text-gray-300 hover:text-white p-1 rounded-full hover:bg-white/10"
+              className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors"
+              aria-label="Close cart"
             >
               <X className="w-6 h-6" />
             </button>
@@ -109,12 +110,15 @@ export const CartDrawer = () => {
               cart.map((item) => (
                 <div
                   key={item.product.id}
-                  className="flex gap-4 p-3 bg-[#FFF9F5] rounded-2xl border border-[#FCE4EC] relative group"
+                  className="flex gap-4 p-3 bg-[#FFF9F5] rounded-2xl border border-[#FCE4EC] relative group shadow-xs hover:border-[#D4AF7F]/50 transition-colors"
                 >
                   <img
                     src={item.product.images[0]}
                     alt={item.product.name}
-                    className="w-20 h-20 object-cover rounded-xl shrink-0"
+                    onError={(e) => {
+                      e.target.src = 'images/plumeria_flower_claw_clip_drive.jpg';
+                    }}
+                    className="w-20 h-20 object-cover object-center rounded-xl shrink-0 border border-[#D4AF7F]/30"
                   />
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
                     <div>
