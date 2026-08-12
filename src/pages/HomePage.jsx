@@ -182,13 +182,9 @@ export const HomePage = () => {
               <h3 className="font-serif-luxury text-base sm:text-lg font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
                 7-Day Easy Exchanges
               </h3>
-              
-              {/* Mandatory Unboxing Video Notice */}
-              <div className="bg-amber-50/90 border border-amber-300/80 rounded-2xl p-3.5 text-left font-poppins">
-                <p className="text-xs text-amber-900 font-medium leading-relaxed">
-                  ⚠️ <strong>Important Notice:</strong> For damaged or missing products, returns/replacements are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original courier seal being opened on camera for the first time).
-                </p>
-              </div>
+              <p className="text-xs text-gray-500 font-light leading-relaxed">
+                ⚠️ <strong>Important Notice:</strong> For damaged or missing products, returns/replacements are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original courier seal being opened on camera for the first time).
+              </p>
             </div>
  
           </div>
