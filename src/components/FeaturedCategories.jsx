@@ -37,7 +37,7 @@ export const FeaturedCategories = () => {
                   src={cat.image}
                   alt={cat.name}
                   onError={(e) => {
-                    e.target.src = 'images/butterfly_clip.jpg';
+                    e.target.src = 'images/img_2042.jpg';
                   }}
                   className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500"
                 />

@@ -33,7 +33,7 @@ export const ShopProvider = ({ children }) => {
       id: "ORD-98241",
       customerName: "Ananya Sharma",
       items: [
-        { name: "Premium Swarovski Butterfly Hair Clip", price: 179, quantity: 2, image: "images/butterfly_clip.jpg" }
+        { name: "Premium Swarovski Butterfly Hair Clip", price: 179, quantity: 2, image: "images/img_2042.jpg" }
       ],
       finalAmount: 358,
       paymentMethod: "Razorpay / UPI",
