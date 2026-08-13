@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://edvanta-official.github.io/online/",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/prepare-dev.cjs && vite",
     "build": "vite build && node scripts/copy-to-root.cjs",
     "preview": "vite preview",
     "server": "node server/index.js",
