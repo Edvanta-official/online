@@ -1277,8 +1277,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 15,
     images: [
-      "https://lh3.googleusercontent.com/d/1BZk_wXXx7szqmupAO2dEN39QhB0ro8lI",
-      "https://lh3.googleusercontent.com/d/1eRl9iD0HONv6xXPu_vKLBOxu_9IkQstU"
+      "images/1_kundan_chandbali_earrings.jpg",
+      "images/2_kundan_dangler_earrings.jpg"
     ],
     colors: [
       "Antique Gold & Pearl Hangings"
@@ -1308,8 +1308,8 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 12,
     images: [
-      "https://lh3.googleusercontent.com/d/1eRl9iD0HONv6xXPu_vKLBOxu_9IkQstU",
-      "https://lh3.googleusercontent.com/d/1BZk_wXXx7szqmupAO2dEN39QhB0ro8lI"
+      "images/2_kundan_dangler_earrings.jpg",
+      "images/1_kundan_chandbali_earrings.jpg"
     ],
     colors: [
       "Gold & Pearl Clusters"
@@ -1339,8 +1339,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "https://lh3.googleusercontent.com/d/1as7GxNR_m_O49EcXuXLCSsi6sEyG_ax7",
-      "https://lh3.googleusercontent.com/d/1DTns5zWt_ox8a7dYOqWMoFJiTeqlUYPx"
+      "images/3_double_hoop_earrings.jpg",
+      "images/4_gold_hoop_1.jpg"
     ],
     colors: [
       "Gold Illusion Double Hoop"
@@ -1370,8 +1370,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 14,
     images: [
-      "https://lh3.googleusercontent.com/d/1DTns5zWt_ox8a7dYOqWMoFJiTeqlUYPx",
-      "https://lh3.googleusercontent.com/d/1UJ9sI8TMYGUTmlJTa1H4gSFFDYS_cYe-"
+      "images/4_gold_hoop_1.jpg",
+      "images/4_gold_hoop_2.jpg"
     ],
     colors: [
       "18K Gold Polished"
@@ -1401,8 +1401,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 11,
     images: [
-      "https://lh3.googleusercontent.com/d/11k7DcVbS_Mcdd_PI9Y2Lv7Pu9rhf5XZZ",
-      "https://lh3.googleusercontent.com/d/10QvQAPEqR8-2fHPnLYrZDyk05ySQITkN"
+      "images/5_gold_plated_pair_earrings.jpg",
+      "images/6_studs_1.jpg"
     ],
     colors: [
       "Gold Plated Assortment"
@@ -1432,11 +1432,11 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 13,
     images: [
-      "https://lh3.googleusercontent.com/d/10QvQAPEqR8-2fHPnLYrZDyk05ySQITkN",
-      "https://lh3.googleusercontent.com/d/134ni8dKBhzr4ORa9OtObbyrhNlDp_bKK",
-      "https://lh3.googleusercontent.com/d/1Q33u2-1du--ntIJrBOr7za9WtZ4qSraC",
-      "https://lh3.googleusercontent.com/d/1nT_ppusu9cyzpFT1J16bjeZDBuxPcnen",
-      "https://lh3.googleusercontent.com/d/1L9l_oV4q36hYTnA0W-uoOKjdaL7dnUi3"
+      "images/6_studs_1.jpg",
+      "images/6_studs_2.jpg",
+      "images/6_studs_3.jpg",
+      "images/6_studs_4.jpg",
+      "images/6_studs_5.jpg"
     ],
     colors: [
       "Clear Zircon & Gold"
@@ -1466,8 +1466,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 9,
     images: [
-      "https://lh3.googleusercontent.com/d/1sNPNEOKUsD2QsD1ozcjbynywQFU9ye7r",
-      "https://lh3.googleusercontent.com/d/13gYMpqAcdAspZA8R8_tqyxdlVmOpyXHx"
+      "images/7_huggie_earrings_1.jpg",
+      "images/7_huggie_earrings_2.jpg"
     ],
     colors: [
       "Gold & Pearl Drops"
@@ -1497,8 +1497,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 8,
     images: [
-      "https://lh3.googleusercontent.com/d/1xh71osEM4cbQimQKgzhxsGTQ0xia1_R1",
-      "https://lh3.googleusercontent.com/d/11k7DcVbS_Mcdd_PI9Y2Lv7Pu9rhf5XZZ"
+      "images/8_hoop_stud_earrings_combo.jpg",
+      "images/5_gold_plated_pair_earrings.jpg"
     ],
     colors: [
       "Gold Assortment"
