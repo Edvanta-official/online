@@ -16,6 +16,41 @@ export const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
 
+  // Helper function to calculate delivery estimate based on TODAY's date
+  const calculateDeliveryDate = (pincodeStr = '') => {
+    const today = new Date();
+    let days = 3;
+    let zone = "Metro Direct (3 Days)";
+
+    const p = pincodeStr.trim();
+    if (/^[1-9]\d{5}$/.test(p)) {
+      const prefix = p.substring(0, 2);
+      if (['50', '51', '52', '53'].includes(prefix)) {
+        days = 2;
+        zone = "Nearby Hub (Hyderabad / AP / Telangana — 2 Days)";
+      } else if (['40', '41', '56', '60', '11', '70'].includes(prefix)) {
+        days = 3;
+        zone = "Metro Air Cargo (3 Days)";
+      } else {
+        days = 4;
+        zone = "Standard Regional Express (4 Days)";
+      }
+    }
+
+    const estDate = new Date(today);
+    estDate.setDate(today.getDate() + days);
+    
+    const dayName = estDate.toLocaleDateString('en-US', { weekday: 'long' });
+    const dayNum = estDate.getDate();
+    const monthName = estDate.toLocaleDateString('en-US', { month: 'short' });
+
+    return {
+      dateStr: `Expected by ${dayName}, ${dayNum} ${monthName}`,
+      zone,
+      days
+    };
+  };
+
   // Pincode Delivery Estimator State (Amazon / Meesho feature)
   const [pincodeInput, setPincodeInput] = useState('');
   const [pincodeStatus, setPincodeStatus] = useState(null);
@@ -34,16 +69,46 @@ export const ProductDetailsPage = () => {
   const handlePincodeCheck = (e) => {
     e.preventDefault();
     if (pincodeInput.trim().length === 6) {
+      const estimate = calculateDeliveryDate(pincodeInput);
       setPincodeStatus({
         valid: true,
-        date: "Expected by Tuesday, 12th Aug",
+        date: estimate.dateStr,
+        zone: estimate.zone,
         cod: true,
         freeShipping: true
       });
-      showToast("Pincode verified! Delivery & COD available.");
+      showToast(`Pincode verified! Delivery & COD available for ${estimate.zone}.`);
     } else {
       setPincodeStatus({ valid: false });
       showToast("Please enter a valid 6-digit Pincode", "error");
+    }
+  };
+
+  const handleQuantityIncrease = () => {
+    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    if (quantity < maxStock) {
+      setQuantity(quantity + 1);
+    } else {
+      showToast(`Only ${maxStock} items available in stock!`, "warning");
+    }
+  };
+
+  const handleQuantityDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const handleQuantityInput = (val) => {
+    const num = parseInt(val) || 1;
+    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    if (num > maxStock) {
+      setQuantity(maxStock);
+      showToast(`Only ${maxStock} items available in stock! Set to maximum.`, "warning");
+    } else if (num < 1) {
+      setQuantity(1);
+    } else {
+      setQuantity(num);
     }
   };
 
@@ -60,7 +125,13 @@ export const ProductDetailsPage = () => {
   };
 
   const handleBuyNow = () => {
-    addToCart(product, quantity, selectedColor);
+    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    if (maxStock <= 0) {
+      showToast("Sorry, this item is currently Out of Stock!", "error");
+      return;
+    }
+    const safeQty = Math.min(quantity, maxStock);
+    addToCart(product, safeQty, selectedColor);
     setIsCheckoutOpen(true);
   };
 
@@ -221,22 +292,44 @@ export const ProductDetailsPage = () => {
               )}
 
               {/* Quantity */}
-              <div className="pt-1">
-                <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block mb-2">Quantity</label>
-                <div className="flex items-center w-36 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold"
-                  >
-                    -
-                  </button>
-                  <span className="flex-1 text-center font-bold text-xs">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold"
-                  >
-                    +
-                  </button>
+              <div className="pt-1 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C]">Quantity</label>
+                  <span className="text-[11px] text-gray-500 font-poppins">Available Stock: <strong className="text-[#C89B3C] font-bold">{product.stock} Units</strong></span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex items-center w-36 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
+                    <button
+                      type="button"
+                      onClick={handleQuantityDecrease}
+                      disabled={quantity <= 1}
+                      className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold disabled:opacity-30 transition-opacity"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      min={1}
+                      max={product.stock}
+                      value={quantity}
+                      onChange={(e) => handleQuantityInput(e.target.value)}
+                      className="w-12 text-center font-bold text-xs bg-transparent focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleQuantityIncrease}
+                      disabled={quantity >= product.stock}
+                      className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold disabled:opacity-30 transition-opacity"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  {quantity >= product.stock && (
+                    <span className="text-[11px] text-amber-800 bg-amber-50 px-3 py-1 rounded-full font-medium border border-amber-200 flex items-center gap-1 animate-pulse">
+                      <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> Stock limit reached ({product.stock} Max)
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -265,14 +358,17 @@ export const ProductDetailsPage = () => {
                 {pincodeStatus && (
                   <div className="text-xs pt-1">
                     {pincodeStatus.valid ? (
-                      <div className="space-y-1 text-emerald-700 bg-emerald-50 p-2.5 rounded-xl border border-emerald-100">
-                        <p className="font-semibold flex items-center gap-1.5">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" /> {pincodeStatus.date}
+                      <div className="space-y-1.5 text-emerald-700 bg-emerald-50 p-3 rounded-2xl border border-emerald-100 shadow-xs">
+                        <p className="font-bold flex items-center gap-1.5 text-xs text-emerald-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> {pincodeStatus.date}
                         </p>
-                        <div className="flex items-center gap-3 text-[11px] text-gray-600">
+                        <p className="text-[11px] text-emerald-700 font-medium pl-5">
+                          📍 {pincodeStatus.zone}
+                        </p>
+                        <div className="flex items-center gap-3 text-[11px] text-gray-600 pt-1 border-t border-emerald-200/50">
                           <span className="flex items-center gap-1"><Banknote className="w-3.5 h-3.5 text-[#C89B3C]" /> Cash on Delivery (COD) Available</span>
                           <span>•</span>
-                          <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" /> Own Manufacture</span>
+                          <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" /> Free Express Shipping</span>
                         </div>
                       </div>
                     ) : (

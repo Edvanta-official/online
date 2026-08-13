@@ -131,22 +131,41 @@ export const ShopProvider = ({ children }) => {
   // Cart Management
   const addToCart = (product, quantity = 1, color = null) => {
     if (!product || !product.id) return;
+    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    
+    if (maxStock <= 0) {
+      showToast(`Sorry, "${product.name}" is currently Out of Stock!`, "error");
+      return;
+    }
+
     setCart(prev => {
       const safePrev = Array.isArray(prev) ? prev : [];
       const existingIndex = safePrev.findIndex(item => item && item.product && item.product.id === product.id);
       if (existingIndex > -1) {
+        const currentQty = safePrev[existingIndex].quantity || 0;
+        const totalRequested = currentQty + quantity;
+        const finalQty = Math.min(totalRequested, maxStock);
+        
+        if (totalRequested > maxStock) {
+          showToast(`Stock limit reached! Maximum ${maxStock} units available for "${product.name}".`, "warning");
+        } else {
+          showToast(`✨ Added "${product.name}" to your luxury cart!`);
+        }
+
         const updated = [...safePrev];
-        updated[existingIndex].quantity += quantity;
+        updated[existingIndex].quantity = finalQty;
         return updated;
       }
-      return [...safePrev, { product, quantity, selectedColor: color || product.colors?.[0] || 'Default' }];
-    });
-    showToast(`✨ Added "${product.name}" to your luxury cart!`);
-  };
+      
+      const finalQty = Math.min(quantity, maxStock);
+      if (quantity > maxStock) {
+        showToast(`Stock limit reached! Maximum ${maxStock} units available for "${product.name}".`, "warning");
+      } else {
+        showToast(`✨ Added "${product.name}" to your luxury cart!`);
+      }
 
-  const removeFromCart = (productId) => {
-    setCart(prev => (Array.isArray(prev) ? prev.filter(item => item && item.product && item.product.id !== productId) : []));
-    showToast("Item removed from cart.", "info");
+      return [...safePrev, { product, quantity: finalQty, selectedColor: color || product.colors?.[0] || 'Default' }];
+    });
   };
 
   const updateCartQuantity = (productId, newQuantity) => {
@@ -154,7 +173,17 @@ export const ShopProvider = ({ children }) => {
       removeFromCart(productId);
       return;
     }
-    setCart(prev => (Array.isArray(prev) ? prev.map(item => (item && item.product && item.product.id === productId) ? { ...item, quantity: newQuantity } : item) : []));
+    setCart(prev => (Array.isArray(prev) ? prev.map(item => {
+      if (item && item.product && item.product.id === productId) {
+        const maxStock = typeof item.product.stock === 'number' ? item.product.stock : 999;
+        if (newQuantity > maxStock) {
+          showToast(`Maximum available stock for this item is ${maxStock}.`, "warning");
+          return { ...item, quantity: maxStock };
+        }
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    }) : []));
   };
 
   const clearCart = () => {
