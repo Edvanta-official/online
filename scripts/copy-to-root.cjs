@@ -20,13 +20,11 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
-// Copy dist contents to root directory
+// Sync images to root directory for GitHub Pages
 if (fs.existsSync('dist')) {
-  fs.copyFileSync('dist/index.html', 'index.html');
   if (fs.existsSync('dist/404.html')) fs.copyFileSync('dist/404.html', '404.html');
   if (fs.existsSync('dist/.nojekyll')) fs.copyFileSync('dist/.nojekyll', '.nojekyll');
-  if (fs.existsSync('dist/assets')) copyFolderRecursiveSync('dist/assets', 'assets');
   if (fs.existsSync('dist/images')) copyFolderRecursiveSync('dist/images', 'images');
   if (fs.existsSync('public/images')) copyFolderRecursiveSync('public/images', 'images');
-  console.log('Successfully copied compiled dist build and images to root repository!');
+  console.log('Successfully synced dist images to root repository!');
 }
