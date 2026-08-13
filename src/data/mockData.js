@@ -1411,11 +1411,11 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/pave_studs.jpg",
+      "images/black_zircon.jpg",
       "images/stud_earrings.jpg"
     ],
     colors: [
-      "Gold Pair Combo"
+      "Black Zircon & Rose Gold"
     ],
     description: "Versatile gold-plated pair earrings combo set suitable for daily styling.",
     details: [
@@ -1499,8 +1499,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/stud_earrings.jpg",
-      "images/pave_studs.jpg"
+      "images/emerald_dangles.jpg",
+      "images/black_zircon.jpg"
     ],
     colors: [
       "Gold Assortment"
