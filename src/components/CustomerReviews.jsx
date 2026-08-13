@@ -15,7 +15,7 @@ export const CustomerReviews = () => {
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
             Customer Reviews & Experiences
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#FCE4EC] via-[#D4AF7F] to-[#FCE4EC] mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-linear-to-r from-[#FCE4EC] via-[#D4AF7F] to-[#FCE4EC] mx-auto rounded-full" />
         </div>
 
         {/* Reviews Grid */}
@@ -42,7 +42,7 @@ export const CustomerReviews = () => {
 
               <div className="pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] font-serif-luxury text-sm font-bold flex items-center justify-center border-2 border-[#D4AF7F] shrink-0 shadow-sm">
+                  <div className="w-11 h-11 rounded-full bg-linear-to-tr from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] font-serif-luxury text-sm font-bold flex items-center justify-center border-2 border-[#D4AF7F] shrink-0 shadow-sm">
                     {review.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>

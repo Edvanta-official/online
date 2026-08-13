@@ -1263,7 +1263,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-401",
     sku: "SPK-ER-401",
-    name: "Kundan chanbali Earings",
+    name: "Kundan Chandbali Earrings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1275,25 +1275,25 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 15,
     images: [
-      "images/chandbali_earrings.jpg",
-      "images/kundan_earrings.jpg"
+      "images/1_kundan_chandbali_earrings.jpg"
     ],
     colors: [
       "Antique Gold & Pearl Hangings"
     ],
-    description: "Kundan chanbali Earings from Drive. Traditional crescent moon Chandbali with pearl drops.",
+    description: "Kundan Chandbali Earrings from Drive. Traditional crescent moon Chandbali with delicate pearl drops and filigree work.",
     details: [
-      "Quantity: 1 Piece",
-      "Purchase Price: ₹162",
-      "Drive File: 1.Kundan chanbali Earings.JPG"
+      "Quantity: 1 Pair",
+      "Material: Gold Plated with Kundan Stone",
+      "Style: Traditional South Indian",
+      "Purchase Price: ₹162"
     ]
   },
   {
     id: "SPK-ER-402",
     sku: "SPK-ER-402",
-    name: "Kundan Dangler Earings",
+    name: "Kundan Dangler Earrings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1305,25 +1305,25 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 12,
     images: [
-      "images/kundan_earrings.jpg",
-      "images/chandbali_earrings.jpg"
+      "images/2_kundan_dangler_earrings.jpg"
     ],
     colors: [
       "Gold & Pearl Clusters"
     ],
-    description: "Kundan Dangler Earings from Drive. Kundan drop dangler with filigree pattern.",
+    description: "Kundan Dangler Earrings from Drive. Kundan drop dangler with intricate filigree pattern and pearl clusters.",
     details: [
-      "Quantity: 1 Piece",
-      "Purchase Price: ₹120",
-      "Drive File: 2.Kundan Dangler Earings.JPG"
+      "Quantity: 1 Pair",
+      "Material: Gold Plated with Kundan & Pearl",
+      "Style: Drop Danglers",
+      "Purchase Price: ₹120"
     ]
   },
   {
     id: "SPK-ER-403",
     sku: "SPK-ER-403",
-    name: "Double hoop earings for a single piecering",
+    name: "Double Hoop Earrings (Single Piercing)",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1335,25 +1335,25 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 10,
     images: [
-      "images/emerald_dangles.jpg",
-      "images/kundan_earrings.jpg"
+      "images/3_double_hoop_earrings.jpg"
     ],
     colors: [
-      "Minimalist Gold & Emerald"
+      "Gold Illusion Double Hoop"
     ],
-    description: "Double hoop earings for a single piecering from Drive. Illusion double hoop earring.",
+    description: "Double Hoop Earrings for Single Piercing from Drive. Create an illusion of double piercings with this single piercing earring.",
     details: [
-      "Quantity: 1 Piece",
-      "Purchase Price: ₹60",
-      "Drive File: 3.Double hoop earings for a single piecering.JPG"
+      "Quantity: 1 Pair",
+      "Material: Gold Plated Brass",
+      "Piercing: Single Ear Piercing",
+      "Purchase Price: ₹60"
     ]
   },
   {
     id: "SPK-ER-404",
     sku: "SPK-ER-404",
-    name: "Gold Hoop",
+    name: "Gold Hoop Earrings Set",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1365,25 +1365,26 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 2,
+    stock: 14,
     images: [
-      "images/stud_earrings.jpg",
-      "images/pave_studs.jpg"
+      "images/4_gold_hoop_1.jpg",
+      "images/4_gold_hoop_2.jpg"
     ],
     colors: [
-      "18K Gold Luster"
+      "18K Gold Polished"
     ],
-    description: "Gold Hoop from Drive. Classic high-polish medium gold hoop earrings.",
+    description: "Gold Hoop Earrings from Drive. Classic high-polish medium gold hoop earrings with timeless appeal and versatile styling.",
     details: [
-      "Quantity: 2 Pieces",
-      "Purchase Rate: ₹96/Piece (Total: ₹192)",
-      "Drive Files: 4.Gold Hoop-1 & 2.JPG"
+      "Quantity: 1 Pair",
+      "Material: 18K Gold Plated",
+      "Style: Classic Medium Hoops",
+      "Purchase Price: ₹96 each"
     ]
   },
   {
     id: "SPK-ER-405",
     sku: "SPK-ER-405",
-    name: "Gold plated pair earings combo set",
+    name: "Gold Plated Pair Earrings Combo",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1395,25 +1396,25 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 11,
     images: [
-      "images/pave_studs.jpg",
-      "images/stud_earrings.jpg"
+      "images/5_gold_plated_pair_earrings.jpg"
     ],
     colors: [
-      "Gold Pair Combo"
+      "Gold Plated Assortment"
     ],
-    description: "Gold plated pair earings combo set from Drive. Versatile gold-plated pair set.",
+    description: "Gold Plated Pair Earrings Combo from Drive. Versatile gold-plated pair set perfect for everyday wear and special occasions.",
     details: [
-      "Quantity: 1 Set",
-      "Purchase Price: ₹80",
-      "Drive File: 5.Gold plated pair earings combo set.JPG"
+      "Quantity: 1 Combo Set",
+      "Material: Gold Plated Brass",
+      "Pieces: 2 Pairs",
+      "Purchase Price: ₹80"
     ]
   },
   {
     id: "SPK-ER-406",
     sku: "SPK-ER-406",
-    name: "Studs",
+    name: "Stud Earrings Multipack Collection",
     category: "earrings",
     subcategory: "studs",
     categoryName: "Ear Rings",
@@ -1425,25 +1426,29 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 13,
     images: [
-      "images/stud_earrings.jpg",
-      "images/pave_studs.jpg"
+      "images/6_studs_1.jpg",
+      "images/6_studs_2.jpg",
+      "images/6_studs_3.jpg",
+      "images/6_studs_4.jpg",
+      "images/6_studs_5.jpg"
     ],
     colors: [
       "Clear Zircon & Gold"
     ],
-    description: "Studs from Drive. Multi-pack of sparkling cubic zirconia stud earrings.",
+    description: "Stud Earrings Multipack Collection from Drive. Gorgeous collection of sparkling cubic zirconia stud earrings in multiple styles.",
     details: [
-      "Quantity: 1 Set",
-      "Purchase Price: ₹240",
-      "Drive Files: 6.Studs-1 through 5.JPG"
+      "Quantity: 5 Pairs",
+      "Material: Gold Plated with CZ Stones",
+      "Variety: Multiple styles included",
+      "Purchase Price: ₹240"
     ]
   },
   {
     id: "SPK-ER-407",
     sku: "SPK-ER-407",
-    name: "Huggie earings with pearl and ball drops",
+    name: "Huggie Earrings with Pearl & Ball Drops",
     category: "earrings",
     subcategory: "studs",
     categoryName: "Ear Rings",
@@ -1455,25 +1460,26 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 9,
     images: [
-      "images/pave_studs.jpg",
-      "images/stud_earrings.jpg"
+      "images/7_huggie_earrings_1.jpg",
+      "images/7_huggie_earrings_2.jpg"
     ],
     colors: [
       "Gold & Pearl Drops"
     ],
-    description: "Huggie earings with pearl and ball drops from Drive. Dainty huggie hoops with pearl drops.",
+    description: "Huggie Earrings with Pearl & Ball Drops from Drive. Dainty huggie hoops with delicate pearl and ball drop charms.",
     details: [
-      "Quantity: 1 Piece",
-      "Purchase Price: ₹72",
-      "Drive Files: 7.Huggie earings with pearl and ball drops-1 & 2.JPG"
+      "Quantity: 1 Pair",
+      "Material: Gold Plated with Pearl Drops",
+      "Style: Huggie Hoops with Charms",
+      "Purchase Price: ₹72"
     ]
   },
   {
     id: "SPK-ER-408",
     sku: "SPK-ER-408",
-    name: "Hoop and stud earings mutlipack combo set",
+    name: "Hoop & Stud Earrings Multipack Combo",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1485,19 +1491,19 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 8,
     images: [
-      "images/emerald_dangles.jpg",
-      "images/kundan_earrings.jpg"
+      "images/8_hoop_stud_earrings_combo.jpg"
     ],
     colors: [
       "Gold Assortment"
     ],
-    description: "Hoop and stud earings mutlipack combo set from Drive. Ear-stack combo set with classic hoops.",
+    description: "Hoop & Stud Earrings Multipack Combo from Drive. Complete ear-stack combo set with classic hoops and studs for versatile styling.",
     details: [
-      "Quantity: 1 Set",
-      "Purchase Price: ₹80",
-      "Drive File: 8.Hoop and stud earings mutlipack combo set.JPG"
+      "Quantity: 1 Combo Set",
+      "Material: Gold Plated Brass with CZ",
+      "Pieces: Multiple Hoop & Stud Pairs",
+      "Purchase Price: ₹80"
     ]
   },
   {

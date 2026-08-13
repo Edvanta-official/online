@@ -45,3 +45,33 @@ export const getCategoryFallbackImage = (category) => {
       return 'images/plumeria_flower_claw_clip_drive.jpg';
   }
 };
+
+/**
+ * Normalizes item names and file paths for 100% accurate fuzzy matching
+ * Ignores: case, spaces, hyphens, underscores, file extensions (.jpg, .jpeg, .png, .webp)
+ */
+export const normalizeItemKey = (str) => {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '')
+    .replace(/[^a-z0-9]/g, '');
+};
+
+/**
+ * Matches an item name against available Drive images
+ */
+export const matchItemWithDriveImage = (itemName, availableImages = [], category = '') => {
+  if (!itemName) return getCategoryFallbackImage(category);
+  
+  const normalizedItem = normalizeItemKey(itemName);
+  
+  const exactMatch = availableImages.find(img => {
+    const normalizedImg = normalizeItemKey(img);
+    return normalizedImg.includes(normalizedItem) || normalizedItem.includes(normalizedImg);
+  });
+
+  if (exactMatch) return exactMatch;
+
+  return getCategoryFallbackImage(category);
+};
