@@ -19,9 +19,9 @@ export const getDirectImageUrl = (url) => {
     }
   }
 
-  // Ensure local relative paths starting with 'images/' get a leading '/'
-  if (url.startsWith('images/')) {
-    return '/' + url;
+  // Strip leading '/' for relative compatibility on GitHub Pages sub-folder deployments (/online/)
+  if (url.startsWith('/')) {
+    return url.slice(1);
   }
 
   return url;
