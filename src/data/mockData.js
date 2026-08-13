@@ -106,7 +106,7 @@ export const CATEGORIES = [
     id: "bracelets",
     name: "Bracelets",
     icon: "💎",
-    count: 9,
+    count: 13,
     description: "Adjustable gold kada bracelets & beaded charm bracelets",
     image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
   },
@@ -114,7 +114,7 @@ export const CATEGORIES = [
     id: "earrings",
     name: "Ear Rings",
     icon: "✨",
-    count: 5,
+    count: 8,
     description: "Traditional Kundan Chandbali, danglers, emerald drops & solitaire studs",
     image: "images/chandbali_earrings.jpg"
   },
@@ -122,7 +122,7 @@ export const CATEGORIES = [
     id: "bangles",
     name: "Bangles",
     icon: "🔱",
-    count: 2,
+    count: 5,
     description: "Kundhan Kadas, pearl bangles & oxidised silver bangles",
     image: "images/silver_bangles.jpg"
   },
@@ -162,10 +162,11 @@ export const PRODUCTS = [
       "Peach",
       "White"
     ],
-    description: "Handcrafted Plumeria flower hair claw clip with durable spring grip.",
+    description: "Plumeria flower claw clip from Drive. Handcrafted flower claw clip with durable spring grip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹86/Set (₹7.1/Piece)"
+      "Purchase Rate: ₹86/Set (₹7.1/Piece)",
+      "Drive File: 1.Plumeria flower claw clip.jpg"
     ]
   },
   {
@@ -193,10 +194,11 @@ export const PRODUCTS = [
       "Dusty Pink",
       "Sage Green"
     ],
-    description: "Premium pastel claw clips set designed for secure daily hair updos.",
+    description: "Claw Clips from Drive. Premium pastel claw clips set for daily hair updos.",
     details: [
       "Quantity: 2 Sets (24 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)"
+      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Drive File: 2.Claw Clips.jpg"
     ]
   },
   {
@@ -223,10 +225,11 @@ export const PRODUCTS = [
       "Rose Gold",
       "Glossy Black"
     ],
-    description: "Trendy criss-cross design hair claw clip with high tension steel spring.",
+    description: "Cross Claw Clips from Drive. Criss-cross metal claw clip with high tension spring.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)"
+      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Drive File: 3.Cross Claw Clips.JPG"
     ]
   },
   {
@@ -253,10 +256,11 @@ export const PRODUCTS = [
       "Metallic Gold",
       "Silver"
     ],
-    description: "Aesthetic whale tail shaped metallic hair claw clip for French twist updos.",
+    description: "Whale tail hair claw clips from Drive. Metallic whale tail claw clip for French twist updos.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)"
+      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Drive File: 4.Whale tail hair claw clips.JPG"
     ]
   },
   {
@@ -283,10 +287,11 @@ export const PRODUCTS = [
       "Amber Tortoise",
       "Matte Nude"
     ],
-    description: "Minimalist rectangular hollow hair claw clip suitable for thick and medium hair.",
+    description: "Rectangle hair claw clips from Drive. Rectangular hollow claw clip for medium hair.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹148/Set (₹12.3/Piece)"
+      "Purchase Rate: ₹148/Set (₹12.3/Piece)",
+      "Drive File: 5.Rectangle hair claw clips.jpg"
     ]
   },
   {
@@ -313,10 +318,11 @@ export const PRODUCTS = [
       "Pastel Blossom Pink",
       "Lilac"
     ],
-    description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
+    description: "Pastel flower design hair claw clips from Drive. Handcrafted pastel floral clip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹702/Set (₹58.5/Piece)"
+      "Purchase Rate: ₹702/Set (₹58.5/Piece)",
+      "Drive File: 6.Pastel flower design hair claw clips.jpg"
     ]
   },
   {
@@ -343,10 +349,11 @@ export const PRODUCTS = [
       "White & Yellow",
       "Coral"
     ],
-    description: "Tropical Hawaiian Frangipani Plumeria flower hair claws for vacation and beachwear.",
+    description: "Hawaian Plumeria flower claw clips from Drive. Tropical Frangipani hair claws.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹129/Set (₹10.7/Piece)"
+      "Purchase Rate: ₹129/Set (₹10.7/Piece)",
+      "Drive File: 7.Hawaian Plumeria flower claw clips.jpg"
     ]
   },
   {
@@ -372,10 +379,11 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Floral"
     ],
-    description: "Elegant 5-petal floral claw clip set featuring matte anti-slip grip.",
+    description: "Flower claw clips from Drive. 5-petal floral claw clip set featuring anti-slip grip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹137/Set (₹11.4/Piece)"
+      "Purchase Rate: ₹137/Set (₹11.4/Piece)",
+      "Drive File: 8.Flower claw clips.jpg"
     ]
   },
   {
@@ -666,7 +674,8 @@ export const PRODUCTS = [
     description: "Faux Pearl charm necklace from Drive. Minimalist gold chain centered with faux pearl charm.",
     details: [
       "Quantity: 2 Pieces in Stock",
-      "Purchase Price: ₹72/Piece (Total: ₹144)"
+      "Purchase Price: ₹72/Piece (Total: ₹144)",
+      "Drive File: 1.Faux Pearl charm necklace.JPG"
     ]
   },
   {
@@ -695,7 +704,8 @@ export const PRODUCTS = [
     description: "Adjustable Floral Bolo Necklace from Drive. Bolo style chain necklace with flower slider.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹36"
+      "Purchase Price: ₹36",
+      "Drive File: 2.Adjustable Floral Bolo Necklace.JPG"
     ]
   },
   {
@@ -724,7 +734,8 @@ export const PRODUCTS = [
     description: "Green oval stone chain from Drive. Waterproof anti-tarnish stainless chain with emerald green stone.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹95"
+      "Purchase Price: ₹95",
+      "Drive File: 3.Green oval stone antitarnish gold plated stainless chain.JPG"
     ]
   },
   {
@@ -753,7 +764,8 @@ export const PRODUCTS = [
     description: "Flat Snake Chain from Drive. Sleek liquid-smooth flat herringbone snake chain.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹110"
+      "Purchase Price: ₹110",
+      "Drive File: 4.Flat Snake Chain.JPG"
     ]
   },
   {
@@ -782,7 +794,8 @@ export const PRODUCTS = [
     description: "Satellite Chain from Drive. Cable chain featuring tiny textured gold beads.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹48"
+      "Purchase Price: ₹48",
+      "Drive File: 5.Satellite Chain.JPG"
     ]
   },
   {
@@ -811,7 +824,8 @@ export const PRODUCTS = [
     description: "Crystal heart pendant necklace from Drive. Faceted crystal heart pendant on gold chain.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹85"
+      "Purchase Price: ₹85",
+      "Drive File: 6.Crystal heart pendant minimal gold chain necklace.JPG"
     ]
   },
   {
@@ -840,7 +854,8 @@ export const PRODUCTS = [
     description: "North star pendant necklace from Drive. Celestial North Star compass medallion.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹75"
+      "Purchase Price: ₹75",
+      "Drive File: 7.North star pendant neckalce.JPG"
     ]
   },
   {
@@ -864,13 +879,14 @@ export const PRODUCTS = [
     description: "Round Snake Neck from Drive. Classic round flexible snake chain necklace.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹90"
+      "Purchase Price: ₹90",
+      "Drive File: 8.Round Snake Neck.JPG"
     ]
   },
   {
     id: "SPK-BR-301",
     sku: "SPK-BR-301",
-    name: "Beaded Charm Bracelet - Pink & Pearl Charms",
+    name: "Beaded Charm bracelet",
     category: "bracelets",
     subcategory: "fashion-bracelets",
     categoryName: "Bracelets",
@@ -885,12 +901,12 @@ export const PRODUCTS = [
     stock: 4,
     images: [
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
+      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
     ],
     colors: [
       "Gold & Pearl Charms"
     ],
-    description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms (Pink & Pearl Edition).",
+    description: "Beaded Charm bracelet from Drive. Strung with gold heart, star, and pearl charms.",
     details: [
       "Quantity: 1 Set (4 Pieces)",
       "Purchase Rate: ₹144/Set (₹36/Piece)"
@@ -899,94 +915,7 @@ export const PRODUCTS = [
   {
     id: "SPK-BR-302",
     sku: "SPK-BR-302",
-    name: "Beaded Charm Bracelet - Blue Evil Eye & Star Charms",
-    category: "bracelets",
-    subcategory: "fashion-bracelets",
-    categoryName: "Bracelets",
-    price: 199,
-    originalPrice: 299,
-    rating: 4.8,
-    reviewsCount: 88,
-    isNew: true,
-    isTrending: true,
-    isBestSeller: true,
-    isFlashSale: false,
-    stock: 4,
-    images: [
-      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
-    ],
-    colors: [
-      "Gold & Crystal Charms"
-    ],
-    description: "Playful beaded charm bracelet strung with delicate gold heart, star, and blue evil eye charms.",
-    details: [
-      "Quantity: 1 Set (4 Pieces)",
-      "Purchase Rate: ₹144/Set (₹36/Piece)"
-    ]
-  },
-  {
-    id: "SPK-BR-303",
-    sku: "SPK-BR-303",
-    name: "Beaded Charm Bracelet - Pastel Floral & Dolphin Charms",
-    category: "bracelets",
-    subcategory: "fashion-bracelets",
-    categoryName: "Bracelets",
-    price: 199,
-    originalPrice: 299,
-    rating: 4.9,
-    reviewsCount: 102,
-    isNew: false,
-    isTrending: true,
-    isBestSeller: false,
-    isFlashSale: true,
-    stock: 4,
-    images: [
-      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg"
-    ],
-    colors: [
-      "Gold & Pastel Charms"
-    ],
-    description: "Playful beaded charm bracelet strung with delicate gold heart, floral, and dolphin charms.",
-    details: [
-      "Quantity: 1 Set (4 Pieces)",
-      "Purchase Rate: ₹144/Set (₹36/Piece)"
-    ]
-  },
-  {
-    id: "SPK-BR-304",
-    sku: "SPK-BR-304",
-    name: "Beaded Charm Bracelet - Silver Pandora Style Charm Bangle",
-    category: "bracelets",
-    subcategory: "fashion-bracelets",
-    categoryName: "Bracelets",
-    price: 249,
-    originalPrice: 349,
-    rating: 4.9,
-    reviewsCount: 110,
-    isNew: true,
-    isTrending: true,
-    isBestSeller: true,
-    isFlashSale: true,
-    stock: 4,
-    images: [
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg"
-    ],
-    colors: [
-      "Silver & Peach Crystal Bead"
-    ],
-    description: "Sleek silver Pandora-style snake charm bangle with floral dangles and peach crystal center bead.",
-    details: [
-      "Quantity: 1 Set (4 Pieces)",
-      "Purchase Rate: ₹144/Set (₹36/Piece)"
-    ]
-  },
-  {
-    id: "SPK-BR-305",
-    sku: "SPK-BR-305",
-    name: "Adjustable Gold Plated Kada Bracelet - Glossy 18K Gold",
+    name: "Adjustable gold plated kada Bracelet",
     category: "bracelets",
     subcategory: "chain-bracelets",
     categoryName: "Bracelets",
@@ -1001,137 +930,340 @@ export const PRODUCTS = [
     stock: 5,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_1_jpg_drive.jpg"
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
     ],
     colors: [
       "18K Micro Gold Polish"
     ],
-    description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish with ball ending accents.",
+    description: "Adjustable gold plated kada Bracelet from Drive. Statement openable flexible Kada.",
     details: [
       "Quantity: 1 Set (5 Pieces)",
       "Purchase Rate: ₹860/Set (₹172/Piece)"
     ]
   },
   {
-    id: "SPK-BR-306",
-    sku: "SPK-BR-306",
-    name: "Adjustable Gold Plated Kada Bracelet - Dual Heart Stone Accent",
+    id: "SPK-BR-303",
+    sku: "SPK-BR-303",
+    name: "Sunflower beaded chain bracelet",
     category: "bracelets",
-    subcategory: "chain-bracelets",
+    subcategory: "fashion-bracelets",
     categoryName: "Bracelets",
-    price: 499,
-    originalPrice: 749,
+    price: 229,
+    originalPrice: 349,
+    rating: 4.7,
+    reviewsCount: 78,
+    isNew: true,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 5,
+    images: [
+      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
+    ],
+    colors: [
+      "Yellow Sunflower & Gold Beads"
+    ],
+    description: "Sunflower beaded chain bracelet from Drive. Sunflower enamel charm chain bracelet.",
+    details: [
+      "Quantity: 5 Pieces in Stock",
+      "Purchase Price: ₹42/Piece (Total: ₹210)"
+    ]
+  },
+  {
+    id: "SPK-BR-304",
+    sku: "SPK-BR-304",
+    name: "Gold Plated Multicolour square stone link bracelet",
+    category: "bracelets",
+    subcategory: "stone-bracelets",
+    categoryName: "Bracelets",
+    price: 199,
+    originalPrice: 299,
+    rating: 4.9,
+    reviewsCount: 120,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 9,
+    images: [
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
+      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
+    ],
+    colors: [
+      "Multicolor Gemstones & Gold"
+    ],
+    description: "Gold Plated Multicolour square stone link bracelet from Drive. Rainbow crystal link bracelet.",
+    details: [
+      "Quantity: 9 Pieces in Stock",
+      "Purchase Price: ₹36/Piece (Total: ₹324)"
+    ]
+  },
+  {
+    id: "SPK-BR-305",
+    sku: "SPK-BR-305",
+    name: "Nazar Protection Bracelet",
+    category: "bracelets",
+    subcategory: "fashion-bracelets",
+    categoryName: "Bracelets",
+    price: 199,
+    originalPrice: 299,
     rating: 4.9,
     reviewsCount: 140,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 5,
+    stock: 8,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
+      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg"
     ],
     colors: [
-      "18K Gold & Crystal Heart"
+      "Blue Evil Eye & Gold Beads"
     ],
-    description: "Statement openable flexible Kada bracelet detailed with twin heart-shaped crystal centerpieces.",
+    description: "Nazar Protection Bracelet from Drive. Protective blue glass evil eye charm bracelet.",
     details: [
-      "Quantity: 1 Set (5 Pieces)",
-      "Purchase Rate: ₹860/Set (₹172/Piece)"
+      "Quantity: 8 Pieces in Stock",
+      "Purchase Price: ₹35/Piece"
     ]
   },
   {
-    id: "SPK-BR-307",
-    sku: "SPK-BR-307",
-    name: "Adjustable Gold Plated Kada Bracelet - Textured Micro Gold",
+    id: "SPK-BR-306",
+    sku: "SPK-BR-306",
+    name: "Multicolour Beaded Station Chain Bracelet",
     category: "bracelets",
-    subcategory: "chain-bracelets",
+    subcategory: "fashion-bracelets",
     categoryName: "Bracelets",
-    price: 499,
-    originalPrice: 749,
+    price: 219,
+    originalPrice: 329,
     rating: 4.8,
-    reviewsCount: 118,
-    isNew: false,
+    reviewsCount: 88,
+    isNew: true,
     isTrending: true,
     isBestSeller: false,
-    isFlashSale: true,
-    stock: 5,
+    isFlashSale: false,
+    stock: 6,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_3_jpg_drive.jpg"
     ],
     colors: [
-      "18K High Polish Gold"
+      "Rainbow Beads & Gold Chain"
     ],
-    description: "Statement openable flexible Kada bracelet with fine micro-carved texturing along the band.",
+    description: "Multicolour Beaded Station Chain Bracelet from Drive. Multi-colored glass beads along fine chain.",
     details: [
-      "Quantity: 1 Set (5 Pieces)",
-      "Purchase Rate: ₹860/Set (₹172/Piece)"
+      "Quantity: 6 Pieces in Stock",
+      "Purchase Price: ₹40/Piece"
+    ]
+  },
+  {
+    id: "SPK-BR-307",
+    sku: "SPK-BR-307",
+    name: "Sunflower beaded chain multicolour",
+    category: "bracelets",
+    subcategory: "fashion-bracelets",
+    categoryName: "Bracelets",
+    price: 229,
+    originalPrice: 349,
+    rating: 4.7,
+    reviewsCount: 65,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg"
+    ],
+    colors: [
+      "Multicolor Sunflower & Pastel Beads"
+    ],
+    description: "Sunflower beaded chain multicolour from Drive. Summer floral chain bracelet with enamel sunflower.",
+    details: [
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹42"
     ]
   },
   {
     id: "SPK-BR-308",
     sku: "SPK-BR-308",
-    name: "Adjustable Gold Plated Kada Bracelet - Heart Motif Endings",
+    name: "Sunflower beaded nazar protection",
     category: "bracelets",
-    subcategory: "chain-bracelets",
+    subcategory: "fashion-bracelets",
     categoryName: "Bracelets",
-    price: 499,
-    originalPrice: 749,
-    rating: 5,
-    reviewsCount: 155,
+    price: 239,
+    originalPrice: 359,
+    rating: 4.8,
+    reviewsCount: 75,
     isNew: true,
-    isTrending: false,
+    isTrending: true,
     isBestSeller: true,
-    isFlashSale: false,
-    stock: 5,
+    isFlashSale: true,
+    stock: 1,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"
     ],
     colors: [
-      "18K Matte Gold Polish"
+      "Yellow Sunflower & Evil Eye"
     ],
-    description: "Statement openable flexible Kada bracelet detailed with heart motif terminals encrusted with zircons.",
+    description: "Sunflower beaded nazar protection from Drive. Fusion bracelet combining sunflower and Nazar eye.",
     details: [
-      "Quantity: 1 Set (5 Pieces)",
-      "Purchase Rate: ₹860/Set (₹172/Piece)"
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹45"
     ]
   },
   {
     id: "SPK-BR-309",
     sku: "SPK-BR-309",
-    name: "Adjustable Gold Plated Kada Bracelet - Flower Cluster Accent",
+    name: "Cresent moon charm bracelet",
     category: "bracelets",
-    subcategory: "chain-bracelets",
+    subcategory: "fashion-bracelets",
     categoryName: "Bracelets",
-    price: 499,
-    originalPrice: 749,
+    price: 249,
+    originalPrice: 379,
     rating: 4.9,
-    reviewsCount: 130,
+    reviewsCount: 95,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
-    isFlashSale: true,
-    stock: 5,
+    isFlashSale: false,
+    stock: 1,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg"
     ],
     colors: [
-      "18K Textured Gold Polish"
+      "Gold & Crystal Moon"
     ],
-    description: "Statement openable flexible Kada bracelet featuring a delicate floral cluster centerpiece.",
+    description: "Cresent moon charm bracelet from Drive. Celestial crescent moon charm bracelet with crystals.",
     details: [
-      "Quantity: 1 Set (5 Pieces)",
-      "Purchase Rate: ₹860/Set (₹172/Piece)"
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹48"
+    ]
+  },
+  {
+    id: "SPK-BR-310",
+    sku: "SPK-BR-310",
+    name: "Wavy Chain fish charm bracelet",
+    category: "bracelets",
+    subcategory: "fashion-bracelets",
+    categoryName: "Bracelets",
+    price: 249,
+    originalPrice: 379,
+    rating: 4.7,
+    reviewsCount: 55,
+    isNew: false,
+    isTrending: false,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
+    ],
+    colors: [
+      "Gold Wavy Link & Fish Charm"
+    ],
+    description: "Wavy Chain fish charm bracelet from Drive. Wavy link chain bracelet centered with gold fish.",
+    details: [
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹48"
+    ]
+  },
+  {
+    id: "SPK-BR-311",
+    sku: "SPK-BR-311",
+    name: "Gold plated Multicolour heart",
+    category: "bracelets",
+    subcategory: "stone-bracelets",
+    categoryName: "Bracelets",
+    price: 259,
+    originalPrice: 389,
+    rating: 4.8,
+    reviewsCount: 82,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
+      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg"
+    ],
+    colors: [
+      "Multicolor Heart Gems & Gold"
+    ],
+    description: "Gold plated Multicolour heart from Drive. Link bracelet set with heart-cut multi-colored stones.",
+    details: [
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹50"
+    ]
+  },
+  {
+    id: "SPK-BR-312",
+    sku: "SPK-BR-312",
+    name: "Gold Heart Bracelet",
+    category: "bracelets",
+    subcategory: "chain-bracelets",
+    categoryName: "Bracelets",
+    price: 249,
+    originalPrice: 379,
+    rating: 4.8,
+    reviewsCount: 90,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 1,
+    images: [
+      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
+      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"
+    ],
+    colors: [
+      "High Luster Gold"
+    ],
+    description: "Gold Heart Bracelet from Drive. High-polish gold heart link bracelet.",
+    details: [
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹48"
+    ]
+  },
+  {
+    id: "SPK-BR-313",
+    sku: "SPK-BR-313",
+    name: "Gold Plated Multicolour Heart Crystal link Bracelet",
+    category: "bracelets",
+    subcategory: "stone-bracelets",
+    categoryName: "Bracelets",
+    price: 269,
+    originalPrice: 399,
+    rating: 4.9,
+    reviewsCount: 104,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg"
+    ],
+    colors: [
+      "Rainbow Heart Crystals"
+    ],
+    description: "Gold Plated Multicolour Heart Crystal link Bracelet from Drive. Sequential rainbow crystal hearts.",
+    details: [
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹55"
     ]
   },
   {
     id: "SPK-ER-401",
     sku: "SPK-ER-401",
-    name: "Traditional Kundan Chandbali Earrings",
+    name: "Kundan chanbali Earings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1151,17 +1283,17 @@ export const PRODUCTS = [
     colors: [
       "Antique Gold & Pearl Hangings"
     ],
-    description: "Traditional Indian Kundan crescent moon Chandbali earrings with pearl cluster drops.",
+    description: "Kundan chanbali Earings from Drive. Traditional crescent moon Chandbali with pearl drops.",
     details: [
-      "Quantity: 1 Pair",
+      "Quantity: 1 Piece",
       "Purchase Price: ₹162",
-      "Finish: 24K Micro Antique Gold Finish"
+      "Drive File: 1.Kundan chanbali Earings.JPG"
     ]
   },
   {
     id: "SPK-ER-402",
     sku: "SPK-ER-402",
-    name: "Kundan & Blue Sapphire Crystal Dangler Earrings",
+    name: "Kundan Dangler Earings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1179,28 +1311,29 @@ export const PRODUCTS = [
       "images/chandbali_earrings.jpg"
     ],
     colors: [
-      "Royal Blue Gemstone & Silver Tone"
+      "Gold & Pearl Clusters"
     ],
-    description: "Elegant royal blue sapphire crystal dangler earrings set with sparkling diamond-cut zircon borders.",
+    description: "Kundan Dangler Earings from Drive. Kundan drop dangler with filigree pattern.",
     details: [
-      "Quantity: 1 Pair",
-      "Purchase Price: ₹120"
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹120",
+      "Drive File: 2.Kundan Dangler Earings.JPG"
     ]
   },
   {
     id: "SPK-ER-403",
     sku: "SPK-ER-403",
-    name: "Emerald Green Cushion Cut Dangler Earrings",
+    name: "Double hoop earings for a single piecering",
     category: "earrings",
-    subcategory: "traditional-earrings",
+    subcategory: "hoops",
     categoryName: "Ear Rings",
-    price: 399,
-    originalPrice: 599,
-    rating: 4.9,
-    reviewsCount: 115,
-    isNew: true,
+    price: 249,
+    originalPrice: 379,
+    rating: 4.7,
+    reviewsCount: 74,
+    isNew: false,
     isTrending: true,
-    isBestSeller: true,
+    isBestSeller: false,
     isFlashSale: true,
     stock: 1,
     images: [
@@ -1208,25 +1341,116 @@ export const PRODUCTS = [
       "images/kundan_earrings.jpg"
     ],
     colors: [
-      "Emerald Green & Gold Polish"
+      "Minimalist Gold & Emerald"
     ],
-    description: "Boutique emerald green gemstone dangler earrings encased in 18K micro gold halo setting.",
+    description: "Double hoop earings for a single piecering from Drive. Illusion double hoop earring.",
     details: [
-      "Quantity: 1 Pair",
-      "Purchase Price: ₹120"
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹60",
+      "Drive File: 3.Double hoop earings for a single piecering.JPG"
     ]
   },
   {
     id: "SPK-ER-404",
     sku: "SPK-ER-404",
-    name: "Square Halo Cubic Zirconia Stud Earrings",
+    name: "Gold Hoop",
     category: "earrings",
-    subcategory: "studs",
+    subcategory: "hoops",
+    categoryName: "Ear Rings",
+    price: 299,
+    originalPrice: 449,
+    rating: 4.8,
+    reviewsCount: 115,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 2,
+    images: [
+      "images/stud_earrings.jpg",
+      "images/pave_studs.jpg"
+    ],
+    colors: [
+      "18K Gold Luster"
+    ],
+    description: "Gold Hoop from Drive. Classic high-polish medium gold hoop earrings.",
+    details: [
+      "Quantity: 2 Pieces",
+      "Purchase Rate: ₹96/Piece (Total: ₹192)",
+      "Drive Files: 4.Gold Hoop-1 & 2.JPG"
+    ]
+  },
+  {
+    id: "SPK-ER-405",
+    sku: "SPK-ER-405",
+    name: "Gold plated pair earings combo set",
+    category: "earrings",
+    subcategory: "hoops",
     categoryName: "Ear Rings",
     price: 249,
     originalPrice: 379,
     rating: 4.8,
-    reviewsCount: 95,
+    reviewsCount: 82,
+    isNew: false,
+    isTrending: false,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/pave_studs.jpg",
+      "images/stud_earrings.jpg"
+    ],
+    colors: [
+      "Gold Pair Combo"
+    ],
+    description: "Gold plated pair earings combo set from Drive. Versatile gold-plated pair set.",
+    details: [
+      "Quantity: 1 Set",
+      "Purchase Price: ₹80",
+      "Drive File: 5.Gold plated pair earings combo set.JPG"
+    ]
+  },
+  {
+    id: "SPK-ER-406",
+    sku: "SPK-ER-406",
+    name: "Studs",
+    category: "earrings",
+    subcategory: "studs",
+    categoryName: "Ear Rings",
+    price: 499,
+    originalPrice: 749,
+    rating: 5,
+    reviewsCount: 160,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 1,
+    images: [
+      "images/stud_earrings.jpg",
+      "images/pave_studs.jpg"
+    ],
+    colors: [
+      "Clear Zircon & Gold"
+    ],
+    description: "Studs from Drive. Multi-pack of sparkling cubic zirconia stud earrings.",
+    details: [
+      "Quantity: 1 Set",
+      "Purchase Price: ₹240",
+      "Drive Files: 6.Studs-1 through 5.JPG"
+    ]
+  },
+  {
+    id: "SPK-ER-407",
+    sku: "SPK-ER-407",
+    name: "Huggie earings with pearl and ball drops",
+    category: "earrings",
+    subcategory: "studs",
+    categoryName: "Ear Rings",
+    price: 229,
+    originalPrice: 349,
+    rating: 4.8,
+    reviewsCount: 92,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
@@ -1237,47 +1461,49 @@ export const PRODUCTS = [
       "images/stud_earrings.jpg"
     ],
     colors: [
-      "Rose Gold & Square Zircon"
+      "Gold & Pearl Drops"
     ],
-    description: "Elegant rose gold square halo stud earrings crafted with brilliant-cut AAA cubic zirconia stones.",
+    description: "Huggie earings with pearl and ball drops from Drive. Dainty huggie hoops with pearl drops.",
     details: [
-      "Quantity: 1 Pair",
-      "Purchase Price: ₹60"
+      "Quantity: 1 Piece",
+      "Purchase Price: ₹72",
+      "Drive Files: 7.Huggie earings with pearl and ball drops-1 & 2.JPG"
     ]
   },
   {
-    id: "SPK-ER-405",
-    sku: "SPK-ER-405",
-    name: "Solitaire Round Cut Cubic Zirconia Stud Earrings",
+    id: "SPK-ER-408",
+    sku: "SPK-ER-408",
+    name: "Hoop and stud earings mutlipack combo set",
     category: "earrings",
-    subcategory: "studs",
+    subcategory: "hoops",
     categoryName: "Ear Rings",
     price: 249,
     originalPrice: 379,
     rating: 4.8,
-    reviewsCount: 110,
-    isNew: true,
+    reviewsCount: 105,
+    isNew: false,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/stud_earrings.jpg",
-      "images/pave_studs.jpg"
+      "images/emerald_dangles.jpg",
+      "images/kundan_earrings.jpg"
     ],
     colors: [
-      "Rose Gold & Round Solitaire"
+      "Gold Assortment"
     ],
-    description: "Classic 6-prong solitaire round-cut cubic zirconia stud earrings in anti-tarnish rose gold setting.",
+    description: "Hoop and stud earings mutlipack combo set from Drive. Ear-stack combo set with classic hoops.",
     details: [
-      "Quantity: 1 Pair",
-      "Purchase Price: ₹60"
+      "Quantity: 1 Set",
+      "Purchase Price: ₹80",
+      "Drive File: 8.Hoop and stud earings mutlipack combo set.JPG"
     ]
   },
   {
     id: "SPK-BG-501",
     sku: "SPK-BG-501",
-    name: "Kundan & Pearl Traditional Bangle Set",
+    name: "Kundhan Kadas",
     category: "bangles",
     subcategory: "kemp-bangles",
     categoryName: "Bangles",
@@ -1291,23 +1517,23 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 16,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_1.png",
+      "images/pearl_bangles.jpg"
     ],
     colors: [
       "Antique Gold & Kundan Work"
     ],
-    description: "Royal handcrafted Kundan Kada bangles embellished with uncut glass Kundan stones and velvet pouch.",
+    description: "1.png Kundhan Kadas from Drive BANGLES folder.",
     details: [
       "Quantity: 1 Set (16 Pieces)",
       "Purchase Price: ₹150",
-      "Finish: 24K Micro Antique Polish"
+      "Drive File: 1.png"
     ]
   },
   {
     id: "SPK-BG-502",
     sku: "SPK-BG-502",
-    name: "Oxidised Silver Thin Metal Bangles Stack",
+    name: "Oxidised silver thin metal bangles",
     category: "bangles",
     subcategory: "metal-bangles",
     categoryName: "Bangles",
@@ -1321,16 +1547,107 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 40,
     images: [
-      "images/silver_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_2.png",
+      "images/silver_bangles.jpg"
     ],
     colors: [
       "Oxidised Silver Finish"
     ],
-    description: "Traditional German oxidised silver metal thin bangles stack for ethnic festive wear.",
+    description: "2.png Oxidised silver thin metal bangles from Drive BANGLES folder.",
     details: [
       "Quantity: 10 Sets (40 Pieces)",
-      "Purchase Rate: ₹74/Set (Total: ₹740)"
+      "Purchase Rate: ₹74/Set (Total: ₹740)",
+      "Drive File: 2.png"
+    ]
+  },
+  {
+    id: "SPK-BG-503",
+    sku: "SPK-BG-503",
+    name: "Kemp Stone Bangles",
+    category: "bangles",
+    subcategory: "kemp-bangles",
+    categoryName: "Bangles",
+    price: 349,
+    originalPrice: 519,
+    rating: 4.9,
+    reviewsCount: 138,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 30,
+    images: [
+      "images/bangles_3.png",
+      "images/pearl_bangles.jpg"
+    ],
+    colors: [
+      "Ruby Red Kemp & Gold"
+    ],
+    description: "3.png Kemp Stone Bangles from Drive BANGLES folder.",
+    details: [
+      "Quantity: 6 Sets (30 Pieces)",
+      "Purchase Rate: ₹81/Set (Total: ₹486)",
+      "Drive File: 3.png"
+    ]
+  },
+  {
+    id: "SPK-BG-504",
+    sku: "SPK-BG-504",
+    name: "Silver Stone Chura Set",
+    category: "bangles",
+    subcategory: "chura-sets",
+    categoryName: "Bangles",
+    price: 399,
+    originalPrice: 599,
+    rating: 5,
+    reviewsCount: 162,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: false,
+    stock: 8,
+    images: [
+      "images/bangles_4.png",
+      "images/silver_bangles.jpg"
+    ],
+    colors: [
+      "Silver & Cubic Zirconia"
+    ],
+    description: "4.png Silver Stone Chura Set from Drive BANGLES folder.",
+    details: [
+      "Quantity: 4 Sets (8 Pieces)",
+      "Purchase Rate: ₹110/Set (Total: ₹440)",
+      "Drive File: 4.png"
+    ]
+  },
+  {
+    id: "SPK-BG-505",
+    sku: "SPK-BG-505",
+    name: "Antique gold plated metal bangle",
+    category: "bangles",
+    subcategory: "metal-bangles",
+    categoryName: "Bangles",
+    price: 249,
+    originalPrice: 379,
+    rating: 4.8,
+    reviewsCount: 110,
+    isNew: false,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 12,
+    images: [
+      "images/bangles_5.png",
+      "images/pearl_bangles.jpg"
+    ],
+    colors: [
+      "Antique Matte Gold"
+    ],
+    description: "5.png Antique gold plated metal bangle from Drive BANGLES folder.",
+    details: [
+      "Quantity: 6 Sets (12 Pieces)",
+      "Purchase Rate: ₹65/Set (Total: ₹195)",
+      "Drive File: 5.png"
     ]
   },
   {
@@ -1378,8 +1695,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 15,
     images: [
-      "images/plumeria_flower.jpg",
-      "images/gift_set.jpg"
+      "images/gift_set.jpg",
+      "images/kundan_earrings.jpg"
     ],
     colors: [
       "Signature Velvet Chest"
@@ -1406,8 +1723,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/kundan_choker_set.jpg",
-      "images/gift_set.jpg"
+      "images/gift_set.jpg",
+      "images/kundan_choker_set.jpg"
     ],
     colors: [
       "Ivory & Gold Velvet Trunk"
