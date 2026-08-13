@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useShop } from '../context/ShopContext';
 import { Sparkles } from 'lucide-react';
+import { getDirectImageUrl } from '../utils/imageUtils';
 
 export const FeaturedCategories = () => {
   const { categories } = useShop();
@@ -34,10 +35,10 @@ export const FeaturedCategories = () => {
               {/* Category Image Preview */}
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-4 border-2 border-[#D4AF7F]/40 p-1 group-hover:border-[#C89B3C] transition-colors shadow-inner">
                 <img
-                  src={cat.image}
+                  src={getDirectImageUrl(cat.image)}
                   alt={cat.name}
                   onError={(e) => {
-                    e.target.src = 'images/plumeria_flower.jpg';
+                    e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
                   }}
                   className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500"
                 />

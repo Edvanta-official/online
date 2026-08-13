@@ -84,7 +84,7 @@ export const CATEGORIES = [
     icon: "🌸",
     count: 8,
     description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
-    image: "https://lh3.googleusercontent.com/d/1Q1lEsl9zRPEOorscXIfV2m_u71101nRS"
+    image: "images/plumeria_flower_claw_clip_drive.jpg"
   },
   {
     id: "necklaces",
@@ -92,7 +92,7 @@ export const CATEGORIES = [
     icon: "📿",
     count: 9,
     description: "Traditional South Indian chokers, Manga Malai, Kemp & Kasu Mala sets",
-    image: "images/kundan_choker_set.jpg"
+    image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
   },
   {
     id: "chains",
@@ -100,7 +100,7 @@ export const CATEGORIES = [
     icon: "⛓️",
     count: 8,
     description: "Waterproof anti-tarnish 18K gold plated chains, snake chains, & pendant necklaces",
-    image: "images/black_zircon.jpg"
+    image: "images/green_oval_stone_chain_drive.jpg"
   },
   {
     id: "bracelets",
@@ -108,7 +108,7 @@ export const CATEGORIES = [
     icon: "💎",
     count: 13,
     description: "Adjustable gold kada bracelets, multi-color stone link, Nazar & charm bracelets",
-    image: "images/emerald_dangles.jpg"
+    image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
   },
   {
     id: "earrings",
@@ -865,7 +865,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 5,
-    images: ["images/silk_scrunchies.jpg", "images/flower_clips_set.jpg"],
+    images: ["images/1_beaded_charm_bracelet_1_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"],
     colors: ["Yellow Sunflower & Gold Beads"],
     description: "Handcrafted yellow sunflower enamel charm chain bracelet with pastel accent beads.",
     details: ["Quantity: 5 Pieces in Stock", "Purchase Price: ₹42/Piece (Total: ₹210)"]
@@ -886,7 +886,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 9,
-    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg", "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"],
     colors: ["Multicolor Gemstones & Gold"],
     description: "Vibrant rainbow link bracelet set with square-cut multi-color crystal gemstones.",
     details: ["Quantity: 9 Pieces in Stock", "Purchase Price: ₹36/Piece (Total: ₹324)", "Closure: Secure Fold-over Clasp"]
@@ -907,7 +907,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 8,
-    images: ["images/black_zircon.jpg", "images/emerald_dangles.jpg"],
+    images: ["images/1_beaded_charm_bracelet_2_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg"],
     colors: ["Blue Evil Eye & Gold Beads"],
     description: "Traditional Nazar protective evil eye charm bracelet crafted with glass beads and gold chain.",
     details: ["Quantity: 8 Pieces in Stock", "Purchase Price: ₹35/Piece", "Protection: Classic Blue Glass Evil Eye"]
@@ -928,7 +928,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: false,
     stock: 6,
-    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    images: ["images/1_beaded_charm_bracelet_3_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg"],
     colors: ["Rainbow Beads & Gold Chain"],
     description: "Charming station bracelet decorated with multi-colored glass beads along a fine link chain.",
     details: ["Quantity: 6 Pieces in Stock", "Purchase Price: ₹40/Piece"]
@@ -949,7 +949,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 1,
-    images: ["images/silk_scrunchies.jpg", "images/flower_clips_set.jpg"],
+    images: ["images/1_beaded_charm_bracelet_4_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg"],
     colors: ["Multicolor Sunflower & Pastel Beads"],
     description: "Playful summer floral chain bracelet with enamel sunflower petals and candy-hued beads.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹42"]
@@ -970,7 +970,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["images/black_zircon.jpg", "images/silk_scrunchies.jpg"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg", "images/1_beaded_charm_bracelet_1_jpg_drive.jpg"],
     colors: ["Yellow Sunflower & Evil Eye"],
     description: "Unique fusion bracelet combining sunflower charm with protective Nazar evil eye beads.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹45"]
@@ -991,7 +991,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 1,
-    images: ["images/black_zircon.jpg", "images/pave_studs.jpg"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg", "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"],
     colors: ["Gold & Crystal Moon"],
     description: "Celestial crescent moon charm bracelet with micro pavé crystal detailing.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹48"]
@@ -1012,7 +1012,7 @@ export const PRODUCTS = [
     isBestSeller: false,
     isFlashSale: true,
     stock: 1,
-    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg", "images/1_beaded_charm_bracelet_3_jpg_drive.jpg"],
     colors: ["Gold Wavy Link & Fish Charm"],
     description: "Ocean-inspired wavy link chain bracelet centered with a detailed gold fish charm.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹48"]
@@ -1033,7 +1033,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["images/emerald_dangles.jpg", "images/rose_necklace.jpg"],
+    images: ["images/1_beaded_charm_bracelet_1_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"],
     colors: ["Multicolor Heart Gems & Gold"],
     description: "Charming link bracelet set with heart-cut multi-colored crystal stones.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹50"]
@@ -1054,7 +1054,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 1,
-    images: ["images/black_zircon.jpg", "images/rose_necklace.jpg"],
+    images: ["images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg", "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"],
     colors: ["High Luster Gold"],
     description: "Classic high-polish gold heart link bracelet with adjustable extender chain.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹48"]
@@ -1075,7 +1075,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
-    images: ["images/emerald_dangles.jpg", "images/black_zircon.jpg"],
+    images: ["images/1_beaded_charm_bracelet_2_jpg_drive.jpg", "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"],
     colors: ["Rainbow Heart Crystals"],
     description: "Boutique gold plated bracelet featuring rainbow crystal hearts linked sequentially.",
     details: ["Quantity: 1 Piece", "Purchase Price: ₹55"]
@@ -1426,7 +1426,7 @@ export const REVIEWS = [
     rating: 5,
     review: "Sparkle @kkv accessories look even more luxurious in real life! The Plumeria Flower Clip and Traditional South Indian Choker have incredible shine.",
     product: "Plumeria Flower Claw Clip",
-    avatar: "images/plumeria_flower.jpg"
+    avatar: "images/plumeria_flower_claw_clip_drive.jpg"
   },
   {
     id: "t2",
@@ -1435,7 +1435,7 @@ export const REVIEWS = [
     rating: 5,
     review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The South Indian Addigai Choker Set is lightweight and super elegant!",
     product: "Traditional South Indian Matte Gold Plated Antique Droplet Choker Necklace Set",
-    avatar: "images/kundan_choker_set.jpg"
+    avatar: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
   },
   {
     id: "t3",
@@ -1444,7 +1444,7 @@ export const REVIEWS = [
     rating: 5,
     review: "Bought the Kemp South Indian temple set for Varalakshmi Vratam. The micro gold antique polish is so authentic and lightweight!",
     product: "Traditional South Indian Kemp Floral Necklace Set",
-    avatar: "images/kundan_earrings.jpg"
+    avatar: "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"
   }
 ];
 
@@ -1459,8 +1459,8 @@ export const COUPONS = [
 export const PROMO_CODES = COUPONS;
 
 export const INSTAGRAM_POSTS = [
-  { id: "ig1", image: "images/plumeria_flower.jpg", likes: "2.4k", comments: "182", tag: "@sparklekkvoffical" },
-  { id: "ig2", image: "images/kundan_choker_set.jpg", likes: "1.9k", comments: "94", tag: "#SparkleGirl" },
-  { id: "ig3", image: "images/organza_rose.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
-  { id: "ig4", image: "images/emerald_dangles.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
+  { id: "ig1", image: "images/plumeria_flower_claw_clip_drive.jpg", likes: "2.4k", comments: "182", tag: "@sparklekkvoffical" },
+  { id: "ig2", image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg", likes: "1.9k", comments: "94", tag: "#SparkleGirl" },
+  { id: "ig3", image: "images/green_oval_stone_chain_drive.jpg", likes: "3.1k", comments: "210", tag: "#LuxuryEveryday" },
+  { id: "ig4", image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg", likes: "1.5k", comments: "88", tag: "#HairBoutique" }
 ];

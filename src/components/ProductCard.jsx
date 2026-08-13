@@ -32,7 +32,7 @@ export const ProductCard = ({ product }) => {
               e.target.dataset.triedFallback = "true";
               e.target.src = getDirectImageUrl(product.images[1]);
             } else {
-              e.target.src = 'images/plumeria_flower_claw_clip_drive.jpg';
+              e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
             }
           }}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"

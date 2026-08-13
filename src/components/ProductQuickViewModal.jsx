@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Star, Heart, ShoppingBag, Check, ShieldCheck, Truck, RefreshCw, Zap } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { getDirectImageUrl } from '../utils/imageUtils';
 
 export const ProductQuickViewModal = () => {
   const { 
@@ -53,10 +54,10 @@ export const ProductQuickViewModal = () => {
           <div className="p-6 bg-[#FFF9F5] flex flex-col items-center justify-between border-b md:border-b-0 md:border-r border-[#FCE4EC]">
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-inner bg-white border border-[#D4AF7F]/20 mb-4">
               <img
-                src={quickViewProduct.images[selectedImageIndex] || quickViewProduct.images[0] || 'images/plumeria_flower.jpg'}
+                src={getDirectImageUrl(quickViewProduct.images[selectedImageIndex] || quickViewProduct.images[0])}
                 alt={quickViewProduct.name}
                 onError={(e) => {
-                  e.target.src = 'images/plumeria_flower.jpg';
+                  e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
                 }}
                 className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
               />
@@ -74,7 +75,7 @@ export const ProductQuickViewModal = () => {
                     onClick={() => setSelectedImageIndex(idx)}
                     className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${selectedImageIndex === idx ? 'border-[#C89B3C] scale-105 shadow' : 'border-transparent opacity-70'}`}
                   >
-                    <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
+                    <img src={getDirectImageUrl(img)} alt="thumbnail" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

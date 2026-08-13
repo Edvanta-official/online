@@ -19,5 +19,10 @@ export const getDirectImageUrl = (url) => {
     }
   }
 
+  // Ensure local relative paths starting with 'images/' get a leading '/'
+  if (url.startsWith('images/')) {
+    return '/' + url;
+  }
+
   return url;
 };

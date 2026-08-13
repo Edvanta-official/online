@@ -87,7 +87,7 @@ export const ProductDetailsPage = () => {
                 src={getDirectImageUrl(product.images[selectedImageIndex] || product.images[0]) || 'images/plumeria_flower.jpg'}
                 alt={product.name}
                 onError={(e) => {
-                  e.target.src = 'images/plumeria_flower.jpg';
+                  e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
                 }}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

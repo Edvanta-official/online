@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, ArrowRight, ShoppingBag, Sparkles, Tag, Check, ShieldCheck, Video, AlertTriangle } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { getDirectImageUrl } from '../utils/imageUtils';
 
 export const CartDrawer = () => {
   const {
@@ -113,10 +114,10 @@ export const CartDrawer = () => {
                   className="flex gap-4 p-3 bg-[#FFF9F5] rounded-2xl border border-[#FCE4EC] relative group shadow-xs hover:border-[#D4AF7F]/50 transition-colors"
                 >
                   <img
-                    src={item.product.images[0]}
+                    src={getDirectImageUrl(item.product.images[0])}
                     alt={item.product.name}
                     onError={(e) => {
-                      e.target.src = 'images/plumeria_flower_claw_clip_drive.jpg';
+                      e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
                     }}
                     className="w-20 h-20 object-cover object-center rounded-xl shrink-0 border border-[#D4AF7F]/30"
                   />
