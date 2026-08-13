@@ -26,5 +26,7 @@ if (fs.existsSync('dist')) {
   if (fs.existsSync('dist/404.html')) fs.copyFileSync('dist/404.html', '404.html');
   if (fs.existsSync('dist/.nojekyll')) fs.copyFileSync('dist/.nojekyll', '.nojekyll');
   if (fs.existsSync('dist/assets')) copyFolderRecursiveSync('dist/assets', 'assets');
-  console.log('Successfully copied compiled dist build to root repository!');
+  if (fs.existsSync('dist/images')) copyFolderRecursiveSync('dist/images', 'images');
+  if (fs.existsSync('public/images')) copyFolderRecursiveSync('public/images', 'images');
+  console.log('Successfully copied compiled dist build and images to root repository!');
 }
