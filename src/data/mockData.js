@@ -162,11 +162,11 @@ export const PRODUCTS = [
       "Peach",
       "White"
     ],
-    description: "Handcrafted Plumeria flower hair claw clip with durable spring grip.",
+    description: "1.Plumeria flower claw clip from Drive. Handcrafted flower claw clip with durable spring grip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹86/Set (₹7.1/Piece)",
-      "Material: Premium Resin & Rust-Proof Spring"
+      "Drive File: 1.Plumeria flower claw clip.jpg"
     ]
   },
   {
@@ -194,11 +194,11 @@ export const PRODUCTS = [
       "Dusty Pink",
       "Sage Green"
     ],
-    description: "Premium pastel claw clips set designed for secure daily hair updos.",
+    description: "2.Claw Clips from Drive. Premium pastel claw clips set for daily hair updos.",
     details: [
       "Quantity: 2 Sets (24 Pieces)",
       "Purchase Rate: ₹125/Set (₹10.4/Piece)",
-      "Material: High-Impact Matte Acrylic"
+      "Drive File: 2.Claw Clips.jpg"
     ]
   },
   {
@@ -225,11 +225,11 @@ export const PRODUCTS = [
       "Rose Gold",
       "Glossy Black"
     ],
-    description: "Trendy criss-cross design hair claw clip with high tension steel spring.",
+    description: "3.Cross Claw Clips from Drive. Criss-cross metal claw clip with high tension spring.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹125/Set (₹10.4/Piece)",
-      "Style: Cross Metal Jaw"
+      "Drive File: 3.Cross Claw Clips.JPG"
     ]
   },
   {
@@ -256,11 +256,11 @@ export const PRODUCTS = [
       "Metallic Gold",
       "Silver"
     ],
-    description: "Aesthetic whale tail shaped metallic hair claw clip for French twist updos.",
+    description: "4.Whale tail hair claw clips from Drive. Metallic whale tail claw clip for French twist updos.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹125/Set (₹10.4/Piece)",
-      "Finish: 18K Micro Gold Polish"
+      "Drive File: 4.Whale tail hair claw clips.JPG"
     ]
   },
   {
@@ -287,11 +287,11 @@ export const PRODUCTS = [
       "Amber Tortoise",
       "Matte Nude"
     ],
-    description: "Minimalist rectangular hollow hair claw clip suitable for thick and medium hair.",
+    description: "5.Rectangle hair claw clips from Drive. Rectangular hollow claw clip for medium hair.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹148/Set (₹12.3/Piece)",
-      "Material: Durable Cellulose Acetate"
+      "Drive File: 5.Rectangle hair claw clips.jpg"
     ]
   },
   {
@@ -318,11 +318,11 @@ export const PRODUCTS = [
       "Pastel Blossom Pink",
       "Lilac"
     ],
-    description: "Boutique handcrafted pastel floral claw clip encrusted with subtle pearl accents.",
+    description: "6.Pastel flower design hair claw clips from Drive. Handcrafted pastel floral clip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹702/Set (₹58.5/Piece)",
-      "Craftsmanship: Handcrafted Premium"
+      "Drive File: 6.Pastel flower design hair claw clips.jpg"
     ]
   },
   {
@@ -349,11 +349,11 @@ export const PRODUCTS = [
       "White & Yellow",
       "Coral"
     ],
-    description: "Tropical Hawaiian Frangipani Plumeria flower hair claws for vacation and beachwear.",
+    description: "7.Hawaian Plumeria flower claw clips from Drive. Tropical Frangipani hair claws.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
       "Purchase Rate: ₹129/Set (₹10.7/Piece)",
-      "Ideal for: Beach Wear & Vacations"
+      "Drive File: 7.Hawaian Plumeria flower claw clips.jpg"
     ]
   },
   {
@@ -379,10 +379,11 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Floral"
     ],
-    description: "Elegant 5-petal floral claw clip set featuring matte anti-slip grip.",
+    description: "8.Flower claw clips from Drive. 5-petal floral claw clip set featuring anti-slip grip.",
     details: [
       "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹137/Set (₹11.4/Piece)"
+      "Purchase Rate: ₹137/Set (₹11.4/Piece)",
+      "Drive File: 8.Flower claw clips.jpg"
     ]
   },
   {
@@ -474,8 +475,7 @@ export const PRODUCTS = [
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹160",
-      "Design: Traditional South Indian Mango Motif",
-      "Adjustable Silk Thread Dori"
+      "Design: Traditional South Indian Mango Motif"
     ]
   },
   {
@@ -504,8 +504,7 @@ export const PRODUCTS = [
     description: "Royal mango leaf motif choker necklace set with antique copper gold micro polish.",
     details: [
       "Quantity: 2 Pieces in Stock",
-      "Purchase Price: ₹140/Piece (Total: ₹280)",
-      "Includes: 1 Choker + 1 Pair Earrings"
+      "Purchase Price: ₹140/Piece (Total: ₹280)"
     ]
   },
   {
@@ -531,11 +530,10 @@ export const PRODUCTS = [
     colors: [
       "Ruby & Emerald Kemp Gold"
     ],
-    description: "Grand traditional South Indian temple Kemp necklace adorned with Kundan glass stones and pearl drops.",
+    description: "Grand traditional South Indian temple Kemp necklace adorned with Kundan glass stones.",
     details: [
       "Quantity: 2 Pieces in Stock",
-      "Purchase Price: ₹320/Piece (Total: ₹640)",
-      "Craftsmanship: Antique Temple Polish"
+      "Purchase Price: ₹320/Piece (Total: ₹640)"
     ]
   },
   {
@@ -564,8 +562,7 @@ export const PRODUCTS = [
     description: "Classic South Indian Attigai (Addigai) choker necklace set with flower cluster centerpiece.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹127",
-      "Style: Traditional Addigai Choker"
+      "Purchase Price: ₹127"
     ]
   },
   {
@@ -591,11 +588,10 @@ export const PRODUCTS = [
     colors: [
       "Antique Gold & Ruby Beads"
     ],
-    description: "Multi-strand antique matte gold necklace detailed with synthetic ruby beads and central pendant.",
+    description: "Multi-strand antique matte gold necklace detailed with synthetic ruby beads.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹230",
-      "Finish: Antique Matte Gold Polish"
+      "Purchase Price: ₹230"
     ]
   },
   {
@@ -624,8 +620,7 @@ export const PRODUCTS = [
     description: "Traditional South Indian Kasu Mala (Coin Necklace) featuring engraved Goddess Lakshmi coins.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹160",
-      "Design: Heritage Lakshmi Kasu Coin Necklace"
+      "Purchase Price: ₹160"
     ]
   },
   {
@@ -651,11 +646,10 @@ export const PRODUCTS = [
     colors: [
       "Rose Gold & Pearl Tulips"
     ],
-    description: "Delicate tulip floral vine motif necklace handcrafted with micro zircon stones and synthetic pearls.",
+    description: "Delicate tulip floral vine motif necklace handcrafted with micro zircon stones.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹376",
-      "Style: Designer Floral Vine"
+      "Purchase Price: ₹376"
     ]
   },
   {
@@ -681,11 +675,11 @@ export const PRODUCTS = [
     colors: [
       "Gold & White Faux Pearl"
     ],
-    description: "Minimalist delicate gold chain necklace centered with a smooth ivory faux pearl charm.",
+    description: "1.Faux Pearl charm necklace from Drive. Minimalist gold chain centered with faux pearl charm.",
     details: [
       "Quantity: 2 Pieces in Stock",
       "Purchase Price: ₹72/Piece (Total: ₹144)",
-      "Length: 40 cm + 5 cm Extender"
+      "Drive File: 1.Faux Pearl charm necklace.JPG"
     ]
   },
   {
@@ -711,11 +705,11 @@ export const PRODUCTS = [
     colors: [
       "Rose Gold Floral"
     ],
-    description: "Adjustable bolo style chain necklace featuring a delicate crystal flower slider charm.",
+    description: "2.Adjustable Floral Bolo Necklace from Drive. Bolo style chain necklace with flower slider.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹36",
-      "Closure: Sliding Adjuster Knot"
+      "Drive File: 2.Adjustable Floral Bolo Necklace.JPG"
     ]
   },
   {
@@ -741,11 +735,11 @@ export const PRODUCTS = [
     colors: [
       "Emerald Green & Gold"
     ],
-    description: "Waterproof anti-tarnish 18K gold plated stainless steel chain with a deep emerald green oval gemstone pendant.",
+    description: "3.Green oval stone chain from Drive. Waterproof anti-tarnish stainless chain with emerald green stone.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹95",
-      "Material: 18K Gold Plated Stainless Steel (Anti-Tarnish)"
+      "Drive File: 3.Green oval stone antitarnish gold plated stainless chain.JPG"
     ]
   },
   {
@@ -771,11 +765,11 @@ export const PRODUCTS = [
     colors: [
       "Glossy 18K Gold"
     ],
-    description: "Sleek liquid-smooth flat herringbone snake chain necklace crafted in high-luster gold finish.",
+    description: "4.Flat Snake Chain from Drive. Sleek liquid-smooth flat herringbone snake chain.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹110",
-      "Width: 3 mm Flat Snake Chain"
+      "Drive File: 4.Flat Snake Chain.JPG"
     ]
   },
   {
@@ -801,11 +795,11 @@ export const PRODUCTS = [
     colors: [
       "Gold Beaded Chain"
     ],
-    description: "Charming satellite cable chain featuring tiny textured gold beads spaced throughout.",
+    description: "5.Satellite Chain from Drive. Cable chain featuring tiny textured gold beads.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹48",
-      "Style: Layering Satellite Bead Chain"
+      "Drive File: 5.Satellite Chain.JPG"
     ]
   },
   {
@@ -831,11 +825,11 @@ export const PRODUCTS = [
     colors: [
       "Clear Crystal & Rose Gold"
     ],
-    description: "Romantic faceted crystal heart pendant suspended from a dainty rose gold chain.",
+    description: "6.Crystal heart pendant necklace from Drive. Faceted crystal heart pendant on gold chain.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹85",
-      "Pendant: AAA Zirconia Heart"
+      "Drive File: 6.Crystal heart pendant minimal gold chain necklace.JPG"
     ]
   },
   {
@@ -861,11 +855,11 @@ export const PRODUCTS = [
     colors: [
       "Gold & Zircon Star"
     ],
-    description: "Celestial North Star compass pendant necklace encrusted with a central zircon gem.",
+    description: "7.North star pendant necklace from Drive. Celestial North Star compass medallion.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹75",
-      "Style: Celestial Compass Medallion"
+      "Drive File: 7.North star pendant neckalce.JPG"
     ]
   },
   {
@@ -886,11 +880,11 @@ export const PRODUCTS = [
     colors: [
       "High Polish Gold"
     ],
-    description: "Classic round flexible snake chain necklace with smooth mirror shine.",
+    description: "8.Round Snake Neck from Drive. Classic round flexible snake chain necklace.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹90",
-      "Type: Round Snake Chain"
+      "Drive File: 8.Round Snake Neck.JPG"
     ]
   },
   {
@@ -911,16 +905,16 @@ export const PRODUCTS = [
     stock: 4,
     images: [
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
+      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
     ],
     colors: [
       "Gold & Pearl Charms"
     ],
-    description: "Playful beaded charm bracelet strung with delicate gold heart, star, and pearl charms.",
+    description: "1.Beaded Charm bracelet from Drive. Strung with gold heart, star, and pearl charms.",
     details: [
       "Quantity: 1 Set (4 Pieces)",
       "Purchase Rate: ₹144/Set (₹36/Piece)",
-      "Style: Multi-Charm Daintiness Model 1"
+      "Drive Files: 1.Beaded Charm bracelet-1 through 4.JPG"
     ]
   },
   {
@@ -941,16 +935,16 @@ export const PRODUCTS = [
     stock: 5,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_1_jpg_drive.jpg"
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
     ],
     colors: [
       "18K Micro Gold Polish"
     ],
-    description: "Statement openable flexible Kada bracelet coated in 18K micro gold polish.",
+    description: "2.Adjustable gold plated kada Bracelet from Drive. Statement openable flexible Kada.",
     details: [
       "Quantity: 1 Set (5 Pieces)",
       "Purchase Rate: ₹860/Set (₹172/Piece)",
-      "Fit: Openable Adjustable Size Model 1"
+      "Drive Files: 2.Adjustable gold plated kada Bracelet-1 through 5.JPG"
     ]
   },
   {
@@ -976,10 +970,11 @@ export const PRODUCTS = [
     colors: [
       "Yellow Sunflower & Gold Beads"
     ],
-    description: "Handcrafted yellow sunflower enamel charm chain bracelet with pastel accent beads.",
+    description: "3.Sunflower beaded chain bracelet from Drive. Sunflower enamel charm chain bracelet.",
     details: [
       "Quantity: 5 Pieces in Stock",
-      "Purchase Price: ₹42/Piece (Total: ₹210)"
+      "Purchase Price: ₹42/Piece (Total: ₹210)",
+      "Drive File: 3.Sunflower beaded chain bracelet.JPG"
     ]
   },
   {
@@ -1005,11 +1000,11 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Gemstones & Gold"
     ],
-    description: "Vibrant rainbow link bracelet set with square-cut multi-color crystal gemstones.",
+    description: "4.Gold Plated Multicolour square stone link bracelet from Drive. Rainbow crystal link bracelet.",
     details: [
       "Quantity: 9 Pieces in Stock",
       "Purchase Price: ₹36/Piece (Total: ₹324)",
-      "Closure: Secure Fold-over Clasp"
+      "Drive File: 4.Gold Plated Multicolour square stone link bracelet.JPG"
     ]
   },
   {
@@ -1035,11 +1030,11 @@ export const PRODUCTS = [
     colors: [
       "Blue Evil Eye & Gold Beads"
     ],
-    description: "Traditional Nazar protective evil eye charm bracelet crafted with glass beads and gold chain.",
+    description: "5.Nazar Protection Bracelet from Drive. Protective blue glass evil eye charm bracelet.",
     details: [
       "Quantity: 8 Pieces in Stock",
       "Purchase Price: ₹35/Piece",
-      "Protection: Classic Blue Glass Evil Eye"
+      "Drive File: 5.Nazar Protection Bracelet.JPG"
     ]
   },
   {
@@ -1065,10 +1060,11 @@ export const PRODUCTS = [
     colors: [
       "Rainbow Beads & Gold Chain"
     ],
-    description: "Charming station bracelet decorated with multi-colored glass beads along a fine link chain.",
+    description: "6.Multicolour Beaded Station Chain Bracelet from Drive. Multi-colored glass beads along fine chain.",
     details: [
       "Quantity: 6 Pieces in Stock",
-      "Purchase Price: ₹40/Piece"
+      "Purchase Price: ₹40/Piece",
+      "Drive File: 6.Multicolour Beaded Station Chain Bracelet.JPG"
     ]
   },
   {
@@ -1094,10 +1090,11 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Sunflower & Pastel Beads"
     ],
-    description: "Playful summer floral chain bracelet with enamel sunflower petals and candy-hued beads.",
+    description: "7.Sunflower beaded chain multicolour from Drive. Summer floral chain bracelet with enamel sunflower.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹42"
+      "Purchase Price: ₹42",
+      "Drive File: 7.Sunflower beaded chain multicolour.JPG"
     ]
   },
   {
@@ -1123,10 +1120,11 @@ export const PRODUCTS = [
     colors: [
       "Yellow Sunflower & Evil Eye"
     ],
-    description: "Unique fusion bracelet combining sunflower charm with protective Nazar evil eye beads.",
+    description: "8.Sunflower beaded nazar protection from Drive. Fusion bracelet combining sunflower and Nazar eye.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹45"
+      "Purchase Price: ₹45",
+      "Drive File: 8.Sunflower beaded nazar protection.JPG"
     ]
   },
   {
@@ -1152,10 +1150,11 @@ export const PRODUCTS = [
     colors: [
       "Gold & Crystal Moon"
     ],
-    description: "Celestial crescent moon charm bracelet with micro pavé crystal detailing.",
+    description: "9.Cresent moon charm bracelet from Drive. Celestial crescent moon charm bracelet with crystals.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹48"
+      "Purchase Price: ₹48",
+      "Drive File: 9.Cresent moon charm bracelet.JPG"
     ]
   },
   {
@@ -1181,10 +1180,11 @@ export const PRODUCTS = [
     colors: [
       "Gold Wavy Link & Fish Charm"
     ],
-    description: "Ocean-inspired wavy link chain bracelet centered with a detailed gold fish charm.",
+    description: "10.Wavy Chain fish charm bracelet from Drive. Wavy link chain bracelet centered with gold fish.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹48"
+      "Purchase Price: ₹48",
+      "Drive File: 10.Wavy Chain fish charm bracelet.JPG"
     ]
   },
   {
@@ -1210,10 +1210,11 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Heart Gems & Gold"
     ],
-    description: "Charming link bracelet set with heart-cut multi-colored crystal stones.",
+    description: "11.Gold plated Multicolour heart from Drive. Link bracelet set with heart-cut multi-colored stones.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹50"
+      "Purchase Price: ₹50",
+      "Drive File: 11.Gold plated Multicolour heart.JPG"
     ]
   },
   {
@@ -1239,10 +1240,11 @@ export const PRODUCTS = [
     colors: [
       "High Luster Gold"
     ],
-    description: "Classic high-polish gold heart link bracelet with adjustable extender chain.",
+    description: "12.Gold Heart Bracelet from Drive. High-polish gold heart link bracelet.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹48"
+      "Purchase Price: ₹48",
+      "Drive File: 12.Gold Heart Bracelet.JPG"
     ]
   },
   {
@@ -1268,10 +1270,11 @@ export const PRODUCTS = [
     colors: [
       "Rainbow Heart Crystals"
     ],
-    description: "Boutique gold plated bracelet featuring rainbow crystal hearts linked sequentially.",
+    description: "13.Gold Plated Multicolour Heart Crystal link Bracelet from Drive. Sequential rainbow crystal hearts.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹55"
+      "Purchase Price: ₹55",
+      "Drive File: 13.Gold Plated Multicolour Heart Crystal link Bracelet.JPG"
     ]
   },
   {
@@ -1297,11 +1300,11 @@ export const PRODUCTS = [
     colors: [
       "Antique Gold & Pearl Hangings"
     ],
-    description: "Traditional Indian Kundan crescent moon Chandbali earrings with pearl cluster drops.",
+    description: "1.Kundan chanbali Earings from Drive. Traditional crescent moon Chandbali with pearl drops.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹162",
-      "Finish: 24K Micro Antique Gold Finish"
+      "Drive File: 1.Kundan chanbali Earings.JPG"
     ]
   },
   {
@@ -1327,11 +1330,11 @@ export const PRODUCTS = [
     colors: [
       "Gold & Pearl Clusters"
     ],
-    description: "Elegant Kundan drop dangler earrings with detailed filigree pattern and drop pearls.",
+    description: "2.Kundan Dangler Earings from Drive. Kundan drop dangler with filigree pattern.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹120",
-      "Style: Kundan Statement Dangler"
+      "Drive File: 2.Kundan Dangler Earings.JPG"
     ]
   },
   {
@@ -1357,11 +1360,11 @@ export const PRODUCTS = [
     colors: [
       "Minimalist Gold & Emerald"
     ],
-    description: "Illusion double hoop earring designed for a single piercing look.",
+    description: "3.Double hoop earings for a single piecering from Drive. Illusion double hoop earring.",
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹60",
-      "Design: Dual Huggie Illusion"
+      "Drive File: 3.Double hoop earings for a single piecering.JPG"
     ]
   },
   {
@@ -1387,11 +1390,11 @@ export const PRODUCTS = [
     colors: [
       "18K Gold Luster"
     ],
-    description: "Classic high-polish medium gold hoop earrings with easy latch closure.",
+    description: "4.Gold Hoop from Drive. Classic high-polish medium gold hoop earrings.",
     details: [
       "Quantity: 2 Pieces",
       "Purchase Rate: ₹96/Piece (Total: ₹192)",
-      "Material: Anti-Tarnish Gold Micro Polish"
+      "Drive Files: 4.Gold Hoop-1 & 2.JPG"
     ]
   },
   {
@@ -1415,12 +1418,13 @@ export const PRODUCTS = [
       "images/stud_earrings.jpg"
     ],
     colors: [
-      "Black Zircon & Rose Gold"
+      "Gold Pair Combo"
     ],
-    description: "Versatile gold-plated pair earrings combo set suitable for daily styling.",
+    description: "5.Gold plated pair earings combo set from Drive. Versatile gold-plated pair set.",
     details: [
       "Quantity: 1 Set",
-      "Purchase Price: ₹80"
+      "Purchase Price: ₹80",
+      "Drive File: 5.Gold plated pair earings combo set.JPG"
     ]
   },
   {
@@ -1446,11 +1450,11 @@ export const PRODUCTS = [
     colors: [
       "Clear Zircon & Gold"
     ],
-    description: "Multi-pack of sparkling cubic zirconia stud earrings in varied solitaire sizes.",
+    description: "6.Studs from Drive. Multi-pack of sparkling cubic zirconia stud earrings.",
     details: [
       "Quantity: 1 Set",
       "Purchase Price: ₹240",
-      "Stones: AAA Grade Zirconia"
+      "Drive Files: 6.Studs-1 through 5.JPG"
     ]
   },
   {
@@ -1476,10 +1480,11 @@ export const PRODUCTS = [
     colors: [
       "Gold & Pearl Drops"
     ],
-    description: "Dainty huggie hoop earrings featuring dangling synthetic pearl and gold ball drops.",
+    description: "7.Huggie earings with pearl and ball drops from Drive. Dainty huggie hoops with pearl drops.",
     details: [
       "Quantity: 1 Piece",
-      "Purchase Price: ₹72"
+      "Purchase Price: ₹72",
+      "Drive Files: 7.Huggie earings with pearl and ball drops-1 & 2.JPG"
     ]
   },
   {
@@ -1505,10 +1510,11 @@ export const PRODUCTS = [
     colors: [
       "Gold Assortment"
     ],
-    description: "Curated ear-stack combo set featuring classic hoops and crystal studs.",
+    description: "8.Hoop and stud earings mutlipack combo set from Drive. Ear-stack combo set with classic hoops.",
     details: [
       "Quantity: 1 Set",
-      "Purchase Price: ₹80"
+      "Purchase Price: ₹80",
+      "Drive File: 8.Hoop and stud earings mutlipack combo set.JPG"
     ]
   },
   {
@@ -1534,11 +1540,11 @@ export const PRODUCTS = [
     colors: [
       "Antique Gold & Kundan Work"
     ],
-    description: "Royal handcrafted Kundan Kada bangles embellished with uncut glass Kundan stones and velvet pouch.",
+    description: "1.png Kundhan Kadas from Drive. Handcrafted Kundan Kada bangles embellished with uncut glass stones.",
     details: [
       "Quantity: 1 Set (16 Pieces)",
       "Purchase Price: ₹150",
-      "Finish: 24K Micro Antique Polish"
+      "Drive File: 1.png"
     ]
   },
   {
@@ -1564,11 +1570,11 @@ export const PRODUCTS = [
     colors: [
       "Oxidised Silver Finish"
     ],
-    description: "Traditional German oxidised silver metal thin bangles stack for ethnic festive wear.",
+    description: "2.png Oxidised silver thin metal bangles from Drive. Traditional German oxidised silver metal bangles.",
     details: [
       "Quantity: 10 Sets (40 Pieces)",
       "Purchase Rate: ₹74/Set (Total: ₹740)",
-      "Material: Durable Oxidised Alloy"
+      "Drive File: 2.png"
     ]
   },
   {
@@ -1594,11 +1600,11 @@ export const PRODUCTS = [
     colors: [
       "Ruby Red Kemp & Gold"
     ],
-    description: "Traditional South Indian Kemp stone encrusted bangles with antique gold polish.",
+    description: "3.png Kemp Stone Bangles from Drive. Traditional South Indian Kemp stone encrusted bangles.",
     details: [
       "Quantity: 6 Sets (30 Pieces)",
       "Purchase Rate: ₹81/Set (Total: ₹486)",
-      "Stones: Red Kemp Glass"
+      "Drive File: 3.png"
     ]
   },
   {
@@ -1624,10 +1630,11 @@ export const PRODUCTS = [
     colors: [
       "Silver & Cubic Zirconia"
     ],
-    description: "Elegant bridal silver stone Chura bangles set adorned with sparkling crystals.",
+    description: "4.png Silver Stone Chura Set from Drive. Elegant bridal silver stone Chura bangles set.",
     details: [
       "Quantity: 4 Sets (8 Pieces)",
-      "Purchase Rate: ₹110/Set (Total: ₹440)"
+      "Purchase Rate: ₹110/Set (Total: ₹440)",
+      "Drive File: 4.png"
     ]
   },
   {
@@ -1653,10 +1660,11 @@ export const PRODUCTS = [
     colors: [
       "Antique Matte Gold"
     ],
-    description: "Classic textured antique gold plated metal bangles stack.",
+    description: "5.png Antique gold plated metal bangle from Drive. Classic textured antique gold plated metal bangles stack.",
     details: [
       "Quantity: 6 Sets (12 Pieces)",
-      "Purchase Rate: ₹65/Set (Total: ₹195)"
+      "Purchase Rate: ₹65/Set (Total: ₹195)",
+      "Drive File: 5.png"
     ]
   },
   {
