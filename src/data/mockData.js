@@ -1517,7 +1517,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 16,
     images: [
-      "images/bangles_1.png",
+      "images/pearl_bangles.jpg",
       "images/pearl_bangles.jpg"
     ],
     colors: [
@@ -1547,7 +1547,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 40,
     images: [
-      "images/bangles_2.png",
+      "images/silver_bangles.jpg",
       "images/silver_bangles.jpg"
     ],
     colors: [
@@ -1577,7 +1577,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 30,
     images: [
-      "images/bangles_3.png",
+      "images/pearl_bangles.jpg",
       "images/pearl_bangles.jpg"
     ],
     colors: [
@@ -1607,7 +1607,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 8,
     images: [
-      "images/bangles_4.png",
+      "images/silver_bangles.jpg",
       "images/silver_bangles.jpg"
     ],
     colors: [
@@ -1637,7 +1637,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/bangles_5.png",
+      "images/pearl_bangles.jpg",
       "images/pearl_bangles.jpg"
     ],
     colors: [
