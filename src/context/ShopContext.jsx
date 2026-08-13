@@ -130,13 +130,15 @@ export const ShopProvider = ({ children }) => {
 
   // Cart Management
   const addToCart = (product, quantity = 1, color = null) => {
-    if (!product || !product.id) return;
+    if (!product || !product.id) return false;
     const maxStock = typeof product.stock === 'number' ? product.stock : 999;
     
     if (maxStock <= 0) {
       showToast(`Sorry, "${product.name}" is currently Out of Stock!`, "error");
-      return;
+      return false;
     }
+
+    let addedSuccessfully = true;
 
     setCart(prev => {
       const safePrev = Array.isArray(prev) ? prev : [];
@@ -146,8 +148,12 @@ export const ShopProvider = ({ children }) => {
         const totalRequested = currentQty + quantity;
         const finalQty = Math.min(totalRequested, maxStock);
         
-        if (totalRequested > maxStock) {
-          showToast(`Stock limit reached! Maximum ${maxStock} units available for "${product.name}".`, "warning");
+        if (currentQty >= maxStock) {
+          showToast(`Stock limit reached! Maximum ${maxStock} units already in your cart for "${product.name}".`, "warning");
+          addedSuccessfully = false;
+          return safePrev;
+        } else if (totalRequested > maxStock) {
+          showToast(`Stock limit reached! Cart updated to maximum ${maxStock} units for "${product.name}".`, "warning");
         } else {
           showToast(`✨ Added "${product.name}" to your luxury cart!`);
         }
@@ -166,6 +172,8 @@ export const ShopProvider = ({ children }) => {
 
       return [...safePrev, { product, quantity: finalQty, selectedColor: color || product.colors?.[0] || 'Default' }];
     });
+
+    return addedSuccessfully;
   };
 
   const updateCartQuantity = (productId, newQuantity) => {

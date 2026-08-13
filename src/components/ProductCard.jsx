@@ -15,8 +15,10 @@ export const ProductCard = ({ product }) => {
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
-    addToCart(product, 1);
-    setIsCheckoutOpen(true);
+    const success = addToCart(product, 1);
+    if (success !== false) {
+      setIsCheckoutOpen(true);
+    }
   };
 
   const categoryFallback = getDirectImageUrl(getCategoryFallbackImage(product.category));
