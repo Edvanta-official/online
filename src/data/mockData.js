@@ -106,24 +106,24 @@ export const CATEGORIES = [
     id: "bracelets",
     name: "Bracelets",
     icon: "💎",
-    count: 9,
-    description: "Adjustable gold kada bracelets & beaded charm bracelets",
+    count: 13,
+    description: "Adjustable gold kada bracelets, multi-color stone link, Nazar & charm bracelets",
     image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
   },
   {
     id: "earrings",
     name: "Ear Rings",
     icon: "✨",
-    count: 5,
-    description: "Traditional Kundan Chandbali, danglers, emerald drops & solitaire studs",
+    count: 8,
+    description: "Traditional Kundan Chandbali, danglers, studs & hoop combo sets",
     image: "images/chandbali_earrings.jpg"
   },
   {
     id: "bangles",
     name: "Bangles",
     icon: "🔱",
-    count: 2,
-    description: "Kundhan Kadas, pearl bangles & oxidised silver bangles",
+    count: 5,
+    description: "Kundhan Kadas, oxidised silver bangles, Kemp stone & antique gold chura sets",
     image: "images/silver_bangles.jpg"
   },
   {
