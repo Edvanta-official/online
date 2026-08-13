@@ -900,8 +900,15 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 4,
     images: [
+      "images/1_beaded_charm_bracelet_1_jpg",
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
+      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
+      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg",
+      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
+      "images/bracelet_drive_1.beaded_charm_bracelet_1.jpg",
+      "images/bracelet_drive_1.beaded_charm_bracelet_2.jpg",
+      "images/bracelet_drive_1.beaded_charm_bracelet_3.jpg",
+      "images/bracelet_drive_1.beaded_charm_bracelet_4.jpg"
     ],
     colors: [
       "Gold & Pearl Charms"
@@ -930,7 +937,15 @@ export const PRODUCTS = [
     stock: 5,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
+      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg",
+      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg",
+      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_1.jpg",
+      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_2.jpg",
+      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_3.jpg",
+      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_4.jpg",
+      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_5.jpg"
     ],
     colors: [
       "18K Micro Gold Polish"
@@ -958,8 +973,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 5,
     images: [
-      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
+      "images/bracelet_drive_3.sunflower_beaded_chain_bracelet.jpg"
     ],
     colors: [
       "Yellow Sunflower & Gold Beads"
@@ -987,8 +1001,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 9,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_2_jpg_drive.jpg"
+      "images/bracelet_drive_4.gold_plated_multicolour_square_stone_link_bracelet.jpg"
     ],
     colors: [
       "Multicolor Gemstones & Gold"
@@ -1016,8 +1029,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 8,
     images: [
-      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg"
+      "images/bracelet_drive_5.nazar_protection_bracelet.jpg"
     ],
     colors: [
       "Blue Evil Eye & Gold Beads"
@@ -1045,8 +1057,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 6,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg"
+      "images/bracelet_drive_6.multicolour_beaded_station_chain_bracelet.jpg"
     ],
     colors: [
       "Rainbow Beads & Gold Chain"
@@ -1074,8 +1085,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg"
+      "images/bracelet_drive_7.sunflower_beaded_chain_multicolour.jpg"
     ],
     colors: [
       "Multicolor Sunflower & Pastel Beads"
@@ -1103,8 +1113,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"
+      "images/bracelet_drive_8.sunflower_beaded_nazar_protection.jpg"
     ],
     colors: [
       "Yellow Sunflower & Evil Eye"
@@ -1132,8 +1141,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_1_jpg_drive.jpg"
+      "images/bracelet_drive_9.cresent_moon_charm_bracelet.jpg"
     ],
     colors: [
       "Gold & Crystal Moon"
@@ -1161,8 +1169,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg"
+      "images/bracelet_drive_10.wavy_chain_fish_charm_bracelet.jpg"
     ],
     colors: [
       "Gold Wavy Link & Fish Charm"
@@ -1190,8 +1197,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_3_jpg_drive.jpg"
+      "images/bracelet_drive_11.gold_plated_multicolour_heart.jpg"
     ],
     colors: [
       "Multicolor Heart Gems & Gold"
@@ -1219,8 +1225,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"
+      "images/bracelet_drive_12.gold_heart_bracelet.jpg"
     ],
     colors: [
       "High Luster Gold"
@@ -1248,8 +1253,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg"
+      "images/bracelet_drive_13.gold_plated_multicolour_heart_crystal_link_bracelet.jpg"
     ],
     colors: [
       "Rainbow Heart Crystals"
