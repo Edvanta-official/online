@@ -2,7 +2,7 @@ import React from 'react';
 import { Heart, ShoppingBag, Eye, Star, Zap } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { getDirectImageUrl } from '../utils/imageUtils';
+import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils';
 
 export const ProductCard = ({ product }) => {
   const { wishlist, toggleWishlist, addToCart, setQuickViewProduct, setIsCheckoutOpen } = useShop();
@@ -19,6 +19,8 @@ export const ProductCard = ({ product }) => {
     setIsCheckoutOpen(true);
   };
 
+  const categoryFallback = getDirectImageUrl(getCategoryFallbackImage(product.category));
+
   return (
     <div className="group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full isolate">
       
@@ -28,11 +30,11 @@ export const ProductCard = ({ product }) => {
           src={getDirectImageUrl(product.images[0])}
           alt={product.name}
           onError={(e) => {
-            if (product.images[1] && !e.target.dataset.triedFallback) {
+            if (product.images[1] && product.images[1].startsWith('images/') && !e.target.dataset.triedFallback) {
               e.target.dataset.triedFallback = "true";
               e.target.src = getDirectImageUrl(product.images[1]);
             } else {
-              e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
+              e.target.src = categoryFallback;
             }
           }}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"

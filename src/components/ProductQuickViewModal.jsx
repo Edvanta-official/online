@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Star, Heart, ShoppingBag, Check, ShieldCheck, Truck, RefreshCw, Zap } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
-import { getDirectImageUrl } from '../utils/imageUtils';
+import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils';
 
 export const ProductQuickViewModal = () => {
   const { 
@@ -57,7 +57,7 @@ export const ProductQuickViewModal = () => {
                 src={getDirectImageUrl(quickViewProduct.images[selectedImageIndex] || quickViewProduct.images[0])}
                 alt={quickViewProduct.name}
                 onError={(e) => {
-                  e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
+                  e.target.src = getDirectImageUrl(getCategoryFallbackImage(quickViewProduct.category));
                 }}
                 className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
               />

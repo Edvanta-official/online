@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useShop } from '../context/ShopContext';
 import { ProductCard } from '../components/ProductCard';
 import { Star, Heart, ShoppingBag, Truck, ShieldCheck, RefreshCw, Zap, Share2, Sparkles, MapPin, CheckCircle2, PackageCheck, Banknote, ShieldAlert } from 'lucide-react';
-import { getDirectImageUrl } from '../utils/imageUtils';
+import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils';
 
 export const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -87,7 +87,7 @@ export const ProductDetailsPage = () => {
                 src={getDirectImageUrl(product.images[selectedImageIndex] || product.images[0]) || 'images/plumeria_flower.jpg'}
                 alt={product.name}
                 onError={(e) => {
-                  e.target.src = getDirectImageUrl('images/plumeria_flower_claw_clip_drive.jpg');
+                  e.target.src = getDirectImageUrl(getCategoryFallbackImage(product.category));
                 }}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

@@ -1,6 +1,6 @@
 // Utility helper to convert Google Drive sharing links to direct image embedding URLs
 export const getDirectImageUrl = (url) => {
-  if (!url) return 'images/butterfly_clip.jpg';
+  if (!url) return 'images/plumeria_flower_claw_clip_drive.jpg';
   
   if (typeof url !== 'string') return url;
 
@@ -25,4 +25,23 @@ export const getDirectImageUrl = (url) => {
   }
 
   return url;
+};
+
+export const getCategoryFallbackImage = (category) => {
+  switch (category) {
+    case 'bangles':
+      return 'images/silver_bangles.jpg';
+    case 'bracelets':
+      return 'images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg';
+    case 'earrings':
+      return 'images/chandbali_earrings.jpg';
+    case 'chains':
+      return 'images/green_oval_stone_chain_drive.jpg';
+    case 'necklaces':
+      return 'images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg';
+    case 'gift-sets':
+      return 'images/gift_set.jpg';
+    default:
+      return 'images/plumeria_flower_claw_clip_drive.jpg';
+  }
 };
