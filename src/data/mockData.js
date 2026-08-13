@@ -1523,8 +1523,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 16,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_1.png"
     ],
     colors: [
       "Antique Gold & Kundan Work"
@@ -1553,8 +1552,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 40,
     images: [
-      "images/silver_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_2.png"
     ],
     colors: [
       "Oxidised Silver Finish"
@@ -1583,8 +1581,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 30,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_3.png"
     ],
     colors: [
       "Ruby Red Kemp & Gold"
@@ -1613,8 +1610,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 8,
     images: [
-      "images/silver_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_4.png"
     ],
     colors: [
       "Silver & Cubic Zirconia"
@@ -1643,8 +1639,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_5.png"
     ],
     colors: [
       "Antique Matte Gold"
