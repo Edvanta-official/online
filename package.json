@@ -6,7 +6,7 @@
   "homepage": "https://edvanta-official.github.io/online/",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-to-root.cjs",
     "preview": "vite preview",
     "server": "node server/index.js",
     "start": "node server/index.js"
