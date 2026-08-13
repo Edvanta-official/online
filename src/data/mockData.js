@@ -1279,7 +1279,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 15,
+    stock: 1,
     images: [
       "images/1_kundan_chanbali_earings.jpg"
     ],
@@ -1309,7 +1309,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 12,
+    stock: 1,
     images: [
       "images/2_kundan_dangler_earings.jpg"
     ],
@@ -1339,7 +1339,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 10,
+    stock: 1,
     images: [
       "images/3_double_hoop_earings_for_a_single_piecering.jpg"
     ],
@@ -1369,7 +1369,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 14,
+    stock: 2,
     images: [
       "images/4_gold_hoop_1.jpg",
       "images/4_gold_hoop_2.jpg"
@@ -1400,7 +1400,7 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 11,
+    stock: 1,
     images: [
       "images/5_gold_plated_pair_earings_combo_set.jpg"
     ],
@@ -1430,7 +1430,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 13,
+    stock: 1,
     images: [
       "images/6_studs_1.jpg",
       "images/6_studs_2.jpg",
@@ -1464,7 +1464,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 9,
+    stock: 1,
     images: [
       "images/7_huggie_earings_with_pearl_and_ball_drops_1.jpg",
       "images/7_huggie_earings_with_pearl_and_ball_drops_2.jpg"
@@ -1495,7 +1495,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 8,
+    stock: 1,
     images: [
       "images/8_hoop_and_stud_earings_mutlipack_combo_set.jpg"
     ],
