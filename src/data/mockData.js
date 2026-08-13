@@ -16,27 +16,12 @@ export const BRAND_INFO = {
 
 export const NAVIGATION_TREE = [
   {
-    id: "hair-accessories",
-    name: "Clips",
+    id: "bangles",
+    name: "Bangles",
     subcategories: [
-      { id: "flower-clips", name: "Flower Clips" },
-      { id: "claw-clips", name: "Claw Clips" }
-    ]
-  },
-  {
-    id: "necklaces",
-    name: "Necklace Sets",
-    subcategories: [
-      { id: "chokers", name: "Choker Sets" },
-      { id: "temple-style", name: "Traditional Temple Sets" }
-    ]
-  },
-  {
-    id: "chains",
-    name: "Chains",
-    subcategories: [
-      { id: "daily-wear", name: "Daily Wear Chains" },
-      { id: "anti-tarnish", name: "Anti-Tarnish Chains" }
+      { id: "kemp-bangles", name: "Kemp & Stone Bangles" },
+      { id: "metal-bangles", name: "Antique & Metal Bangles" },
+      { id: "chura-sets", name: "Silver & Chura Sets" }
     ]
   },
   {
@@ -49,6 +34,22 @@ export const NAVIGATION_TREE = [
     ]
   },
   {
+    id: "chains",
+    name: "Chains",
+    subcategories: [
+      { id: "daily-wear", name: "Daily Wear Chains" },
+      { id: "anti-tarnish", name: "Anti-Tarnish Chains" }
+    ]
+  },
+  {
+    id: "hair-accessories",
+    name: "Clips",
+    subcategories: [
+      { id: "flower-clips", name: "Flower Clips" },
+      { id: "claw-clips", name: "Claw Clips" }
+    ]
+  },
+  {
     id: "earrings",
     name: "Ear Rings",
     subcategories: [
@@ -58,12 +59,11 @@ export const NAVIGATION_TREE = [
     ]
   },
   {
-    id: "bangles",
-    name: "Bangles",
+    id: "necklaces",
+    name: "Necklace Sets",
     subcategories: [
-      { id: "kemp-bangles", name: "Kemp & Stone Bangles" },
-      { id: "metal-bangles", name: "Antique & Metal Bangles" },
-      { id: "chura-sets", name: "Silver & Chura Sets" }
+      { id: "chokers", name: "Choker Sets" },
+      { id: "temple-style", name: "Traditional Temple Sets" }
     ]
   },
   {
@@ -79,28 +79,12 @@ export const NAVIGATION_TREE = [
 
 export const CATEGORIES = [
   {
-    id: "hair-accessories",
-    name: "Clips",
-    icon: "🌸",
-    count: 8,
-    description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
-    image: "images/plumeria_flower_claw_clip_drive.jpg"
-  },
-  {
-    id: "necklaces",
-    name: "Necklace Sets",
-    icon: "📿",
-    count: 9,
-    description: "Traditional South Indian chokers, Manga Malai, Kemp & Kasu Mala sets",
-    image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
-  },
-  {
-    id: "chains",
-    name: "Chains",
-    icon: "⛓️",
-    count: 8,
-    description: "Waterproof anti-tarnish 18K gold plated chains, snake chains, & pendant necklaces",
-    image: "images/green_oval_stone_chain_drive.jpg"
+    id: "bangles",
+    name: "Bangles",
+    icon: "🔱",
+    count: 5,
+    description: "Kundhan Kadas, oxidised silver bangles, Kemp stone & antique gold chura sets",
+    image: "images/silver_bangles.jpg"
   },
   {
     id: "bracelets",
@@ -111,6 +95,22 @@ export const CATEGORIES = [
     image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg"
   },
   {
+    id: "chains",
+    name: "Chains",
+    icon: "⛓️",
+    count: 8,
+    description: "Waterproof anti-tarnish 18K gold plated chains, snake chains, & pendant necklaces",
+    image: "images/green_oval_stone_chain_drive.jpg"
+  },
+  {
+    id: "hair-accessories",
+    name: "Clips",
+    icon: "🌸",
+    count: 8,
+    description: "Plumeria flower clips, cross claws, whale tail & rectangle claw clips",
+    image: "images/plumeria_flower_claw_clip_drive.jpg"
+  },
+  {
     id: "earrings",
     name: "Ear Rings",
     icon: "✨",
@@ -119,12 +119,12 @@ export const CATEGORIES = [
     image: "images/chandbali_earrings.jpg"
   },
   {
-    id: "bangles",
-    name: "Bangles",
-    icon: "🔱",
-    count: 5,
-    description: "Kundhan Kadas, oxidised silver bangles, Kemp stone & antique gold chura sets",
-    image: "images/silver_bangles.jpg"
+    id: "necklaces",
+    name: "Necklace Sets",
+    icon: "📿",
+    count: 9,
+    description: "Traditional South Indian chokers, Manga Malai, Kemp & Kasu Mala sets",
+    image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
   },
   {
     id: "gift-sets",
