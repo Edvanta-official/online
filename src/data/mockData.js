@@ -1263,7 +1263,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-401",
     sku: "SPK-ER-401",
-    name: "Kundan Chandbali Earrings",
+    name: "Kundan chanbali Earings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1293,7 +1293,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-402",
     sku: "SPK-ER-402",
-    name: "Kundan Dangler Earrings",
+    name: "Kundan Dangler Earings",
     category: "earrings",
     subcategory: "traditional-earrings",
     categoryName: "Ear Rings",
@@ -1323,7 +1323,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-403",
     sku: "SPK-ER-403",
-    name: "Double Hoop Earrings (Single Piercing)",
+    name: "Double hoop earings for a single piecering",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1353,7 +1353,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-404",
     sku: "SPK-ER-404",
-    name: "Gold Hoop Earrings Set",
+    name: "Gold Hoop",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1384,7 +1384,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-405",
     sku: "SPK-ER-405",
-    name: "Gold Plated Pair Earrings Combo",
+    name: "Gold plated pair earings combo set",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
@@ -1414,7 +1414,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-406",
     sku: "SPK-ER-406",
-    name: "Stud Earrings Multipack Collection",
+    name: "Studs",
     category: "earrings",
     subcategory: "studs",
     categoryName: "Ear Rings",
@@ -1448,7 +1448,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-407",
     sku: "SPK-ER-407",
-    name: "Huggie Earrings with Pearl & Ball Drops",
+    name: "Huggie earings with pearl and ball drops",
     category: "earrings",
     subcategory: "studs",
     categoryName: "Ear Rings",
@@ -1479,7 +1479,7 @@ export const PRODUCTS = [
   {
     id: "SPK-ER-408",
     sku: "SPK-ER-408",
-    name: "Hoop & Stud Earrings Multipack Combo",
+    name: "Hoop and stud earings mutlipack combo set",
     category: "earrings",
     subcategory: "hoops",
     categoryName: "Ear Rings",
