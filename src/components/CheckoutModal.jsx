@@ -87,6 +87,30 @@ export const CheckoutModal = () => {
           </button>
         </div>
 
+        {/* Cart Item Summary Bar */}
+        {cart.length > 0 && (
+          <div className="bg-[#FFF9F5] px-6 py-2.5 border-b border-[#FCE4EC] flex items-center justify-between text-xs font-poppins">
+            <span className="text-gray-600 font-medium">
+              Checkout Items: <strong className="text-[#2C2C2C]">{cart.length} Product{cart.length > 1 ? 's' : ''} ({cart.reduce((s, i) => s + i.quantity, 0)} Units)</strong>
+            </span>
+            {cart.length > 1 && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (cart[0] && cart[0].product) {
+                    clearCart();
+                    addToCart(cart[0].product, cart[0].quantity, cart[0].selectedColor);
+                    showToast("Updated to checkout ONLY 1 item!");
+                  }
+                }}
+                className="text-[11px] text-amber-700 bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-full font-bold font-montserrat transition-colors"
+              >
+                Reset to Only 1 Item
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Modal Body */}
         <div className="p-6 md:p-8">
           

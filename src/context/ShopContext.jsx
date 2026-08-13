@@ -11,7 +11,19 @@ export const ShopProvider = ({ children }) => {
       const saved = localStorage.getItem('sparkel_cart');
       if (!saved) return [];
       const parsed = JSON.parse(saved);
-      return Array.isArray(parsed) ? parsed.filter(item => item && item.product && typeof item.product.price === 'number') : [];
+      if (!Array.isArray(parsed)) return [];
+      // Clean and validate items against stock limit:
+      return parsed
+        .filter(item => item && item.product && typeof item.product.price === 'number')
+        .map(item => {
+          const foundProd = PRODUCTS.find(p => p.id === item.product.id) || item.product;
+          const maxStock = typeof foundProd.stock === 'number' ? foundProd.stock : 999;
+          return {
+            ...item,
+            product: foundProd,
+            quantity: Math.min(item.quantity || 1, maxStock)
+          };
+        });
     } catch (e) {
       return [];
     }
@@ -178,10 +190,11 @@ export const ShopProvider = ({ children }) => {
 
   const buyNow = (product, quantity = 1, color = null) => {
     if (!product || !product.id) return false;
-    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    const foundProd = PRODUCTS.find(p => p.id === product.id) || product;
+    const maxStock = typeof foundProd.stock === 'number' ? foundProd.stock : 999;
     
     if (maxStock <= 0) {
-      showToast(`Sorry, "${product.name}" is currently Out of Stock!`, "error");
+      showToast(`Sorry, "${foundProd.name}" is currently Out of Stock!`, "error");
       return false;
     }
 
@@ -190,11 +203,16 @@ export const ShopProvider = ({ children }) => {
       showToast(`Stock limit reached! Set to maximum ${maxStock} available units.`, "warning");
     }
 
-    setCart([{
-      product,
+    const singleItemCart = [{
+      product: foundProd,
       quantity: finalQty,
-      selectedColor: color || product.colors?.[0] || 'Default'
-    }]);
+      selectedColor: color || foundProd.colors?.[0] || 'Default'
+    }];
+
+    setCart(singleItemCart);
+    try {
+      localStorage.setItem('sparkel_cart', JSON.stringify(singleItemCart));
+    } catch (e) {}
 
     setIsCheckoutOpen(true);
     return true;
