@@ -1517,13 +1517,13 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 16,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_1.png",
+      "images/pearl_bangles.jpg"
     ],
     colors: [
       "Antique Gold & Kundan Work"
     ],
-    description: "Kundhan Kadas from Drive. Handcrafted Kundan Kada bangles embellished with uncut glass stones.",
+    description: "1.png Kundhan Kadas from Drive BANGLES folder.",
     details: [
       "Quantity: 1 Set (16 Pieces)",
       "Purchase Price: ₹150",
@@ -1547,13 +1547,13 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 40,
     images: [
-      "images/silver_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_2.png",
+      "images/silver_bangles.jpg"
     ],
     colors: [
       "Oxidised Silver Finish"
     ],
-    description: "Oxidised silver thin metal bangles from Drive. Traditional German oxidised silver metal bangles.",
+    description: "2.png Oxidised silver thin metal bangles from Drive BANGLES folder.",
     details: [
       "Quantity: 10 Sets (40 Pieces)",
       "Purchase Rate: ₹74/Set (Total: ₹740)",
@@ -1577,13 +1577,13 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 30,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_3.png",
+      "images/pearl_bangles.jpg"
     ],
     colors: [
       "Ruby Red Kemp & Gold"
     ],
-    description: "Kemp Stone Bangles from Drive. Traditional South Indian Kemp stone encrusted bangles.",
+    description: "3.png Kemp Stone Bangles from Drive BANGLES folder.",
     details: [
       "Quantity: 6 Sets (30 Pieces)",
       "Purchase Rate: ₹81/Set (Total: ₹486)",
@@ -1607,13 +1607,13 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 8,
     images: [
-      "images/silver_bangles.jpg",
-      "images/pearl_bangles.jpg"
+      "images/bangles_4.png",
+      "images/silver_bangles.jpg"
     ],
     colors: [
       "Silver & Cubic Zirconia"
     ],
-    description: "Silver Stone Chura Set from Drive. Elegant bridal silver stone Chura bangles set.",
+    description: "4.png Silver Stone Chura Set from Drive BANGLES folder.",
     details: [
       "Quantity: 4 Sets (8 Pieces)",
       "Purchase Rate: ₹110/Set (Total: ₹440)",
@@ -1637,13 +1637,13 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/pearl_bangles.jpg",
-      "images/silver_bangles.jpg"
+      "images/bangles_5.png",
+      "images/pearl_bangles.jpg"
     ],
     colors: [
       "Antique Matte Gold"
     ],
-    description: "Antique gold plated metal bangle from Drive. Classic textured antique gold plated metal bangles stack.",
+    description: "5.png Antique gold plated metal bangle from Drive BANGLES folder.",
     details: [
       "Quantity: 6 Sets (12 Pieces)",
       "Purchase Rate: ₹65/Set (Total: ₹195)",
