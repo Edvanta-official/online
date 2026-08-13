@@ -1277,8 +1277,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 15,
     images: [
-      "images/1_kundan_chandbali_earrings.jpg",
-      "images/2_kundan_dangler_earrings.jpg"
+      "images/1_kundan_chanbali_earings.jpg"
     ],
     colors: [
       "Antique Gold & Pearl Hangings"
@@ -1308,8 +1307,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 12,
     images: [
-      "images/2_kundan_dangler_earrings.jpg",
-      "images/1_kundan_chandbali_earrings.jpg"
+      "images/2_kundan_dangler_earings.jpg"
     ],
     colors: [
       "Gold & Pearl Clusters"
@@ -1339,8 +1337,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/3_double_hoop_earrings.jpg",
-      "images/4_gold_hoop_1.jpg"
+      "images/3_double_hoop_earings_for_a_single_piecering.jpg"
     ],
     colors: [
       "Gold Illusion Double Hoop"
@@ -1401,8 +1398,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 11,
     images: [
-      "images/5_gold_plated_pair_earrings.jpg",
-      "images/6_studs_1.jpg"
+      "images/5_gold_plated_pair_earings_combo_set.jpg"
     ],
     colors: [
       "Gold Plated Assortment"
@@ -1466,8 +1462,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 9,
     images: [
-      "images/7_huggie_earrings_1.jpg",
-      "images/7_huggie_earrings_2.jpg"
+      "images/7_huggie_earings_with_pearl_and_ball_drops_1.jpg",
+      "images/7_huggie_earings_with_pearl_and_ball_drops_2.jpg"
     ],
     colors: [
       "Gold & Pearl Drops"
@@ -1497,8 +1493,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 8,
     images: [
-      "images/8_hoop_stud_earrings_combo.jpg",
-      "images/5_gold_plated_pair_earrings.jpg"
+      "images/8_hoop_and_stud_earings_mutlipack_combo_set.jpg"
     ],
     colors: [
       "Gold Assortment"
