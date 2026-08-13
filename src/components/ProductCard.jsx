@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils';
 
 export const ProductCard = ({ product }) => {
-  const { wishlist, toggleWishlist, addToCart, setQuickViewProduct, setIsCheckoutOpen } = useShop();
+  const { wishlist, toggleWishlist, addToCart, buyNow, setQuickViewProduct, setIsCheckoutOpen } = useShop();
   const navigate = useNavigate();
 
   const isWishlisted = wishlist.includes(product.id);
@@ -15,10 +15,7 @@ export const ProductCard = ({ product }) => {
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
-    const success = addToCart(product, 1);
-    if (success !== false) {
-      setIsCheckoutOpen(true);
-    }
+    buyNow(product, 1);
   };
 
   const categoryFallback = getDirectImageUrl(getCategoryFallbackImage(product.category));

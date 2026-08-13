@@ -176,6 +176,30 @@ export const ShopProvider = ({ children }) => {
     return addedSuccessfully;
   };
 
+  const buyNow = (product, quantity = 1, color = null) => {
+    if (!product || !product.id) return false;
+    const maxStock = typeof product.stock === 'number' ? product.stock : 999;
+    
+    if (maxStock <= 0) {
+      showToast(`Sorry, "${product.name}" is currently Out of Stock!`, "error");
+      return false;
+    }
+
+    const finalQty = Math.min(quantity, maxStock);
+    if (quantity > maxStock) {
+      showToast(`Stock limit reached! Set to maximum ${maxStock} available units.`, "warning");
+    }
+
+    setCart([{
+      product,
+      quantity: finalQty,
+      selectedColor: color || product.colors?.[0] || 'Default'
+    }]);
+
+    setIsCheckoutOpen(true);
+    return true;
+  };
+
   const updateCartQuantity = (productId, newQuantity) => {
     if (newQuantity <= 0) {
       removeFromCart(productId);
@@ -388,6 +412,7 @@ export const ShopProvider = ({ children }) => {
       toast,
       showToast,
       addToCart,
+      buyNow,
       removeFromCart,
       updateCartQuantity,
       clearCart,

@@ -7,7 +7,7 @@ import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils
 
 export const ProductDetailsPage = () => {
   const { id } = useParams();
-  const { products, addToCart, toggleWishlist, wishlist, setIsCheckoutOpen, showToast } = useShop();
+  const { products, addToCart, buyNow, toggleWishlist, wishlist, setIsCheckoutOpen, showToast } = useShop();
   
   const product = products.find(p => p.id === id) || products[0];
 
@@ -131,8 +131,7 @@ export const ProductDetailsPage = () => {
       return;
     }
     const safeQty = Math.min(quantity, maxStock);
-    addToCart(product, safeQty, selectedColor);
-    setIsCheckoutOpen(true);
+    buyNow(product, safeQty, selectedColor);
   };
 
   return (

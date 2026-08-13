@@ -10,6 +10,7 @@ export const CartDrawer = () => {
     setIsCartOpen,
     removeFromCart,
     updateCartQuantity,
+    clearCart,
     cartSubtotal,
     discountAmount,
     shippingFee,
@@ -52,13 +53,26 @@ export const CartDrawer = () => {
                 {cart.reduce((sum, i) => sum + i.quantity, 0)} Items
               </span>
             </div>
-            <button
-              onClick={() => setIsCartOpen(false)}
-              className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors"
-              aria-label="Close cart"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              {cart.length > 0 && (
+                <button
+                  onClick={() => {
+                    clearCart();
+                    showToast("Cart cleared!", "info");
+                  }}
+                  className="text-xs font-montserrat text-red-300 hover:text-white underline mr-2"
+                >
+                  Clear Cart
+                </button>
+              )}
+              <button
+                onClick={() => setIsCartOpen(false)}
+                className="text-gray-300 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                aria-label="Close cart"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
 
           {/* Free Shipping & 30% OFF Meter */}
