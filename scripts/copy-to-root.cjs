@@ -28,6 +28,9 @@ if (fs.existsSync('dist')) {
   if (fs.existsSync('dist/assets')) copyFolderRecursiveSync('dist/assets', 'assets');
   if (fs.existsSync('dist/images')) copyFolderRecursiveSync('dist/images', 'images');
   if (fs.existsSync('public/images')) copyFolderRecursiveSync('public/images', 'images');
-  if (fs.existsSync('public/CNAME')) fs.copyFileSync('public/CNAME', 'CNAME');
-  console.log('Successfully copied dist build assets and CNAME to root repository for GitHub Pages!');
+  if (fs.existsSync('public/CNAME')) {
+    fs.copyFileSync('public/CNAME', 'CNAME');
+    fs.copyFileSync('public/CNAME', 'dist/CNAME');
+  }
+  console.log('Successfully copied dist build assets and CNAME for GitHub Pages & sparklekkv.com!');
 }
