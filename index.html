@@ -1,44 +1,578 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sparkle @kkv | Luxury Fashion Accessories for Every Moment</title>
-    <meta name="description" content="Premium women's fashion accessories brand. Shop luxury earrings, necklace sets, hair flowers, clips, bangles, bracelets, scrunchies & handcrafted gift sets." />
-    
-    <!-- Cache Buster Meta Tags -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sparkle @kkv | Luxury Fashion Accessories for Every Moment</title>
+  <meta name="description" content="Premium women's fashion accessories brand. Shop luxury earrings, necklace sets, hair flowers, clips, bangles, bracelets, scrunchies & handcrafted gift sets.">
 
-    <!-- Auto-clear old service workers and stale browser caches -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (let registration of registrations) {
-            registration.unregister();
-          }
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function(names) {
-          for (let name of names) {
-            caches.delete(name);
-          }
-        });
-      }
-    </script>
+  <!-- Cache Control Meta Tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script type="module" crossorigin src="./assets/index-XRQbWNL7.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-uEbU3AqK.css">
-  </head>
-  <body class="bg-[#FFF9F5] text-[#2C2C2C] font-poppins selection:bg-[#FCE4EC] selection:text-[#C89B3C] antialiased overflow-x-hidden">
-    <div id="root"></div>
-  </body>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFF9F5;
+      color: #2C2C2C;
+    }
+    h1, h2, h3, h4, .font-serif-luxury {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-montserrat {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #C89B3C 0%, #E6C280 50%, #9B7020 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 127, 0.3);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(253, 228, 236, 0.8);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#FFF9F5] text-[#2C2C2C] selection:bg-[#FCE4EC] selection:text-[#C89B3C] antialiased overflow-x-hidden">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-[#2C2C2C] via-[#3D3D3D] to-[#2C2C2C] text-[#FCE4EC] text-[11px] sm:text-xs py-2 px-4 text-center font-montserrat font-medium tracking-wider flex items-center justify-center gap-2">
+    <span>✨ Extra 10% OFF on Prepaid UPI Orders | Code: <strong class="text-[#D4AF7F]">SPARKLE10</strong></span>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-40 glass-header shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" onclick="filterCategory('all')" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FCE4EC] via-[#D4AF7F] to-[#C89B3C] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+          <span class="text-xl">✨</span>
+        </div>
+        <div>
+          <span class="font-serif-luxury text-xl sm:text-2xl font-bold tracking-tight text-[#2C2C2C] block leading-none">Sparkle <span class="gold-gradient-text">@kkv</span></span>
+          <span class="text-[9px] font-montserrat tracking-widest text-gray-500 uppercase block mt-1">Luxury Fashion Accessories</span>
+        </div>
+      </a>
+
+      <!-- Search Input -->
+      <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+        <input 
+          type="text" 
+          id="searchInput" 
+          oninput="handleSearch(this.value)" 
+          placeholder="Search Kundan, Clips, Bangles, Necklaces..." 
+          class="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-full py-2 pl-10 pr-4 text-xs font-poppins focus:outline-none focus:border-[#C89B3C] shadow-inner"
+        >
+        <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleWishlistDrawer()" class="relative p-2 rounded-full hover:bg-[#FCE4EC]/50 transition-colors text-[#2C2C2C]" title="Saved Wishlist">
+          <span class="text-xl">❤️</span>
+          <span id="wishlistBadge" class="absolute -top-1 -right-1 bg-[#F48FB1] text-white text-[10px] font-bold font-montserrat w-5 h-5 rounded-full flex items-center justify-center shadow-xs">0</span>
+        </button>
+
+        <button onclick="toggleCartDrawer()" class="relative bg-[#2C2C2C] text-white px-4 py-2.5 rounded-full font-montserrat text-xs font-bold flex items-center gap-2 hover:bg-[#C89B3C] transition-colors shadow-md">
+          <span class="text-sm">🛍️</span>
+          <span class="hidden sm:inline">Cart</span>
+          <span id="cartBadge" class="bg-[#D4AF7F] text-[#2C2C2C] text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Pill Links -->
+    <div class="bg-white/80 border-t border-[#FCE4EC] py-2.5 px-4 overflow-x-auto no-scrollbar">
+      <div class="max-w-7xl mx-auto flex items-center gap-2 sm:gap-3 text-xs font-montserrat font-semibold whitespace-nowrap">
+        <button onclick="filterCategory('all')" class="cat-pill active bg-[#2C2C2C] text-white px-4 py-1.5 rounded-full transition-all shadow-xs" data-cat="all">✨ All Products</button>
+        <button onclick="filterCategory('hair-accessories')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="hair-accessories">🌸 Clips & Flowers</button>
+        <button onclick="filterCategory('necklaces')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="necklaces">👑 Necklace Sets</button>
+        <button onclick="filterCategory('chains')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="chains">⛓️ Gold Chains</button>
+        <button onclick="filterCategory('bracelets')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="bracelets">💎 Bracelets & Kadas</button>
+        <button onclick="filterCategory('earrings')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="earrings">✨ Kundan Earrings</button>
+        <button onclick="filterCategory('bangles')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="bangles">🔱 Bangles</button>
+        <button onclick="filterCategory('gift-sets')" class="cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all" data-cat="gift-sets">🎁 Gift Sets & Combos</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner Section -->
+  <section class="relative overflow-hidden py-10 sm:py-16 bg-gradient-to-b from-[#FFF9F5] via-[#FCE4EC]/40 to-[#FFF9F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 space-y-4 text-center lg:text-left">
+          <div class="inline-flex items-center gap-1.5 bg-white border border-[#D4AF7F]/40 px-3.5 py-1.5 rounded-full font-montserrat text-xs tracking-widest text-[#2C2C2C] uppercase shadow-xs">
+            <span>✨ Where Every Accessory Tells Your Story</span>
+          </div>
+          <h1 class="font-serif-luxury text-3xl sm:text-5xl lg:text-6xl font-bold text-[#2C2C2C] leading-tight">
+            Luxury Fashion <span class="gold-gradient-text italic font-normal">Accessories</span>
+            <span class="block text-xl sm:text-3xl font-medium text-[#2C2C2C]/90 mt-2">Designed to Make Every Girl Shine.</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-gray-600 font-poppins max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+            Explore our boutique collection of handcrafted Premium Earrings, Hair Flowers, Butterfly Clips, Bangles, Bracelets, and Kundan Choker Necklace Sets.
+          </p>
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+            <button onclick="scrollToProducts()" class="bg-[#2C2C2C] text-white px-7 py-3 rounded-full font-montserrat text-xs font-bold uppercase tracking-wider hover:bg-[#C89B3C] transition-colors shadow-lg">Shop Collection 🛍️</button>
+            <button onclick="filterCategory('gift-sets')" class="bg-white text-[#2C2C2C] border border-[#D4AF7F] px-6 py-3 rounded-full font-montserrat text-xs font-bold uppercase tracking-wider hover:bg-[#FCE4EC] transition-colors">Explore Gift Sets 🎁</button>
+          </div>
+        </div>
+
+        <!-- Hero Model Image Banner -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="w-64 h-80 sm:w-80 sm:h-96 rounded-3xl overflow-hidden border-4 border-white shadow-2xl relative">
+            <img src="images/hero_model_hd.jpg" onError="this.src='images/plumeria_flower_claw_clip_drive.jpg'" alt="Sparkle Luxury Model" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-white font-montserrat text-xs text-center font-bold">
+              ✨ Premium Handcrafted Quality
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Grid Section -->
+  <section class="py-12 bg-[#FFF9F5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#2C2C2C]">Explore By Category</h2>
+        <div class="w-20 h-1 bg-gradient-to-r from-[#FCE4EC] via-[#D4AF7F] to-[#FCE4EC] mx-auto rounded-full mt-2"></div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4" id="categoryGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Grid Section -->
+  <section class="py-12 bg-white" id="productSection">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 id="catalogTitle" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#2C2C2C]">Boutique Collection</h2>
+          <p id="catalogSubtitle" class="text-xs text-gray-500 font-poppins mt-1">Showing all handcrafted designs</p>
+        </div>
+        <span class="text-xs font-montserrat font-bold text-[#D4AF7F]" id="productCountBadge">Loading products...</span>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="productGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Drawer -->
+  <div id="cartDrawerModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex justify-end">
+    <div class="w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
+      <div class="p-5 bg-[#2C2C2C] text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🛍️</span>
+          <h3 class="font-serif-luxury text-lg font-bold">Shopping Cart</h3>
+        </div>
+        <button onclick="toggleCartDrawer()" class="text-gray-300 hover:text-white text-2xl font-bold">&times;</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-5 space-y-4" id="cartItemsContainer">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="p-5 bg-[#FFF9F5] border-t border-[#FCE4EC] space-y-3">
+        <div class="flex items-center justify-between text-sm font-poppins">
+          <span class="text-gray-600">Subtotal:</span>
+          <span class="font-bold text-[#2C2C2C]" id="cartSubtotal">₹0</span>
+        </div>
+        <div class="flex items-center justify-between text-base font-serif-luxury font-bold">
+          <span>Total Amount:</span>
+          <span class="text-[#C89B3C]" id="cartTotal">₹0</span>
+        </div>
+        <button onclick="alert('Proceeding to Checkout!')" class="w-full bg-[#2C2C2C] text-white py-3 rounded-full font-montserrat text-xs font-bold uppercase tracking-wider hover:bg-[#C89B3C] transition-colors shadow-md">
+          Checkout Now ⚡
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Drawer -->
+  <div id="wishlistDrawerModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex justify-end">
+    <div class="w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
+      <div class="p-5 bg-[#2C2C2C] text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">❤️</span>
+          <h3 class="font-serif-luxury text-lg font-bold">Saved Wishlist</h3>
+        </div>
+        <button onclick="toggleWishlistDrawer()" class="text-gray-300 hover:text-white text-2xl font-bold">&times;</button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-5 space-y-4" id="wishlistItemsContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Instant Buy Now Checkout Modal -->
+  <div id="buyNowModal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+      <div class="p-4 bg-[#2C2C2C] text-white flex items-center justify-between">
+        <h3 class="font-serif-luxury text-lg font-bold text-[#FCE4EC]">Instant UPI Checkout</h3>
+        <button onclick="closeBuyNowModal()" class="text-gray-300 hover:text-white text-2xl font-bold">&times;</button>
+      </div>
+      
+      <div class="p-5 overflow-y-auto space-y-5">
+        <!-- Product Summary -->
+        <div class="flex items-center gap-4 bg-[#FFF9F5] p-3 rounded-2xl border border-[#D4AF7F]/30" id="buyNowSummary">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- PhonePe UPI Scanner Image -->
+        <div class="text-center space-y-2 bg-[#FFF9F5] p-4 rounded-2xl border border-[#D4AF7F]/40">
+          <span class="text-xs font-montserrat font-bold text-[#2C2C2C] uppercase block">Scan & Pay via PhonePe / GPay / Paytm</span>
+          <div class="w-48 h-48 mx-auto rounded-xl overflow-hidden border-2 border-[#C89B3C] p-1 bg-white shadow-md">
+            <img src="images/phonepe_scanner_exact.png" onError="this.src='images/phonepe_qr.png'" alt="PhonePe UPI QR Scanner" class="w-full h-full object-contain">
+          </div>
+          <span class="text-[11px] font-poppins text-gray-500 block">UPI ID: <strong class="text-[#2C2C2C]">7981714189-4@ibl</strong></span>
+        </div>
+
+        <!-- Customer Address Form -->
+        <form onsubmit="handlePlaceOrder(event)" class="space-y-3">
+          <input type="text" required placeholder="Full Name" class="w-full bg-[#FFF9F5] border border-gray-300 rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#C89B3C]">
+          <input type="tel" required placeholder="Phone Number (+91)" class="w-full bg-[#FFF9F5] border border-gray-300 rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#C89B3C]">
+          <input type="text" required placeholder="Street Address / Door No." class="w-full bg-[#FFF9F5] border border-gray-300 rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#C89B3C]">
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" required placeholder="Pincode (6 digits)" class="w-full bg-[#FFF9F5] border border-gray-300 rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#C89B3C]">
+            <input type="text" required placeholder="City" class="w-full bg-[#FFF9F5] border border-gray-300 rounded-xl p-2.5 text-xs focus:outline-none focus:border-[#C89B3C]">
+          </div>
+          <button type="submit" class="w-full bg-[#2C2C2C] text-white py-3 rounded-full font-montserrat text-xs font-bold uppercase tracking-wider hover:bg-[#C89B3C] transition-colors shadow-lg mt-2">
+            Confirm Order & Pay ₹<span id="buyNowTotal">0</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#2C2C2C] text-white py-10 border-t border-[#D4AF7F]/40 mt-16 font-poppins text-xs">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+      <div class="font-serif-luxury text-xl font-bold text-[#FCE4EC]">Sparkle @kkv Luxury Accessories</div>
+      <p class="text-gray-400 max-w-md mx-auto font-light">Handcrafted premium women's earrings, necklace sets, hair clips, bangles & boutique gift sets.</p>
+      <div class="text-[11px] text-gray-500 pt-4 border-t border-gray-800">
+        &copy; 2026 Sparkle @kkv. All rights reserved. Express 2-3 Day Delivery Across India.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vanilla JavaScript Logic -->
+  <script>
+    const CATEGORIES = [
+      { id: "hair-accessories", name: "Clips & Flowers", icon: "🌸", count: 18, image: "images/plumeria_flower_claw_clip_drive.jpg" },
+      { id: "necklaces", name: "Necklace Sets", icon: "👑", count: 12, image: "images/kundan_choker_set.jpg" },
+      { id: "chains", name: "Gold Chains", icon: "⛓️", count: 8, image: "images/green_oval_stone_chain_drive.jpg" },
+      { id: "bracelets", name: "Bracelets & Kadas", icon: "💎", count: 13, image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg" },
+      { id: "earrings", name: "Ear Rings", icon: "✨", count: 14, image: "images/chandbali_earrings.jpg" },
+      { id: "bangles", name: "Bangles", icon: "🔱", count: 8, image: "images/silver_bangles.jpg" },
+      { id: "gift-sets", name: "Gift Sets", icon: "🎁", count: 5, image: "images/gift_set.jpg" }
+    ];
+
+    const PRODUCTS = [
+      { id: "P1", name: "Plumeria Flower Claw Clip", category: "hair-accessories", price: 149, originalPrice: 249, rating: 4.9, isNew: true, image: "images/plumeria_flower_claw_clip_drive.jpg" },
+      { id: "P2", name: "Pastel Flower Claw Clips Set", category: "hair-accessories", price: 189, originalPrice: 299, rating: 4.8, isNew: true, image: "images/pastel_flower_claw_clips_drive.jpg" },
+      { id: "P3", name: "Cross Claw Clips", category: "hair-accessories", price: 189, originalPrice: 299, rating: 4.9, isNew: false, image: "images/cross_claw_clips_drive.jpg" },
+      { id: "P4", name: "Whale Tail Hair Claw Clips", category: "hair-accessories", price: 189, originalPrice: 299, rating: 4.7, isNew: true, image: "images/whale_tail_claw_clips_drive.jpg" },
+      { id: "P5", name: "Rectangle Hair Claw Clips", category: "hair-accessories", price: 199, originalPrice: 319, rating: 4.8, isNew: false, image: "images/rectangle_claw_clips_drive.jpg" },
+      { id: "P6", name: "Hawaiian Plumeria Flower Claw Clips", category: "hair-accessories", price: 179, originalPrice: 279, rating: 4.9, isNew: true, image: "images/hawaiian_plumeria_claw_clips_drive.jpg" },
+      { id: "P7", name: "Flower Claw Clips Set", category: "hair-accessories", price: 169, originalPrice: 269, rating: 4.8, isNew: false, image: "images/flower_claw_clips_drive.jpg" },
+      { id: "P8", name: "Handcrafted Plumeria Clip Set", category: "hair-accessories", price: 219, originalPrice: 349, rating: 4.9, isNew: true, image: "images/plumeria_flower_clip_drive.jpg" },
+      { id: "P9", name: "Kundan Bridal Choker Necklace Set", category: "necklaces", price: 699, originalPrice: 1299, rating: 4.9, isNew: true, image: "images/kundan_choker_set.jpg" },
+      { id: "P10", name: "Traditional South Indian Matte Gold Choker", category: "necklaces", price: 799, originalPrice: 1499, rating: 5.0, isNew: true, image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg" },
+      { id: "P11", name: "Adjustable Floral Bolo Necklace", category: "necklaces", price: 499, originalPrice: 899, rating: 4.8, isNew: false, image: "images/adjustable_floral_bolo_necklace_drive.jpg" },
+      { id: "P12", name: "Round Snake Chain Necklace", category: "necklaces", price: 349, originalPrice: 699, rating: 4.7, isNew: true, image: "images/round_snake_necklace_drive.jpg" },
+      { id: "P13", name: "Traditional Temple Necklace Set", category: "necklaces", price: 899, originalPrice: 1699, rating: 4.9, isNew: true, image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg" },
+      { id: "P14", name: "18K Gold Plated Flat Snake Chain", category: "chains", price: 299, originalPrice: 599, rating: 4.9, isNew: true, image: "images/flat_snake_chain_drive.jpg" },
+      { id: "P15", name: "Green Oval Stone Layer Chain", category: "chains", price: 349, originalPrice: 699, rating: 4.8, isNew: false, image: "images/green_oval_stone_chain_drive.jpg" },
+      { id: "P16", name: "Satellite Chain Necklace", category: "chains", price: 279, originalPrice: 499, rating: 4.7, isNew: true, image: "images/satellite_chain_drive.jpg" },
+      { id: "P17", name: "North Star Pendant Chain", category: "chains", price: 399, originalPrice: 799, rating: 4.9, isNew: true, image: "images/north_star_pendant_drive.jpg" },
+      { id: "P18", name: "Crystal Heart Pendant Chain", category: "chains", price: 359, originalPrice: 699, rating: 4.8, isNew: false, image: "images/crystal_heart_pendant_drive.jpg" },
+      { id: "P19", name: "Adjustable Gold Plated Kada Bracelet", category: "bracelets", price: 399, originalPrice: 799, rating: 4.9, isNew: true, image: "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg" },
+      { id: "P20", name: "Multicolour Heart Crystal Link Bracelet", category: "bracelets", price: 449, originalPrice: 899, rating: 4.8, isNew: true, image: "images/13_gold_plated_multicolour_heart_crystal_link_bracelet.jpg" },
+      { id: "P21", name: "Gold Heart Charm Bracelet", category: "bracelets", price: 379, originalPrice: 749, rating: 4.7, isNew: false, image: "images/12_gold_heart_bracelet.jpg" },
+      { id: "P22", name: "Wavy Chain Fish Charm Bracelet", category: "bracelets", price: 329, originalPrice: 649, rating: 4.8, isNew: true, image: "images/10_wavy_chain_fish_charm_bracelet.jpg" },
+      { id: "P23", name: "Beaded Charm Bracelet", category: "bracelets", price: 299, originalPrice: 599, rating: 4.9, isNew: true, image: "images/1_beaded_charm_bracelet_1_jpg_drive.jpg" },
+      { id: "P24", name: "Traditional Kundan Chandbali Heavy Danglers", category: "earrings", price: 449, originalPrice: 849, rating: 5.0, isNew: true, image: "images/chandbali_earrings.jpg" },
+      { id: "P25", name: "Kundan & Blue Sapphire Crystal Earrings", category: "earrings", price: 399, originalPrice: 599, rating: 4.9, isNew: true, image: "images/1_kundan_chanbali_earings.jpg" },
+      { id: "P26", name: "Emerald Green Cushion Cut Solitaire Earrings", category: "earrings", price: 399, originalPrice: 599, rating: 4.9, isNew: false, image: "images/emerald_dangles.jpg" },
+      { id: "P27", name: "Kundan Dangler Earrings", category: "earrings", price: 429, originalPrice: 799, rating: 4.9, isNew: true, image: "images/2_kundan_dangler_earings.jpg" },
+      { id: "P28", name: "Double Hoop Earrings for Single Piecering", category: "earrings", price: 279, originalPrice: 499, rating: 4.7, isNew: false, image: "images/3_double_hoop_earings_for_a_single_piecering.jpg" },
+      { id: "P29", name: "Classic Gold Hoop Earrings", category: "earrings", price: 249, originalPrice: 449, rating: 4.8, isNew: true, image: "images/4_gold_hoop_1.jpg" },
+      { id: "P30", name: "Gold Plated Pair Earrings Combo Set", category: "earrings", price: 499, originalPrice: 999, rating: 4.9, isNew: true, image: "images/5_gold_plated_pair_earings_combo_set.jpg" },
+      { id: "P31", name: "Square Halo Cubic Zirconia Studs", category: "earrings", price: 249, originalPrice: 379, rating: 4.8, isNew: true, image: "images/6_studs_1.jpg" },
+      { id: "P32", name: "Huggie Earrings with Pearl & Ball Drops", category: "earrings", price: 299, originalPrice: 549, rating: 4.8, isNew: false, image: "images/7_huggie_earings_with_pearl_and_ball_drops_1.jpg" },
+      { id: "P33", name: "Hoop & Stud Earrings Multipack Combo Set", category: "earrings", price: 549, originalPrice: 1099, rating: 4.9, isNew: true, image: "images/8_hoop_and_stud_earings_mutlipack_combo_set.jpg" },
+      { id: "P34", name: "Handcrafted Silver Kada Bangles Set", category: "bangles", price: 599, originalPrice: 1199, rating: 4.8, isNew: true, image: "images/silver_bangles.jpg" },
+      { id: "P35", name: "Royal Pearl & Gold Bangle Set", category: "bangles", price: 649, originalPrice: 1299, rating: 4.9, isNew: false, image: "images/pearl_bangles.jpg" },
+      { id: "P36", name: "Designer Matte Bangle Set 1", category: "bangles", price: 499, originalPrice: 999, rating: 4.8, isNew: true, image: "images/bangles_1.png" },
+      { id: "P37", name: "Designer Matte Bangle Set 2", category: "bangles", price: 529, originalPrice: 1049, rating: 4.8, isNew: false, image: "images/bangles_2.png" },
+      { id: "P38", name: "Antique Kundan Bangle Set 3", category: "bangles", price: 579, originalPrice: 1149, rating: 4.9, isNew: true, image: "images/bangles_3.png" },
+      { id: "P39", name: "Royal Gold Plated Bangle Set 4", category: "bangles", price: 599, originalPrice: 1199, rating: 4.9, isNew: true, image: "images/bangles_4.png" },
+      { id: "P40", name: "Bridal Special Bangle Set 5", category: "bangles", price: 699, originalPrice: 1399, rating: 5.0, isNew: true, image: "images/bangles_5.png" },
+      { id: "P41", name: "Luxury Boutique Velvet Gift Hamper", category: "gift-sets", price: 999, originalPrice: 1999, rating: 5.0, isNew: true, image: "images/gift_set.jpg" },
+      { id: "P42", name: "Royal Kundan Combo Gift Box", category: "gift-sets", price: 1199, originalPrice: 2399, rating: 4.9, isNew: true, image: "images/gift_set.jpg" }
+    ];
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let cart = JSON.parse(localStorage.getItem('sparkle_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('sparkle_wishlist') || '[]');
+    let activeBuyNowProduct = null;
+
+    function initStore() {
+      renderCategories();
+      renderProducts();
+      updateBadges();
+    }
+
+    function renderCategories() {
+      const container = document.getElementById('categoryGrid');
+      container.innerHTML = CATEGORIES.map(cat => `
+        <div onclick="filterCategory('${cat.id}')" class="glass-card rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer hover:-translate-y-1 transition-all border border-[#FCE4EC]">
+          <div class="w-16 h-16 rounded-full overflow-hidden mb-3 border-2 border-[#D4AF7F]">
+            <img src="${cat.image}" onError="this.src='images/plumeria_flower_claw_clip_drive.jpg'" class="w-full h-full object-cover">
+          </div>
+          <div class="flex items-center gap-1">
+            <span>${cat.icon}</span>
+            <h3 class="font-serif-luxury font-bold text-sm text-[#2C2C2C]">${cat.name}</h3>
+          </div>
+          <span class="text-[10px] font-montserrat text-[#D4AF7F] font-bold mt-1">${cat.count}+ Designs</span>
+        </div>
+      `).join('');
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('productGrid');
+      let filtered = PRODUCTS;
+
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category === currentCategory);
+      }
+      if (searchQuery.trim()) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
+      document.getElementById('productCountBadge').textContent = `${filtered.length} Items Found`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 font-poppins">No items match your search.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const isWish = wishlist.includes(p.id);
+        const discount = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+        return `
+          <div class="bg-white rounded-2xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-xl transition-all flex flex-col h-full">
+            <div class="relative aspect-square bg-[#FFF9F5] overflow-hidden">
+              <img src="${p.image}" onError="this.src='images/plumeria_flower_claw_clip_drive.jpg'" class="w-full h-full object-cover">
+              <button onclick="toggleWishlist('${p.id}')" class="absolute top-2 right-2 p-2 bg-white/90 rounded-full text-sm shadow-sm">
+                ${isWish ? '❤️' : '🤍'}
+              </button>
+              ${p.isNew ? `<span class="absolute top-2 left-2 bg-[#2C2C2C] text-[#FCE4EC] text-[9px] font-montserrat font-bold px-2 py-0.5 rounded-full uppercase">New Arrival</span>` : ''}
+            </div>
+
+            <div class="p-4 flex flex-col flex-1 justify-between space-y-3">
+              <div>
+                <h3 class="font-serif-luxury font-bold text-sm text-[#2C2C2C] line-clamp-1">${p.name}</h3>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="font-bold text-sm text-[#2C2C2C]">₹${p.price}</span>
+                  <span class="text-xs text-gray-400 line-through">₹${p.originalPrice}</span>
+                  <span class="text-[10px] font-bold text-green-600">${discount}% OFF</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 pt-2 border-t border-[#FCE4EC]">
+                <button onclick="addToCart('${p.id}')" class="bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] py-2 rounded-xl text-[11px] font-montserrat font-bold hover:bg-[#FCE4EC] transition-colors">
+                  + Add
+                </button>
+                <button onclick="openBuyNow('${p.id}')" class="bg-[#2C2C2C] text-white py-2 rounded-xl text-[11px] font-montserrat font-bold hover:bg-[#C89B3C] transition-colors">
+                  ⚡ Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(catId) {
+      currentCategory = catId;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.dataset.cat === catId) {
+          btn.className = "cat-pill active bg-[#2C2C2C] text-white px-4 py-1.5 rounded-full transition-all shadow-xs";
+        } else {
+          btn.className = "cat-pill bg-[#FFF9F5] text-gray-700 hover:bg-[#FCE4EC] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30 transition-all";
+        }
+      });
+      renderProducts();
+      scrollToProducts();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      renderProducts();
+    }
+
+    function scrollToProducts() {
+      document.getElementById('productSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function addToCart(prodId) {
+      const prod = PRODUCTS.find(p => p.id === prodId);
+      if (!prod) return;
+      const existing = cart.find(item => item.id === prodId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: prodId, prod, qty: 1 });
+      }
+      localStorage.setItem('sparkle_cart', JSON.stringify(cart));
+      updateBadges();
+      alert(`Added ${prod.name} to cart!`);
+    }
+
+    function toggleWishlist(prodId) {
+      const idx = wishlist.indexOf(prodId);
+      if (idx >= 0) {
+        wishlist.splice(idx, 1);
+      } else {
+        wishlist.push(prodId);
+      }
+      localStorage.setItem('sparkle_wishlist', JSON.stringify(wishlist));
+      updateBadges();
+      renderProducts();
+    }
+
+    function updateBadges() {
+      const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
+      document.getElementById('cartBadge').textContent = cartCount;
+      document.getElementById('wishlistBadge').textContent = wishlist.length;
+    }
+
+    function toggleCartDrawer() {
+      const modal = document.getElementById('cartDrawerModal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        renderCartItems();
+      }
+    }
+
+    function renderCartItems() {
+      const container = document.getElementById('cartItemsContainer');
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="text-center py-12 text-gray-500">Your cart is empty.</div>`;
+        document.getElementById('cartSubtotal').textContent = '₹0';
+        document.getElementById('cartTotal').textContent = '₹0';
+        return;
+      }
+
+      let subtotal = 0;
+      container.innerHTML = cart.map(item => {
+        subtotal += item.prod.price * item.qty;
+        return `
+          <div class="flex items-center justify-between gap-3 bg-[#FFF9F5] p-3 rounded-xl border border-[#FCE4EC]">
+            <img src="${item.prod.image}" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <h4 class="font-serif-luxury font-bold text-xs">${item.prod.name}</h4>
+              <span class="text-xs font-bold text-[#C89B3C]">₹${item.prod.price} x ${item.qty}</span>
+            </div>
+            <button onclick="removeFromCart('${item.id}')" class="text-red-500 font-bold">&times;</button>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+      document.getElementById('cartTotal').textContent = `₹${subtotal}`;
+    }
+
+    function removeFromCart(prodId) {
+      cart = cart.filter(i => i.id !== prodId);
+      localStorage.setItem('sparkle_cart', JSON.stringify(cart));
+      updateBadges();
+      renderCartItems();
+    }
+
+    function toggleWishlistDrawer() {
+      const modal = document.getElementById('wishlistDrawerModal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        const container = document.getElementById('wishlistItemsContainer');
+        const items = PRODUCTS.filter(p => wishlist.includes(p.id));
+        if (items.length === 0) {
+          container.innerHTML = `<div class="text-center py-12 text-gray-500">No items saved to wishlist.</div>`;
+        } else {
+          container.innerHTML = items.map(p => `
+            <div class="flex items-center justify-between gap-3 bg-[#FFF9F5] p-3 rounded-xl border border-[#FCE4EC]">
+              <img src="${p.image}" class="w-12 h-12 object-cover rounded-lg">
+              <div class="flex-1">
+                <h4 class="font-serif-luxury font-bold text-xs">${p.name}</h4>
+                <span class="text-xs font-bold text-[#C89B3C]">₹${p.price}</span>
+              </div>
+              <button onclick="addToCart('${p.id}')" class="bg-[#2C2C2C] text-white px-3 py-1 rounded-full text-[10px] font-bold">+ Add</button>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    function openBuyNow(prodId) {
+      activeBuyNowProduct = PRODUCTS.find(p => p.id === prodId);
+      if (!activeBuyNowProduct) return;
+
+      document.getElementById('buyNowSummary').innerHTML = `
+        <img src="${activeBuyNowProduct.image}" class="w-14 h-14 object-cover rounded-xl border border-[#D4AF7F]">
+        <div>
+          <h4 class="font-serif-luxury font-bold text-sm text-[#2C2C2C]">${activeBuyNowProduct.name}</h4>
+          <span class="text-xs font-bold text-[#C89B3C]">₹${activeBuyNowProduct.price}</span>
+        </div>
+      `;
+      document.getElementById('buyNowTotal').textContent = activeBuyNowProduct.price;
+      document.getElementById('buyNowModal').classList.remove('hidden');
+    }
+
+    function closeBuyNowModal() {
+      document.getElementById('buyNowModal').classList.add('hidden');
+    }
+
+    function handlePlaceOrder(e) {
+      e.preventDefault();
+      alert(`Order placed successfully for ${activeBuyNowProduct.name}! Thank you for shopping with Sparkle @kkv.`);
+      closeBuyNowModal();
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', initStore);
+  </script>
+</body>
 </html>
