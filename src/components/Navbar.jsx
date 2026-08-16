@@ -194,22 +194,13 @@ export const Navbar = () => {
               {/* Cart Drawer Trigger */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-1 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors group"
+                className="bg-[#FCE4EC] hover:bg-[#F8BBD0] text-[#2C2C2C] px-3.5 py-1.5 rounded-full flex items-center gap-2 font-montserrat font-bold text-xs shadow-xs transition-all cursor-pointer group shrink-0"
                 aria-label="Cart"
               >
-                <div className="bg-[#FCE4EC] p-1.5 sm:p-2 rounded-full group-hover:bg-[#D4AF7F]/20 transition-colors flex items-center gap-2">
-                  <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[#2C2C2C]" />
-                  {totalCartItems > 0 && (
-                    <span className="text-xs font-bold text-[#2C2C2C] pr-1 hidden sm:inline">
-                      {totalCartItems} {totalCartItems === 1 ? 'Item' : 'Items'}
-                    </span>
-                  )}
-                </div>
-                {totalCartItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-[#C89B3C] text-white text-[10px] font-bold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-md animate-bounce sm:hidden">
-                    {totalCartItems}
-                  </span>
-                )}
+                <ShoppingBag className="w-4 h-4 text-[#2C2C2C] group-hover:scale-110 transition-transform shrink-0" />
+                <span className="text-xs font-bold text-[#2C2C2C] whitespace-nowrap">
+                  {totalCartItems} {totalCartItems === 1 ? 'Item' : 'Items'}
+                </span>
               </button>
 
               {/* User Account / Role Switcher Menu (Desktop) */}
