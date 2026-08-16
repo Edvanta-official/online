@@ -32,21 +32,28 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const safeCart = Array.isArray(cart) ? cart : [];
+  const safeWishlist = Array.isArray(wishlist) ? wishlist : [];
+  const safeProducts = Array.isArray(products) ? products : [];
+  const safeUser = user || { isLoggedIn: false };
+
+  const totalCartItems = safeCart.reduce((sum, item) => sum + (item?.quantity || 1), 0);
 
   // Active Route Helpers
-  const currentPath = location.pathname;
-  const searchParams = new URLSearchParams(location.search);
+  const currentPath = location?.pathname || '/';
+  const searchParams = new URLSearchParams(location?.search || '');
   const activeCategory = searchParams.get('category');
   const isSearchActive = !!searchParams.get('search');
 
   const isHomeActive = currentPath === '/' && !activeCategory && !isSearchActive;
   const isShopAllActive = currentPath === '/shop' && !activeCategory && !isSearchActive;
 
-  const searchFilteredProducts = searchQuery.trim() === "" ? [] : products.filter(p => 
-    p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    p.categoryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (p.sku && p.sku.toLowerCase().includes(searchQuery.toLowerCase()))
+  const searchFilteredProducts = searchQuery.trim() === "" ? [] : safeProducts.filter(p => 
+    p && (
+      (p.name && p.name.toLowerCase().includes(searchQuery.toLowerCase())) || 
+      (p.categoryName && p.categoryName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (p.sku && p.sku.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
   ).slice(0, 5);
 
   const handleSearchSubmit = (e) => {
@@ -184,9 +191,9 @@ export const Navbar = () => {
                 aria-label="Wishlist"
               >
                 <Heart className="w-5 h-5" />
-                {wishlist.length > 0 && (
+                {safeWishlist.length > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 bg-[#F48FB1] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
-                    {wishlist.length}
+                    {safeWishlist.length}
                   </span>
                 )}
               </button>
@@ -205,7 +212,7 @@ export const Navbar = () => {
 
               {/* User Account / Role Switcher Menu (Desktop) */}
               <div className="relative hidden sm:block">
-                {user.isLoggedIn ? (
+                {safeUser.isLoggedIn ? (
                   <>
                     <button
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
