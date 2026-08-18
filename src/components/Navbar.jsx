@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Search, ShoppingBag, Heart, User, Sparkles, Menu, X, ShieldCheck, ChevronDown, Home, Grid, Lock, Eye, EyeOff } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { NAVIGATION_TREE } from '../data/mockData';
+import { AmazonAuthModal } from './AmazonAuthModal';
 
 export const Navbar = () => {
   const {
@@ -570,137 +571,11 @@ export const Navbar = () => {
 
           </div>
         )}
-        {/* Premium Sign In / Login Modal */}
-        {isLoginModalOpen && (
-          <div className="fixed inset-0 bg-[#2C2C2C]/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-            <div className="bg-[#FFF9F5] w-full max-w-md rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-2xl relative animate-in zoom-in-95 duration-200">
-              {/* Close Button */}
-              <button
-                onClick={() => setIsLoginModalOpen(false)}
-                className="absolute right-4 top-4 w-8 h-8 rounded-full bg-white border border-[#FCE4EC] text-gray-500 hover:text-gray-800 flex items-center justify-center hover:scale-105 transition-all shadow-xs"
-                aria-label="Close modal"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              {/* Modal Header */}
-              <div className="p-6 pb-4 text-center bg-gradient-to-b from-[#FFF9F5] to-transparent">
-                <div className="w-12 h-12 rounded-2xl border-2 border-[#D4AF7F]/40 bg-[#FFF9F5] p-[2px] mx-auto shadow-sm mb-3 flex items-center justify-center">
-                  <div className="w-full h-full bg-[#FFF9F5] rounded-[12px] flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-[#C89B3C]" />
-                  </div>
-                </div>
-                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">Welcome to <span className="text-[#C89B3C]">SPARKEL</span> @kkv</h3>
-                <p className="text-[11px] text-gray-500 font-poppins mt-1">Access your orders, custom sizes & exclusive coupons</p>
-              </div>
-
-              {/* Modal Form */}
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setPasswordError("");
-                  if (!loginForm.name || !loginForm.phone || !loginForm.password) return;
-                  
-                  // Security Password Strength Check
-                  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/;
-                  if (!passwordRegex.test(loginForm.password)) {
-                    setPasswordError("🔒 Security check failed: Password must be at least 6 characters long and contain both letters and numbers!");
-                    return;
-                  }
-
-                  loginUser(loginForm.name, loginForm.phone, loginForm.password);
-                  setIsLoginModalOpen(false);
-                  setLoginForm({ name: "", phone: "", password: "" });
-                  setPasswordError("");
-                }}
-                className="p-6 pt-2 space-y-4 font-poppins text-xs text-[#2C2C2C]"
-              >
-                {/* Secure Badge */}
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-2.5 flex items-center justify-center gap-1.5 font-montserrat text-[10px] font-bold">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>🛡️ 256-Bit SSL Encrypted Secure Login</span>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
-                  <div className="relative">
-                    <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="Enter Your Name"
-                      value={loginForm.name}
-                      onChange={(e) => setLoginForm(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Phone Number</label>
-                  <div className="relative">
-                    <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Enter Phone Number"
-                      value={loginForm.phone}
-                      onChange={(e) => setLoginForm(prev => ({ ...prev, phone: e.target.value }))}
-                      className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password</label>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      required
-                      placeholder="Min 6 chars (letters & numbers)"
-                      value={loginForm.password}
-                      onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
-                      className="w-full pl-9 pr-10 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                {passwordError && (
-                  <p className="text-[10px] text-red-600 bg-red-50 border border-red-200 p-2.5 rounded-xl leading-relaxed font-medium">
-                    {passwordError}
-                  </p>
-                )}
-
-                <div className="flex justify-between items-center text-[10px] font-medium text-gray-500 pt-1">
-                  <label className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="checkbox" className="accent-[#C89B3C]" defaultChecked />
-                    Remember me
-                  </label>
-                  <a href="#forgot" onClick={(e) => { e.preventDefault(); alert("Verification code sent to your details!"); }} className="hover:text-[#C89B3C] underline">Forgot?</a>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-[#FCE4EC] hover:text-white font-bold py-3.5 rounded-xl uppercase tracking-wider transition-all duration-300 shadow-md font-montserrat mt-2 text-xs"
-                >
-                  Sign In securely
-                </button>
-
-                <div className="text-center pt-3 border-t border-gray-100 text-[10px] text-gray-400">
-                  Please sign in to complete your checkout and track orders securely.
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        {/* Amazon-Grade Security Auth Modal */}
+        <AmazonAuthModal 
+          isOpen={isLoginModalOpen} 
+          onClose={() => setIsLoginModalOpen(false)} 
+        />
       </nav>
     </header>
   );
