@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Mail, Sparkles, CheckCircle2, Loader2, Send } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Mail, Sparkles, CheckCircle2, Loader2, Send, ExternalLink } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 
 export const NewsletterSection = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const hiddenFormRef = useRef(null);
   const { showToast } = useShop();
+
+  const mailtoLink = `mailto:sparklekkvofficial@gmail.com?subject=${encodeURIComponent(`🎉 Congratulations! New VIP Subscriber: ${email}`)}&body=${encodeURIComponent(`Congratulations!\n\nA new customer subscribed to Sparkle @kkv VIP Insider Club.\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nPromotional Code Issued: SPARKEL10 (10% OFF)`)}`;
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -15,7 +18,7 @@ export const NewsletterSection = () => {
     setIsSubmitting(true);
 
     try {
-      // Send notification email to admin email sparklekkvofficial@gmail.com
+      // 1. Primary AJAX dispatch to FormSubmit
       await fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
         method: "POST",
         headers: {
@@ -25,20 +28,41 @@ export const NewsletterSection = () => {
         body: JSON.stringify({
           subscriber_email: email,
           _subject: `🎉 Congratulations! New VIP Subscriber: ${email}`,
-          message: `Congratulations! A new customer subscribed to Sparkle @kkv VIP Insider Club.\n\nSubscriber Email: ${email}\nSubscription Time: ${new Date().toLocaleString()}\nPromotional Code: SPARKEL10 (10% OFF)`
+          message: `Congratulations!\n\nA new VIP Insider subscriber has registered on Sparkle @kkv Boutique:\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nDiscount Code Issued: SPARKEL10 (10% OFF)`
         })
       });
+
+      // 2. Submit hidden native form as secondary fallback
+      if (hiddenFormRef.current) {
+        hiddenFormRef.current.submit();
+      }
     } catch (err) {
       console.log("Email dispatch notification:", err);
     } finally {
       setIsSubmitting(false);
       setSubscribed(true);
-      showToast(`🎉 Congratulations! VIP offer activated for ${email}`);
+      showToast(`🎉 Congratulations! Email notification dispatched for ${email}`);
     }
   };
 
   return (
     <section className="py-16 bg-gradient-to-r from-[#FCE4EC] via-[#FFF9F5] to-[#FCE4EC] border-y border-[#D4AF7F]/30 relative overflow-hidden">
+      
+      {/* Hidden iframe & fallback form to guarantee FormSubmit delivery without page refresh */}
+      <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: 'none' }}></iframe>
+      <form
+        ref={hiddenFormRef}
+        action="https://formsubmit.co/sparklekkvofficial@gmail.com"
+        method="POST"
+        target="hidden_iframe"
+        style={{ display: 'none' }}
+      >
+        <input type="hidden" name="email" value={email} />
+        <input type="hidden" name="_subject" value={`🎉 Congratulations! New VIP Subscriber: ${email}`} />
+        <input type="hidden" name="message" value={`Congratulations! New subscriber: ${email}`} />
+        <input type="hidden" name="_captcha" value="false" />
+      </form>
+
       <div className="max-w-4xl mx-auto px-4 text-center space-y-6 relative z-10">
         
         <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-1 rounded-full border border-[#D4AF7F]/40 shadow-sm text-xs font-montserrat uppercase font-bold text-[#C89B3C]">
@@ -54,7 +78,7 @@ export const NewsletterSection = () => {
         </p>
 
         {subscribed ? (
-          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-[#D4AF7F]/50 max-w-lg mx-auto space-y-3 animate-in zoom-in-95 text-center font-poppins">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-[#D4AF7F]/50 max-w-lg mx-auto space-y-4 animate-in zoom-in-95 text-center font-poppins">
             <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl animate-bounce">
               🎉
             </div>
@@ -64,12 +88,27 @@ export const NewsletterSection = () => {
             <p className="text-xs text-gray-600 leading-relaxed">
               Subscriber Email: <strong className="text-[#C89B3C] font-mono">{email}</strong>
               <br />
-              An instant alert email notification has been dispatched to Admin (<strong className="text-[#2C2C2C]">sparklekkvofficial@gmail.com</strong>).
+              An alert email notification has been sent to Admin (<strong className="text-[#2C2C2C]">sparklekkvofficial@gmail.com</strong>).
             </p>
+
             <div className="bg-[#FFF9F5] p-3 rounded-2xl border border-[#D4AF7F]/40 inline-flex items-center justify-center gap-2">
-              <span className="text-xs font-montserrat text-gray-700 font-medium">Use Code: </span>
+              <span className="text-xs font-montserrat text-gray-700 font-medium">Use Coupon Code: </span>
               <strong className="text-[#C89B3C] font-mono text-sm font-bold">SPARKEL10</strong>
               <span className="text-xs text-gray-500 font-medium">(10% OFF)</span>
+            </div>
+
+            {/* Direct Mailto Fallback Button */}
+            <div className="pt-2">
+              <a
+                href={mailtoLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#2C2C2C] hover:bg-[#C89B3C] text-white font-montserrat font-bold text-[11px] px-5 py-2.5 rounded-xl transition-all shadow-sm"
+              >
+                <Mail className="w-3.5 h-3.5 text-[#D4AF7F]" />
+                <span>Send Direct Mail to Admin (sparklekkvofficial@gmail.com)</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
           </div>
         ) : (
