@@ -8,7 +8,10 @@ export const ProductCard = ({ product }) => {
   const { wishlist, toggleWishlist, addToCart, buyNow, setQuickViewProduct, setIsCheckoutOpen } = useShop();
   const navigate = useNavigate();
 
-  const isWishlisted = wishlist.includes(product.id);
+  if (!product) return null;
+
+  const safeWishlist = Array.isArray(wishlist) ? wishlist : [];
+  const isWishlisted = safeWishlist.includes(product.id);
   const discountPercent = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) 
     : 0;

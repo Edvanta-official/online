@@ -7,7 +7,9 @@ export const WishlistDrawer = () => {
 
   if (!isWishlistOpen) return null;
 
-  const wishlistedProducts = products.filter(p => wishlist.includes(p.id));
+  const wishlistedProducts = (Array.isArray(products) && Array.isArray(wishlist)) 
+    ? products.filter(p => p && p.id && wishlist.includes(p.id)) 
+    : [];
 
   return (
     <div className="fixed inset-0 z-[9999] overflow-hidden bg-black/60 backdrop-blur-sm animate-in fade-in">

@@ -218,6 +218,17 @@ export const ShopProvider = ({ children }) => {
     return true;
   };
 
+  const removeFromCart = (productId) => {
+    setCart(prev => {
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const itemToRemove = safePrev.find(item => item && item.product && item.product.id === productId);
+      if (itemToRemove && itemToRemove.product) {
+        showToast(`Removed "${itemToRemove.product.name}" from cart`, "info");
+      }
+      return safePrev.filter(item => item && item.product && item.product.id !== productId);
+    });
+  };
+
   const updateCartQuantity = (productId, newQuantity) => {
     if (newQuantity <= 0) {
       removeFromCart(productId);
