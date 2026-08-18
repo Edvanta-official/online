@@ -49,7 +49,7 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // Create Nodemailer Transporter
-const createTransporter = () => {
+const createTransporter = async () => {
   if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -63,7 +63,7 @@ const createTransporter = () => {
   }
 
   // Gmail SMTP Transport
-  if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+  if (process.env.GMAIL_USER && process.env.GMAIL_PASS && !process.env.GMAIL_PASS.includes('your_16_character')) {
     return nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -73,7 +73,21 @@ const createTransporter = () => {
     });
   }
 
-  return null;
+  // Automatic Test Transporter for instant zero-config email preview
+  try {
+    const testAccount = await nodemailer.createTestAccount();
+    return nodemailer.createTransport({
+      host: testAccount.smtp.host,
+      port: testAccount.smtp.port,
+      secure: testAccount.smtp.secure,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass
+      }
+    });
+  } catch (e) {
+    return null;
+  }
 };
 
 // Health Check Endpoint
@@ -135,14 +149,20 @@ app.post('/api/subscribe', async (req, res) => {
       `
     };
 
-    const transporter = createTransporter();
+    const transporter = await createTransporter();
     let emailSent = false;
+    let previewUrl = null;
 
     if (transporter) {
       try {
-        await transporter.sendMail(mailOptions);
+        const info = await transporter.sendMail(mailOptions);
         emailSent = true;
-        console.log(`[Email Delivered] Admin notification sent to ${ADMIN_EMAIL} for subscriber ${email}`);
+        previewUrl = nodemailer.getTestMessageUrl(info);
+        if (previewUrl) {
+          console.log(`[Ethereal Test Email Delivered] Preview URL: ${previewUrl}`);
+        } else {
+          console.log(`[Gmail SMTP Delivered] Admin notification sent to ${ADMIN_EMAIL} for subscriber ${email}`);
+        }
       } catch (mailErr) {
         console.error('[Email Dispatch Error]:', mailErr.message);
       }
