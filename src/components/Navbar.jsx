@@ -128,7 +128,7 @@ export const Navbar = () => {
                     <span className="font-serif italic font-normal text-sm sm:text-lg mr-0.5">@</span>kkv
                   </span>
                 </div>
-                <span className="text-[8px] sm:text-[9px] text-[#8C4A57] font-montserrat tracking-[0.2em] uppercase hidden sm:block mt-1 font-bold">
+                <span className="text-[7px] sm:text-[9px] text-[#8C4A57] font-montserrat tracking-[0.15em] sm:tracking-[0.2em] uppercase block mt-0.5 sm:mt-1 font-bold">
                   Luxury Fashion Accessories
                 </span>
               </div>

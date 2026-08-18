@@ -37,8 +37,18 @@ export const CheckoutModal = () => {
 
   if (!isCheckoutOpen) return null;
 
-  // Generate UPI Deep Link for PhonePe & GPay with exact order total pre-filled automatically
-  const upiDeepLink = `upi://pay?pa=7981714189-4@ibl&pn=Koti%20Koushik&am=${cartTotal}&cu=INR&tn=Sparkel%20Order%20Payment`;
+  // Generate UPI Deep Link for PhonePe, GPay, Paytm & SuperMoney with exact order total pre-filled automatically
+  const upiDeepLink = `upi://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+  const phonepeLink = `phonepe://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+  const gpayLink = `gpay://upi/pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+  const paytmLink = `paytmmp://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+
+  const copyUpiId = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('sparklekkv@ibl');
+      showToast("Copied UPI ID sparklekkv@ibl!");
+    }
+  };
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
@@ -65,11 +75,11 @@ export const CheckoutModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-[#FCE4EC] my-8 font-poppins relative">
+    <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden border border-[#FCE4EC] my-auto font-poppins relative">
         
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] p-6 flex items-center justify-between">
+        {/* Header - Fixed inside modal container */}
+        <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] p-4 sm:p-6 flex items-center justify-between shrink-0">
           <div>
             <span className="text-[10px] font-montserrat tracking-widest uppercase text-[#D4AF7F] font-bold">Sparkel @kkv Boutique</span>
             <h2 className="font-serif-luxury text-xl font-bold">
@@ -89,7 +99,7 @@ export const CheckoutModal = () => {
 
         {/* Cart Item Summary Bar */}
         {cart.length > 0 && (
-          <div className="bg-[#FFF9F5] px-6 py-2.5 border-b border-[#FCE4EC] flex items-center justify-between text-xs font-poppins">
+          <div className="bg-[#FFF9F5] px-4 sm:px-6 py-2.5 border-b border-[#FCE4EC] flex items-center justify-between text-xs font-poppins shrink-0">
             <span className="text-gray-600 font-medium">
               Checkout Items: <strong className="text-[#2C2C2C]">{cart.length} Product{cart.length > 1 ? 's' : ''} ({cart.reduce((s, i) => s + i.quantity, 0)} Units)</strong>
             </span>
@@ -111,8 +121,8 @@ export const CheckoutModal = () => {
           </div>
         )}
 
-        {/* Modal Body */}
-        <div className="p-6 md:p-8">
+        {/* Modal Body - Scrollable */}
+        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex-1">
           
           {/* STEP 1: Shipping Address */}
           {step === 1 && (
@@ -249,49 +259,93 @@ export const CheckoutModal = () => {
                     <div className="flex items-center gap-3">
                       <Smartphone className="w-5 h-5 text-[#5f259f]" />
                       <div>
-                        <span className="text-xs font-bold text-[#2C2C2C]">PhonePe & Scanner UPI Instant Payment</span>
-                        <p className="text-[10px] text-gray-500 font-poppins">KOTI KOUSHIK • Auto-Fills ₹{cartTotal}</p>
+                        <span className="text-xs font-bold text-[#2C2C2C]">PhonePe, GPay, Paytm & Scanner UPI Payment</span>
+                        <p className="text-[10px] text-gray-500 font-poppins">sparklekkv@ibl • Auto-Fills ₹{cartTotal}</p>
                       </div>
                     </div>
                     <span className="text-[10px] bg-[#5f259f] text-white font-bold px-2.5 py-1 rounded-full">RECOMMENDED</span>
                   </div>
 
                   {paymentMethod === 'PhonePe' && (
-                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-3 text-center">
+                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-4 text-center">
                       
                       {/* Dynamic Live Auto-Filling QR Code */}
-                      <div className="max-w-[240px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
+                      <div className="max-w-[260px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
                         <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                           <span className="text-[10px] text-gray-400 font-montserrat font-bold uppercase tracking-wider">Dynamic QR</span>
-                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">Koti Koushik</span>
+                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">Sparkle @kkv</span>
                         </div>
                         <div className="aspect-square w-full rounded-2xl overflow-hidden bg-white p-2 border border-gray-100 flex items-center justify-center">
                           <img
                             src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=10&data=${encodeURIComponent(upiDeepLink)}`}
-                            alt="Scan to Pay Koti Koushik"
+                            alt="Scan to Pay Sparkle @kkv"
                             className="w-full h-full object-contain"
                           />
                         </div>
-                        <div className="pt-2">
+                        <div className="pt-1">
                           <p className="text-[11px] text-[#2C2C2C] font-semibold">
-                            Scan with PhonePe / Any UPI App
+                            Scan with PhonePe, GPay, Paytm or Any UPI App
                           </p>
                           <p className="text-xs font-extrabold text-[#5f259f] mt-0.5">
-                            Auto-fills ₹{cartTotal}
+                            Auto-fills exact amount ₹{cartTotal}
                           </p>
-                          <p className="text-[9px] text-gray-400 font-mono mt-1">UPI: 7981714189-4@ibl</p>
+                          <div className="flex items-center justify-center gap-1.5 mt-2 bg-[#FFF9F5] py-1 px-2.5 rounded-lg border border-[#D4AF7F]/30 w-fit mx-auto">
+                            <span className="text-[10px] text-gray-700 font-mono font-semibold">sparklekkv@ibl</span>
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); copyUpiId(); }}
+                              className="text-gray-400 hover:text-[#C89B3C] p-0.5"
+                              title="Copy UPI ID"
+                            >
+                              <Copy className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Instant PhonePe Mobile App Payment Button */}
-                      <div className="max-w-[280px] mx-auto pt-1">
-                        <a
-                          href={upiDeepLink}
-                          className="w-full bg-[#5f259f] hover:bg-[#4a1c7d] text-white font-montserrat font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all"
-                        >
-                          <Smartphone className="w-4 h-4" />
-                          <span>Pay ₹{cartTotal} via PhonePe App</span>
-                        </a>
+                      {/* Instant Payment Buttons Grid: PhonePe, GPay, Paytm, SuperMoney */}
+                      <div className="space-y-2 pt-1 max-w-md mx-auto">
+                        <p className="text-[11px] font-montserrat font-bold text-[#2C2C2C] uppercase tracking-wider">
+                          Instant App Payment Buttons
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                          <a
+                            href={phonepeLink}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                          >
+                            <Smartphone className="w-3.5 h-3.5" />
+                            <span>PhonePe</span>
+                          </a>
+
+                          <a
+                            href={gpayLink}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                          >
+                            <Smartphone className="w-3.5 h-3.5" />
+                            <span>Google Pay</span>
+                          </a>
+
+                          <a
+                            href={paytmLink}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#00baf2] hover:bg-[#0094c4] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                          >
+                            <Smartphone className="w-3.5 h-3.5" />
+                            <span>Paytm</span>
+                          </a>
+
+                          <a
+                            href={upiDeepLink}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#2C2C2C] hover:bg-[#3A2D32] text-[#FCE4EC] font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                          >
+                            <Smartphone className="w-3.5 h-3.5" />
+                            <span>SuperMoney / UPI</span>
+                          </a>
+                        </div>
+                        <p className="text-[10px] text-gray-500 font-poppins">Click any app button to pay pre-filled ₹{cartTotal} directly</p>
                       </div>
 
                     </div>
