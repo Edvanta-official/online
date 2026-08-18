@@ -18,7 +18,7 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
     reply_to: subscriberEmail,
     coupon_code: 'SPARKEL10',
     subscription_date: new Date().toLocaleString(),
-    message: `🎉 Congratulations! A new customer subscribed to Sparkle @kkv VIP Insider Club.\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Coupon: SPARKEL10 (10% OFF)`
+    message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Coupon: SPARKEL10 (10% OFF)`
   };
 
   // 1. Try sending via EmailJS SDK if credentials are valid
@@ -46,8 +46,8 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
         access_key: '4d1b8214-722a-436f-b1e9-914b7e45e7f1',
         email: subscriberEmail,
         target_email: ADMIN_EMAIL,
-        subject: `🎉 Congratulations! New VIP Subscriber: ${subscriberEmail}`,
-        message: `New VIP Subscriber joined Sparkle @kkv Boutique: ${subscriberEmail}\nDate: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
+        subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
+        message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
       })
     });
     return { success: true, provider: 'web3forms' };

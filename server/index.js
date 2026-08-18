@@ -117,11 +117,11 @@ app.post('/api/subscribe', async (req, res) => {
     const mailOptions = {
       from: `"Sparkle @kkv Boutique" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
       to: ADMIN_EMAIL,
-      subject: `🎉 Congratulations! New VIP Subscriber: ${email}`,
+      subject: `🎉 New Subscriber Alert: ${email} is your new subscriber!`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #FFF9F5; padding: 24px; border-radius: 16px; border: 2px solid #D4AF7F; max-width: 600px;">
-          <h2 style="color: #2C2C2C; font-family: Georgia, serif; margin-top: 0;">🎉 Congratulations! New VIP Subscriber</h2>
-          <p style="font-size: 14px; color: #555;">A new customer has subscribed to the <strong>Sparkle @kkv VIP Insider Club</strong>!</p>
+          <h2 style="color: #2C2C2C; font-family: Georgia, serif; margin-top: 0;">🎉 Congratulations!</h2>
+          <p style="font-size: 16px; color: #C89B3C; font-weight: bold; margin-bottom: 12px;">This member is your new subscriber: <span style="color: #2C2C2C;">${email}</span></p>
           
           <div style="background-color: #ffffff; padding: 16px; border-radius: 12px; border: 1px solid #FCE4EC; margin: 16px 0;">
             <p style="margin: 4px 0; font-size: 14px;"><strong>Subscriber Email:</strong> <span style="color: #C89B3C; font-weight: bold;">${email}</span></p>
