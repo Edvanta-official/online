@@ -509,8 +509,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 2,
     images: [
-      "images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_7_05_39_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Ruby & Emerald Kemp Gold"
@@ -538,8 +537,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/whatsapp_image_2026_08_10_at_7_05_39_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_7_32_09_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_7_05_39_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Gold & Ruby Kemp"
@@ -567,8 +565,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/whatsapp_image_2026_08_10_at_7_32_09_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_7_46_22_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_7_32_09_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Antique Gold & Ruby Beads"
@@ -596,8 +593,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/whatsapp_image_2026_08_10_at_7_46_22_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_7_49_04_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_7_46_22_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Antique Gold Lakshmi Coins"
@@ -625,8 +621,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/whatsapp_image_2026_08_10_at_7_49_04_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_7_49_04_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Rose Gold & Pearl Tulips"
@@ -654,8 +649,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 2,
     images: [
-      "images/faux_pearl_charm_necklace_drive.jpg",
-      "images/adjustable_floral_bolo_necklace_drive.jpg"
+      "images/faux_pearl_charm_necklace_drive.jpg"
     ],
     colors: [
       "Gold & White Faux Pearl"
@@ -684,8 +678,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/adjustable_floral_bolo_necklace_drive.jpg",
-      "images/green_oval_stone_chain_drive.jpg"
+      "images/adjustable_floral_bolo_necklace_drive.jpg"
     ],
     colors: [
       "Rose Gold Floral"
@@ -714,8 +707,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/green_oval_stone_chain_drive.jpg",
-      "images/flat_snake_chain_drive.jpg"
+      "images/green_oval_stone_chain_drive.jpg"
     ],
     colors: [
       "Emerald Green & Gold"
@@ -744,8 +736,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/flat_snake_chain_drive.jpg",
-      "images/satellite_chain_drive.jpg"
+      "images/flat_snake_chain_drive.jpg"
     ],
     colors: [
       "Glossy 18K Gold"
@@ -774,8 +765,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/satellite_chain_drive.jpg",
-      "images/crystal_heart_pendant_drive.jpg"
+      "images/satellite_chain_drive.jpg"
     ],
     colors: [
       "Gold Beaded Chain"
@@ -804,8 +794,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/crystal_heart_pendant_drive.jpg",
-      "images/north_star_pendant_drive.jpg"
+      "images/crystal_heart_pendant_drive.jpg"
     ],
     colors: [
       "Clear Crystal & Rose Gold"
@@ -834,8 +823,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/north_star_pendant_drive.jpg",
-      "images/round_snake_necklace_drive.jpg"
+      "images/north_star_pendant_drive.jpg"
     ],
     colors: [
       "Gold & Zircon Star"
@@ -859,8 +847,7 @@ export const PRODUCTS = [
     rating: 4.7,
     stock: 1,
     images: [
-      "images/round_snake_necklace_drive.jpg",
-      "images/faux_pearl_charm_necklace_drive.jpg"
+      "images/round_snake_necklace_drive.jpg"
     ],
     colors: [
       "High Polish Gold"
