@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
-import { Mail, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Mail, Sparkles, CheckCircle2, Loader2, Send } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 
 export const NewsletterSection = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { showToast } = useShop();
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+
+    setIsSubmitting(true);
+
+    try {
+      // Send notification email to admin email sparklekkvofficial@gmail.com
+      await fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          subscriber_email: email,
+          _subject: `🎉 Congratulations! New VIP Subscriber: ${email}`,
+          message: `Congratulations! A new customer subscribed to Sparkle @kkv VIP Insider Club.\n\nSubscriber Email: ${email}\nSubscription Time: ${new Date().toLocaleString()}\nPromotional Code: SPARKEL10 (10% OFF)`
+        })
+      });
+    } catch (err) {
+      console.log("Email dispatch notification:", err);
+    } finally {
+      setIsSubmitting(false);
       setSubscribed(true);
-      showToast("🎁 Subscribed! Use Code SPARKEL10 for 10% OFF!");
+      showToast(`🎉 Congratulations! VIP offer activated for ${email}`);
     }
   };
 
@@ -32,9 +54,23 @@ export const NewsletterSection = () => {
         </p>
 
         {subscribed ? (
-          <div className="bg-white p-6 rounded-3xl shadow-lg border border-[#F48FB1] inline-flex items-center gap-3 text-emerald-700 font-montserrat text-xs font-bold animate-in zoom-in-95">
-            <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-            <span>Welcome to the VIP Club! Use Code: <strong className="text-[#C89B3C]">SPARKEL10</strong> at Checkout.</span>
+          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl border-2 border-[#D4AF7F]/50 max-w-lg mx-auto space-y-3 animate-in zoom-in-95 text-center font-poppins">
+            <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl animate-bounce">
+              🎉
+            </div>
+            <h3 className="font-serif-luxury text-xl sm:text-2xl font-bold text-[#2C2C2C]">
+              Congratulations! You're Subscribed!
+            </h3>
+            <p className="text-xs text-gray-600 leading-relaxed">
+              Subscriber Email: <strong className="text-[#C89B3C] font-mono">{email}</strong>
+              <br />
+              An instant alert email notification has been dispatched to Admin (<strong className="text-[#2C2C2C]">sparklekkvofficial@gmail.com</strong>).
+            </p>
+            <div className="bg-[#FFF9F5] p-3 rounded-2xl border border-[#D4AF7F]/40 inline-flex items-center justify-center gap-2">
+              <span className="text-xs font-montserrat text-gray-700 font-medium">Use Code: </span>
+              <strong className="text-[#C89B3C] font-mono text-sm font-bold">SPARKEL10</strong>
+              <span className="text-xs text-gray-500 font-medium">(10% OFF)</span>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
@@ -46,14 +82,26 @@ export const NewsletterSection = () => {
                 placeholder="Enter your email address..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white border border-[#D4AF7F]/50 rounded-full py-3.5 pl-11 pr-4 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#C89B3C] shadow-sm"
+                disabled={isSubmitting}
+                className="w-full bg-white border border-[#D4AF7F]/50 rounded-full py-3.5 pl-11 pr-4 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#C89B3C] shadow-sm disabled:opacity-70"
               />
             </div>
             <button
               type="submit"
-              className="shimmer-btn bg-[#2C2C2C] text-[#FCE4EC] hover:text-white font-montserrat font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg transition-transform hover:scale-105"
+              disabled={isSubmitting}
+              className="shimmer-btn bg-[#2C2C2C] text-[#FCE4EC] hover:text-white font-montserrat font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 disabled:opacity-70"
             >
-              Subscribe
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-[#D4AF7F]" />
+                  <span>Sending...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-3.5 h-3.5 text-[#D4AF7F]" />
+                  <span>Subscribe</span>
+                </>
+              )}
             </button>
           </form>
         )}

@@ -4,7 +4,7 @@ export const BRAND_INFO = {
   secondaryTagline: "Luxury Fashion Accessories for Every Moment.",
   domain: "sparklekkv.com",
   phone: "+91 99491 57771",
-  email: "support@sparklekkv.com",
+  email: "sparklekkvofficial@gmail.com",
   address: "Ayyappa Society, Madhapur, Telangana, Hyderabad",
   socials: {
     instagram: "@sparklekkvoffical",
