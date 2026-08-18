@@ -19,8 +19,8 @@ export const NewsletterSection = () => {
     addSubscriber(email);
 
     try {
-      // 1. Primary FormSubmit AJAX submission directly to sparklekkvofficial@gmail.com
-      const res = await fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
+      // 1. Primary silent AJAX POST to FormSubmit for sparklekkvofficial@gmail.com
+      fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,29 +28,17 @@ export const NewsletterSection = () => {
         },
         body: JSON.stringify({
           email,
-          _subject: `🎉 New Subscriber Alert: ${email} is your new subscriber!`,
-          message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`,
+          _subject: `🎉 New VIP Subscriber Alert: ${email}`,
+          message: `🎉 Congratulations!\n\nNew subscriber registered on Sparkle @kkv website: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`,
           _captcha: "false"
         })
-      });
+      }).catch(err => console.log("FormSubmit silent fetch:", err));
 
-      const data = await res.json();
-      console.log("FormSubmit AJAX response:", data);
-
-      if (data && data.success === "false" && data.message && data.message.includes("Activation")) {
-        // Open activation page in new tab so admin can complete activation instantly
-        window.open(`https://formsubmit.co/sparklekkvofficial@gmail.com`, '_blank');
-      }
-
-      // 2. Also trigger EmailJS service helper
-      sendSubscriberEmailViaEmailJS(email);
-    } catch (err) {
-      console.log("Email dispatch:", err);
-      // Native window fallback if fetch blocked
+      // 2. Silent hidden iframe form submit fallback (never opens new tab/page)
       const form = document.createElement('form');
       form.action = 'https://formsubmit.co/sparklekkvofficial@gmail.com';
       form.method = 'POST';
-      form.target = '_blank';
+      form.target = 'hidden_formsubmit_iframe';
 
       const emailInput = document.createElement('input');
       emailInput.type = 'hidden';
@@ -61,18 +49,23 @@ export const NewsletterSection = () => {
       const subjectInput = document.createElement('input');
       subjectInput.type = 'hidden';
       subjectInput.name = '_subject';
-      subjectInput.value = `🎉 New Subscriber Alert: ${email} is your new subscriber!`;
+      subjectInput.value = `🎉 New VIP Subscriber Alert: ${email}`;
       form.appendChild(subjectInput);
 
-      const messageInput = document.createElement('input');
-      messageInput.type = 'hidden';
-      messageInput.name = 'message';
-      messageInput.value = `🎉 Congratulations!\n\nThis member is your new subscriber: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`;
-      form.appendChild(messageInput);
+      const captchaInput = document.createElement('input');
+      captchaInput.type = 'hidden';
+      captchaInput.name = '_captcha';
+      captchaInput.value = 'false';
+      form.appendChild(captchaInput);
 
       document.body.appendChild(form);
       form.submit();
       document.body.removeChild(form);
+
+      // 3. EmailJS helper dispatch
+      sendSubscriberEmailViaEmailJS(email);
+    } catch (err) {
+      console.log("Background email dispatch:", err);
     } finally {
       setIsSubmitting(false);
       setSubscribed(true);

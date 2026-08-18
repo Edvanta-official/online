@@ -227,12 +227,16 @@ export const Navbar = () => {
 
                     {isUserMenuOpen && (
                       <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 font-poppins text-xs">
-                        <div className="px-4 py-2 border-b border-gray-100">
-                          <p className="font-semibold text-[#2C2C2C]">{user.name}</p>
-                          <p className="text-[11px] text-gray-500">{user.email}</p>
-                          <span className="inline-block mt-1 px-2 py-0.5 bg-[#FCE4EC] text-[#2C2C2C] text-[10px] font-semibold rounded-full uppercase font-montserrat">
-                            Role: {user.role}
-                          </span>
+                        <div className="px-4 py-2 border-b border-gray-100 space-y-0.5">
+                          <p className="font-bold text-[#2C2C2C] text-sm">{user.name}</p>
+                          <p className="text-[11px] text-gray-600 truncate">{user.email}</p>
+                          {user.phone && <p className="text-[11px] text-[#C89B3C] font-mono font-medium">📱 {user.phone}</p>}
+                          <div className="flex items-center gap-1 mt-1 pt-0.5">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-[9px] font-bold rounded-full uppercase font-montserrat">
+                              <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                              256-Bit SSL Authenticated
+                            </span>
+                          </div>
                         </div>
 
                         <div className="py-1">

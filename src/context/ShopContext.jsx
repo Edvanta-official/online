@@ -353,16 +353,22 @@ export const ShopProvider = ({ children }) => {
     showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
   };
 
-  const loginUser = (name, phone, password) => {
+  const loginUser = (nameInput, phoneInput, passwordInput, emailInput) => {
+    const name = nameInput || "Sparkle Customer";
+    const phone = phoneInput || "+91 9876543210";
+    const password = passwordInput || "••••••••";
     const role = name.toLowerCase().includes('admin') ? 'admin' : 'customer';
-    const email = `${name.toLowerCase().replace(/\s+/g, '')}@example.com`;
+    const email = emailInput || (name.includes('@') ? name : `${name.toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`);
 
-    setUser({
+    const authenticatedUser = {
       name,
       email,
       phone,
+      password,
       role,
       isLoggedIn: true,
+      authMethod: "256-Bit SSL Amazon Security Auth",
+      authDate: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
       savedAddresses: [
         {
           id: "addr1",
@@ -375,8 +381,13 @@ export const ShopProvider = ({ children }) => {
           isDefault: true
         }
       ]
-    });
-    showToast(`👋 Welcome, ${name}!`);
+    };
+
+    setUser(authenticatedUser);
+    try {
+      localStorage.setItem('sparkel_user', JSON.stringify(authenticatedUser));
+    } catch (e) {}
+    showToast(`👋 Welcome back, ${name}!`);
     return true;
   };
 

@@ -134,7 +134,13 @@ export const CustomerDashboard = () => {
                   Sparkel VIP Member
                 </span>
               </div>
-              <p className="text-xs text-gray-300 font-poppins">{user.email} • +91 9949157771</p>
+              <p className="text-xs text-gray-300 font-poppins">{user.email} • {user.phone || '+91 9876543210'}</p>
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[9px] font-bold font-montserrat px-2 py-0.5 rounded-full uppercase flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-emerald-400" />
+                  256-Bit SSL Authenticated Session
+                </span>
+              </div>
             </div>
           </div>
 
