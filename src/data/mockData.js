@@ -186,8 +186,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 24,
     images: [
-      "images/claw_clips_drive.jpg",
-      "images/cross_claw_clips_drive.jpg"
+      "images/claw_clips_drive.jpg"
     ],
     colors: [
       "Pastel Beige",
@@ -218,8 +217,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/cross_claw_clips_drive.jpg",
-      "images/rectangle_claw_clips_drive.jpg"
+      "images/cross_claw_clips_drive.jpg"
     ],
     colors: [
       "Rose Gold",
@@ -249,8 +247,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 12,
     images: [
-      "images/whale_tail_claw_clips_drive.jpg",
-      "images/pastel_flower_claw_clips_drive.jpg"
+      "images/whale_tail_claw_clips_drive.jpg"
     ],
     colors: [
       "Metallic Gold",
@@ -280,8 +277,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/rectangle_claw_clips_drive.jpg",
-      "images/hawaiian_plumeria_claw_clips_drive.jpg"
+      "images/rectangle_claw_clips_drive.jpg"
     ],
     colors: [
       "Amber Tortoise",
@@ -311,8 +307,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 12,
     images: [
-      "images/pastel_flower_claw_clips_drive.jpg",
-      "images/flower_claw_clips_drive.jpg"
+      "images/pastel_flower_claw_clips_drive.jpg"
     ],
     colors: [
       "Pastel Blossom Pink",
@@ -342,8 +337,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/hawaiian_plumeria_claw_clips_drive.jpg",
-      "images/plumeria_flower_claw_clip_drive.jpg"
+      "images/hawaiian_plumeria_claw_clips_drive.jpg"
     ],
     colors: [
       "White & Yellow",
@@ -373,8 +367,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/flower_claw_clips_drive.jpg",
-      "images/claw_clips_drive.jpg"
+      "images/flower_claw_clips_drive.jpg"
     ],
     colors: [
       "Multicolor Floral"
@@ -403,8 +396,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg",
-      "images/kundan_choker_set.jpg"
+      "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
     ],
     colors: [
       "Antique Matte Gold & Ruby Droplets"
@@ -433,8 +425,7 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 2,
     images: [
-      "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg",
-      "images/temple_necklace.jpg"
+      "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Ruby Red Kemp & Gold"
@@ -462,8 +453,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/whatsapp_image_2026_08_10_at_6_08_20_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_6_16_24_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_6_08_20_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Antique Gold & Ruby Kemp"
@@ -491,8 +481,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 2,
     images: [
-      "images/whatsapp_image_2026_08_10_at_6_16_24_pm_jpeg_drive.jpg",
-      "images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg"
+      "images/whatsapp_image_2026_08_10_at_6_16_24_pm_jpeg_drive.jpg"
     ],
     colors: [
       "Antique Gold & Green Kemp"
@@ -900,15 +889,10 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 4,
     images: [
-      "images/1_beaded_charm_bracelet_1_jpg",
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_3_jpg_drive.jpg",
-      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg",
-      "images/bracelet_drive_1.beaded_charm_bracelet_1.jpg",
-      "images/bracelet_drive_1.beaded_charm_bracelet_2.jpg",
-      "images/bracelet_drive_1.beaded_charm_bracelet_3.jpg",
-      "images/bracelet_drive_1.beaded_charm_bracelet_4.jpg"
+      "images/1_beaded_charm_bracelet_4_jpg_drive.jpg"
     ],
     colors: [
       "Gold & Pearl Charms"
@@ -940,12 +924,7 @@ export const PRODUCTS = [
       "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
       "images/2_adjustable_gold_plated_kada_bracelet_3_jpg_drive.jpg",
       "images/2_adjustable_gold_plated_kada_bracelet_4_jpg_drive.jpg",
-      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg",
-      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_1.jpg",
-      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_2.jpg",
-      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_3.jpg",
-      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_4.jpg",
-      "images/bracelet_drive_2.adjustable_gold_plated_kada_bracelet_5.jpg"
+      "images/2_adjustable_gold_plated_kada_bracelet_5_jpg_drive.jpg"
     ],
     colors: [
       "18K Micro Gold Polish"
@@ -1464,7 +1443,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 2,
     images: [
       "images/7_huggie_earings_with_pearl_and_ball_drops_1.jpg",
       "images/7_huggie_earings_with_pearl_and_ball_drops_2.jpg"
@@ -1474,7 +1453,7 @@ export const PRODUCTS = [
     ],
     description: "Huggie Earrings with Pearl & Ball Drops from Drive. Dainty huggie hoops with delicate pearl and ball drop charms.",
     details: [
-      "Quantity: 1 Pair",
+      "Quantity: 2 Pairs (Available Stock: 2 units)",
       "Material: Gold Plated with Pearl Drops",
       "Style: Huggie Hoops with Charms",
       "Purchase Price: ₹72"
