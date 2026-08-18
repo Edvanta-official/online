@@ -1,14 +1,17 @@
 import emailjs from '@emailjs/browser';
 
-// EmailJS Service Configuration
+// Environment variables configuration
 const EMAILJS_PUBLIC_KEY = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_EMAILJS_PUBLIC_KEY) || '';
 const EMAILJS_SERVICE_ID = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_EMAILJS_SERVICE_ID) || '';
 const EMAILJS_TEMPLATE_ID = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_EMAILJS_TEMPLATE_ID) || '';
+const WEB3FORMS_KEY = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_WEB3FORMS_KEY) || '';
+const FORMSPREE_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_FORMSPREE_URL) || '';
 
 const ADMIN_EMAIL = 'sparklekkvofficial@gmail.com';
 
 /**
- * Send VIP Newsletter Subscription Email to Admin (sparklekkvofficial@gmail.com) via EmailJS
+ * Robust Multi-Provider Email Service
+ * Sends notification emails to admin (sparklekkvofficial@gmail.com)
  */
 export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
   const templateParams = {
@@ -21,7 +24,9 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
     message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Coupon: SPARKEL10 (10% OFF)`
   };
 
-  // 1. Try sending via EmailJS SDK if credentials are valid
+  const results = [];
+
+  // 1. Send via EmailJS SDK if credentials exist
   if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
     try {
       const response = await emailjs.send(
@@ -31,29 +36,85 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
         EMAILJS_PUBLIC_KEY
       );
       console.log('[EmailJS Success]:', response.status, response.text);
-      return { success: true, provider: 'emailjs', response };
+      results.push('emailjs');
     } catch (emailjsError) {
-      console.warn('[EmailJS SDK Notice]: Fallback to Web3Forms API...', emailjsError);
+      console.warn('[EmailJS Notice]:', emailjsError);
     }
   }
 
-  // 2. Try sending via Web3Forms API (Delivers directly to sparklekkvofficial@gmail.com)
+  // 2. Send via FormSubmit AJAX Endpoint targeting sparklekkvofficial@gmail.com
   try {
-    await fetch('https://api.web3forms.com/submit', {
+    const fsRes = await fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({
-        access_key: '4d1b8214-722a-436f-b1e9-914b7e45e7f1',
         email: subscriberEmail,
-        target_email: ADMIN_EMAIL,
-        subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
+        name: 'VIP Subscriber',
+        _subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
         message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
       })
     });
-    return { success: true, provider: 'web3forms' };
-  } catch (web3Err) {
-    console.warn('[Web3Forms Notice]:', web3Err);
+    if (fsRes.ok) {
+      console.log('[FormSubmit Success]: Email dispatched');
+      results.push('formsubmit');
+    }
+  } catch (fsErr) {
+    console.warn('[FormSubmit Notice]:', fsErr);
   }
 
-  return { success: true, provider: 'local-saved' };
+  // 3. Send via Web3Forms API if key exists
+  if (WEB3FORMS_KEY) {
+    try {
+      const w3Res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          email: subscriberEmail,
+          subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
+          message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nDate: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
+        })
+      });
+      if (w3Res.ok) {
+        console.log('[Web3Forms Success]: Email dispatched');
+        results.push('web3forms');
+      }
+    } catch (w3Err) {
+      console.warn('[Web3Forms Notice]:', w3Err);
+    }
+  }
+
+  // 4. Send via Formspree URL if configured
+  if (FORMSPREE_URL) {
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: subscriberEmail,
+          message: `🎉 Congratulations! This member is your new subscriber: ${subscriberEmail}`
+        })
+      });
+      results.push('formspree');
+    } catch (fspErr) {
+      console.warn('[Formspree Notice]:', fspErr);
+    }
+  }
+
+  // 5. Send via Local Express Backend API
+  try {
+    await fetch('http://localhost:5000/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: subscriberEmail })
+    });
+    results.push('express-backend');
+  } catch (backendErr) {
+    console.log('[Express Backend Notice]:', backendErr.message);
+  }
+
+  return { success: true, providersTriggered: results };
 };
