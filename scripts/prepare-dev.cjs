@@ -22,6 +22,13 @@ const devHtml = `<!DOCTYPE html>
   </body>
 </html>`;
 
+if (fs.existsSync('index.html')) {
+  const content = fs.readFileSync('index.html', 'utf8');
+  if (content.includes('assets/index-') && !fs.existsSync('index.html.prod')) {
+    fs.writeFileSync('index.html.prod', content);
+  }
+}
+
 fs.writeFileSync('index.html', devHtml);
 console.log('✨ Environment and index.html prepared for Vite dev server!');
 
