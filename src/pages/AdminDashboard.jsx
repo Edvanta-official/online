@@ -329,7 +329,42 @@ export const AdminDashboard = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => {
+                    const form = document.createElement('form');
+                    form.action = 'https://formsubmit.co/sparklekkvofficial@gmail.com';
+                    form.method = 'POST';
+                    form.target = '_blank';
+                    
+                    const emailInput = document.createElement('input');
+                    emailInput.type = 'hidden';
+                    emailInput.name = 'email';
+                    emailInput.value = 'sparklekkvofficial@gmail.com';
+                    form.appendChild(emailInput);
+
+                    const subjectInput = document.createElement('input');
+                    subjectInput.type = 'hidden';
+                    subjectInput.name = '_subject';
+                    subjectInput.value = '🎉 New Subscriber Alert: sparklekkvofficial@gmail.com is your new subscriber!';
+                    form.appendChild(subjectInput);
+
+                    const messageInput = document.createElement('input');
+                    messageInput.type = 'hidden';
+                    messageInput.name = 'message';
+                    messageInput.value = '🎉 Congratulations! This member is your new subscriber: sparklekkvofficial@gmail.com';
+                    form.appendChild(messageInput);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                    document.body.removeChild(form);
+                    showToast("⚡ Opened FormSubmit Activation page for sparklekkvofficial@gmail.com!");
+                  }}
+                  className="bg-amber-600 hover:bg-amber-700 text-white font-montserrat font-bold text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider transition-colors shadow-xs"
+                >
+                  ⚡ Trigger Email Activation
+                </button>
+
                 <button
                   onClick={() => {
                     const csvContent = "data:text/csv;charset=utf-8," + ["ID,Email,SubscribedAt,CouponCode,Status"].concat(
