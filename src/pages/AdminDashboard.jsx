@@ -6,6 +6,8 @@ export const AdminDashboard = () => {
   const {
     products,
     orders,
+    subscribers,
+    deleteSubscriber,
     addProduct,
     updateProduct,
     deleteProduct,
@@ -123,6 +125,12 @@ export const AdminDashboard = () => {
             className={`px-5 py-2.5 rounded-full transition-all shrink-0 ${adminTab === 'coupons' ? 'bg-[#2C2C2C] text-[#FCE4EC] shadow' : 'bg-white text-gray-600 border border-gray-200'}`}
           >
             🏷️ Promo Coupons
+          </button>
+          <button
+            onClick={() => setAdminTab('subscribers')}
+            className={`px-5 py-2.5 rounded-full transition-all shrink-0 ${adminTab === 'subscribers' ? 'bg-[#2C2C2C] text-[#FCE4EC] shadow' : 'bg-white text-gray-600 border border-gray-200'}`}
+          >
+            📬 Subscribers Database ({subscribers ? subscribers.length : 0})
           </button>
         </div>
 
@@ -304,6 +312,98 @@ export const AdminDashboard = () => {
                   <p className="text-[11px] text-gray-500 font-poppins mt-1">{c.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: SUBSCRIBERS DATABASE */}
+        {adminTab === 'subscribers' && (
+          <div className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+              <div>
+                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">
+                  📬 VIP Newsletter Subscribers Database
+                </h3>
+                <p className="text-xs text-gray-500 font-poppins mt-0.5">
+                  Live subscriber database list. Notifications are sent to admin (<strong>sparklekkvofficial@gmail.com</strong>).
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const csvContent = "data:text/csv;charset=utf-8," + ["ID,Email,SubscribedAt,CouponCode,Status"].concat(
+                      (subscribers || []).map(s => `${s.id},${s.email},"${s.subscribedAt}",${s.couponCode},${s.status}`)
+                    ).join("\n");
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", `sparkle_subscribers_${Date.now()}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("📥 Exported subscribers CSV database!");
+                  }}
+                  className="bg-[#2C2C2C] text-[#FCE4EC] hover:bg-[#C89B3C] font-montserrat font-bold text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider transition-colors shadow-xs"
+                >
+                  📥 Export CSV Database
+                </button>
+              </div>
+            </div>
+
+            {/* Subscribers Data Table */}
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left font-poppins">
+                <thead className="bg-[#FFF9F5] text-[#2C2C2C] font-montserrat uppercase text-[10px] font-bold">
+                  <tr>
+                    <th className="p-3">Subscriber ID</th>
+                    <th className="p-3">Customer Email Address</th>
+                    <th className="p-3">Subscription Date</th>
+                    <th className="p-3">Promo Code</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {(!subscribers || subscribers.length === 0) ? (
+                    <tr>
+                      <td colSpan={6} className="p-6 text-center text-gray-400 font-poppins">
+                        No subscriber records found in database yet.
+                      </td>
+                    </tr>
+                  ) : (
+                    subscribers.map((s) => (
+                      <tr key={s.id} className="hover:bg-[#FFF9F5]/60 transition-colors">
+                        <td className="p-3 font-mono text-gray-500 font-semibold">{s.id}</td>
+                        <td className="p-3 font-bold text-[#2C2C2C] font-mono">{s.email}</td>
+                        <td className="p-3 text-gray-500">{new Date(s.subscribedAt).toLocaleString()}</td>
+                        <td className="p-3 font-bold text-[#C89B3C] font-mono">{s.couponCode || 'SPARKEL10'}</td>
+                        <td className="p-3">
+                          <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold font-montserrat px-2.5 py-0.5 rounded-full uppercase">
+                            {s.status || 'Active'}
+                          </span>
+                        </td>
+                        <td className="p-3 text-right space-x-2">
+                          <a
+                            href={`mailto:${s.email}?subject=Exclusive%20VIP%20Offer%20from%20Sparkle%20%40kkv&body=Hello%20VIP%20Subscriber%2C%0A%0AThank%20you%20for%20joining%20Sparkle%20%40kkv!%20Use%20code%20SPARKEL10%20for%2010%25%20OFF%20at%20checkout.`}
+                            className="p-1.5 bg-[#FFF9F5] text-[#C89B3C] rounded-lg border border-[#D4AF7F]/40 hover:bg-[#FCE4EC] inline-block"
+                            title="Send Direct Email to Customer"
+                          >
+                            📧 Mail Customer
+                          </a>
+                          <button
+                            onClick={() => deleteSubscriber(s.id)}
+                            className="p-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
+                            title="Delete Record"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         )}

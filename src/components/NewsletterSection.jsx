@@ -7,7 +7,7 @@ export const NewsletterSection = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hiddenFormRef = useRef(null);
-  const { showToast } = useShop();
+  const { showToast, addSubscriber } = useShop();
 
   const mailtoLink = `mailto:sparklekkvofficial@gmail.com?subject=${encodeURIComponent(`🎉 Congratulations! New VIP Subscriber: ${email}`)}&body=${encodeURIComponent(`Congratulations!\n\nA new customer subscribed to Sparkle @kkv VIP Insider Club.\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nPromotional Code Issued: SPARKEL10 (10% OFF)`)}`;
 
@@ -16,6 +16,9 @@ export const NewsletterSection = () => {
     if (!email) return;
 
     setIsSubmitting(true);
+
+    // Save to context & local database instantly
+    addSubscriber(email);
 
     try {
       // 1. Send to Express Backend API (http://localhost:5000/api/subscribe)

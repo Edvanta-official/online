@@ -410,6 +410,51 @@ export const ShopProvider = ({ children }) => {
     showToast(`Product deleted`, "info");
   };
 
+  const defaultSubscribers = [
+    { id: 'SUB-101', email: 'chenchukoushik@gmail.com', subscribedAt: '2026-08-18T22:45:00.000Z', couponCode: 'SPARKEL10', status: 'active' },
+    { id: 'SUB-102', email: 'ananya@example.com', subscribedAt: '2026-08-17T14:20:00.000Z', couponCode: 'SPARKEL10', status: 'active' },
+    { id: 'SUB-103', email: 'priya.sharma@gmail.com', subscribedAt: '2026-08-16T09:15:00.000Z', couponCode: 'SPARKEL10', status: 'active' }
+  ];
+
+  const [subscribers, setSubscribers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sparkel_subscribers');
+      if (!saved) return defaultSubscribers;
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : defaultSubscribers;
+    } catch (e) {
+      return defaultSubscribers;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('sparkel_subscribers', JSON.stringify(subscribers));
+    } catch (e) {}
+  }, [subscribers]);
+
+  const addSubscriber = (email) => {
+    if (!email) return;
+    setSubscribers(prev => {
+      if (prev.some(s => s && s.email && s.email.toLowerCase() === email.toLowerCase())) return prev;
+      return [
+        {
+          id: `SUB-${Date.now()}`,
+          email,
+          subscribedAt: new Date().toISOString(),
+          couponCode: 'SPARKEL10',
+          status: 'active'
+        },
+        ...prev
+      ];
+    });
+  };
+
+  const deleteSubscriber = (id) => {
+    setSubscribers(prev => prev.filter(s => s.id !== id));
+    showToast("Subscriber removed from database", "info");
+  };
+
   return (
     <ShopContext.Provider value={{
       brandInfo: BRAND_INFO,
@@ -419,6 +464,7 @@ export const ShopProvider = ({ children }) => {
       cart,
       wishlist,
       orders,
+      subscribers,
       user,
       appliedCoupon,
       couponError,
@@ -454,7 +500,9 @@ export const ShopProvider = ({ children }) => {
       logoutUser,
       addProduct,
       updateProduct,
-      deleteProduct
+      deleteProduct,
+      addSubscriber,
+      deleteSubscriber
     }}>
       {children}
     </ShopContext.Provider>
