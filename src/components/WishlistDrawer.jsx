@@ -13,7 +13,7 @@ export const WishlistDrawer = () => {
 
   return (
     <div className="fixed inset-0 z-[9999] overflow-hidden bg-black/60 backdrop-blur-sm animate-in fade-in">
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="absolute inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#FCE4EC]">
           
           {/* Header */}

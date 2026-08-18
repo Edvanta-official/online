@@ -28,7 +28,7 @@ export const NewsletterSection = () => {
         </h2>
 
         <p className="text-xs sm:text-sm text-gray-600 font-poppins max-w-lg mx-auto font-light leading-relaxed">
-          Join 15,000+ fashion lovers. Receive exclusive secret flash sale invites, early access to new hair accessories, and style tips straight to your inbox.
+          Join 1,000+ fashion lovers. Receive exclusive secret flash sale invites, early access to new hair accessories, and style tips straight to your inbox.
         </p>
 
         {subscribed ? (

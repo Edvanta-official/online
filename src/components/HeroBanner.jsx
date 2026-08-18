@@ -65,7 +65,7 @@ export const HeroBanner = () => {
               </div>
               <div className="flex items-center gap-1.5">
                 <Heart className="w-4 h-4 text-[#F48FB1] shrink-0" />
-                <span>15k+ Happy Girls</span>
+                <span>1k+ Happy Girls</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Award className="w-4 h-4 text-[#D4AF7F] shrink-0" />

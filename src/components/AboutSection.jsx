@@ -137,7 +137,7 @@ export const AboutSection = () => {
                   <Heart className="w-5 h-5 text-[#F48FB1]" />
                 </div>
                 <div>
-                  <h4 className="font-serif-luxury text-sm font-bold text-[#2C2C2C]">15,000+ Happy Customers</h4>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#2C2C2C]">1,000+ Happy Customers</h4>
                   <p className="text-[11px] text-gray-500 font-light mt-0.5">
                     Loved across India with 4.9★ average customer rating and express shipping.
                   </p>
