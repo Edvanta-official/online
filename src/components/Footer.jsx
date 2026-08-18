@@ -111,10 +111,10 @@ export const Footer = () => {
               Safe Payments
             </h4>
             <div className="flex flex-wrap gap-2 text-xs font-montserrat">
-              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">UPI / GPay</span>
-              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">Razorpay</span>
-              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">Visa / MC</span>
-              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">COD Available</span>
+              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">PhonePe</span>
+              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">Google Pay</span>
+              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">Paytm</span>
+              <span className="bg-white/10 px-3 py-1.5 rounded-lg border border-white/20 text-[#FCE4EC] font-bold">SuperMoney</span>
             </div>
 
             <div className="pt-2">
