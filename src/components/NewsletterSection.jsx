@@ -19,17 +19,42 @@ export const NewsletterSection = () => {
     addSubscriber(email);
 
     try {
-      // Send email directly to sparklekkvofficial@gmail.com using EmailJS
-      await sendSubscriberEmailViaEmailJS(email);
+      // 1. Submit natively to FormSubmit via hidden iframe for guaranteed delivery
+      const form = document.createElement('form');
+      form.action = 'https://formsubmit.co/sparklekkvofficial@gmail.com';
+      form.method = 'POST';
+      form.target = 'hidden_formsubmit_iframe';
 
-      // Also call Express backend API if available
-      try {
-        await fetch("http://localhost:5000/api/subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
-        });
-      } catch (err) {}
+      const emailInput = document.createElement('input');
+      emailInput.type = 'hidden';
+      emailInput.name = 'email';
+      emailInput.value = email;
+      form.appendChild(emailInput);
+
+      const subjectInput = document.createElement('input');
+      subjectInput.type = 'hidden';
+      subjectInput.name = '_subject';
+      subjectInput.value = `🎉 New Subscriber Alert: ${email} is your new subscriber!`;
+      form.appendChild(subjectInput);
+
+      const messageInput = document.createElement('input');
+      messageInput.type = 'hidden';
+      messageInput.name = 'message';
+      messageInput.value = `🎉 Congratulations!\n\nThis member is your new subscriber: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`;
+      form.appendChild(messageInput);
+
+      const captchaInput = document.createElement('input');
+      captchaInput.type = 'hidden';
+      captchaInput.name = '_captcha';
+      captchaInput.value = 'false';
+      form.appendChild(captchaInput);
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      // 2. Also trigger EmailJS service helper
+      sendSubscriberEmailViaEmailJS(email);
     } catch (err) {
       console.log("Email dispatch:", err);
     } finally {
@@ -41,6 +66,7 @@ export const NewsletterSection = () => {
 
   return (
     <section className="py-16 bg-gradient-to-r from-[#FCE4EC] via-[#FFF9F5] to-[#FCE4EC] border-y border-[#D4AF7F]/30 relative overflow-hidden">
+      <iframe name="hidden_formsubmit_iframe" id="hidden_formsubmit_iframe" style={{ display: 'none' }}></iframe>
       <div className="max-w-4xl mx-auto px-4 text-center space-y-6 relative z-10">
         
         <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-1 rounded-full border border-[#D4AF7F]/40 shadow-sm text-xs font-montserrat uppercase font-bold text-[#C89B3C]">
