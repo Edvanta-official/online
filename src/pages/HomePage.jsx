@@ -15,8 +15,31 @@ import { Link } from 'react-router-dom';
 export const HomePage = () => {
   const { products } = useShop();
 
-  const trendingProducts = products.filter(p => p.isTrending).slice(0, 4);
-  const bestSellers = products.filter(p => p.isBestSeller).slice(0, 4);
+  // Curate diverse items across categories for Trending This Season
+  const trendingProducts = [
+    products.find(p => p.id === "SPK-HC-001"), // Plumeria flower claw clip
+    products.find(p => p.id === "SPK-NK-101"), // Traditional South Indian Matte Gold Plated choker set
+    products.find(p => p.id === "SPK-CN-203"), // Green oval stone anti-tarnish chain
+    products.find(p => p.id === "SPK-BR-302")  // Adjustable gold plated kada Bracelet
+  ].filter(Boolean);
+
+  if (trendingProducts.length < 4) {
+    const fallback = products.filter(p => p.isTrending && !trendingProducts.includes(p));
+    trendingProducts.push(...fallback.slice(0, 4 - trendingProducts.length));
+  }
+
+  // Curate completely distinct items for Best Sellers Collection
+  const bestSellers = [
+    products.find(p => p.id === "SPK-NK-102"), // Traditional South Indian kemp floral Necklace set
+    products.find(p => p.id === "SPK-HC-005"), // Rectangle hair claw clips
+    products.find(p => p.id === "SPK-CN-204"), // Flat Snake Chain
+    products.find(p => p.id === "SPK-BR-301")  // Beaded Charm bracelet
+  ].filter(Boolean);
+
+  if (bestSellers.length < 4) {
+    const fallback = products.filter(p => p.isBestSeller && !bestSellers.includes(p));
+    bestSellers.push(...fallback.slice(0, 4 - bestSellers.length));
+  }
 
   return (
     <div className="relative">
