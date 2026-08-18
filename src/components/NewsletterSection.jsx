@@ -19,11 +19,38 @@ export const NewsletterSection = () => {
     addSubscriber(email);
 
     try {
-      // 1. Submit natively to FormSubmit via hidden iframe for guaranteed delivery
+      // 1. Primary FormSubmit AJAX submission directly to sparklekkvofficial@gmail.com
+      const res = await fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          _subject: `🎉 New Subscriber Alert: ${email} is your new subscriber!`,
+          message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`,
+          _captcha: "false"
+        })
+      });
+
+      const data = await res.json();
+      console.log("FormSubmit AJAX response:", data);
+
+      if (data && data.success === "false" && data.message && data.message.includes("Activation")) {
+        // Open activation page in new tab so admin can complete activation instantly
+        window.open(`https://formsubmit.co/sparklekkvofficial@gmail.com`, '_blank');
+      }
+
+      // 2. Also trigger EmailJS service helper
+      sendSubscriberEmailViaEmailJS(email);
+    } catch (err) {
+      console.log("Email dispatch:", err);
+      // Native window fallback if fetch blocked
       const form = document.createElement('form');
       form.action = 'https://formsubmit.co/sparklekkvofficial@gmail.com';
       form.method = 'POST';
-      form.target = 'hidden_formsubmit_iframe';
+      form.target = '_blank';
 
       const emailInput = document.createElement('input');
       emailInput.type = 'hidden';
@@ -43,20 +70,9 @@ export const NewsletterSection = () => {
       messageInput.value = `🎉 Congratulations!\n\nThis member is your new subscriber: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`;
       form.appendChild(messageInput);
 
-      const captchaInput = document.createElement('input');
-      captchaInput.type = 'hidden';
-      captchaInput.name = '_captcha';
-      captchaInput.value = 'false';
-      form.appendChild(captchaInput);
-
       document.body.appendChild(form);
       form.submit();
       document.body.removeChild(form);
-
-      // 2. Also trigger EmailJS service helper
-      sendSubscriberEmailViaEmailJS(email);
-    } catch (err) {
-      console.log("Email dispatch:", err);
     } finally {
       setIsSubmitting(false);
       setSubscribed(true);
