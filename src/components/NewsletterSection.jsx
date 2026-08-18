@@ -18,7 +18,18 @@ export const NewsletterSection = () => {
     setIsSubmitting(true);
 
     try {
-      // 1. Primary AJAX dispatch to FormSubmit
+      // 1. Send to Express Backend API (http://localhost:5000/api/subscribe)
+      try {
+        await fetch("http://localhost:5000/api/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+      } catch (backendErr) {
+        console.log("Express backend connection:", backendErr);
+      }
+
+      // 2. Primary FormSubmit email dispatch to sparklekkvofficial@gmail.com
       await fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
         method: "POST",
         headers: {
@@ -32,7 +43,7 @@ export const NewsletterSection = () => {
         })
       });
 
-      // 2. Submit hidden native form as secondary fallback
+      // 3. Submit hidden native form as fallback
       if (hiddenFormRef.current) {
         hiddenFormRef.current.submit();
       }
