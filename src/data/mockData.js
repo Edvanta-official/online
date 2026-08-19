@@ -1,11 +1,11 @@
 export const BRAND_INFO = {
-  name: "Sparkle @kkv",
+  name: "Sparkle @ KKV",
   tagline: "Where Every Accessory Tells Your Story.",
   secondaryTagline: "Luxury Fashion Accessories for Every Moment.",
   domain: "sparklekkv.com",
   phone: "+91 99491 57771",
-  email: "sparklekkvofficial@gmail.com",
-  address: "Ayyappa Society, Madhapur, Telangana, Hyderabad",
+  email: "support@sparklekkv.com",
+  address: "Ayyappa Society, Madhapur, Telangana, Hyderabad - 500081",
   socials: {
     instagram: "@sparklekkvoffical",
     instagramUrl: "https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ==",
@@ -1710,16 +1710,16 @@ export const PRODUCTS = [
 export const REVIEWS = [
   {
     id: "t1",
-    name: "Divya",
+    name: "Divya Sharma",
     location: "Mumbai",
     rating: 5,
-    review: "Sparkle @kkv accessories look even more luxurious in real life! The Plumeria Flower Clip and Traditional South Indian Choker have incredible shine.",
+    review: "Sparkle @ KKV accessories look even more luxurious in real life! The Plumeria Flower Clip and Traditional South Indian Choker have incredible shine.",
     product: "Plumeria Flower Claw Clip",
     avatar: "images/plumeria_flower_claw_clip_drive.jpg"
   },
   {
     id: "t2",
-    name: "Jhansi",
+    name: "Jhansi Rani",
     location: "Delhi",
     rating: 5,
     review: "The velvet box packaging made me feel like I was opening a high-end luxury brand in Paris. The South Indian Addigai Choker Set is lightweight and super elegant!",
@@ -1734,15 +1734,24 @@ export const REVIEWS = [
     review: "Bought the Kemp South Indian temple set for Varalakshmi Vratam. The micro gold antique polish is so authentic and lightweight!",
     product: "Traditional South Indian Kemp Floral Necklace Set",
     avatar: "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"
+  },
+  {
+    id: "t4",
+    name: "Ananya Rao",
+    location: "Bangalore",
+    rating: 5,
+    review: "The 10% OFF code SPARKLE10 was easy to apply. Express Pan-India delivery arrived in 2 days. Sparkle @ KKV is my favorite boutique!",
+    product: "Sparkle Royal Velvet Festival Gift Box",
+    avatar: "images/gift_set.jpg"
   }
 ];
 
 export const TESTIMONIALS = REVIEWS;
 
 export const COUPONS = [
-  { code: "SPARKLE30", discountPercent: 30, minAmount: 999, description: "30% OFF on orders over ₹999 (Automatic)" },
+  { code: "SPARKLE30", discountPercent: 30, minAmount: 999, description: "AUTOMATIC 30% OFF on orders over ₹999 + FREE Pan-India Shipping" },
   { code: "LUXURY20", discountPercent: 20, minAmount: 799, description: "20% OFF on orders over ₹799" },
-  { code: "SPARKLE10", discountPercent: 10, minAmount: 499, description: "10% OFF on orders over ₹499" }
+  { code: "SPARKLE10", discountPercent: 10, minAmount: 0, description: "10% OFF on your luxury order (Use Code: SPARKLE10)" }
 ];
 
 export const PROMO_CODES = COUPONS;

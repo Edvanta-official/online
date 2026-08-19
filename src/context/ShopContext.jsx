@@ -348,7 +348,7 @@ export const ShopProvider = ({ children }) => {
     setUser(prev => ({
       ...prev,
       role,
-      name: role === 'admin' ? "Sparkel Admin @kkv" : "Ananya Sharma"
+      name: role === 'admin' ? "Sparkle Admin @ KKV" : "Ananya Sharma"
     }));
     showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
   };

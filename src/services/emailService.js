@@ -7,21 +7,21 @@ const EMAILJS_TEMPLATE_ID = (typeof import.meta !== 'undefined' && import.meta.e
 const WEB3FORMS_KEY = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_WEB3FORMS_KEY) || '';
 const FORMSPREE_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_FORMSPREE_URL) || '';
 
-const ADMIN_EMAIL = 'sparklekkvofficial@gmail.com';
+const ADMIN_EMAIL = 'support@sparklekkv.com';
 
 /**
  * Robust Multi-Provider Email Service
- * Sends notification emails to admin (sparklekkvofficial@gmail.com)
+ * Sends notification emails to admin (support@sparklekkv.com)
  */
 export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
   const templateParams = {
-    to_name: 'Sparkle @kkv Admin',
+    to_name: 'Sparkle @ KKV Admin',
     to_email: ADMIN_EMAIL,
     subscriber_email: subscriberEmail,
     reply_to: subscriberEmail,
-    coupon_code: 'SPARKEL10',
+    coupon_code: 'SPARKLE10',
     subscription_date: new Date().toLocaleString(),
-    message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Coupon: SPARKEL10 (10% OFF)`
+    message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Coupon: SPARKLE10 (10% OFF)`
   };
 
   const results = [];

@@ -26,9 +26,6 @@ export const Navbar = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expandedMobileCategory, setExpandedMobileCategory] = useState(null);
-  const [loginForm, setLoginForm] = useState({ name: "", phone: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -86,10 +83,10 @@ export const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-[100] transition-all duration-300 shadow-md">
-      {/* Announcement Bar with Marquee Tag */}
+      {/* Top Announcement Bar */}
       <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center relative z-[100]">
         <marquee behavior="scroll" direction="left" scrollamount="6" className="font-montserrat text-[11px] sm:text-xs tracking-widest uppercase flex items-center gap-4 py-0.5">
-          ✨ LUXURY FASHION ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA EXPRESS SHIPPING ON ALL ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE30</span> FOR 30% OFF • 100% HANDCRAFTED ANTI-TARNISH FINISH • SIGNATURE VELVET BOX PACKAGING ✨
+          ✨ SPARKLE @ KKV LUXURY ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA SHIPPING ON ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE10</span> FOR 10% OFF YOUR ORDER • 100% HANDCRAFTED ANTI-TARNISH FINISH ✨
         </marquee>
       </div>
 
@@ -98,38 +95,41 @@ export const Navbar = () => {
         
         {/* Tier 1: Brand Bar (Logo + Search Bar + Actions) */}
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-20 gap-1.5 sm:gap-4">
+          <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
             
             {/* Mobile Hamburger Button */}
             <div className="flex items-center lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-1.5 text-[#2C2C2C] hover:text-[#C89B3C] bg-[#FFF9F5] rounded-xl border border-[#D4AF7F]/30 transition-colors shadow-xs"
+                className="p-2 text-[#2C2C2C] hover:text-[#C89B3C] bg-[#FFF9F5] rounded-xl border border-[#D4AF7F]/30 transition-colors shadow-xs"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
 
-            {/* Brand Logo - Perfectly aligned & adjusted Sparkel @kkv */}
+            {/* Brand Logo - Perfectly aligned & formatted Sparkle @ KKV */}
             <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 py-1">
               <div className="relative flex items-center justify-center">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border-2 border-[#D4AF7F]/50 bg-[#FFF9F5] p-[2px] shadow-xs group-hover:scale-105 transition-transform duration-300">
                   <div className="w-full h-full bg-[#FFF9F5] rounded-[7px] sm:rounded-[12px] flex items-center justify-center">
                     <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#C89B3C] group-hover:rotate-12 transition-transform duration-300" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-1.5 leading-none">
+                <div className="flex items-center gap-1.5 sm:gap-2 leading-none">
                   <span className="font-serif-luxury text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors leading-none">
                     SPARKLE
                   </span>
-                  <span className="inline-flex items-center text-[#2C2C2C] font-poppins text-xs sm:text-base font-bold tracking-tight self-center leading-none mt-0.5">
-                    <span className="font-serif italic font-normal text-sm sm:text-lg mr-0.5">@</span>kkv
+                  <span className="font-serif italic text-sm sm:text-xl text-[#2C2C2C] font-normal leading-none self-center">
+                    @
+                  </span>
+                  <span className="font-poppins text-xs sm:text-base lg:text-lg font-bold tracking-tight text-[#2C2C2C] uppercase leading-none">
+                    KKV
                   </span>
                 </div>
-                <span className="text-[7px] sm:text-[9px] text-[#8C4A57] font-montserrat tracking-[0.15em] sm:tracking-[0.2em] uppercase block mt-0.5 sm:mt-1 font-bold">
+                <span className="text-[7px] sm:text-[9px] text-[#8C4A57] font-montserrat tracking-[0.15em] sm:tracking-[0.2em] uppercase block mt-1 font-bold">
                   Luxury Fashion Accessories
                 </span>
               </div>
@@ -148,9 +148,9 @@ export const Navbar = () => {
                       setShowSearchResults(true);
                     }}
                     onFocus={() => setShowSearchResults(true)}
-                    className="w-full bg-[#FFF9F5]/90 border border-[#D4AF7F]/40 focus:border-[#C89B3C] rounded-full py-2 pl-4 pr-10 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#FCE4EC] shadow-inner transition-all"
+                    className="w-full bg-[#FFF9F5]/90 border border-[#D4AF7F]/40 focus:border-[#C89B3C] rounded-full py-2.5 pl-4 pr-10 text-xs font-poppins focus:outline-none focus:ring-2 focus:ring-[#FCE4EC] shadow-inner transition-all"
                   />
-                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4AF7F] hover:text-[#C89B3C] p-1">
+                  <button type="submit" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#D4AF7F] hover:text-[#C89B3C] p-1">
                     <Search className="w-4 h-4" />
                   </button>
                 </div>
@@ -183,17 +183,17 @@ export const Navbar = () => {
             </div>
 
             {/* Right Action Controls (Wishlist, Cart, User Menu) */}
-            <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               
               {/* Wishlist Icon */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
-                className="relative p-1.5 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
+                className="relative p-2 text-[#2C2C2C] hover:text-[#C89B3C] transition-colors"
                 aria-label="Wishlist"
               >
-                <Heart className="w-5 h-5" />
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
                 {safeWishlist.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-[#F48FB1] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                  <span className="absolute top-0 right-0 bg-[#F48FB1] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
                     {safeWishlist.length}
                   </span>
                 )}
@@ -202,7 +202,7 @@ export const Navbar = () => {
               {/* Cart Drawer Trigger */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="bg-[#FCE4EC] hover:bg-[#F8BBD0] text-[#2C2C2C] px-3.5 py-1.5 rounded-full flex items-center gap-2 font-montserrat font-bold text-xs shadow-xs transition-all cursor-pointer group shrink-0"
+                className="bg-[#FCE4EC] hover:bg-[#F8BBD0] text-[#2C2C2C] px-3.5 py-2 rounded-full flex items-center gap-2 font-montserrat font-bold text-xs shadow-xs transition-all cursor-pointer group shrink-0"
                 aria-label="Cart"
               >
                 <ShoppingBag className="w-4 h-4 text-[#2C2C2C] group-hover:scale-110 transition-transform shrink-0" />
@@ -211,7 +211,7 @@ export const Navbar = () => {
                 </span>
               </button>
 
-              {/* User Account / Role Switcher Menu (Desktop) */}
+              {/* User Account & Admin Sign In (Desktop) */}
               <div className="relative hidden sm:block">
                 {safeUser.isLoggedIn ? (
                   <>
@@ -219,14 +219,14 @@ export const Navbar = () => {
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                       className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] transition-all bg-[#FFF9F5]"
                     >
-                      <div className="w-7 h-7 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center text-xs font-bold font-montserrat">
+                      <div className="w-8 h-8 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center text-xs font-bold font-montserrat">
                         {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
                       </div>
                       <ChevronDown className="w-3.5 h-3.5 text-[#2C2C2C]" />
                     </button>
 
                     {isUserMenuOpen && (
-                      <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 font-poppins text-xs">
+                      <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-[#FCE4EC] py-2 z-50 font-poppins text-xs">
                         <div className="px-4 py-2 border-b border-gray-100 space-y-0.5">
                           <p className="font-bold text-[#2C2C2C] text-sm">{user.name}</p>
                           <p className="text-[11px] text-gray-600 truncate">{user.email}</p>
@@ -269,9 +269,9 @@ export const Navbar = () => {
                           </button>
                         </div>
 
-                        {/* Role Switcher Toggle */}
+                        {/* Interactive Mode Switcher */}
                         <div className="border-t border-gray-100 pt-2 px-4 pb-1">
-                          <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Interactive Mode Switch</p>
+                          <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Switch Mode</p>
                           <div className="grid grid-cols-2 gap-1 bg-[#F5F5F5] p-1 rounded-xl">
                             <button
                               onClick={() => {
@@ -299,13 +299,15 @@ export const Navbar = () => {
                     )}
                   </>
                 ) : (
-                  <button
-                    onClick={() => setIsLoginModalOpen(true)}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] text-xs font-semibold font-montserrat hover:bg-[#2C2C2C] hover:text-[#FCE4EC] transition-all bg-[#FFF9F5] text-[#2C2C2C]"
-                  >
-                    <User className="w-3.5 h-3.5 text-[#D4AF7F]" />
-                    <span>Sign In</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setIsLoginModalOpen(true)}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] text-xs font-semibold font-montserrat hover:bg-[#2C2C2C] hover:text-[#FCE4EC] transition-all bg-[#FFF9F5] text-[#2C2C2C]"
+                    >
+                      <User className="w-3.5 h-3.5 text-[#D4AF7F]" />
+                      <span>Sign In</span>
+                    </button>
+                  </div>
                 )}
               </div>
 
@@ -395,7 +397,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Slide-down Drawer Menu - Ultra Clear & Spacious */}
+        {/* Mobile Slide-down Drawer Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t border-[#FCE4EC] bg-white/95 backdrop-blur-2xl px-4 pt-4 pb-8 font-montserrat text-xs uppercase tracking-wider space-y-4 animate-in fade-in shadow-2xl">
             
@@ -439,8 +441,6 @@ export const Navbar = () => {
 
             {/* Navigation Links */}
             <div className="space-y-1.5">
-              
-              {/* HOME LINK IN MOBILE DRAWER */}
               <Link
                 to="/"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -454,7 +454,6 @@ export const Navbar = () => {
                 <span>Home</span>
               </Link>
 
-              {/* SHOP ALL LINK IN MOBILE DRAWER */}
               <Link
                 to="/shop"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -468,7 +467,6 @@ export const Navbar = () => {
                 <span>Shop All</span>
               </Link>
 
-              {/* CATEGORY ACCORDION LIST */}
               {NAVIGATION_TREE.map(cat => {
                 const isCatActive = activeCategory === cat.id;
                 const isExpanded = expandedMobileCategory === cat.id;
@@ -513,7 +511,6 @@ export const Navbar = () => {
                 );
               })}
 
-              {/* ABOUT US LINK IN MOBILE DRAWER (Moved after categories) */}
               <a
                 href="#about"
                 onClick={(e) => {
@@ -575,7 +572,8 @@ export const Navbar = () => {
 
           </div>
         )}
-        {/* Amazon-Grade Security Auth Modal */}
+
+        {/* Auth Modal */}
         <AmazonAuthModal 
           isOpen={isLoginModalOpen} 
           onClose={() => setIsLoginModalOpen(false)} 

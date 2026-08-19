@@ -13,14 +13,14 @@ export const HeroBanner = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Content Column - Vertically Centered in Middle */}
+          {/* Left Content Column */}
           <div className="lg:col-span-7 flex flex-col justify-center space-y-4 sm:space-y-5 text-center lg:text-left">
             
             {/* Tagline Badge */}
             <div>
               <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
                 <Sparkles className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
-                <span className="truncate sm:whitespace-normal">Where Every Accessory Tells Your Story</span>
+                <span className="truncate sm:whitespace-normal">Sparkle @ KKV — Where Every Accessory Tells Your Story</span>
               </div>
             </div>
 
@@ -42,7 +42,7 @@ export const HeroBanner = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1 font-montserrat">
               <Link
                 to="/shop"
-                className="shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-white w-full sm:w-auto justify-center px-7 py-3 rounded-full text-xs uppercase tracking-widest font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-3"
+                className="shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-white w-full sm:w-auto justify-center px-7 py-3.5 rounded-full text-xs uppercase tracking-widest font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center gap-3"
               >
                 <span>Shop Collection Now</span>
                 <ArrowRight className="w-4 h-4 text-[#D4AF7F]" />
@@ -50,7 +50,7 @@ export const HeroBanner = () => {
 
               <Link
                 to="/shop?category=gift-sets"
-                className="bg-white/90 border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC]/50 w-full sm:w-auto justify-center px-6 py-3 rounded-full text-xs uppercase tracking-widest font-semibold shadow-md transition-all flex items-center gap-2"
+                className="bg-white/90 border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC]/50 w-full sm:w-auto justify-center px-6 py-3.5 rounded-full text-xs uppercase tracking-widest font-semibold shadow-md transition-all flex items-center gap-2"
               >
                 <span>Explore Gift Sets</span>
                 <Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" />
@@ -75,26 +75,23 @@ export const HeroBanner = () => {
 
           </div>
 
-          {/* Right Image Showcase Column - Decreased Size & Centered */}
+          {/* Right Image Showcase Column */}
           <div className="lg:col-span-5 relative py-2">
             <div className="relative mx-auto max-w-[280px] sm:max-w-xs lg:max-w-[360px] lg:ml-auto">
               
-              {/* Outer Glowing Background Blur */}
               <div className="absolute -inset-2 bg-gradient-to-r from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] rounded-3xl blur-md opacity-40 pointer-events-none" />
 
-              {/* Main Model Frame */}
               <div className="relative rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-white aspect-[4/5] group">
                 <img
                   src="images/hero_model.jpg"
-                  alt="Sparkel @kkv Luxury Fashion Accessories Model"
+                  alt="Sparkle @ KKV Luxury Fashion Accessories Model"
                   onError={(e) => {
                     e.target.src = './images/hero_model.jpg';
                   }}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
 
-                {/* Floating Badge Top Right */}
-                <div className="absolute top-3 right-3 glass-card px-2.5 py-1.5 rounded-2xl shadow-lg border border-white/80 animate-float-slow z-10">
+                <div className="absolute top-3 right-3 glass-card px-2.5 py-1.5 rounded-2xl shadow-lg border border-white/80 z-10">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs sm:text-sm">✨</span>
                     <div>
@@ -104,7 +101,6 @@ export const HeroBanner = () => {
                   </div>
                 </div>
 
-                {/* Floating Badge Bottom Left */}
                 <div className="absolute bottom-3 left-3 glass-card px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl shadow-lg border border-white/80 z-10">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#2C2C2C] text-[#FCE4EC] font-serif-luxury text-[10px] sm:text-xs font-bold flex items-center justify-center">

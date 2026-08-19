@@ -4,6 +4,8 @@ import { ShieldCheck, Plus, Edit, Trash2, Package, DollarSign, Users, ShoppingBa
 
 export const AdminDashboard = () => {
   const {
+    user,
+    loginUser,
     products,
     orders,
     subscribers,
@@ -14,6 +16,10 @@ export const AdminDashboard = () => {
     COUPONS,
     showToast
   } = useShop();
+
+  const [adminEmail, setAdminEmail] = useState("admin@sparklekkv.com");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const [adminTab, setAdminTab] = useState('analytics');
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
@@ -66,6 +72,77 @@ export const AdminDashboard = () => {
     setIsAddProductModalOpen(true);
   };
 
+  const handleAdminAuth = (e) => {
+    e.preventDefault();
+    if (!adminEmail || !adminPassword) {
+      setLoginError("Please enter both Admin Email and Passcode.");
+      return;
+    }
+    loginUser("Sparkle Admin @ KKV", adminEmail, adminPassword, "admin@sparklekkv.com");
+    showToast("🛡️ Admin Authenticated Successfully!");
+  };
+
+  if (!user || user.role !== 'admin') {
+    return (
+      <div className="py-16 sm:py-24 bg-[#FFF9F5] min-h-screen font-poppins flex items-center justify-center p-4">
+        <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-8 border border-[#D4AF7F]/40 shadow-2xl space-y-6 text-center">
+          <div className="w-16 h-16 bg-[#2C2C2C] text-[#C89B3C] rounded-2xl flex items-center justify-center mx-auto shadow-md">
+            <ShieldCheck className="w-9 h-9" />
+          </div>
+
+          <div className="space-y-1">
+            <span className="text-[10px] font-montserrat uppercase tracking-widest text-[#C89B3C] font-bold">Sparkle @ KKV Portal</span>
+            <h2 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C]">Administrator Sign In</h2>
+            <p className="text-xs text-gray-500 font-light">Please enter your official administrator credentials to access store control panel.</p>
+          </div>
+
+          {loginError && (
+            <div className="bg-red-50 text-red-700 text-xs p-3 rounded-xl border border-red-200">
+              {loginError}
+            </div>
+          )}
+
+          <form onSubmit={handleAdminAuth} className="space-y-4 text-left">
+            <div>
+              <label className="block text-[11px] font-montserrat font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                Admin Email / User ID
+              </label>
+              <input
+                type="text"
+                required
+                value={adminEmail}
+                onChange={(e) => setAdminEmail(e.target.value)}
+                className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 text-xs focus:outline-none focus:border-[#C89B3C]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-montserrat font-semibold text-gray-700 uppercase tracking-wider mb-1">
+                Admin Passcode
+              </label>
+              <input
+                type="password"
+                required
+                placeholder="Enter password"
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 text-xs focus:outline-none focus:border-[#C89B3C]"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-white font-montserrat font-bold py-3.5 rounded-xl uppercase tracking-wider text-xs shadow-md transition-all flex items-center justify-center gap-2"
+            >
+              <span>Sign In To Admin Portal</span>
+              <ShieldCheck className="w-4 h-4 text-[#D4AF7F]" />
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-12 bg-[#FFF9F5] min-h-screen font-poppins">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,7 +156,7 @@ export const AdminDashboard = () => {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="font-serif-luxury text-2xl font-bold text-[#FCE4EC]">
-                  Sparkel Admin Control Panel
+                  Sparkle @ KKV Admin Control Panel
                 </h1>
                 <span className="bg-[#C89B3C] text-white text-[10px] font-bold font-montserrat px-2.5 py-0.5 rounded-full uppercase">
                   Live Management

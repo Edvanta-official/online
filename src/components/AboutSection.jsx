@@ -17,7 +17,7 @@ export const AboutSection = () => {
             <Sparkles className="w-3.5 h-3.5" /> Our Story & Leadership
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
-            About Sparkle <span className="gold-gradient-text lowercase italic font-serif">@kkv</span>
+            About Sparkle <span className="gold-gradient-text italic font-serif">@ KKV</span>
           </h2>
           <p className="text-xs sm:text-sm text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
             Where heritage craftsmanship meets contemporary boutique fashion accessories.
@@ -53,12 +53,12 @@ export const AboutSection = () => {
                     Koti Koushik
                   </h3>
                   <p className="text-xs text-gray-300 font-light">
-                    Founder & CEO, Sparkel @kkv
+                    Founder & CEO, Sparkle @ KKV
                   </p>
                 </div>
 
                 <blockquote className="text-xs font-light italic leading-relaxed text-gray-200 border-l-2 border-[#D4AF7F] pl-4 py-1">
-                  "At Sparkel @kkv, our mission is to empower every woman to feel confident, elegant, and radiant. We curate handcrafted luxury fashion accessories that blend South Indian heritage with modern boutique style."
+                  "At Sparkle @ KKV, our mission is to empower every woman to feel confident, elegant, and radiant. We curate handcrafted luxury fashion accessories that blend South Indian heritage with modern boutique style."
                 </blockquote>
 
                 <div className="pt-4 border-t border-gray-700/60 flex flex-col gap-2.5 text-xs text-gray-300 font-light">
@@ -68,11 +68,11 @@ export const AboutSection = () => {
                   </div>
                   <div className="flex items-center gap-2.5">
                     <Mail className="w-4 h-4 text-[#D4AF7F]" />
-                    <span>support@sparkelkkv.com</span>
+                    <span>support@sparklekkv.com</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-[#D4AF7F] shrink-0 mt-0.5" />
-                    <span>Ayyappa Society, Madhapur, Telangana, Hyderabad</span>
+                    <span>Ayyappa Society, Madhapur, Telangana, Hyderabad - 500081</span>
                   </div>
                 </div>
 
@@ -89,7 +89,7 @@ export const AboutSection = () => {
                 Crafting Timeless Accessories for Every Moment
               </h3>
               <p className="text-xs sm:text-sm text-gray-600 font-light leading-relaxed">
-                Founded by <strong>Koti Koushik</strong>, <strong>Sparkle @kkv</strong> was born out of a vision to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
+                Founded by <strong>Koti Koushik</strong>, <strong>Sparkle @ KKV</strong> was born out of a vision to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
               </p>
             </div>
 

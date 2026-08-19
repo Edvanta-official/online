@@ -43,12 +43,15 @@ export const Footer = () => {
               <div className="w-11 h-11 rounded-2xl bg-[#FFF9F5]/10 border border-[#D4AF7F]/40 flex items-center justify-center shadow-xs">
                 <Sparkles className="w-5 h-5 text-[#C89B3C]" />
               </div>
-              <div className="flex items-center gap-1.5 leading-none">
+              <div className="flex items-center gap-2 leading-none">
                 <span className="font-serif-luxury text-3xl font-extrabold tracking-tight text-[#C89B3C] leading-none">
-                  SPARKEL
+                  SPARKLE
                 </span>
-                <span className="font-serif-luxury text-lg font-bold text-white self-center leading-none">
-                  @kkv
+                <span className="font-serif italic text-lg text-white font-normal leading-none self-center">
+                  @
+                </span>
+                <span className="font-poppins text-lg font-bold tracking-tight text-white uppercase leading-none">
+                  KKV
                 </span>
               </div>
             </div>
@@ -80,28 +83,27 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-2 text-gray-300 font-light">
               <li><Link to="/shop?category=earrings" className="hover:text-[#C89B3C] transition-colors">✨ Earrings & Kundan Jhumkas</Link></li>
-              <li><Link to="/shop?category=hair-clips" className="hover:text-[#C89B3C] transition-colors">🦋 Swarovski Butterfly Hair Clips</Link></li>
-              <li><Link to="/shop?category=hair-flowers" className="hover:text-[#C89B3C] transition-colors">🌸 Organza Hair Flowers & Pins</Link></li>
-              <li><Link to="/shop?category=scrunchies" className="hover:text-[#C89B3C] transition-colors">🎀 Pure Mulberry Silk Scrunchies</Link></li>
-              <li><Link to="/shop?category=bangles" className="hover:text-[#C89B3C] transition-colors">💍 Pearl & Rose Gold Bangles</Link></li>
-              <li><Link to="/shop?category=necklaces" className="hover:text-[#C89B3C] transition-colors">📿 Bridal Choker Necklace Sets</Link></li>
+              <li><Link to="/shop?category=hair-accessories" className="hover:text-[#C89B3C] transition-colors">🌸 Hair Clips & Plumeria Flowers</Link></li>
+              <li><Link to="/shop?category=necklaces" className="hover:text-[#C89B3C] transition-colors">📿 Bridal Choker & Necklace Sets</Link></li>
               <li><Link to="/shop?category=chains" className="hover:text-[#C89B3C] transition-colors">⛓️ Anti-Tarnish Chains & Pendants</Link></li>
+              <li><Link to="/shop?category=bracelets" className="hover:text-[#C89B3C] transition-colors">💎 Chain & Kada Bracelets</Link></li>
+              <li><Link to="/shop?category=bangles" className="hover:text-[#C89B3C] transition-colors">🔱 Kemp & Antique Bangles</Link></li>
               <li><Link to="/shop?category=gift-sets" className="hover:text-[#C89B3C] text-[#D4AF7F] font-semibold transition-colors">🎁 Luxury Festive Gift Sets</Link></li>
             </ul>
           </div>
 
-          {/* Customer Care */}
+          {/* Customer Care Care */}
           <div className="md:col-span-3 space-y-3 font-montserrat text-xs">
             <h4 className="text-[#D4AF7F] uppercase tracking-widest font-bold font-serif-luxury text-sm">
-              Customer Care
+              Customer Support
             </h4>
             <ul className="space-y-2 text-gray-300 font-light">
               <li><Link to="/dashboard" className="hover:text-[#C89B3C] transition-colors">Track Your Order</Link></li>
               <li><Link to="/dashboard" className="hover:text-[#C89B3C] transition-colors">My Account & Saved Addresses</Link></li>
-              <li><a href="#shipping" className="hover:text-[#C89B3C] transition-colors">Shipping & Express Delivery</a></li>
+              <li><a href="#about" className="hover:text-[#C89B3C] transition-colors">About Sparkle @ KKV</a></li>
               <li><a href="#exchange" className="hover:text-[#C89B3C] transition-colors">7 Days Exchange Policy</a></li>
               <li><a href="#care" className="hover:text-[#C89B3C] transition-colors">Jewelry Care Guide</a></li>
-              <li><a href="#faqs" className="hover:text-[#C89B3C] transition-colors">Frequently Asked Questions</a></li>
+              <li><a href="#faqs" className="hover:text-[#C89B3C] transition-colors">Support Email: support@sparklekkv.com</a></li>
             </ul>
           </div>
 
@@ -134,7 +136,7 @@ export const Footer = () => {
 
         {/* Bottom Copyright */}
         <div className="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 font-poppins gap-4">
-          <p>© {new Date().getFullYear()} Sparkel @kkv. All Rights Reserved. Luxury Accessories Brand.</p>
+          <p>© {new Date().getFullYear()} Sparkle @ KKV. All Rights Reserved. Luxury Accessories Brand.</p>
           <div className="flex gap-4">
             <a href="#privacy" className="hover:underline">Privacy Policy</a>
             <a href="#terms" className="hover:underline">Terms of Service</a>

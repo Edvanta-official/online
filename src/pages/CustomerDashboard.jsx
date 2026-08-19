@@ -131,7 +131,7 @@ export const CustomerDashboard = () => {
               <div className="flex items-center justify-center sm:justify-start gap-2">
                 <h1 className="font-serif-luxury text-2xl font-bold text-[#FCE4EC]">{user.name}</h1>
                 <span className="bg-[#D4AF7F] text-[#2C2C2C] text-[10px] font-bold font-montserrat px-2 py-0.5 rounded-full uppercase">
-                  Sparkel VIP Member
+                  Sparkle VIP Member
                 </span>
               </div>
               <p className="text-xs text-gray-300 font-poppins">{user.email} • {user.phone || '+91 9876543210'}</p>

@@ -14,13 +14,11 @@ export const NewsletterSection = () => {
     if (!email || !email.includes('@')) return;
 
     setIsSubmitting(true);
-
-    // Save to context & local database
     addSubscriber(email);
 
     try {
-      // 1. Primary silent AJAX POST to FormSubmit for sparklekkvofficial@gmail.com
-      fetch("https://formsubmit.co/ajax/sparklekkvofficial@gmail.com", {
+      // 1. Silent AJAX POST to FormSubmit for support@sparklekkv.com
+      fetch("https://formsubmit.co/ajax/support@sparklekkv.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,57 +27,29 @@ export const NewsletterSection = () => {
         body: JSON.stringify({
           email,
           _subject: `🎉 New VIP Subscriber Alert: ${email}`,
-          message: `🎉 Congratulations!\n\nNew subscriber registered on Sparkle @kkv website: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10 (10% OFF)`,
+          message: `🎉 Congratulations!\n\nNew subscriber registered on Sparkle @ KKV website: ${email}\n\nSubscriber Email: ${email}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKLE10 (10% OFF)`,
           _captcha: "false"
         })
       }).catch(err => console.log("FormSubmit silent fetch:", err));
 
-      // 2. Silent hidden iframe form submit fallback (never opens new tab/page)
-      const form = document.createElement('form');
-      form.action = 'https://formsubmit.co/sparklekkvofficial@gmail.com';
-      form.method = 'POST';
-      form.target = 'hidden_formsubmit_iframe';
-
-      const emailInput = document.createElement('input');
-      emailInput.type = 'hidden';
-      emailInput.name = 'email';
-      emailInput.value = email;
-      form.appendChild(emailInput);
-
-      const subjectInput = document.createElement('input');
-      subjectInput.type = 'hidden';
-      subjectInput.name = '_subject';
-      subjectInput.value = `🎉 New VIP Subscriber Alert: ${email}`;
-      form.appendChild(subjectInput);
-
-      const captchaInput = document.createElement('input');
-      captchaInput.type = 'hidden';
-      captchaInput.name = '_captcha';
-      captchaInput.value = 'false';
-      form.appendChild(captchaInput);
-
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      // 3. EmailJS helper dispatch
+      // 2. EmailJS helper dispatch
       sendSubscriberEmailViaEmailJS(email);
     } catch (err) {
       console.log("Background email dispatch:", err);
     } finally {
       setIsSubmitting(false);
       setSubscribed(true);
-      showToast(`🎉 Welcome to the VIP Club! 10% OFF Code: SPARKEL10`);
+      showToast(`🎉 Welcome to the VIP Club! 10% OFF Code: SPARKLE10`);
     }
   };
 
   return (
-    <section className="py-16 bg-gradient-to-r from-[#FCE4EC] via-[#FFF9F5] to-[#FCE4EC] border-y border-[#D4AF7F]/30 relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-r from-[#FCE4EC] via-[#FFF9F5] to-[#FCE4EC] border-y border-[#D4AF7F]/30 relative overflow-hidden font-poppins">
       <iframe name="hidden_formsubmit_iframe" id="hidden_formsubmit_iframe" style={{ display: 'none' }}></iframe>
       <div className="max-w-4xl mx-auto px-4 text-center space-y-6 relative z-10">
         
-        <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-1 rounded-full border border-[#D4AF7F]/40 shadow-sm text-xs font-montserrat uppercase font-bold text-[#C89B3C]">
-          <Sparkles className="w-3.5 h-3.5" /> VIP Sparkel Insider Club
+        <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-1.5 rounded-full border border-[#D4AF7F]/40 shadow-xs text-xs font-montserrat uppercase font-bold text-[#C89B3C]">
+          <Sparkles className="w-3.5 h-3.5" /> VIP Sparkle Insider Club
         </div>
 
         <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
@@ -101,12 +71,12 @@ export const NewsletterSection = () => {
             <p className="text-xs text-gray-600 leading-relaxed">
               Welcome to the VIP Club, <strong className="text-[#C89B3C] font-mono">{email}</strong>!
               <br />
-              An email notification has been sent to Admin (<strong className="text-[#2C2C2C]">sparklekkvofficial@gmail.com</strong>).
+              An admin alert has been sent to (<strong className="text-[#2C2C2C]">support@sparklekkv.com</strong>).
             </p>
 
             <div className="bg-[#FFF9F5] p-3.5 rounded-2xl border border-[#D4AF7F]/40 inline-flex items-center justify-center gap-2">
               <span className="text-xs font-montserrat text-gray-700 font-medium">Use Coupon Code: </span>
-              <strong className="text-[#C89B3C] font-mono text-sm font-bold">SPARKEL10</strong>
+              <strong className="text-[#C89B3C] font-mono text-sm font-bold">SPARKLE10</strong>
               <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">(10% OFF)</span>
             </div>
           </div>
@@ -137,7 +107,7 @@ export const NewsletterSection = () => {
               ) : (
                 <>
                   <Send className="w-3.5 h-3.5 text-[#D4AF7F]" />
-                  <span>Subscribe</span>
+                  <span>Subscribe (10% OFF)</span>
                 </>
               )}
             </button>

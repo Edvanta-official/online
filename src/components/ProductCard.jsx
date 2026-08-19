@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getDirectImageUrl, getCategoryFallbackImage } from '../utils/imageUtils';
 
 export const ProductCard = ({ product }) => {
-  const { wishlist, toggleWishlist, addToCart, buyNow, setQuickViewProduct, setIsCheckoutOpen } = useShop();
+  const { wishlist, toggleWishlist, addToCart, buyNow, setQuickViewProduct } = useShop();
   const navigate = useNavigate();
 
   if (!product) return null;
@@ -26,8 +26,8 @@ export const ProductCard = ({ product }) => {
   return (
     <div className="group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full isolate">
       
-      {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
+      {/* Image Container — Consistent aspect-square 1:1 image frame for uniform necklace & accessory alignment */}
+      <div className="relative aspect-square w-full overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
         <img
           src={getDirectImageUrl(product.images[0])}
           alt={product.name}
@@ -73,7 +73,7 @@ export const ProductCard = ({ product }) => {
           <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-[#F48FB1] text-[#F48FB1]' : ''}`} />
         </button>
 
-        {/* Quick View Trigger on Image Hover (Desktop) */}
+        {/* Quick View Trigger on Image Hover */}
         <div className="absolute inset-x-0 bottom-2 sm:bottom-3 px-2 sm:px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden sm:flex gap-2">
           <button
             onClick={(e) => {
@@ -103,18 +103,18 @@ export const ProductCard = ({ product }) => {
             </h3>
           </Link>
 
-          {/* Ratings */}
+          {/* Ratings System — Standardized numeric & star display */}
           <div className="flex items-center gap-1 my-1 sm:my-2 text-[10px] sm:text-xs">
             <div className="flex text-[#C89B3C]">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${i < Math.floor(product.rating) ? 'fill-current' : 'text-gray-300'}`}
+                  className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${i < Math.floor(product.rating || 5) ? 'fill-current' : 'text-gray-300'}`}
                 />
               ))}
             </div>
-            <span className="font-semibold text-[#2C2C2C]">{product.rating}</span>
-            <span className="text-gray-400 font-light hidden sm:inline">({product.reviewsCount})</span>
+            <span className="font-semibold text-[#2C2C2C] ml-0.5">{product.rating ? Number(product.rating).toFixed(1) : "5.0"}</span>
+            <span className="text-gray-400 font-light hidden sm:inline">({product.reviewsCount || 100})</span>
           </div>
         </div>
 

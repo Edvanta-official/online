@@ -81,7 +81,7 @@ export const CheckoutModal = () => {
         {/* Header - Fixed inside modal container */}
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] p-4 sm:p-6 flex items-center justify-between shrink-0">
           <div>
-            <span className="text-[10px] font-montserrat tracking-widest uppercase text-[#D4AF7F] font-bold">Sparkel @kkv Boutique</span>
+            <span className="text-[10px] font-montserrat tracking-widest uppercase text-[#D4AF7F] font-bold">Sparkle @ KKV Boutique</span>
             <h2 className="font-serif-luxury text-xl font-bold">
               {step === 1 && "Shipping & Delivery Address"}
               {step === 2 && "PhonePe & Payment Confirmation"}
