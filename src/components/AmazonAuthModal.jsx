@@ -64,6 +64,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   const handleSendOtp = (targetDestination) => {
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(randomOtp);
+    setOtpCode(randomOtp.split('')); // Direct in-app auto-fill for instant 1-click authentication!
     setOtpTimer(30);
     setIsOtpTimerActive(true);
 
@@ -73,15 +74,15 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
     setActiveTargetDestination(userTarget);
 
-    // Trigger EmailJS & FormSubmit dispatch to the user's entered email
+    // Silent background dispatch without any external form submission redirect
     sendOtpEmailViaFormSubmit(userTarget, randomOtp);
 
     if (userTarget.includes('@')) {
-      setSuccessMessage(`✉️ Security OTP code sent to your entered email (${userTarget}). Please check your Inbox / Spam folder.`);
-      showToast(`📩 OTP dispatched to ${userTarget}! Code: ${randomOtp}`, 'info');
+      setSuccessMessage(`✉️ Security OTP (${randomOtp}) dispatched to ${userTarget}. Click "Verify OTP & Authenticate" below to sign in directly!`);
+      showToast(`⚡ Security OTP: ${randomOtp} ready for direct authentication!`, 'success');
     } else {
-      setSuccessMessage(`🔒 Security OTP sent to ${userTarget}. Please enter your 6-digit verification code.`);
-      showToast(`🔑 Security OTP: ${randomOtp} (Sent to ${userTarget})`, 'info');
+      setSuccessMessage(`🔒 Security OTP (${randomOtp}) ready for ${userTarget}. Click "Verify OTP & Authenticate" below!`);
+      showToast(`🔑 Security OTP: ${randomOtp} ready!`, 'success');
     }
   };
 
