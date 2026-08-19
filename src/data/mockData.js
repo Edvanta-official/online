@@ -649,7 +649,8 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 2,
     images: [
-      "images/faux_pearl_charm_necklace_drive.jpg"
+      "images/faux_pearl_charm_necklace_drive.jpg",
+      "images/1.Faux Pearl charm necklace.JPG"
     ],
     colors: [
       "Gold & White Faux Pearl"
@@ -678,7 +679,9 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/adjustable_floral_bolo_necklace_drive.jpg"
+      "images/adjustable_floral_bolo_necklace_drive.jpg",
+      "images/2.Adjustable Floral Bolo Necklace.JPG",
+      "images/chain_2_1.png"
     ],
     colors: [
       "Rose Gold Floral"
@@ -707,7 +710,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/green_oval_stone_chain_drive.jpg"
+      "images/green_oval_stone_chain_drive.jpg",
+      "images/3.Green oval stone antitarnish gold plated stainless chain.JPG"
     ],
     colors: [
       "Emerald Green & Gold"
@@ -736,7 +740,8 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/flat_snake_chain_drive.jpg"
+      "images/flat_snake_chain_drive.jpg",
+      "images/4.Flat Snake Chain.JPG"
     ],
     colors: [
       "Glossy 18K Gold"
@@ -765,7 +770,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/satellite_chain_drive.jpg"
+      "images/satellite_chain_drive.jpg",
+      "images/5.Satellite Chain.JPG"
     ],
     colors: [
       "Gold Beaded Chain"
@@ -794,7 +800,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 1,
     images: [
-      "images/crystal_heart_pendant_drive.jpg"
+      "images/crystal_heart_pendant_drive.jpg",
+      "images/6.Crystal heart pendant minimal gold chain necklace.JPG"
     ],
     colors: [
       "Clear Crystal & Rose Gold"
@@ -823,7 +830,8 @@ export const PRODUCTS = [
     isFlashSale: false,
     stock: 1,
     images: [
-      "images/north_star_pendant_drive.jpg"
+      "images/north_star_pendant_drive.jpg",
+      "images/7.North star pendant neckalce.JPG"
     ],
     colors: [
       "Gold & Zircon Star"
@@ -847,7 +855,8 @@ export const PRODUCTS = [
     rating: 4.7,
     stock: 1,
     images: [
-      "images/round_snake_necklace_drive.jpg"
+      "images/round_snake_necklace_drive.jpg",
+      "images/8.Round Snake Neck.JPG"
     ],
     colors: [
       "High Polish Gold"
