@@ -7,7 +7,6 @@ import { AboutSection } from '../components/AboutSection';
 import { CustomerReviews } from '../components/CustomerReviews';
 import { InstagramGallery } from '../components/InstagramGallery';
 import { NewsletterSection } from '../components/NewsletterSection';
-import { GiftSection } from '../components/GiftSection';
 import { FloatingPetals } from '../components/FloatingPetals';
 import { useShop } from '../context/ShopContext';
 import { Sparkles, ArrowRight, ShieldCheck, Heart, Award, RefreshCw, Phone, PackageCheck } from 'lucide-react';
@@ -110,9 +109,6 @@ export const HomePage = () => {
 
         </div>
       </section>
-
-      {/* Dedicated Luxury Gift Section */}
-      <GiftSection />
 
       {/* Why Choose Sparkle @ KKV Section */}
       <section className="py-14 sm:py-24 bg-gradient-to-b from-[#FFF9F5] via-white to-[#FFF9F5] border-y border-[#FCE4EC] relative overflow-hidden">
