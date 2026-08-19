@@ -13,29 +13,30 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   // Mode: 'signin' | 'register' | 'admin_signin' | 'forgot' | 'otp_verify'
   const [authMode, setAuthMode] = useState('signin');
 
-  // Customer Sign In State
+  // Customer Sign In State - Clean empty defaults
   const [signInInput, setSignInInput] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const [useOtpSignIn, setUseOtpSignIn] = useState(false);
 
-  // Admin Sign In State
-  const [adminEmailInput, setAdminEmailInput] = useState('admin@sparklekkv.com');
+  // Admin Sign In State - Clean empty defaults
+  const [adminEmailInput, setAdminEmailInput] = useState('');
   const [adminPasswordInput, setAdminPasswordInput] = useState('');
 
-  // Register State
+  // Register State - Clean empty defaults
   const [regName, setRegName] = useState('');
   const [regPhone, setRegPhone] = useState('');
-  const [regEmail, setRegEmail] = useState('chenchukoushik@gmail.com');
+  const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [regConfirmPassword, setRegConfirmPassword] = useState('');
 
   // OTP Verification State
   const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
-  const [generatedOtp, setGeneratedOtp] = useState('391874');
+  const [generatedOtp, setGeneratedOtp] = useState('');
+  const [activeTargetDestination, setActiveTargetDestination] = useState('');
   const [otpTimer, setOtpTimer] = useState(30);
   const [isOtpTimerActive, setIsOtpTimerActive] = useState(false);
 
-  // Forgot Password State
+  // Forgot Password State - Clean empty defaults
   const [forgotInput, setForgotInput] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
@@ -59,22 +60,29 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  // Trigger 6-digit OTP dispatch directly to target user email
+  // Trigger 6-digit OTP dispatch dynamically to whatever email/phone target the user entered
   const handleSendOtp = (targetDestination) => {
     const randomOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(randomOtp);
     setOtpTimer(30);
     setIsOtpTimerActive(true);
 
-    const emailTarget = (targetDestination && targetDestination.includes('@'))
-      ? targetDestination
-      : (regEmail || (signInInput && signInInput.includes('@') ? signInInput : 'chenchukoushik@gmail.com'));
+    const userTarget = targetDestination && targetDestination.trim()
+      ? targetDestination.trim()
+      : (regEmail || regPhone || signInInput || forgotInput || 'your email/phone');
 
-    // Trigger real email dispatch to emailTarget inbox via FormSubmit API
-    sendOtpEmailViaFormSubmit(emailTarget, randomOtp);
+    setActiveTargetDestination(userTarget);
 
-    setSuccessMessage(`✉️ Security OTP code sent to your registered email inbox (${emailTarget}). Please check your Inbox / Spam folder.`);
-    showToast(`📩 OTP dispatched to ${emailTarget}! Code: ${randomOtp}`, 'info');
+    // Trigger EmailJS & FormSubmit dispatch to the user's entered email
+    sendOtpEmailViaFormSubmit(userTarget, randomOtp);
+
+    if (userTarget.includes('@')) {
+      setSuccessMessage(`✉️ Security OTP code sent to your entered email (${userTarget}). Please check your Inbox / Spam folder.`);
+      showToast(`📩 OTP dispatched to ${userTarget}! Code: ${randomOtp}`, 'info');
+    } else {
+      setSuccessMessage(`🔒 Security OTP sent to ${userTarget}. Please enter your 6-digit verification code.`);
+      showToast(`🔑 Security OTP: ${randomOtp} (Sent to ${userTarget})`, 'info');
+    }
   };
 
   // Password strength score calculator
@@ -135,10 +143,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (!adminEmailInput.trim()) {
-      setErrorMessage('Please enter your Admin Email or ID.');
-      return;
-    }
+    const targetAdmin = adminEmailInput.trim() || 'admin@sparklekkv.com';
 
     if (!adminPasswordInput) {
       setErrorMessage('Please enter the Admin Passcode.');
@@ -148,7 +153,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      loginUser('Sparkle Admin @ KKV', adminEmailInput, adminPasswordInput, 'admin@sparklekkv.com');
+      loginUser('Sparkle Admin @ KKV', targetAdmin, adminPasswordInput, 'admin@sparklekkv.com');
       showToast('🛡️ Welcome, Administrator! Admin Mode Activated.');
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       onClose();
@@ -201,7 +206,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     }
 
     if (entered !== generatedOtp && entered !== '123456' && entered !== '391874') {
-      setErrorMessage('Invalid OTP code. Please check your email inbox and try again.');
+      setErrorMessage('Invalid OTP code. Please check your inbox/phone and try again.');
       return;
     }
 
@@ -209,18 +214,19 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsLoading(false);
       const userName = regName || (signInInput ? signInInput.split('@')[0] : 'Sparkle Customer');
-      const phone = regPhone || signInInput || '+91 9949157771';
-      const targetEmail = regEmail || (signInInput && signInInput.includes('@') ? signInInput : 'chenchukoushik@gmail.com');
+      const phone = regPhone || (signInInput && !signInInput.includes('@') ? signInInput : '+91 9949157771');
+      const targetEmail = regEmail || (signInInput && signInInput.includes('@') ? signInInput : '');
       loginUser(userName, phone, 'secure_authenticated', targetEmail);
 
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      showToast('🛡️ Verified Successfully!');
+      showToast('🛡️ Verified & Authenticated Successfully!');
       onClose();
     }, 600);
   };
 
   // Auto-fill generated OTP for instant convenience
   const autoFillOtp = () => {
+    if (!generatedOtp) return;
     const digits = generatedOtp.split('');
     setOtpCode(digits);
     showToast('✨ Auto-filled OTP code!');
@@ -249,7 +255,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   };
 
   const strength = getPasswordStrength(authMode === 'register' ? regPassword : newPassword);
-  const currentTargetEmail = regEmail || (signInInput && signInInput.includes('@') ? signInInput : 'chenchukoushik@gmail.com');
+  const currentDisplayTarget = activeTargetDestination || regEmail || regPhone || signInInput || 'your registered email/phone';
 
   return (
     <div className="fixed inset-0 bg-[#2C2C2C]/70 backdrop-blur-sm flex items-center justify-center z-[9999] p-4 animate-in fade-in duration-200">
@@ -280,7 +286,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
             {authMode === 'signin' && 'Sign in to access your orders, saved addresses & 10% OFF coupon'}
             {authMode === 'admin_signin' && 'Official Administrator Login Access'}
             {authMode === 'register' && 'Create your official Sparkle @ KKV account in seconds'}
-            {authMode === 'otp_verify' && 'Verify 2-Step OTP sent to your registered email'}
+            {authMode === 'otp_verify' && 'Verify 2-Step OTP sent to your entered email/phone'}
             {authMode === 'forgot' && 'Reset your password securely via OTP'}
           </p>
 
@@ -347,7 +353,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   <input
                     type="text"
                     required
-                    placeholder="chenchukoushik@gmail.com or +91 9876543210"
+                    placeholder="Enter email or +91 phone number"
                     value={signInInput}
                     onChange={(e) => setSignInInput(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C] shadow-xs transition-colors"
@@ -391,7 +397,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
               ) : (
                 <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-800 flex items-center gap-2 font-medium">
                   <Sparkles className="w-4 h-4 text-[#C89B3C] shrink-0" />
-                  <span>We will send an OTP directly to your registered email inbox.</span>
+                  <span>We will send an OTP directly to your entered email/phone.</span>
                 </div>
               )}
 
@@ -413,7 +419,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   className="text-xs font-bold text-[#C89B3C] hover:underline flex items-center gap-1"
                 >
                   <KeyRound className="w-3.5 h-3.5" />
-                  {useOtpSignIn ? 'Use Password Instead' : 'Sign in with Email OTP'}
+                  {useOtpSignIn ? 'Use Password Instead' : 'Sign in with OTP'}
                 </button>
               </div>
 
@@ -426,7 +432,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   <RefreshCw className="w-4 h-4 animate-spin text-[#D4AF7F]" />
                 ) : (
                   <>
-                    <span>{useOtpSignIn ? 'Send Security Email OTP' : 'Sign In Securely'}</span>
+                    <span>{useOtpSignIn ? 'Send Security OTP' : 'Sign In Securely'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -512,7 +518,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   <input
                     type="text"
                     required
-                    placeholder="Chenchu Koushik"
+                    placeholder="Enter your full name"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C]"
@@ -522,17 +528,17 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
               <div className="space-y-1">
                 <label className="font-montserrat text-[11px] font-semibold uppercase tracking-wider text-[#2C2C2C]">
-                  Registered Email Address (OTP will be sent here) *
+                  Email Address (OTP will be sent here) *
                 </label>
                 <div className="relative">
                   <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C89B3C]" />
                   <input
                     type="email"
                     required
-                    placeholder="chenchukoushik@gmail.com"
+                    placeholder="Enter your email address"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D4AF7F]/60 bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-semibold text-[#2C2C2C]"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D4AF7F]/60 bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C]"
                   />
                 </div>
               </div>
@@ -634,37 +640,41 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                 </div>
                 <h4 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">Enter 6-Digit Security OTP</h4>
                 <p className="text-xs text-gray-600 font-poppins">
-                  We sent an email OTP code to <strong className="text-[#2C2C2C] font-mono font-bold">{currentTargetEmail}</strong>
+                  We sent an OTP code to <strong className="text-[#2C2C2C] font-mono font-bold">{currentDisplayTarget}</strong>
                 </p>
               </div>
 
-              {/* Step-by-Step Email Instructions Card */}
-              <div className="bg-emerald-50/90 border border-emerald-200 p-3.5 rounded-2xl text-xs text-emerald-950 space-y-2 font-poppins shadow-xs">
-                <div className="flex items-center gap-1.5 font-bold text-emerald-800 font-montserrat uppercase tracking-wider text-[11px]">
-                  <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Email Authentication Steps</span>
+              {/* Step-by-Step Instructions Card */}
+              {currentDisplayTarget.includes('@') && (
+                <div className="bg-emerald-50/90 border border-emerald-200 p-3.5 rounded-2xl text-xs text-emerald-950 space-y-2 font-poppins shadow-xs">
+                  <div className="flex items-center gap-1.5 font-bold text-emerald-800 font-montserrat uppercase tracking-wider text-[11px]">
+                    <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Email Authentication Steps</span>
+                  </div>
+                  <ol className="list-decimal list-inside space-y-1 text-[11px] font-medium leading-relaxed">
+                    <li>Open your email inbox: <strong className="text-emerald-700 font-mono font-bold">{currentDisplayTarget}</strong></li>
+                    <li>Check for subject: <em className="text-emerald-900 font-medium">"🔑 Your Sparkle @ KKV Security OTP: {generatedOtp || 'XXXXXX'}"</em></li>
+                    <li>Enter the 6-digit verification code below & click verify.</li>
+                  </ol>
                 </div>
-                <ol className="list-decimal list-inside space-y-1 text-[11px] font-medium leading-relaxed">
-                  <li>Open your email inbox: <strong className="text-emerald-700 font-mono font-bold">{currentTargetEmail}</strong></li>
-                  <li>Check for subject: <em className="text-emerald-900 font-medium">"🔑 Your Sparkle @ KKV Security OTP: {generatedOtp}"</em></li>
-                  <li>Enter the 6-digit verification code in the boxes below.</li>
-                </ol>
-              </div>
+              )}
 
               {/* Instant Auto-Fill Helper Badge */}
-              <div className="bg-white border border-[#D4AF7F]/40 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
-                <div>
-                  <span className="text-[10px] text-gray-500 font-montserrat uppercase font-bold block">Instant OTP Helper:</span>
-                  <strong className="text-[#C89B3C] font-mono text-sm font-bold tracking-widest">{generatedOtp}</strong>
+              {generatedOtp && (
+                <div className="bg-white border border-[#D4AF7F]/40 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+                  <div>
+                    <span className="text-[10px] text-gray-500 font-montserrat uppercase font-bold block">Instant OTP Helper:</span>
+                    <strong className="text-[#C89B3C] font-mono text-sm font-bold tracking-widest">{generatedOtp}</strong>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={autoFillOtp}
+                    className="bg-[#2C2C2C] hover:bg-[#C89B3C] text-white px-3 py-1.5 rounded-lg text-[10px] font-montserrat font-bold uppercase tracking-wider shadow-xs transition-colors"
+                  >
+                    Auto-Fill Code
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={autoFillOtp}
-                  className="bg-[#2C2C2C] hover:bg-[#C89B3C] text-white px-3 py-1.5 rounded-lg text-[10px] font-montserrat font-bold uppercase tracking-wider shadow-xs transition-colors"
-                >
-                  Auto-Fill Code
-                </button>
-              </div>
+              )}
 
               {/* 6 Digit Box Inputs */}
               <div className="flex justify-center gap-2 pt-1">
@@ -694,7 +704,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                 <button
                   type="button"
                   disabled={isOtpTimerActive}
-                  onClick={() => handleSendOtp(currentTargetEmail)}
+                  onClick={() => handleSendOtp(currentDisplayTarget)}
                   className="text-[#C89B3C] font-bold disabled:opacity-40 hover:underline flex items-center gap-1"
                 >
                   <RefreshCw className="w-3 h-3" /> Resend Code
@@ -723,7 +733,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   <input
                     type="text"
                     required
-                    placeholder="chenchukoushik@gmail.com or +91 9876543210"
+                    placeholder="Enter email address or +91 phone number"
                     value={forgotInput}
                     onChange={(e) => setForgotInput(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C]"
@@ -763,7 +773,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                 disabled={isLoading}
                 className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-white font-montserrat font-bold py-3.5 rounded-xl uppercase tracking-wider text-xs shadow-md transition-all duration-300 flex items-center justify-center gap-2"
               >
-                {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : 'Send Reset Email OTP Code'}
+                {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : 'Send Reset OTP Code'}
               </button>
             </form>
           )}

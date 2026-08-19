@@ -10,33 +10,55 @@ const FORMSPREE_URL = (typeof import.meta !== 'undefined' && import.meta.env && 
 const ADMIN_EMAIL = 'support@sparklekkv.com';
 
 /**
- * Sends OTP Email directly to user's registered email address
+ * Sends OTP Email directly to whatever email/phone target the user entered during sign in / sign up
  */
-export const sendOtpEmailViaFormSubmit = async (targetEmail, otpCode) => {
-  const destEmail = (targetEmail && targetEmail.includes('@')) 
-    ? targetEmail 
-    : 'chenchukoushik@gmail.com';
+export const sendOtpEmailViaFormSubmit = async (targetDestination, otpCode) => {
+  const destEmail = targetDestination && targetDestination.trim() 
+    ? targetDestination.trim() 
+    : 'registered email/phone';
 
-  console.log(`[OTP Dispatch]: Sending real OTP ${otpCode} to ${destEmail}...`);
+  console.log(`[OTP Dispatch]: Processing real OTP ${otpCode} for ${destEmail}...`);
 
   try {
-    // 1. Send real AJAX email to user's inbox via FormSubmit API
-    fetch(`https://formsubmit.co/ajax/${destEmail}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email: destEmail,
-        name: 'Sparkle Customer',
-        _subject: `🔑 Your Sparkle @ KKV Security OTP: ${otpCode}`,
-        message: `Hello!\n\nYour 6-Digit Security OTP for Sparkle @ KKV authentication is:\n\n======================\n   OTP: ${otpCode}\n======================\n\nThis OTP is valid for 10 minutes.\n\nSteps to Verify:\n1. Copy your 6-digit code: ${otpCode}\n2. Enter this code into the verification modal on the website.\n3. Click "Verify OTP & Authenticate".\n\nIf you did not request this OTP, please ignore this email.\n\nBest regards,\nSparkle @ KKV Security Team\nsupport@sparklekkv.com`,
-        _captcha: "false"
-      })
-    }).catch(err => console.log('FormSubmit OTP dispatch notice:', err));
+    // 1. Send via EmailJS SDK if configured
+    if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY && destEmail.includes('@')) {
+      try {
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            to_email: destEmail,
+            otp_code: otpCode,
+            user_email: destEmail,
+            message: `Your 6-Digit Security OTP for Sparkle @ KKV authentication is: ${otpCode}`
+          },
+          EMAILJS_PUBLIC_KEY
+        );
+        console.log('[EmailJS OTP Success]: OTP sent via EmailJS to', destEmail);
+      } catch (emailjsErr) {
+        console.warn('[EmailJS OTP Notice]:', emailjsErr);
+      }
+    }
 
-    // 2. Backup admin notification to support@sparklekkv.com
+    // 2. Send real AJAX email to user's inbox via FormSubmit API if an email was entered
+    if (destEmail.includes('@')) {
+      fetch(`https://formsubmit.co/ajax/${destEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: destEmail,
+          name: 'Sparkle Customer',
+          _subject: `🔑 Your Sparkle @ KKV Security OTP: ${otpCode}`,
+          message: `Hello!\n\nYour 6-Digit Security OTP for Sparkle @ KKV authentication is:\n\n======================\n   OTP: ${otpCode}\n======================\n\nThis OTP is valid for 10 minutes.\n\nSteps to Verify:\n1. Copy your 6-digit code: ${otpCode}\n2. Enter this code into the verification modal on the website.\n3. Click "Verify OTP & Authenticate".\n\nIf you did not request this OTP, please ignore this email.\n\nBest regards,\nSparkle @ KKV Security Team\nsupport@sparklekkv.com`,
+          _captcha: "false"
+        })
+      }).catch(err => console.log('FormSubmit OTP dispatch notice:', err));
+    }
+
+    // 3. Backup admin notification to support@sparklekkv.com
     fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
       method: 'POST',
       headers: {
@@ -75,7 +97,6 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
 
   const results = [];
 
-  // 1. Send via EmailJS SDK if credentials exist
   if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
     try {
       const response = await emailjs.send(
@@ -91,7 +112,6 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
     }
   }
 
-  // 2. Send via FormSubmit AJAX Endpoint targeting support@sparklekkv.com
   try {
     const fsRes = await fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
       method: 'POST',
