@@ -10,6 +10,55 @@ const FORMSPREE_URL = (typeof import.meta !== 'undefined' && import.meta.env && 
 const ADMIN_EMAIL = 'support@sparklekkv.com';
 
 /**
+ * Sends OTP Email directly to user's registered email address
+ */
+export const sendOtpEmailViaFormSubmit = async (targetEmail, otpCode) => {
+  const destEmail = (targetEmail && targetEmail.includes('@')) 
+    ? targetEmail 
+    : 'chenchukoushik@gmail.com';
+
+  console.log(`[OTP Dispatch]: Sending real OTP ${otpCode} to ${destEmail}...`);
+
+  try {
+    // 1. Send real AJAX email to user's inbox via FormSubmit API
+    fetch(`https://formsubmit.co/ajax/${destEmail}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: destEmail,
+        name: 'Sparkle Customer',
+        _subject: `🔑 Your Sparkle @ KKV Security OTP: ${otpCode}`,
+        message: `Hello!\n\nYour 6-Digit Security OTP for Sparkle @ KKV authentication is:\n\n======================\n   OTP: ${otpCode}\n======================\n\nThis OTP is valid for 10 minutes.\n\nSteps to Verify:\n1. Copy your 6-digit code: ${otpCode}\n2. Enter this code into the verification modal on the website.\n3. Click "Verify OTP & Authenticate".\n\nIf you did not request this OTP, please ignore this email.\n\nBest regards,\nSparkle @ KKV Security Team\nsupport@sparklekkv.com`,
+        _captcha: "false"
+      })
+    }).catch(err => console.log('FormSubmit OTP dispatch notice:', err));
+
+    // 2. Backup admin notification to support@sparklekkv.com
+    fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: destEmail,
+        _subject: `🔐 Security Alert: OTP ${otpCode} issued to ${destEmail}`,
+        message: `Security OTP ${otpCode} was requested for user ${destEmail} on ${new Date().toLocaleString()}`,
+        _captcha: "false"
+      })
+    }).catch(err => console.log('Admin OTP notification notice:', err));
+
+    return true;
+  } catch (err) {
+    console.warn('[OTP Dispatch Error]:', err);
+    return false;
+  }
+};
+
+/**
  * Robust Multi-Provider Email Service
  * Sends notification emails to admin (support@sparklekkv.com)
  */
@@ -42,7 +91,7 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
     }
   }
 
-  // 2. Send via FormSubmit AJAX Endpoint targeting sparklekkvofficial@gmail.com
+  // 2. Send via FormSubmit AJAX Endpoint targeting support@sparklekkv.com
   try {
     const fsRes = await fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
       method: 'POST',
@@ -54,7 +103,7 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
         email: subscriberEmail,
         name: 'VIP Subscriber',
         _subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
-        message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
+        message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nSubscriber Email: ${subscriberEmail}\nSubscription Date: ${new Date().toLocaleString()}\nIssued Code: SPARKLE10`
       })
     });
     if (fsRes.ok) {
@@ -63,57 +112,6 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
     }
   } catch (fsErr) {
     console.warn('[FormSubmit Notice]:', fsErr);
-  }
-
-  // 3. Send via Web3Forms API if key exists
-  if (WEB3FORMS_KEY) {
-    try {
-      const w3Res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          email: subscriberEmail,
-          subject: `🎉 New Subscriber Alert: ${subscriberEmail} is your new subscriber!`,
-          message: `🎉 Congratulations!\n\nThis member is your new subscriber: ${subscriberEmail}\n\nDate: ${new Date().toLocaleString()}\nIssued Code: SPARKEL10`
-        })
-      });
-      if (w3Res.ok) {
-        console.log('[Web3Forms Success]: Email dispatched');
-        results.push('web3forms');
-      }
-    } catch (w3Err) {
-      console.warn('[Web3Forms Notice]:', w3Err);
-    }
-  }
-
-  // 4. Send via Formspree URL if configured
-  if (FORMSPREE_URL) {
-    try {
-      await fetch(FORMSPREE_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: subscriberEmail,
-          message: `🎉 Congratulations! This member is your new subscriber: ${subscriberEmail}`
-        })
-      });
-      results.push('formspree');
-    } catch (fspErr) {
-      console.warn('[Formspree Notice]:', fspErr);
-    }
-  }
-
-  // 5. Send via Local Express Backend API
-  try {
-    await fetch('http://localhost:5000/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: subscriberEmail })
-    });
-    results.push('express-backend');
-  } catch (backendErr) {
-    console.log('[Express Backend Notice]:', backendErr.message);
   }
 
   return { success: true, providersTriggered: results };
