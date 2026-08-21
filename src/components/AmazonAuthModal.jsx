@@ -328,26 +328,26 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   const currentDisplayTarget = activeTargetDestination || regEmail || regPhone || signInInput || 'your registered email/phone';
 
   return (
-    <div className="fixed inset-0 bg-[#2C2C2C]/70 backdrop-blur-sm flex items-center justify-center z-[9999] p-2 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
-      <div className="bg-[#FFF9F5] w-full max-w-md my-auto rounded-2xl sm:rounded-3xl overflow-hidden border border-[#D4AF7F]/40 shadow-2xl relative animate-in zoom-in-95 duration-200 font-poppins max-h-[92dvh] sm:max-h-[85vh] flex flex-col">
+    <div className="fixed inset-0 bg-[#2C2C2C]/75 backdrop-blur-md flex items-center justify-center z-[9999] p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+      <div className="bg-[#FFF9F5] w-full max-w-md rounded-2xl sm:rounded-3xl overflow-hidden border border-[#D4AF7F]/40 shadow-2xl relative animate-in zoom-in-95 duration-200 font-poppins max-h-[90vh] flex flex-col my-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-3.5 top-3.5 sm:right-4 sm:top-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white border border-[#FCE4EC] text-gray-400 hover:text-gray-800 flex items-center justify-center hover:scale-105 transition-all shadow-sm z-10"
+          className="absolute right-3.5 top-3.5 sm:right-4 sm:top-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white border border-[#FCE4EC] text-gray-500 hover:text-gray-900 flex items-center justify-center hover:scale-105 transition-all shadow-md z-20"
           aria-label="Close authentication modal"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Top Header */}
-        <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-white p-4 sm:p-5 text-center relative overflow-hidden shrink-0">
+        <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-white pt-6 pb-4 px-5 sm:pt-7 sm:pb-5 sm:px-6 text-center relative overflow-hidden shrink-0">
           <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#C89B3C]/10 rounded-full blur-xl"></div>
 
-          <h2 className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-wide mt-1">
+          <h2 className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-wide">
             <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-[#2C2C2C] bg-white/90 px-1.5 py-0.5 rounded text-xs font-bold lowercase font-poppins ml-0.5">@kkv</span> Security
           </h2>
-          <p className="text-[10px] sm:text-[11px] text-gray-300 font-light mt-0.5">
+          <p className="text-[10px] sm:text-[11px] text-gray-300 font-light mt-1">
             {authMode === 'signin' && 'Sign in to access your orders, saved addresses & 10% OFF coupon'}
             {authMode === 'admin_signin' && 'Official Administrator Login Access'}
             {authMode === 'register' && 'Create your official Sparkle @ KKV account in seconds'}
@@ -357,11 +357,11 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
           {/* Mode Switcher Tabs */}
           {(authMode === 'signin' || authMode === 'register' || authMode === 'admin_signin') && (
-            <div className="flex bg-[#3A3A3A] rounded-xl p-1 mt-3 sm:mt-4 border border-white/10 text-xs font-montserrat font-bold">
+            <div className="flex bg-[#1E1E1E] rounded-xl p-1 mt-3.5 border border-white/10 text-xs font-montserrat font-bold shadow-inner">
               <button
                 type="button"
                 onClick={() => { setAuthMode('signin'); setErrorMessage(''); setSuccessMessage(''); }}
-                className={`flex-1 py-1.5 rounded-lg transition-all ${
+                className={`flex-1 py-2 rounded-lg transition-all ${
                   authMode === 'signin' ? 'bg-[#C89B3C] text-white shadow-md' : 'text-gray-300 hover:text-white'
                 }`}
               >
@@ -370,7 +370,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={() => { setAuthMode('register'); setErrorMessage(''); setSuccessMessage(''); }}
-                className={`flex-1 py-1.5 rounded-lg transition-all ${
+                className={`flex-1 py-2 rounded-lg transition-all ${
                   authMode === 'register' ? 'bg-[#C89B3C] text-white shadow-md' : 'text-gray-300 hover:text-white'
                 }`}
               >
