@@ -238,7 +238,11 @@ export const ProductDetailsPage = () => {
 
               {/* Stock Availability Urgency Badge (Amazon Style) */}
               <div className="flex items-center gap-2 text-xs font-poppins font-medium text-[#2C2C2C]">
-                {product.stock <= 5 ? (
+                {product.stock <= 0 ? (
+                  <span className="text-red-600 font-bold flex items-center gap-1">
+                    <ShieldAlert className="w-4 h-4 text-red-600" /> Out of Stock (0 Available)
+                  </span>
+                ) : product.stock <= 5 ? (
                   <span className="text-amber-600 font-bold flex items-center gap-1 animate-pulse">
                     <ShieldAlert className="w-4 h-4" /> Only {product.stock} left in stock - Order soon!
                   </span>
@@ -277,14 +281,14 @@ export const ProductDetailsPage = () => {
               <div className="pt-1 space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C]">Quantity</label>
-                  <span className="text-[11px] text-gray-500 font-poppins">Available Stock: <strong className="text-[#C89B3C] font-bold">{product.stock} Units</strong></span>
+                  <span className="text-[11px] text-gray-500 font-poppins">Available Stock: <strong className={product.stock <= 0 ? "text-red-500 font-bold" : "text-[#C89B3C] font-bold"}>{product.stock} Units</strong></span>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="flex items-center w-36 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
                     <button
                       type="button"
                       onClick={handleQuantityDecrease}
-                      disabled={quantity <= 1}
+                      disabled={quantity <= 1 || product.stock <= 0}
                       className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold disabled:opacity-30 transition-opacity"
                     >
                       -
@@ -293,21 +297,22 @@ export const ProductDetailsPage = () => {
                       type="number"
                       min={1}
                       max={product.stock}
-                      value={quantity}
+                      disabled={product.stock <= 0}
+                      value={product.stock <= 0 ? 0 : quantity}
                       onChange={(e) => handleQuantityInput(e.target.value)}
-                      className="w-12 text-center font-bold text-xs bg-transparent focus:outline-none"
+                      className="w-12 text-center font-bold text-xs bg-transparent focus:outline-none disabled:opacity-50"
                     />
                     <button
                       type="button"
                       onClick={handleQuantityIncrease}
-                      disabled={quantity >= product.stock}
+                      disabled={quantity >= product.stock || product.stock <= 0}
                       className="w-12 py-2 text-gray-600 hover:bg-[#FCE4EC] font-bold disabled:opacity-30 transition-opacity"
                     >
                       +
                     </button>
                   </div>
 
-                  {quantity >= product.stock && (
+                  {quantity >= product.stock && product.stock > 0 && (
                     <span className="text-[11px] text-amber-800 bg-amber-50 px-3 py-1 rounded-full font-medium border border-amber-200 flex items-center gap-1 animate-pulse">
                       <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> Stock limit reached ({product.stock} Max)
                     </span>
@@ -364,21 +369,30 @@ export const ProductDetailsPage = () => {
 
             {/* Main Action Buttons */}
             <div className="space-y-3 font-montserrat pt-4 border-t border-gray-100">
-              <div className="grid grid-cols-2 gap-3">
+              {product.stock <= 0 ? (
                 <button
-                  onClick={() => addToCart(product, quantity, selectedColor)}
-                  className="w-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] hover:bg-[#FCE4EC] py-3.5 rounded-2xl text-xs font-bold tracking-wider transition-all flex items-center justify-center gap-2"
+                  disabled
+                  className="w-full bg-gray-100 text-gray-400 border border-gray-200 py-3.5 rounded-2xl text-xs font-bold uppercase cursor-not-allowed"
                 >
-                  <ShoppingBag className="w-4 h-4 text-[#C89B3C]" /> Add To Cart
+                  Out of Stock
                 </button>
+              ) : (
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => addToCart(product, quantity, selectedColor)}
+                    className="w-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] hover:bg-[#FCE4EC] py-3.5 rounded-2xl text-xs font-bold tracking-wider transition-all flex items-center justify-center gap-2"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-[#C89B3C]" /> Add To Cart
+                  </button>
 
-                <button
-                  onClick={handleBuyNow}
-                  className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] hover:text-white py-3.5 rounded-2xl text-xs font-bold tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
-                >
-                  <Zap className="w-4 h-4 text-[#D4AF7F]" /> Buy Now
-                </button>
-              </div>
+                  <button
+                    onClick={handleBuyNow}
+                    className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] hover:text-white py-3.5 rounded-2xl text-xs font-bold tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
+                  >
+                    <Zap className="w-4 h-4 text-[#D4AF7F]" /> Buy Now
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Amazon & Meesho Style Trust Grid */}

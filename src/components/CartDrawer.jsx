@@ -177,16 +177,23 @@ export const CartDrawer = () => {
                           </button>
                           <span className="text-xs font-bold px-2">{item.quantity}</span>
                           <button
+                            disabled={item.quantity >= (item.product.stock || 999)}
                             onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
-                            className="text-xs font-bold text-gray-600 px-1.5 hover:text-[#C89B3C]"
+                            className="text-xs font-bold text-gray-600 px-1.5 hover:text-[#C89B3C] disabled:opacity-30"
                           >
                             +
                           </button>
                         </div>
 
-                        <span className="text-[10px] text-emerald-700 font-semibold font-montserrat">
-                          In Stock
-                        </span>
+                        {item.quantity >= (item.product.stock || 999) ? (
+                          <span className="text-[10px] text-amber-700 font-semibold font-montserrat bg-amber-50 px-2 py-0.5 rounded-full">
+                            Max Stock ({item.product.stock})
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-emerald-700 font-semibold font-montserrat">
+                            In Stock ({item.product.stock} available)
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>

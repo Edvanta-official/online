@@ -90,9 +90,15 @@ export const ProductQuickViewModal = () => {
                 <span className="text-xs font-montserrat uppercase font-bold text-[#D4AF7F] tracking-widest">
                   {quickViewProduct.categoryName}
                 </span>
-                <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5" /> In Stock ({quickViewProduct.stock || 12} left)
-                </span>
+                {quickViewProduct.stock <= 0 ? (
+                  <span className="text-xs text-red-600 font-bold flex items-center gap-1">
+                    Out of Stock
+                  </span>
+                ) : (
+                  <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5" /> In Stock ({quickViewProduct.stock || 12} left)
+                  </span>
+                )}
               </div>
 
               <h2 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C]">
@@ -146,15 +152,17 @@ export const ProductQuickViewModal = () => {
                 <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block mb-2">Quantity</label>
                 <div className="flex items-center w-32 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
                   <button
+                    disabled={quantity <= 1 || quickViewProduct.stock <= 0}
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm"
+                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
                   >
                     -
                   </button>
-                  <span className="flex-1 text-center font-bold text-xs">{quantity}</span>
+                  <span className="flex-1 text-center font-bold text-xs">{quickViewProduct.stock <= 0 ? 0 : quantity}</span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm"
+                    disabled={quantity >= quickViewProduct.stock || quickViewProduct.stock <= 0}
+                    onClick={() => setQuantity(Math.min(quickViewProduct.stock, quantity + 1))}
+                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
                   >
                     +
                   </button>
@@ -164,24 +172,33 @@ export const ProductQuickViewModal = () => {
 
             {/* CTA Buttons */}
             <div className="space-y-3 font-montserrat pt-4 border-t border-gray-100">
-              <div className="grid grid-cols-2 gap-3">
+              {quickViewProduct.stock <= 0 ? (
                 <button
-                  onClick={() => {
-                    addToCart(quickViewProduct, quantity, selectedColor);
-                    setQuickViewProduct(null);
-                  }}
-                  className="w-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] hover:bg-[#FCE4EC] py-3 rounded-2xl text-xs font-bold tracking-wider transition-all flex items-center justify-center gap-2"
+                  disabled
+                  className="w-full bg-gray-100 text-gray-400 border border-gray-200 py-3 rounded-2xl text-xs font-bold uppercase cursor-not-allowed"
                 >
-                  <ShoppingBag className="w-4 h-4 text-[#C89B3C]" /> Add To Cart
+                  Out of Stock
                 </button>
+              ) : (
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => {
+                      addToCart(quickViewProduct, quantity, selectedColor);
+                      setQuickViewProduct(null);
+                    }}
+                    className="w-full bg-[#FFF9F5] border border-[#D4AF7F] text-[#2C2C2C] hover:bg-[#FCE4EC] py-3 rounded-2xl text-xs font-bold tracking-wider transition-all flex items-center justify-center gap-2"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-[#C89B3C]" /> Add To Cart
+                  </button>
 
-                <button
-                  onClick={handleBuyNow}
-                  className="w-full bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] hover:text-white py-3 rounded-2xl text-xs font-bold tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
-                >
-                  <Zap className="w-4 h-4 text-[#D4AF7F]" /> Buy Now
-                </button>
-              </div>
+                  <button
+                    onClick={handleBuyNow}
+                    className="w-full bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] hover:text-white py-3 rounded-2xl text-xs font-bold tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
+                  >
+                    <Zap className="w-4 h-4 text-[#D4AF7F]" /> Buy Now
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={() => toggleWishlist(quickViewProduct)}

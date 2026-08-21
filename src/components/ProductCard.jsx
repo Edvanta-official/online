@@ -23,8 +23,10 @@ export const ProductCard = ({ product }) => {
 
   const categoryFallback = getDirectImageUrl(getCategoryFallbackImage(product.category));
 
+  const isOutOfStock = typeof product.stock === 'number' && product.stock <= 0;
+
   return (
-    <div className="group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full isolate">
+    <div className={`group relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-[#FCE4EC] shadow-xs hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full isolate ${isOutOfStock ? 'opacity-90' : ''}`}>
       
       {/* Image Container — Consistent aspect-square 1:1 image frame for uniform necklace & accessory alignment */}
       <div className="relative aspect-square w-full overflow-hidden bg-[#FFF9F5] cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
@@ -39,25 +41,33 @@ export const ProductCard = ({ product }) => {
               e.target.src = categoryFallback;
             }
           }}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+          className={`w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out ${isOutOfStock ? 'grayscale-30' : ''}`}
         />
 
         {/* Floating Badges */}
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 z-10">
-          {product.isNew && (
-            <span className="bg-[#2C2C2C] text-[#FCE4EC] text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs">
-              New Arrival
+          {isOutOfStock ? (
+            <span className="bg-red-600 text-white text-[9px] sm:text-[10px] font-montserrat font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-md">
+              Out of Stock
             </span>
-          )}
-          {discountPercent > 0 && (
-            <span className="bg-gradient-to-r from-[#F48FB1] to-[#D4AF7F] text-white text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs">
-              {discountPercent}% OFF
-            </span>
-          )}
-          {product.isFlashSale && (
-            <span className="bg-[#C89B3C] text-white text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs flex items-center gap-0.5">
-              <Zap className="w-2.5 h-2.5 fill-current" /> Flash Sale
-            </span>
+          ) : (
+            <>
+              {product.isNew && (
+                <span className="bg-[#2C2C2C] text-[#FCE4EC] text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs">
+                  New Arrival
+                </span>
+              )}
+              {discountPercent > 0 && (
+                <span className="bg-gradient-to-r from-[#F48FB1] to-[#D4AF7F] text-white text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs">
+                  {discountPercent}% OFF
+                </span>
+              )}
+              {product.isFlashSale && (
+                <span className="bg-[#C89B3C] text-white text-[9px] sm:text-[10px] font-montserrat font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full uppercase tracking-wider shadow-xs flex items-center gap-0.5">
+                  <Zap className="w-2.5 h-2.5 fill-current" /> Flash Sale
+                </span>
+              )}
+            </>
           )}
         </div>
 
@@ -132,21 +142,30 @@ export const ProductCard = ({ product }) => {
           </div>
 
           {/* Buttons Grid */}
-          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 font-montserrat">
+          {isOutOfStock ? (
             <button
-              onClick={() => addToCart(product, 1)}
-              className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC] hover:border-[#F48FB1] py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all flex items-center justify-center gap-0.5 sm:gap-1"
+              disabled
+              className="w-full bg-gray-100 text-gray-400 border border-gray-200 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold cursor-not-allowed uppercase"
             >
-              <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C89B3C]" /> Add
+              Out of Stock
             </button>
+          ) : (
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2 font-montserrat">
+              <button
+                onClick={() => addToCart(product, 1)}
+                className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/60 text-[#2C2C2C] hover:bg-[#FCE4EC] hover:border-[#F48FB1] py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all flex items-center justify-center gap-0.5 sm:gap-1"
+              >
+                <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C89B3C]" /> Add
+              </button>
 
-            <button
-              onClick={handleBuyNow}
-              className="w-full bg-gradient-to-r from-[#2C2C2C] to-[#4A3940] text-[#FCE4EC] hover:text-white py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold tracking-wider transition-all shadow-xs flex items-center justify-center gap-0.5 sm:gap-1"
-            >
-              <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF7F]" /> Buy
-            </button>
-          </div>
+              <button
+                onClick={handleBuyNow}
+                className="w-full bg-gradient-to-r from-[#2C2C2C] to-[#4A3940] text-[#FCE4EC] hover:text-white py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold tracking-wider transition-all shadow-xs flex items-center justify-center gap-0.5 sm:gap-1"
+              >
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF7F]" /> Buy
+              </button>
+            </div>
+          )}
         </div>
 
       </div>
