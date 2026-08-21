@@ -118,15 +118,12 @@ export const Navbar = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-center min-w-0">
-                <div className="flex items-center gap-1 sm:gap-2 leading-none">
+                <div className="flex items-baseline gap-1 leading-none">
                   <span className="font-serif-luxury text-base sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#C89B3C] group-hover:text-[#AA7C11] transition-colors leading-none">
                     SPARKLE
                   </span>
-                  <span className="font-serif italic text-xs sm:text-xl text-[#2C2C2C] font-normal leading-none self-center">
-                    @
-                  </span>
-                  <span className="font-poppins text-[10px] sm:text-base lg:text-lg font-bold tracking-tight text-[#2C2C2C] uppercase leading-none">
-                    KKV
+                  <span className="font-poppins text-[9px] sm:text-xs lg:text-sm font-extrabold text-[#2C2C2C] lowercase leading-none">
+                    @kkv
                   </span>
                 </div>
                 <span className="text-[6px] sm:text-[9px] text-[#8C4A57] font-montserrat tracking-[0.1em] sm:tracking-[0.2em] uppercase block mt-0.5 sm:mt-1 font-bold truncate">

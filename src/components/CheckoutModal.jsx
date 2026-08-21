@@ -81,10 +81,12 @@ export const CheckoutModal = () => {
         {/* Header - Fixed inside modal container */}
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] p-4 sm:p-6 flex items-center justify-between shrink-0">
           <div>
-            <span className="text-[10px] font-montserrat tracking-widest uppercase text-[#D4AF7F] font-bold">Sparkle @ KKV Boutique</span>
+            <span className="text-[10px] font-montserrat tracking-widest uppercase font-bold">
+              <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-[#2C2C2C] bg-white/90 px-1 py-0.5 rounded text-[9px] font-extrabold lowercase font-poppins ml-0.5">@kkv</span> Secure Checkout
+            </span>
             <h2 className="font-serif-luxury text-xl font-bold">
               {step === 1 && "Shipping & Delivery Address"}
-              {step === 2 && "PhonePe & Payment Confirmation"}
+              {step === 2 && "PhonePe & Payment Options"}
               {step === 3 && "Order Placed Successfully!"}
             </h2>
           </div>
@@ -352,18 +354,88 @@ export const CheckoutModal = () => {
                   )}
                 </div>
 
-                {/* Razorpay Option */}
+                {/* Credit / Debit Card Option */}
                 <div
-                  onClick={() => setPaymentMethod('Razorpay')}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'Razorpay' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
+                  onClick={() => setPaymentMethod('Card')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'Card' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
                 >
-                  <div className="flex items-center gap-3">
-                    <CreditCard className="w-5 h-5 text-[#C89B3C]" />
-                    <span className="text-xs font-bold text-[#2C2C2C]">Debit / Credit Cards & NetBanking (Razorpay)</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <CreditCard className="w-5 h-5 text-[#C89B3C]" />
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C]">Credit / Debit Card (Visa, Mastercard, RuPay)</span>
+                        <p className="text-[10px] text-gray-500 font-poppins">256-Bit SSL Encrypted Card Payment</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 text-[9px] font-bold text-gray-400 uppercase">
+                      <span>VISA</span> • <span>MC</span> • <span>RUPAY</span>
+                    </div>
                   </div>
+
+                  {paymentMethod === 'Card' && (
+                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 space-y-3 font-poppins text-xs" onClick={(e) => e.stopPropagation()}>
+                      <div className="space-y-1">
+                        <label className="text-[11px] font-semibold text-[#2C2C2C]">Card Number</label>
+                        <input
+                          type="text"
+                          maxLength={19}
+                          placeholder="xxxx xxxx xxxx xxxx"
+                          className="w-full pl-3 pr-3 py-2.5 rounded-xl border border-[#D4AF7F]/40 bg-white text-xs font-mono focus:outline-none focus:border-[#C89B3C]"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-semibold text-[#2C2C2C]">Expiry (MM/YY)</label>
+                          <input
+                            type="text"
+                            maxLength={5}
+                            placeholder="MM/YY"
+                            className="w-full pl-3 pr-3 py-2.5 rounded-xl border border-[#D4AF7F]/40 bg-white text-xs font-mono focus:outline-none focus:border-[#C89B3C]"
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-semibold text-[#2C2C2C]">Security CVV</label>
+                          <input
+                            type="password"
+                            maxLength={4}
+                            placeholder="•••"
+                            className="w-full pl-3 pr-3 py-2.5 rounded-xl border border-[#D4AF7F]/40 bg-white text-xs font-mono focus:outline-none focus:border-[#C89B3C]"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[10px] text-emerald-700 font-medium pt-1">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span>Protected by 256-Bit SSL Encryption (Myntra & Meesho Payment Standard)</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* COD Option */}
+                {/* Net Banking Option */}
+                <div
+                  onClick={() => setPaymentMethod('NetBanking')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'NetBanking' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <CreditCard className="w-5 h-5 text-[#C89B3C]" />
+                      <span className="text-xs font-bold text-[#2C2C2C]">Net Banking (HDFC, SBI, ICICI, Axis, Kotak)</span>
+                    </div>
+                    <span className="text-[10px] text-gray-500 font-montserrat font-bold">ALL INDIAN BANKS</span>
+                  </div>
+
+                  {paymentMethod === 'NetBanking' && (
+                    <div className="mt-3 pt-3 border-t border-[#D4AF7F]/30 grid grid-cols-3 gap-2 font-poppins" onClick={(e) => e.stopPropagation()}>
+                      {['HDFC Bank', 'SBI Bank', 'ICICI Bank', 'Axis Bank', 'Kotak Bank', 'PNB Bank'].map((bank, idx) => (
+                        <div key={idx} className="p-2 border border-gray-200 rounded-xl bg-white text-center text-[10px] font-semibold hover:border-[#C89B3C] cursor-pointer">
+                          {bank}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Cash on Delivery (COD) Option */}
                 <div
                   onClick={() => setPaymentMethod('COD')}
                   className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
@@ -371,13 +443,44 @@ export const CheckoutModal = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Banknote className="w-5 h-5 text-[#C89B3C]" />
-                      <span className="text-xs font-bold text-[#2C2C2C]">Cash On Delivery (COD)</span>
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C]">Cash On Delivery (COD)</span>
+                        <p className="text-[10px] text-gray-500 font-poppins">Pay cash to delivery executive upon order arrival</p>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-gray-500">Pay on Delivery</span>
+                    <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">BUYER PROTECTED</span>
                   </div>
+
+                  {paymentMethod === 'COD' && (
+                    <div className="mt-3 pt-3 border-t border-emerald-200/60 bg-emerald-50/70 p-3 rounded-xl text-xs text-emerald-950 font-poppins space-y-1" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-1.5 font-bold text-emerald-900">
+                        <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Meesho & Myntra 100% Buyer Protection Verified</span>
+                      </div>
+                      <p className="text-[11px] font-light leading-relaxed">
+                        Pay exact amount <strong>₹{cartTotal}</strong> in cash or UPI when your parcel is delivered at your doorstep.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
-              </div>
+                {/* Myntra / Meesho Security Trust Footer Badges */}
+                <div className="bg-[#FFF9F5] border border-[#D4AF7F]/30 p-3 rounded-2xl flex items-center justify-around text-[10px] text-gray-600 font-montserrat font-bold">
+                  <div className="flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>256-Bit SSL Protection</span>
+                  </div>
+                  <span>•</span>
+                  <div className="flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" />
+                    <span>100% Original Products</span>
+                  </div>
+                  <span>•</span>
+                  <div className="flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C89B3C]" />
+                    <span>Easy Exchange</span>
+                  </div>
+                </div>
 
               <div className="pt-2 flex justify-between items-center font-montserrat">
                 <button

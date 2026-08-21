@@ -43,15 +43,12 @@ export const Footer = () => {
               <div className="w-11 h-11 rounded-2xl bg-[#FFF9F5]/10 border border-[#D4AF7F]/40 flex items-center justify-center shadow-xs">
                 <Sparkles className="w-5 h-5 text-[#C89B3C]" />
               </div>
-              <div className="flex items-center gap-2 leading-none">
-                <span className="font-serif-luxury text-3xl font-extrabold tracking-tight text-[#C89B3C] leading-none">
+              <div className="flex items-baseline gap-1 leading-none">
+                <span className="font-serif-luxury text-3xl font-extrabold tracking-tight text-[#C89B3C] leading-none uppercase">
                   SPARKLE
                 </span>
-                <span className="font-serif italic text-lg text-white font-normal leading-none self-center">
-                  @
-                </span>
-                <span className="font-poppins text-lg font-bold tracking-tight text-white uppercase leading-none">
-                  KKV
+                <span className="font-poppins text-sm font-extrabold text-white lowercase leading-none">
+                  @kkv
                 </span>
               </div>
             </div>

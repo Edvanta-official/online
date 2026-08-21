@@ -17,7 +17,7 @@ export const AboutSection = () => {
             <Sparkles className="w-3.5 h-3.5" /> Our Story & Leadership
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
-            About Sparkle <span className="gold-gradient-text italic font-serif">@ KKV</span>
+            About <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-[#2C2C2C] text-lg font-extrabold lowercase font-poppins">@kkv</span>
           </h2>
           <p className="text-xs sm:text-sm text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
             Where heritage craftsmanship meets contemporary boutique fashion accessories.

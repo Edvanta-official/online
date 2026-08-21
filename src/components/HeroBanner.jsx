@@ -20,7 +20,7 @@ export const HeroBanner = () => {
             <div>
               <div className="inline-flex items-center gap-1.5 bg-white/90 border border-[#D4AF7F]/40 shadow-xs px-3 py-1.5 rounded-full font-montserrat text-[9px] sm:text-xs tracking-wider sm:tracking-widest text-[#2C2C2C] uppercase backdrop-blur-md max-w-full">
                 <Sparkles className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
-                <span className="truncate sm:whitespace-normal">Sparkle @ KKV — Where Every Accessory Tells Your Story</span>
+                <span className="truncate sm:whitespace-normal"><strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-[#2C2C2C] font-bold lowercase text-[10px]">@kkv</span> — Where Every Accessory Tells Your Story</span>
               </div>
             </div>
 

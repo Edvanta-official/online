@@ -370,7 +370,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
           <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#C89B3C]/10 rounded-full blur-xl"></div>
 
           <h2 className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-wide mt-1">
-            Sparkle <span className="text-[#D4AF7F]">@ KKV</span> Security
+            <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-[#2C2C2C] bg-white/90 px-1.5 py-0.5 rounded text-xs font-bold lowercase font-poppins ml-0.5">@kkv</span> Security
           </h2>
           <p className="text-[10px] sm:text-[11px] text-gray-300 font-light mt-0.5">
             {authMode === 'signin' && 'Sign in to access your orders, saved addresses & 10% OFF coupon'}
