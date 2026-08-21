@@ -5,7 +5,7 @@ export const BRAND_INFO = {
   domain: "sparklekkv.com",
   phone: "+91 99491 57771",
   email: "support@sparklekkv.com",
-  address: "Ayyappa Society, Madhapur, Telangana, Hyderabad - 500081",
+  address: "Madhapur, Hyderabad, Telangana",
   socials: {
     instagram: "@sparklekkvoffical",
     instagramUrl: "https://www.instagram.com/sparklekkvoffical?igsh=MW8ydzIza3oybmM2aQ==",

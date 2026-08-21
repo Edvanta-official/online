@@ -187,16 +187,16 @@ export const HomePage = () => {
               </p>
             </div>
 
-            {/* Card 5: Direct Leadership Support */}
+            {/* Card 5: Direct Customer Support */}
             <div className="bg-white p-7 sm:p-8 rounded-3xl border border-[#FCE4EC] hover:border-[#D4AF7F] shadow-xs hover:shadow-2xl transition-all duration-300 space-y-4 group">
               <div className="w-14 h-14 rounded-2xl bg-[#FFF9F5] border border-[#FCE4EC] group-hover:bg-[#2C2C2C] flex items-center justify-center text-2xl transition-all duration-300 shadow-inner">
                 📞
               </div>
               <h3 className="font-serif-luxury text-lg sm:text-xl font-bold text-[#2C2C2C] group-hover:text-[#C89B3C] transition-colors">
-                Direct CEO Leadership
+                Direct Customer Support
               </h3>
               <p className="text-xs sm:text-sm text-gray-600 font-light leading-relaxed">
-                Get dedicated support from Founder & CEO Koti Koushik via +91 99491 57771 for order adjustments, customized sizing, and wholesale inquiries.
+                Get dedicated support via +91 99491 57771 for order adjustments, customized sizing, delivery tracking, and wholesale inquiries.
               </p>
             </div>
 

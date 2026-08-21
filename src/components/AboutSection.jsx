@@ -47,13 +47,13 @@ export const AboutSection = () => {
 
                 <div className="space-y-1">
                   <span className="text-[11px] font-montserrat uppercase tracking-widest text-[#D4AF7F] font-bold block">
-                    Founder & CEO
+                    Luxury Fashion House
                   </span>
                   <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-tight">
                     Koti Koushik
                   </h3>
                   <p className="text-xs text-gray-300 font-light">
-                    Founder & CEO, <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-white font-bold lowercase text-[10px]">@kkv</span>
+                    <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-white font-bold lowercase text-[10px]">@kkv</span>
                   </p>
                 </div>
 
@@ -72,7 +72,7 @@ export const AboutSection = () => {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-[#D4AF7F] shrink-0 mt-0.5" />
-                    <span>Ayyappa Society, Madhapur, Telangana, Hyderabad - 500081</span>
+                    <span>Madhapur, Hyderabad, Telangana</span>
                   </div>
                 </div>
 
@@ -89,7 +89,7 @@ export const AboutSection = () => {
                 Crafting Timeless Accessories for Every Moment
               </h3>
               <p className="text-xs sm:text-sm text-gray-600 font-light leading-relaxed">
-                Founded by <strong>Koti Koushik</strong>, <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-[#2C2C2C] font-extrabold lowercase text-xs">@kkv</span> was born out of a vision to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
+                At <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-[#2C2C2C] font-extrabold lowercase text-xs">@kkv</span>, our vision is to deliver boutique-quality fashion accessories without compromising on quality or elegance. From handcrafted Plumeria flower hair claws to traditional South Indian Kemp choker sets and waterproof anti-tarnish chains, every piece is designed to tell your unique story.
               </p>
             </div>
 
@@ -101,9 +101,9 @@ export const AboutSection = () => {
                   <Award className="w-5 h-5 text-[#C89B3C]" />
                 </div>
                 <div>
-                  <h4 className="font-serif-luxury text-sm font-bold text-[#2C2C2C]">Direct Leadership</h4>
+                  <h4 className="font-serif-luxury text-sm font-bold text-[#2C2C2C]">Dedicated Customer Care</h4>
                   <p className="text-[11px] text-gray-500 font-light mt-0.5">
-                    Guided by Founder & CEO Koti Koushik with 100% commitment to customer satisfaction.
+                    100% commitment to customer satisfaction, fast dispatch, and direct order support.
                   </p>
                 </div>
               </div>
