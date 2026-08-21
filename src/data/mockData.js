@@ -90,7 +90,7 @@ export const CATEGORIES = [
     id: "necklaces",
     name: "Necklace Sets",
     icon: "📿",
-    count: 9,
+    count: 10,
     description: "Traditional South Indian chokers, Manga Malai, Kemp & Kasu Mala sets",
     image: "images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg"
   },
@@ -630,6 +630,34 @@ export const PRODUCTS = [
     details: [
       "Quantity: 1 Piece",
       "Purchase Price: ₹376"
+    ]
+  },
+  {
+    id: "SPK-NK-110",
+    sku: "SPK-NK-110",
+    name: "Traditional South Indian Royal Temple Choker Set",
+    category: "necklaces",
+    subcategory: "chokers",
+    categoryName: "Necklace Sets",
+    price: 499,
+    originalPrice: 799,
+    rating: 4.9,
+    reviewsCount: 125,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 1,
+    images: [
+      "images/whatsapp_image_2026_08_10_at_7_52_07_pm_jpeg_drive.jpg"
+    ],
+    colors: [
+      "Antique Matte Gold & Ruby Stones"
+    ],
+    description: "Royal South Indian temple choker set with handcrafted antique gold finish and matching earrings.",
+    details: [
+      "Quantity: 1 Piece",
+      "Drive File: WhatsApp Image 2026-08-10 at 7.52.07 PM.jpeg"
     ]
   },
   {
