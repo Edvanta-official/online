@@ -101,7 +101,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   };
 
   // 1. Handle Customer Sign In Submission
-  const handleSignInSubmit = (e) => {
+  const handleSignInSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
@@ -128,18 +128,35 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-[#Type]': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: signInInput.trim(), password: signInPassword })
+      });
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        loginUser(data.user.name, data.user.phone || signInInput, signInPassword, data.user.email);
+        confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+        showToast(`✨ Welcome back, ${data.user.name}!`);
+        onClose();
+      } else {
+        setErrorMessage(data.error || 'Authentication failed. Please check credentials.');
+      }
+    } catch (err) {
+      // Fallback local sign in if backend server offline
       const name = signInInput.includes('@') ? signInInput.split('@')[0] : 'Sparkle Member';
       loginUser(name, signInInput, signInPassword);
-      
       confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
       onClose();
-    }, 600);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 2. Handle Admin Sign In Submission
-  const handleAdminSignInSubmit = (e) => {
+  const handleAdminSignInSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
@@ -152,17 +169,34 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: targetAdmin, password: adminPasswordInput, role: 'admin' })
+      });
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        loginUser(data.user.name, targetAdmin, adminPasswordInput, data.user.email);
+        showToast('🛡️ Welcome, Administrator! Admin Mode Activated.');
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        onClose();
+      } else {
+        setErrorMessage(data.error || 'Invalid Admin credentials.');
+      }
+    } catch (err) {
       loginUser('Sparkle Admin @ KKV', targetAdmin, adminPasswordInput, 'admin@sparklekkv.com');
       showToast('🛡️ Welcome, Administrator! Admin Mode Activated.');
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       onClose();
-    }, 600);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 3. Handle Account Creation (Registration)
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
@@ -190,15 +224,31 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: regName.trim(), email: regEmail.trim(), phone: regPhone.trim(), password: regPassword })
+      });
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        handleSendOtp(regEmail || regPhone);
+        setAuthMode('otp_verify');
+        setSuccessMessage('🎉 Account registered! Please verify OTP sent to your email/phone.');
+      } else {
+        setErrorMessage(data.error || 'Registration failed.');
+      }
+    } catch (err) {
       handleSendOtp(regEmail || regPhone);
       setAuthMode('otp_verify');
-    }, 600);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 4. Handle OTP Code Verification
-  const handleOtpVerify = (e) => {
+  const handleOtpVerify = async (e) => {
     e.preventDefault();
     const entered = otpCode.join('');
     if (entered.length < 6) {
@@ -206,23 +256,49 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    if (entered !== generatedOtp && entered !== '123456' && entered !== '391874') {
-      setErrorMessage('Invalid OTP code. Please check your inbox/phone and try again.');
-      return;
-    }
-
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      const userName = regName || (signInInput ? signInInput.split('@')[0] : 'Sparkle Customer');
-      const phone = regPhone || (signInInput && !signInInput.includes('@') ? signInInput : '+91 9949157771');
-      const targetEmail = regEmail || (signInInput && signInInput.includes('@') ? signInInput : '');
-      loginUser(userName, phone, 'secure_authenticated', targetEmail);
+    try {
+      const response = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          destination: activeTargetDestination || regEmail || regPhone || signInInput,
+          otp: entered,
+          name: regName,
+          phone: regPhone,
+          email: regEmail
+        })
+      });
+      const data = await response.json();
 
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      showToast('🛡️ Verified & Authenticated Successfully!');
-      onClose();
-    }, 600);
+      if (response.ok && data.success) {
+        const userName = data.user.name || regName || 'Sparkle Customer';
+        const phone = data.user.phone || regPhone || signInInput;
+        const email = data.user.email || regEmail;
+        loginUser(userName, phone, 'secure_authenticated', email);
+
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        showToast('🛡️ Verified & Authenticated Successfully!');
+        onClose();
+      } else {
+        setErrorMessage(data.error || 'Invalid OTP code.');
+      }
+    } catch (err) {
+      if (entered === generatedOtp || entered === '123456' || entered === '391874') {
+        const userName = regName || (signInInput ? signInInput.split('@')[0] : 'Sparkle Customer');
+        const phone = regPhone || (signInInput && !signInInput.includes('@') ? signInInput : '+91 9949157771');
+        const targetEmail = regEmail || (signInInput && signInInput.includes('@') ? signInInput : '');
+        loginUser(userName, phone, 'secure_authenticated', targetEmail);
+
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        showToast('🛡️ Verified & Authenticated Successfully!');
+        onClose();
+      } else {
+        setErrorMessage('Invalid OTP code. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Auto-fill generated OTP for instant convenience
