@@ -124,7 +124,7 @@ export const HomePage = () => {
             </div>
 
             <h2 className="font-serif-luxury text-3xl sm:text-5xl font-extrabold text-[#2C2C2C] text-center tracking-tight leading-snug pt-1">
-              Why Choose <span className="text-[#C89B3C] font-serif italic font-normal">Sparkle</span> <span className="text-[#2C2C2C] font-serif italic font-normal">@</span> <span className="font-poppins font-extrabold tracking-normal">KKV</span>?
+              Why Choose <span className="font-serif-luxury text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="font-serif italic text-[#2C2C2C] font-normal">@</span> <span className="font-poppins text-[#2C2C2C] font-extrabold uppercase text-[0.8em]">KKV</span>?
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#FCE4EC] via-[#D4AF7F] to-[#FCE4EC] mx-auto rounded-full" />
             
