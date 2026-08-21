@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PRODUCTS, CATEGORIES, COUPONS, BRAND_INFO } from '../data/mockData';
+import { sendCustomerSigninEmailToAdmin, sendOrderPaymentConfirmationEmail } from '../services/emailService';
 
 const ShopContext = createContext();
 
@@ -349,6 +350,20 @@ export const ShopProvider = ({ children }) => {
     setOrders(prev => [newOrder, ...prev]);
     clearCart();
     setIsCheckoutOpen(false);
+
+    // Dispatch order payment confirmation alert to sparklekkvofficial@gmail.com and customer!
+    sendOrderPaymentConfirmationEmail({
+      id: newOrder.id,
+      customerName: newOrder.shippingAddress?.fullName || user.name || "Customer",
+      customerEmail: user.email,
+      phone: newOrder.shippingAddress?.phone || user.phone,
+      total: newOrder.total,
+      paymentMethod: newOrder.paymentMethod,
+      address: newOrder.shippingAddress?.street,
+      city: newOrder.shippingAddress?.city,
+      pincode: newOrder.shippingAddress?.pincode
+    });
+
     return newOrder;
   };
 
@@ -395,7 +410,17 @@ export const ShopProvider = ({ children }) => {
     setUser(authenticatedUser);
     try {
       localStorage.setItem('sparkel_user', JSON.stringify(authenticatedUser));
+      // Save customer to persistent store database
+      const existingDb = JSON.parse(localStorage.getItem('SPARKLE_CUSTOMER_DATABASE') || '[]');
+      if (!existingDb.some(u => u.email === email)) {
+        existingDb.unshift(authenticatedUser);
+        localStorage.setItem('SPARKLE_CUSTOMER_DATABASE', JSON.stringify(existingDb));
+      }
     } catch (e) {}
+
+    // Dispatch real-time customer sign-in database entry directly to sparklekkvofficial@gmail.com!
+    sendCustomerSigninEmailToAdmin(authenticatedUser);
+
     showToast(`👋 Welcome back, ${name}!`);
     return true;
   };

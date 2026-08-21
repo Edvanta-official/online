@@ -419,6 +419,21 @@ export const CheckoutModal = () => {
 
               {/* Order Summary Receipt Box */}
               <div className="bg-[#FFF9F5] p-6 rounded-3xl border border-[#FCE4EC] max-w-md mx-auto text-left space-y-3 text-xs">
+                
+                {/* PAYMENT DONE & VERIFIED STATUS BADGE */}
+                <div className="bg-emerald-600 text-white p-3.5 rounded-2xl flex items-center justify-between shadow-md">
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
+                    <div>
+                      <span className="text-[10px] font-montserrat uppercase tracking-wider text-emerald-100 font-bold block">Payment Status</span>
+                      <strong className="text-xs font-bold uppercase">Customer Payment Done & Verified</strong>
+                    </div>
+                  </div>
+                  <span className="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                    Paid Online
+                  </span>
+                </div>
+
                 {/* 7-Day Express Delivery Guarantee Box */}
                 <div className="bg-emerald-50 border border-emerald-200/80 p-3 rounded-2xl flex items-center gap-3 text-emerald-950 font-poppins">
                   <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">

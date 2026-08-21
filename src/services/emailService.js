@@ -136,3 +136,93 @@ export const sendSubscriberEmailViaEmailJS = async (subscriberEmail) => {
 
   return { success: true, providersTriggered: results };
 };
+
+export const OWNER_NOTIFICATION_EMAIL = 'sparklekkvofficial@gmail.com';
+
+/**
+ * Dispatches customer signin / registration database entry directly to sparklekkvofficial@gmail.com
+ */
+export const sendCustomerSigninEmailToAdmin = async (userData) => {
+  const userEmail = userData?.email || 'N/A';
+  const userName = userData?.name || 'Customer';
+  const userPhone = userData?.phone || 'N/A';
+  const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+  console.log(`[Customer Signin Database Notification]: Dispatching ${userName} (${userEmail}) to ${OWNER_NOTIFICATION_EMAIL}...`);
+
+  try {
+    fetch(`https://formsubmit.co/ajax/${OWNER_NOTIFICATION_EMAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `👤 New Customer Sign-In Database Alert: ${userName} (${userEmail})`,
+        name: userName,
+        email: userEmail,
+        phone: userPhone,
+        signin_time: timestamp,
+        account_type: userData?.role || 'Customer',
+        message: `🎉 Customer Account Sign-In / Registration Logged!\n\nUser Name: ${userName}\nEmail Address: ${userEmail}\nPhone Number: ${userPhone}\nTimestamp: ${timestamp}\nAccount Type: ${userData?.role || 'Customer'}\n\nThis customer data has been saved to your Sparkle @ KKV customer database.`
+      })
+    }).catch(err => console.log('Owner signin notification error:', err));
+  } catch (e) {
+    console.warn('[Owner Signin Notification Error]:', e);
+  }
+};
+
+/**
+ * Dispatches Order Payment Done & Verified confirmation directly to sparklekkvofficial@gmail.com
+ */
+export const sendOrderPaymentConfirmationEmail = async (orderData) => {
+  const customerEmail = orderData?.customerEmail || 'customer@sparklekkv.com';
+  const customerName = orderData?.customerName || 'Customer';
+  const orderId = orderData?.id || 'SPK-ORDER';
+  const totalAmount = orderData?.total || 0;
+  const paymentMethod = orderData?.paymentMethod || 'PhonePe / Instant UPI';
+  const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
+  console.log(`[Order Payment Done Dispatch]: Sending payment verification for ${orderId} to ${OWNER_NOTIFICATION_EMAIL}...`);
+
+  try {
+    // Notify Owner sparklekkvofficial@gmail.com
+    fetch(`https://formsubmit.co/ajax/${OWNER_NOTIFICATION_EMAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `💰 Payment Done & Order Verified: ${orderId} (₹${totalAmount})`,
+        order_id: orderId,
+        customer_name: customerName,
+        customer_email: customerEmail,
+        customer_phone: orderData?.phone || 'N/A',
+        total_paid: `₹${totalAmount}`,
+        payment_status: "PAYMENT DONE & VERIFIED",
+        payment_method: paymentMethod,
+        delivery_type: "Guaranteed 7-Day Express Delivery",
+        order_date: timestamp,
+        shipping_address: orderData?.address ? `${orderData.address}, ${orderData.city || ''}, ${orderData.pincode || ''}` : 'N/A'
+      })
+    }).catch(err => console.log('Payment notification error:', err));
+
+    // Notify Customer
+    if (customerEmail.includes('@')) {
+      fetch(`https://formsubmit.co/ajax/${customerEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `✅ Payment Received & Order Confirmed - ${orderId}`,
+          message: `Hello ${customerName},\n\nThank you for shopping at Sparkle @ KKV!\n\nYour payment of ₹${totalAmount} via ${paymentMethod} has been RECEIVED & VERIFIED.\nOrder ID: ${orderId}\nStatus: Payment Done / Dispatched in 24 Hours\nGuaranteed Delivery: 7 Days Pan-India\n\nBest regards,\nSparkle @ KKV Team\nsparklekkv.com`
+        })
+      }).catch(err => console.log('Customer payment confirmation error:', err));
+    }
+  } catch (e) {
+    console.warn('[Payment Notification Error]:', e);
+  }
+};

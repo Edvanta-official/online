@@ -482,7 +482,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              {/* Login Method Toggle */}
+              {/* Remember Me */}
               <div className="flex items-center justify-between pt-1">
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-gray-600">
                   <input
@@ -493,15 +493,6 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                   />
                   Keep me signed in
                 </label>
-
-                <button
-                  type="button"
-                  onClick={() => setUseOtpSignIn(!useOtpSignIn)}
-                  className="text-xs font-bold text-[#C89B3C] hover:underline flex items-center gap-1"
-                >
-                  <KeyRound className="w-3.5 h-3.5" />
-                  {useOtpSignIn ? 'Use Password Instead' : 'Sign in with OTP'}
-                </button>
               </div>
 
               <button

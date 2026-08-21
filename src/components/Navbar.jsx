@@ -265,33 +265,6 @@ export const Navbar = () => {
                             <X className="w-4 h-4" /> Sign Out
                           </button>
                         </div>
-
-                        {/* Interactive Mode Switcher */}
-                        <div className="border-t border-gray-100 pt-2 px-4 pb-1">
-                          <p className="text-[10px] font-montserrat uppercase text-gray-400 mb-1">Switch Mode</p>
-                          <div className="grid grid-cols-2 gap-1 bg-[#F5F5F5] p-1 rounded-xl">
-                            <button
-                              onClick={() => {
-                                switchUserRole('customer');
-                                setIsUserMenuOpen(false);
-                                navigate('/dashboard');
-                              }}
-                              className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'customer' ? 'bg-white shadow text-[#2C2C2C]' : 'text-gray-500'}`}
-                            >
-                              Customer
-                            </button>
-                            <button
-                              onClick={() => {
-                                switchUserRole('admin');
-                                setIsUserMenuOpen(false);
-                                navigate('/admin');
-                              }}
-                              className={`py-1 rounded-lg text-[10px] font-semibold transition-all ${user.role === 'admin' ? 'bg-[#C89B3C] text-white shadow' : 'text-gray-500'}`}
-                            >
-                              Admin Mode
-                            </button>
-                          </div>
-                        </div>
                       </div>
                     )}
                   </>
