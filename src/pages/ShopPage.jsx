@@ -598,7 +598,12 @@ export const ShopPage = () => {
         )}
 
         {/* Product Cards Grid — Uniform cropping & 2 per row on Mobile */}
-        {filteredProducts.length === 0 ? (
+        {selectedCategory === 'gift-sets' && !currentSubcategory ? (
+          /* When Gift Sets is clicked without choosing a subcategory, only show the CANVAS & FLOWERS choice cards above */
+          <div className="py-8 text-center text-xs text-gray-500 font-montserrat font-medium bg-white/60 rounded-3xl border border-[#FCE4EC]">
+            ☝️ Please select <strong className="text-[#C89B3C]">CANVAS</strong> or <strong className="text-[#F48FB1]">FLOWERS</strong> above to view curated gift items.
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <div className="bg-white rounded-3xl p-12 text-center space-y-4 border border-[#FCE4EC]">
             <div className="w-16 h-16 bg-[#FCE4EC] rounded-full flex items-center justify-center mx-auto text-2xl">
               🔍
@@ -622,7 +627,10 @@ export const ShopPage = () => {
 
         {/* Catalog Item Counter Footer */}
         <div className="mt-12 text-center text-xs text-gray-400 font-montserrat">
-          Displaying {filteredProducts.length} of {products.length} total items in Sparkle @ KKV collection.
+          {selectedCategory === 'gift-sets' && !currentSubcategory 
+            ? "Showing Gift Collections (CANVAS & FLOWERS)"
+            : `Displaying ${filteredProducts.length} of ${products.length} total items in Sparkle @ KKV collection.`
+          }
         </div>
 
       </div>
