@@ -12,10 +12,27 @@
     --color-accent-pink: #F48FB1;
   }
 
-  body {
+  html, body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--color-soft-cream);
     color: var(--color-dark-text);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    overflow-x: hidden;
+  }
+
+  /* Prevent auto-zoom on iOS Safari when focusing input fields */
+  @media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 
   h1, h2, h3, h4, h5, h6, .font-serif-luxury {
