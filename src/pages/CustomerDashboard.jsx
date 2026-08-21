@@ -281,6 +281,9 @@ export const CustomerDashboard = () => {
                               <div>
                                 <h4 className="font-bold text-[#2C2C2C]">{item.name}</h4>
                                 <span className="text-gray-500">Qty: {item.quantity} × ₹{item.price}</span>
+                                <span className="block text-[10px] text-emerald-700 font-semibold font-montserrat mt-0.5">
+                                  🚚 Guaranteed 7-Day Product Delivery
+                                </span>
                               </div>
                             </div>
                             <span className="font-bold text-[#2C2C2C]">₹{item.price * item.quantity}</span>
@@ -288,10 +291,13 @@ export const CustomerDashboard = () => {
                         ))}
                       </div>
 
-                      {/* Total */}
-                      <div className="border-t border-gray-100 pt-3 flex justify-between items-center text-xs font-montserrat">
+                      {/* Total & Delivery Estimate */}
+                      <div className="border-t border-gray-100 pt-3 flex flex-wrap justify-between items-center text-xs font-montserrat gap-2">
                         <span className="text-gray-500">Tracking Code: <strong className="text-[#2C2C2C] font-mono">{order.trackingNumber}</strong></span>
-                        <span className="font-bold text-sm text-[#C89B3C]">Total: ₹{order.finalAmount}</span>
+                        <span className="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full text-[11px] border border-emerald-100">
+                          🚚 Delivery Date: {order.estimatedDeliveryDate || 'Within 7 Business Days'}
+                        </span>
+                        <span className="font-bold text-sm text-[#C89B3C]">Total Paid: ₹{order.finalAmount}</span>
                       </div>
 
                     </div>

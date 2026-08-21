@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Trash2, ArrowRight, ShoppingBag, Sparkles, Tag, ShieldCheck, Video } from 'lucide-react';
+import { X, Trash2, ArrowRight, ShoppingBag, Sparkles, Tag, ShieldCheck, Video, Truck } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { getDirectImageUrl } from '../utils/imageUtils';
 
@@ -250,6 +250,17 @@ export const CartDrawer = () => {
                   <span>Total Amount</span>
                   <span className="text-[#C89B3C]">₹{cartTotal}</span>
                 </div>
+              </div>
+
+              {/* 7-Day Delivery Guarantee Badge */}
+              <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-2.5 space-y-1 text-left font-poppins shadow-xs">
+                <div className="flex items-center gap-1.5 text-emerald-900 font-montserrat text-[10px] font-bold">
+                  <Truck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>🚚 Guaranteed 7-Day Express Delivery</span>
+                </div>
+                <p className="text-[10px] text-emerald-800 font-light leading-relaxed">
+                  Every item in your order is delivered within <strong>7 business days</strong> pan-India.
+                </p>
               </div>
 
               {/* Unboxing Notice */}

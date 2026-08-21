@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video, Truck } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
 import exactScannerImg from '../assets/phonepe_scanner_exact.png';
@@ -238,15 +238,21 @@ export const CheckoutModal = () => {
                 </button>
               </div>
 
-              {/* Order Total Display Banner */}
-              <div className="p-4 bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] rounded-2xl flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] uppercase font-montserrat tracking-widest text-[#D4AF7F]">Amount Payable</span>
-                  <p className="text-2xl font-bold font-poppins">₹{cartTotal}</p>
+              {/* Order Total & 7-Day Express Delivery Banner */}
+              <div className="p-4 bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] rounded-2xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] uppercase font-montserrat tracking-widest text-[#D4AF7F]">Amount Payable</span>
+                    <p className="text-2xl font-bold font-poppins">₹{cartTotal}</p>
+                  </div>
+                  <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold text-[10px] px-3 py-1 rounded-full uppercase font-montserrat">
+                    30% OFF Applied
+                  </span>
                 </div>
-                <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold text-[10px] px-3 py-1 rounded-full uppercase font-montserrat">
-                  30% OFF Applied
-                </span>
+                <div className="pt-2 border-t border-white/10 flex items-center gap-2 text-xs text-amber-300 font-poppins font-medium">
+                  <Truck className="w-4 h-4 text-[#D4AF7F] shrink-0" />
+                  <span>🚚 <strong>Guaranteed 7-Day Delivery:</strong> Every item in your order is delivered within 7 business days pan-India.</span>
+                </div>
               </div>
 
               {/* Payment Mode Options */}
@@ -522,8 +528,19 @@ export const CheckoutModal = () => {
 
               {/* Order Summary Receipt Box */}
               <div className="bg-[#FFF9F5] p-6 rounded-3xl border border-[#FCE4EC] max-w-md mx-auto text-left space-y-3 text-xs">
-                <div className="flex justify-between font-semibold text-gray-700 border-b border-[#D4AF7F]/30 pb-2">
-                  <span>Items Total ({placedOrderInfo.items.length})</span>
+                {/* 7-Day Express Delivery Guarantee Box */}
+                <div className="bg-emerald-50 border border-emerald-200/80 p-3 rounded-2xl flex items-center gap-3 text-emerald-950 font-poppins">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                    <Truck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <strong className="block text-xs text-emerald-900 font-bold">🚚 Guaranteed 7-Day Product Delivery</strong>
+                    <span className="text-[11px] text-emerald-700">Estimated Delivery Date: <strong className="text-emerald-900">{placedOrderInfo.estimatedDeliveryDate || 'Within 7 Business Days'}</strong></span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between font-semibold text-gray-700 border-b border-[#D4AF7F]/30 pb-2 pt-1">
+                  <span>Items Total ({placedOrderInfo.items.length} Product{placedOrderInfo.items.length > 1 ? 's' : ''})</span>
                   <span>₹{placedOrderInfo.cartSubtotal}</span>
                 </div>
                 <div className="flex justify-between text-emerald-600 font-semibold">
@@ -538,9 +555,9 @@ export const CheckoutModal = () => {
                   <span>Total Amount Paid</span>
                   <span className="text-[#C89B3C]">₹{placedOrderInfo.cartTotal}</span>
                 </div>
-                <div className="pt-2 text-[11px] text-gray-500 font-light border-t border-gray-100">
+                <div className="pt-2 text-[11px] text-gray-500 font-light border-t border-gray-100 space-y-1">
                   <p><strong>Deliver To:</strong> {placedOrderInfo.shippingAddress.street}, {placedOrderInfo.shippingAddress.city} - {placedOrderInfo.shippingAddress.pincode}</p>
-                  <p><strong>Contact:</strong> +91 9949157771</p>
+                  <p><strong>Guaranteed Delivery:</strong> All items arriving by <strong>{placedOrderInfo.estimatedDeliveryDate}</strong></p>
                 </div>
               </div>
 

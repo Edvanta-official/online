@@ -354,7 +354,7 @@ export const AdminDashboard = () => {
                 <div key={o.id} className="p-4 bg-[#FFF9F5] rounded-2xl border border-[#FCE4EC] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
                   <div>
                     <span className="font-mono font-bold text-sm text-[#2C2C2C]">{o.id}</span>
-                    <p className="text-gray-600">{o.customerName} • {o.items.length} items • ₹{o.finalAmount}</p>
+                    <p className="text-gray-600">{o.customerName} • {o.items.length} items • ₹{o.finalAmount} • <strong className="text-emerald-700 font-bold">🚚 7-Day Delivery Target ({o.estimatedDeliveryDate || 'Within 7 Days'})</strong></p>
                     <span className="text-[10px] text-gray-400">Tracking: {o.trackingNumber}</span>
                   </div>
 

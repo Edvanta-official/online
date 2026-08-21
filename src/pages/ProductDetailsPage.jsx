@@ -361,8 +361,8 @@ export const ProductDetailsPage = () => {
                         <p className="font-bold flex items-center gap-1.5 text-xs text-emerald-800">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> {pincodeStatus.date}
                         </p>
-                        <p className="text-[11px] text-emerald-700 font-medium pl-5">
-                          📍 {pincodeStatus.zone}
+                        <p className="text-[11px] text-emerald-700 font-medium pl-5 flex items-center gap-1">
+                          <Truck className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 🚚 <strong>Guaranteed 7-Day Delivery:</strong> Delivered within 7 days max.
                         </p>
                         <div className="flex items-center gap-3 text-[11px] text-gray-600 pt-1 border-t border-emerald-200/50">
                           <span className="flex items-center gap-1"><Banknote className="w-3.5 h-3.5 text-[#C89B3C]" /> Cash on Delivery (COD) Available</span>

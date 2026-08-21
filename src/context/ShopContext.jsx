@@ -314,6 +314,10 @@ export const ShopProvider = ({ children }) => {
 
   // Order Placement
   const placeOrder = (orderDetails) => {
+    const deliveryDateObj = new Date();
+    deliveryDateObj.setDate(deliveryDateObj.getDate() + 7);
+    const estimatedDeliveryDate = deliveryDateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
     const newOrder = {
       id: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
       customerName: orderDetails.shippingAddress.fullName || user.name,
@@ -323,17 +327,22 @@ export const ShopProvider = ({ children }) => {
         name: i.product.name,
         price: i.product.price,
         quantity: i.quantity,
-        image: i.product.images[0]
+        image: i.product.images[0],
+        deliveryDays: 7
       })),
       totalAmount: cartSubtotal,
       discount: discountAmount,
       shippingFee,
       finalAmount: cartTotal,
+      cartSubtotal,
+      discountAmount,
+      cartTotal,
       paymentMethod: orderDetails.paymentMethod,
       paymentStatus: orderDetails.paymentMethod === 'COD' ? 'Pending' : 'Paid',
       orderStatus: 'Placed',
       trackingNumber: `SPK-IN-${Math.floor(1000000 + Math.random() * 9000000)}`,
       shippingAddress: orderDetails.shippingAddress,
+      estimatedDeliveryDate,
       createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
     };
 
