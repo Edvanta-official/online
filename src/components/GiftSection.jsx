@@ -27,7 +27,7 @@ export const GiftSection = () => {
           </div>
 
           <h2 className="font-serif-luxury text-2xl sm:text-4xl font-bold text-[#2C2C2C] tracking-tight">
-            Give the Gift of Sparkle <span className="gold-gradient-text italic font-serif">@ KKV</span>
+            Give the Gift of <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-[#2C2C2C] text-lg sm:text-xl font-extrabold lowercase font-poppins">@kkv</span>
           </h2>
 
           <div className="w-24 h-1 bg-gradient-to-r from-[#FCE4EC] via-[#D4AF7F] to-[#FCE4EC] mx-auto rounded-full" />
