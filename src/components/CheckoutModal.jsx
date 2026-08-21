@@ -482,6 +482,8 @@ export const CheckoutModal = () => {
                   </div>
                 </div>
 
+              </div>
+
               <div className="pt-2 flex justify-between items-center font-montserrat">
                 <button
                   type="button"
