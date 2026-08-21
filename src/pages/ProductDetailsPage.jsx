@@ -16,27 +16,10 @@ export const ProductDetailsPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
 
-  // Helper function to calculate delivery estimate based on TODAY's date
+  // Helper function to calculate delivery estimate (7 Days Guaranteed for every order)
   const calculateDeliveryDate = (pincodeStr = '') => {
     const today = new Date();
-    let days = 3;
-    let zone = "Metro Direct (3 Days)";
-
-    const p = pincodeStr.trim();
-    if (/^[1-9]\d{5}$/.test(p)) {
-      const prefix = p.substring(0, 2);
-      if (['50', '51', '52', '53'].includes(prefix)) {
-        days = 2;
-        zone = "Nearby Hub (Hyderabad / AP / Telangana — 2 Days)";
-      } else if (['40', '41', '56', '60', '11', '70'].includes(prefix)) {
-        days = 3;
-        zone = "Metro Air Cargo (3 Days)";
-      } else {
-        days = 4;
-        zone = "Standard Regional Express (4 Days)";
-      }
-    }
-
+    const days = 7;
     const estDate = new Date(today);
     estDate.setDate(today.getDate() + days);
     
@@ -45,9 +28,9 @@ export const ProductDetailsPage = () => {
     const monthName = estDate.toLocaleDateString('en-US', { month: 'short' });
 
     return {
-      dateStr: `Expected by ${dayName}, ${dayNum} ${monthName}`,
-      zone,
-      days
+      dateStr: `Guaranteed Delivery in 7 Days (Expected by ${dayName}, ${dayNum} ${monthName})`,
+      zone: "Pan-India Guaranteed 7-Day Express Delivery",
+      days: 7
     };
   };
 
@@ -335,7 +318,7 @@ export const ProductDetailsPage = () => {
               {/* Amazon / Meesho Delivery Pincode Estimator */}
               <div className="pt-3 border-t border-gray-100 font-poppins space-y-2">
                 <label className="text-xs font-semibold text-[#2C2C2C] flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#C89B3C]" /> Check Delivery & COD Availability:
+                  <MapPin className="w-3.5 h-3.5 text-[#C89B3C]" /> Check 7-Day Guaranteed Express Delivery:
                 </label>
                 <form onSubmit={handlePincodeCheck} className="flex gap-2 max-w-sm">
                   <input
@@ -365,7 +348,7 @@ export const ProductDetailsPage = () => {
                           <Truck className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 🚚 <strong>Guaranteed 7-Day Delivery:</strong> Delivered within 7 days max.
                         </p>
                         <div className="flex items-center gap-3 text-[11px] text-gray-600 pt-1 border-t border-emerald-200/50">
-                          <span className="flex items-center gap-1"><Banknote className="w-3.5 h-3.5 text-[#C89B3C]" /> Cash on Delivery (COD) Available</span>
+                          <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-[#C89B3C]" /> Guaranteed 7-Day Delivery</span>
                           <span>•</span>
                           <span className="flex items-center gap-1"><Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" /> Free Express Shipping</span>
                         </div>
