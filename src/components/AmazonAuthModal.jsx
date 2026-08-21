@@ -350,25 +350,19 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
         {/* Top Header */}
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-white p-5 text-center relative overflow-hidden">
           <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#C89B3C]/10 rounded-full blur-xl"></div>
-          
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C89B3C]/20 border border-[#C89B3C]/40 text-[#D4AF7F] text-[10px] font-montserrat uppercase font-bold tracking-widest mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#C89B3C]" />
-            256-Bit Encrypted Security
-          </div>
 
           <h2 className="font-serif-luxury text-2xl font-bold tracking-wide">
             Sparkle <span className="text-[#D4AF7F]">@ KKV</span> Security
           </h2>
           <p className="text-[11px] text-gray-300 font-light mt-1">
             {authMode === 'signin' && 'Sign in to access your orders, saved addresses & 10% OFF coupon'}
-            {authMode === 'admin_signin' && 'Official Administrator Login Access'}
             {authMode === 'register' && 'Create your official Sparkle @ KKV account in seconds'}
             {authMode === 'otp_verify' && 'Verify 2-Step OTP sent to your entered email/phone'}
             {authMode === 'forgot' && 'Reset your password securely via OTP'}
           </p>
 
           {/* Mode Switcher Tabs */}
-          {(authMode === 'signin' || authMode === 'register' || authMode === 'admin_signin') && (
+          {(authMode === 'signin' || authMode === 'register') && (
             <div className="flex bg-[#3A3A3A] rounded-xl p-1 mt-4 border border-white/10 text-xs font-montserrat font-bold">
               <button
                 type="button"
@@ -387,15 +381,6 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
                 }`}
               >
                 Create Account
-              </button>
-              <button
-                type="button"
-                onClick={() => { setAuthMode('admin_signin'); setErrorMessage(''); setSuccessMessage(''); }}
-                className={`flex-1 py-1.5 rounded-lg transition-all ${
-                  authMode === 'admin_signin' ? 'bg-[#2C2C2C] text-[#D4AF7F] border border-[#D4AF7F]/40 shadow-md' : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                Admin
               </button>
             </div>
           )}
@@ -856,11 +841,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
           )}
 
           {/* Footer Security Badges */}
-          <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400 font-medium">
-            <div className="flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>256-Bit SSL Protection</span>
-            </div>
+          <div className="pt-4 border-t border-gray-100 flex items-center justify-end text-[10px] text-gray-400 font-medium">
             <span>Sparkle @ KKV Security</span>
           </div>
 
