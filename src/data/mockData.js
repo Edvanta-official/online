@@ -1851,8 +1851,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/gift_set.jpg",
-      "images/plumeria_flower_claw_clip_drive.jpg"
+      "images/crimson_blossom.jpg",
+      "images/gift_set.jpg"
     ],
     colors: [
       "Crimson Red Velvet"
@@ -1881,8 +1881,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/gift_set.jpg",
-      "images/plumeria_flower_claw_clip_drive.jpg"
+      "images/golden_bloom.jpg",
+      "images/gift_set.jpg"
     ],
     colors: [
       "Golden Yellow Bloom"
@@ -1911,8 +1911,8 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/gift_set.jpg",
-      "images/plumeria_flower_claw_clip_drive.jpg"
+      "images/pink_blossom.jpg",
+      "images/gift_set.jpg"
     ],
     colors: [
       "Soft Pink Blossom"
