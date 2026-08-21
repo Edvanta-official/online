@@ -68,10 +68,10 @@ export const NAVIGATION_TREE = [
   },
   {
     id: "gift-sets",
-    name: "Gifts",
+    name: "Gift Sets & Combos",
     subcategories: [
-      { id: "canvas-gifts", name: "Canvas Gifts" },
-      { id: "flower-gifts", name: "Flower Gifts" }
+      { id: "canvas", name: "CANVAS" },
+      { id: "flowers", name: "FLOWERS" }
     ]
   }
 ];
@@ -127,10 +127,10 @@ export const CATEGORIES = [
   },
   {
     id: "gift-sets",
-    name: "Gifts",
+    name: "Gift Sets & Combos",
     icon: "🎁",
-    count: 4,
-    description: "Curated Canvas Gift Hampers & Botanical Flower Gift Sets",
+    count: 3,
+    description: "Curated boutique hampers & velvet festival gift boxes",
     image: "images/gift_set.jpg"
   }
 ];
@@ -1651,39 +1651,39 @@ export const PRODUCTS = [
   {
     id: "SPK-GS-001",
     sku: "SPK-GS-001",
-    name: "Sparkle Personalised Luxury Canvas Frame Gift Set",
+    name: "Sparkle Custom Canvas Art & Accessory Gift Set",
     category: "gift-sets",
-    subcategory: "canvas-gifts",
-    categoryName: "Gifts",
-    price: 899,
-    originalPrice: 1299,
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 449,
+    originalPrice: 649,
     rating: 5,
     reviewsCount: 185,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 10,
+    stock: 20,
     images: [
       "images/gift_set.jpg",
       "images/plumeria_flower.jpg"
     ],
     colors: [
-      "Signature Canvas Gift Chest"
+      "Blush Pink Velvet Hamper"
     ],
-    description: "Boutique canvas gift hamper featuring custom printed luxury canvas artwork frame, greeting card, and velvet gift box.",
+    description: "Personalized boutique canvas gift hamper containing custom printed canvas artwork and luxury accessories.",
     details: [
-      "Includes: Custom Canvas Art Frame + Greeting Card + Velvet Box",
-      "Session: Canvas Gifts"
+      "Section: CANVAS",
+      "Includes: 1 Personalized Canvas Frame + 2 Hair Clips + Satin Ribbon Box"
     ]
   },
   {
     id: "SPK-GS-002",
     sku: "SPK-GS-002",
-    name: "Sparkle Royal Custom Photo Canvas Keepsake Box",
+    name: "Sparkle Handcrafted Plumeria Flower Velvet Gift Hamper",
     category: "gift-sets",
-    subcategory: "canvas-gifts",
-    categoryName: "Gifts",
+    subcategory: "flowers",
+    categoryName: "Gift Sets & Combos",
     price: 1199,
     originalPrice: 1799,
     rating: 5,
@@ -1694,73 +1694,74 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 15,
     images: [
-      "images/gift_set.jpg"
+      "images/gift_set.jpg",
+      "images/plumeria_flower_claw_clip_drive.jpg"
     ],
     colors: [
-      "Velvet Canvas Trunk"
+      "Signature Velvet Chest"
     ],
-    description: "Premium canvas gift set with custom portrait canvas painting, anti-tarnish gold chain, and luxury velvet drawer chest.",
+    description: "Botanical flower gift hamper featuring handcrafted Plumeria flower clips and floral jewelry presentation box.",
     details: [
-      "Includes: Canvas Painting + Gold Chain + Velvet Trunk",
-      "Session: Canvas Gifts"
+      "Section: FLOWERS",
+      "Includes: 4 Premium Flower Accessories + Signature Velvet Box"
     ]
   },
   {
     id: "SPK-GS-003",
     sku: "SPK-GS-003",
-    name: "Sparkle Botanical Plumeria Flower Gift Hamper",
+    name: "Royal Personalized Canvas Frame & Jewelry Gift Trunk",
     category: "gift-sets",
-    subcategory: "flower-gifts",
-    categoryName: "Gifts",
-    price: 499,
-    originalPrice: 799,
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 1699,
+    originalPrice: 2499,
     rating: 5,
     reviewsCount: 160,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 20,
+    stock: 10,
     images: [
-      "images/plumeria_flower_claw_clip_drive.jpg",
-      "images/gift_set.jpg"
+      "images/gift_set.jpg",
+      "images/kundan_choker_set.jpg"
     ],
     colors: [
-      "Blush Pink Floral Hamper"
+      "Ivory & Gold Velvet Trunk"
     ],
-    description: "Botanical flower gift hamper box containing 2 Plumeria Flower Claw Clips, 1 Silk Flower Scrunchie, and Floral Card.",
+    description: "Grand bridal trousseau canvas trunk set including custom canvas print frame and heavy Kundan jewelry set.",
     details: [
-      "Includes: 2 Plumeria Clips + 1 Silk Flower Scrunchie + Floral Card",
-      "Session: Flower Gifts"
+      "Section: CANVAS",
+      "Includes: Custom Canvas Frame + Kundan Choker Set + Heavy Earrings"
     ]
   },
   {
     id: "SPK-GS-004",
     sku: "SPK-GS-004",
-    name: "Royal Floral Bloom Festival Gift Chest",
+    name: "Botanical Plumeria Flower Bouquet & Accessory Gift Box",
     category: "gift-sets",
-    subcategory: "flower-gifts",
-    categoryName: "Gifts",
-    price: 1499,
-    originalPrice: 2199,
-    rating: 5,
-    reviewsCount: 190,
+    subcategory: "flowers",
+    categoryName: "Gift Sets & Combos",
+    price: 899,
+    originalPrice: 1299,
+    rating: 4.9,
+    reviewsCount: 140,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
     images: [
-      "images/hawaiian_plumeria_claw_clips_drive.jpg",
+      "images/plumeria_flower_claw_clip_drive.jpg",
       "images/gift_set.jpg"
     ],
     colors: [
-      "Royal Velvet Bloom Chest"
+      "Floral Blush Pink"
     ],
-    description: "Grand flower gift box featuring preserved eternal flower arrangement, Hawaiian Plumeria clips, and Kundan jewelry set.",
+    description: "Exquisite artificial flower bouquet hamper paired with anti-tarnish jewelry and boutique packaging.",
     details: [
-      "Includes: Preserved Flowers + Plumeria Clips + Kundan Jewelry Set",
-      "Session: Flower Gifts"
+      "Section: FLOWERS",
+      "Includes: Flower Bouquet + 2 Plumeria Clips + Anti-Tarnish Chain"
     ]
   }
 ];
