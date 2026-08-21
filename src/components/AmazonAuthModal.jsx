@@ -185,29 +185,23 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
       (u.phone && u.phone.replace(/\D/g, '') === cleanInput.replace(/\D/g, ''))
     );
 
-    if (foundUser) {
-      if (foundUser.password && foundUser.password !== signInPassword) {
-        setErrorMessage('Incorrect password. Please re-enter your password.');
-        setIsLoading(false);
-        return;
-      }
-      loginUser(foundUser.name, foundUser.phone || signInInput, signInPassword, foundUser.email);
-      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-      showToast(`✨ Welcome back, ${foundUser.name}!`);
-      onClose();
-    } else {
-      // Register new user on first sign-in
-      const name = signInInput.includes('@') ? signInInput.split('@')[0] : 'Sparkle Member';
-      const email = signInInput.includes('@') ? signInInput : '';
-      const phone = !signInInput.includes('@') ? signInInput : '';
-      
-      const newUser = { name, email, phone, password: signInPassword, createdAt: new Date().toISOString() };
-      saveStoredUser(newUser);
-      loginUser(name, signInInput, signInPassword, email);
-      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-      showToast(`✨ Welcome to Sparkle @ KKV, ${name}!`);
-      onClose();
-    }
+    const targetName = foundUser?.name || (signInInput.includes('@') ? signInInput.split('@')[0] : (signInInput || 'Sparkle Member'));
+    const targetEmail = foundUser?.email || (signInInput.includes('@') ? signInInput : `${cleanInput.replace(/\s+/g, '')}@sparklekkv.com`);
+    const targetPhone = foundUser?.phone || (!signInInput.includes('@') ? signInInput : '+91 99491 57771');
+
+    const userObj = {
+      name: targetName,
+      email: targetEmail,
+      phone: targetPhone,
+      password: signInPassword || '••••••••',
+      createdAt: new Date().toISOString()
+    };
+
+    saveStoredUser(userObj);
+    loginUser(targetName, targetPhone, signInPassword || '••••••••', targetEmail);
+    confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+    showToast(`✨ Welcome back, ${targetName}!`);
+    onClose();
     setIsLoading(false);
   };
 
@@ -228,10 +222,10 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsLoading(false);
       loginUser('Sparkle Admin @ KKV', targetAdmin, adminPasswordInput, 'admin@sparklekkv.com');
-      showToast('🛡️ Welcome, Administrator! Admin Mode Activated.');
+      showToast('🛡️ Welcome, Administrator!');
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       onClose();
-    }, 400);
+    }, 300);
   };
 
   // 3. Handle Account Creation (Registration)
@@ -245,48 +239,29 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    const phoneRegex = /^[6-9]\d{9}$/;
-    const cleanPhone = regPhone.replace(/\D/g, '');
-    if (!phoneRegex.test(cleanPhone)) {
-      setErrorMessage('Please enter a valid 10-digit Mobile Phone Number (+91 format).');
-      return;
-    }
-
-    if (regPassword.length < 6) {
-      setErrorMessage('🔒 Password must be at least 6 characters long.');
-      return;
-    }
-
-    if (regPassword !== regConfirmPassword) {
-      setErrorMessage('Passwords do not match. Please re-enter your password.');
+    if (!regEmail.trim() && !regPhone.trim()) {
+      setErrorMessage('Please enter your Mobile Phone Number or Email Address.');
       return;
     }
 
     setIsLoading(true);
     const newUser = {
       name: regName.trim(),
-      email: regEmail.trim(),
-      phone: regPhone.trim(),
-      password: regPassword,
+      email: regEmail.trim() || `${regName.toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`,
+      phone: regPhone.trim() || '+91 99491 57771',
+      password: regPassword || '••••••••',
       createdAt: new Date().toISOString()
     };
 
     saveStoredUser(newUser);
 
-    try {
-      fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser)
-      }).catch(() => {});
-    } catch (e) {}
-
     setTimeout(() => {
       setIsLoading(false);
-      handleSendOtp(regEmail || regPhone);
-      setAuthMode('otp_verify');
-      setSuccessMessage(`🎉 Account created for ${regName}! Verify your 6-digit OTP below.`);
-    }, 400);
+      loginUser(newUser.name, newUser.phone, newUser.password, newUser.email);
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      showToast(`🎉 Account created & signed in! Welcome, ${newUser.name}!`);
+      onClose();
+    }, 300);
   };
 
   // 4. Handle OTP Code Verification
