@@ -351,18 +351,19 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-white p-5 text-center relative overflow-hidden">
           <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#C89B3C]/10 rounded-full blur-xl"></div>
 
-          <h2 className="font-serif-luxury text-2xl font-bold tracking-wide">
+          <h2 className="font-serif-luxury text-2xl font-bold tracking-wide mt-1">
             Sparkle <span className="text-[#D4AF7F]">@ KKV</span> Security
           </h2>
           <p className="text-[11px] text-gray-300 font-light mt-1">
             {authMode === 'signin' && 'Sign in to access your orders, saved addresses & 10% OFF coupon'}
+            {authMode === 'admin_signin' && 'Official Administrator Login Access'}
             {authMode === 'register' && 'Create your official Sparkle @ KKV account in seconds'}
             {authMode === 'otp_verify' && 'Verify 2-Step OTP sent to your entered email/phone'}
             {authMode === 'forgot' && 'Reset your password securely via OTP'}
           </p>
 
           {/* Mode Switcher Tabs */}
-          {(authMode === 'signin' || authMode === 'register') && (
+          {(authMode === 'signin' || authMode === 'register' || authMode === 'admin_signin') && (
             <div className="flex bg-[#3A3A3A] rounded-xl p-1 mt-4 border border-white/10 text-xs font-montserrat font-bold">
               <button
                 type="button"
@@ -841,7 +842,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
           )}
 
           {/* Footer Security Badges */}
-          <div className="pt-4 border-t border-gray-100 flex items-center justify-end text-[10px] text-gray-400 font-medium">
+          <div className="pt-4 border-t border-gray-100 flex items-center justify-center text-[10px] text-gray-400 font-medium">
             <span>Sparkle @ KKV Security</span>
           </div>
 
