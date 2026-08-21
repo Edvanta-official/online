@@ -129,8 +129,8 @@ export const CATEGORIES = [
     id: "gift-sets",
     name: "Gift Sets & Combos",
     icon: "🎁",
-    count: 3,
-    description: "Curated boutique hampers & velvet festival gift boxes",
+    count: 9,
+    description: "Custom 4x4 Canvas Art Frames (₹199) & Handcrafted Flower Hampers (₹399)",
     image: "images/gift_set.jpg"
   }
 ];
@@ -1649,74 +1649,202 @@ export const PRODUCTS = [
     ]
   },
   {
-    id: "SPK-GS-001",
-    sku: "SPK-GS-001",
-    name: "Sparkle Custom Canvas Art & Accessory Gift Set",
+    id: "SPK-CV-001",
+    sku: "SPK-CV-001",
+    name: "Couple Custom Canvas Frame (4x4 Inch)",
     category: "gift-sets",
     subcategory: "canvas",
     categoryName: "Gift Sets & Combos",
-    price: 449,
-    originalPrice: 649,
+    price: 199,
+    originalPrice: 399,
     rating: 5,
     reviewsCount: 185,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 20,
+    stock: 10,
     images: [
-      "images/gift_set.jpg",
-      "images/plumeria_flower.jpg"
+      "images/couple.png",
+      "images/gift_set.jpg"
     ],
     colors: [
-      "Blush Pink Velvet Hamper"
+      "4 x 4 Inch Custom Frame"
     ],
-    description: "Personalized boutique canvas gift hamper containing custom printed canvas artwork and luxury accessories.",
+    description: "Handcrafted 4x4 inch personalized couple portrait canvas frame gift.",
     details: [
-      "Section: CANVAS",
-      "Includes: 1 Personalized Canvas Frame + 2 Hair Clips + Satin Ribbon Box"
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: couple.png"
     ]
   },
   {
-    id: "SPK-GS-002",
-    sku: "SPK-GS-002",
-    name: "Sparkle Handcrafted Plumeria Flower Velvet Gift Hamper",
+    id: "SPK-CV-002",
+    sku: "SPK-CV-002",
+    name: "Krishna Canvas Frame (4x4 Inch)",
     category: "gift-sets",
-    subcategory: "flowers",
+    subcategory: "canvas",
     categoryName: "Gift Sets & Combos",
-    price: 1199,
-    originalPrice: 1799,
+    price: 199,
+    originalPrice: 399,
     rating: 5,
-    reviewsCount: 230,
+    reviewsCount: 210,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 15,
+    stock: 10,
     images: [
-      "images/gift_set.jpg",
-      "images/plumeria_flower_claw_clip_drive.jpg"
+      "images/Krishna.png",
+      "images/gift_set.jpg"
     ],
     colors: [
-      "Signature Velvet Chest"
+      "4 x 4 Inch Custom Frame"
     ],
-    description: "Botanical flower gift hamper featuring handcrafted Plumeria flower clips and floral jewelry presentation box.",
+    description: "Divine Lord Krishna 4x4 inch wooden canvas art print frame.",
     details: [
-      "Section: FLOWERS",
-      "Includes: 4 Premium Flower Accessories + Signature Velvet Box"
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Krishna.png"
     ]
   },
   {
-    id: "SPK-GS-003",
-    sku: "SPK-GS-003",
-    name: "Royal Personalized Canvas Frame & Jewelry Gift Trunk",
+    id: "SPK-CV-003",
+    sku: "SPK-CV-003",
+    name: "Radhakrishna Canvas Frame (4x4 Inch)",
     category: "gift-sets",
     subcategory: "canvas",
     categoryName: "Gift Sets & Combos",
-    price: 1699,
-    originalPrice: 2499,
+    price: 199,
+    originalPrice: 399,
     rating: 5,
+    reviewsCount: 245,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Radhakrishna.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Auspicious Radha Krishna divine 4x4 inch canvas art frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Radhakrishna.png"
+    ]
+  },
+  {
+    id: "SPK-CV-004",
+    sku: "SPK-CV-004",
+    name: "Rohit Custom Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 4.9,
     reviewsCount: 160,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Rohit.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Personalized custom name art 4x4 inch canvas print frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Rohit.png"
+    ]
+  },
+  {
+    id: "SPK-CV-005",
+    sku: "SPK-CV-005",
+    name: "Shiva Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 190,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Shiva.jpg",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Sacred Lord Shiva spiritual 4x4 inch canvas art frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Shiva.jpg"
+    ]
+  },
+  {
+    id: "SPK-CV-006",
+    sku: "SPK-CV-006",
+    name: "Swan Art Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 4.9,
+    reviewsCount: 135,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Swan.jpg",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Elegant Graceful Swan 4x4 inch artwork canvas frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Swan.jpg"
+    ]
+  },
+  {
+    id: "SPK-FL-001",
+    sku: "SPK-FL-001",
+    name: "Crimson Blossom Bouquet",
+    category: "gift-sets",
+    subcategory: "flowers",
+    categoryName: "Gift Sets & Combos",
+    price: 399,
+    originalPrice: 699,
+    rating: 5,
+    reviewsCount: 230,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
@@ -1724,44 +1852,76 @@ export const PRODUCTS = [
     stock: 10,
     images: [
       "images/gift_set.jpg",
-      "images/kundan_choker_set.jpg"
+      "images/plumeria_flower_claw_clip_drive.jpg"
     ],
     colors: [
-      "Ivory & Gold Velvet Trunk"
+      "Crimson Red Velvet"
     ],
-    description: "Grand bridal trousseau canvas trunk set including custom canvas print frame and heavy Kundan jewelry set.",
+    description: "Exquisite Crimson Blossom flower bouquet gift hamper wrapped with velvet ribbon.",
     details: [
-      "Section: CANVAS",
-      "Includes: Custom Canvas Frame + Kundan Choker Set + Heavy Earrings"
+      "Category: FLOWERS",
+      "Product Price: ₹399",
+      "Drive File: Crimson Blossom Bouquet, 399/-"
     ]
   },
   {
-    id: "SPK-GS-004",
-    sku: "SPK-GS-004",
-    name: "Botanical Plumeria Flower Bouquet & Accessory Gift Box",
+    id: "SPK-FL-002",
+    sku: "SPK-FL-002",
+    name: "Golden Bloom Bouquet",
     category: "gift-sets",
     subcategory: "flowers",
     categoryName: "Gift Sets & Combos",
-    price: 899,
-    originalPrice: 1299,
-    rating: 4.9,
-    reviewsCount: 140,
+    price: 399,
+    originalPrice: 699,
+    rating: 5,
+    reviewsCount: 195,
     isNew: true,
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 12,
+    stock: 10,
     images: [
-      "images/plumeria_flower_claw_clip_drive.jpg",
-      "images/gift_set.jpg"
+      "images/gift_set.jpg",
+      "images/plumeria_flower_claw_clip_drive.jpg"
     ],
     colors: [
-      "Floral Blush Pink"
+      "Golden Yellow Bloom"
     ],
-    description: "Exquisite artificial flower bouquet hamper paired with anti-tarnish jewelry and boutique packaging.",
+    description: "Royal Golden Bloom flower bouquet hamper with luxury boutique box packaging.",
     details: [
-      "Section: FLOWERS",
-      "Includes: Flower Bouquet + 2 Plumeria Clips + Anti-Tarnish Chain"
+      "Category: FLOWERS",
+      "Product Price: ₹399",
+      "Drive File: Golden Bloom Bouquet"
+    ]
+  },
+  {
+    id: "SPK-FL-003",
+    sku: "SPK-FL-003",
+    name: "Pink Blossom Bouquet",
+    category: "gift-sets",
+    subcategory: "flowers",
+    categoryName: "Gift Sets & Combos",
+    price: 399,
+    originalPrice: 699,
+    rating: 5,
+    reviewsCount: 215,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/gift_set.jpg",
+      "images/plumeria_flower_claw_clip_drive.jpg"
+    ],
+    colors: [
+      "Soft Pink Blossom"
+    ],
+    description: "Charming Pink Blossom botanical flower hamper presented in blush pink drawer box.",
+    details: [
+      "Category: FLOWERS",
+      "Product Price: ₹399",
+      "Drive File: Pink Blossom Bouquet"
     ]
   }
 ];
