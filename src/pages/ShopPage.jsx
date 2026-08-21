@@ -180,6 +180,59 @@ export const ShopPage = () => {
             </div>
           )}
 
+          {/* Special Prominent 2-Option Selection Cards for Gift Sets & Combos */}
+          {selectedCategory === 'gift-sets' && !currentSubcategory && (
+            <div className="my-6 p-6 sm:p-8 bg-gradient-to-r from-[#FFF9F5] via-[#FCE4EC]/50 to-[#FFF9F5] rounded-3xl border-2 border-[#D4AF7F]/40 shadow-sm text-center">
+              <div className="inline-flex items-center gap-1.5 text-[#C89B3C] font-montserrat text-xs tracking-widest uppercase font-bold mb-2">
+                <Sparkles className="w-4 h-4" /> Select Your Gift Collection <Sparkles className="w-4 h-4" />
+              </div>
+              <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#2C2C2C] mb-2">
+                Choose Gift Category: <span className="text-[#C89B3C]">CANVAS</span> or <span className="text-[#F48FB1]">FLOWERS</span>
+              </h2>
+              <p className="text-xs text-gray-600 font-poppins max-w-xl mx-auto mb-6 font-light">
+                Select your preferred gift type to view handcrafted personalized canvas prints or botanical flower hampers.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto font-montserrat">
+                <Link
+                  to="/shop?category=gift-sets&subcategory=canvas"
+                  className="group bg-white p-6 rounded-2xl border-2 border-[#D4AF7F]/40 hover:border-[#C89B3C] shadow-md hover:shadow-xl transition-all flex flex-col items-center justify-center text-center cursor-pointer hover:-translate-y-1"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-[#FFF9F5] text-3xl flex items-center justify-center mb-3 shadow-inner group-hover:scale-110 transition-transform">
+                    🖼️
+                  </div>
+                  <h3 className="font-bold text-lg text-[#2C2C2C] group-hover:text-[#C89B3C] tracking-wider uppercase">
+                    CANVAS
+                  </h3>
+                  <p className="text-xs text-gray-500 font-poppins mt-1">
+                    Custom Personalized Canvas Art Frames & Keepsake Gift Boxes
+                  </p>
+                  <span className="mt-4 bg-[#2C2C2C] text-[#FCE4EC] px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider group-hover:bg-[#C89B3C] group-hover:text-white transition-colors shadow-xs">
+                    Select CANVAS →
+                  </span>
+                </Link>
+
+                <Link
+                  to="/shop?category=gift-sets&subcategory=flowers"
+                  className="group bg-white p-6 rounded-2xl border-2 border-[#FCE4EC] hover:border-[#F48FB1] shadow-md hover:shadow-xl transition-all flex flex-col items-center justify-center text-center cursor-pointer hover:-translate-y-1"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-[#FFF9F5] text-3xl flex items-center justify-center mb-3 shadow-inner group-hover:scale-110 transition-transform">
+                    🌸
+                  </div>
+                  <h3 className="font-bold text-lg text-[#2C2C2C] group-hover:text-[#F48FB1] tracking-wider uppercase">
+                    FLOWERS
+                  </h3>
+                  <p className="text-xs text-gray-500 font-poppins mt-1">
+                    Handcrafted Plumeria Flowers & Botanical Accessory Hampers
+                  </p>
+                  <span className="mt-4 bg-[#2C2C2C] text-[#FCE4EC] px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider group-hover:bg-[#F48FB1] group-hover:text-white transition-colors shadow-xs">
+                    Select FLOWERS →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Active Filter Badges */}
           {(currentSubcategory || searchQuery || onlyFlashSale || maxPriceFilter !== 'all' || minRatingFilter > 0 || inStockOnly) && (
             <div className="flex flex-wrap items-center gap-2 pt-2 text-xs font-montserrat">
