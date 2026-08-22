@@ -261,8 +261,22 @@ export const AdminDashboard = () => {
                           <h3 className="font-bold text-[#2C2C2C] font-mono text-base">{order.id}</h3>
                           <span className="text-gray-400 text-[11px]">({order.createdAt})</span>
                         </div>
-                        <p className="text-xs font-bold text-[#2C2C2C] mt-1">
-                          👤 {order.customerName || order.shippingAddress?.fullName} • 📱 {order.shippingAddress?.phone || order.phone || 'N/A'} • ✉️ {order.email || user.email}
+                        <p className="text-xs font-bold text-[#2C2C2C] mt-1 flex flex-wrap items-center gap-2">
+                          <span>👤 {order.customerName || order.shippingAddress?.fullName}</span>
+                          <span>•</span>
+                          <span>📱 {order.shippingAddress?.phone || order.phone || 'N/A'}</span>
+                          {(order.shippingAddress?.phone || order.phone) && (
+                            <a
+                              href={`https://wa.me/91${(order.shippingAddress?.phone || order.phone).replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${order.customerName || 'Customer'},\n\nThis is Sparkle @ KKV regarding your Order ${order.id} (₹${order.finalAmount || order.cartTotal}).`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 transition-all"
+                            >
+                              <span>💬 WhatsApp</span>
+                            </a>
+                          )}
+                          <span>•</span>
+                          <span>✉️ {order.email || order.shippingAddress?.email || 'customer@sparklekkv.com'}</span>
                         </p>
                       </div>
 
