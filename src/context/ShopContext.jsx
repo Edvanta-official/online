@@ -42,16 +42,95 @@ export const ShopProvider = ({ children }) => {
     }
   });
 
-  const defaultOrders = [];
+  const defaultOrders = [
+    {
+      id: "ORD-11718",
+      customerName: "B.Kowshik",
+      email: "kowshikbaddam08@gmail.com",
+      phone: "9493576797",
+      items: [
+        {
+          id: "SPK-CL-001",
+          name: "Plumeria flower claw clip",
+          price: 169,
+          quantity: 1,
+          image: "images/plumeria_flower_claw_clip.jpg",
+          deliveryDays: 7
+        }
+      ],
+      totalAmount: 169,
+      discount: 0,
+      shippingFee: 0,
+      finalAmount: 169,
+      cartSubtotal: 169,
+      discountAmount: 0,
+      cartTotal: 169,
+      paymentMethod: "PhonePe",
+      paymentStatus: "Paid",
+      orderStatus: "Order Received",
+      utrNumber: "UPI-787439120491",
+      trackingNumber: "SPK-IN-7874391",
+      shippingAddress: {
+        fullName: "B.Kowshik",
+        phone: "9493576797",
+        email: "kowshikbaddam08@gmail.com",
+        street: "Madhapur",
+        city: "Hyderabad",
+        state: "Telangana",
+        pincode: "500081"
+      },
+      estimatedDeliveryDate: "29 Aug 2026",
+      createdAt: "22 Aug 2026"
+    },
+    {
+      id: "ORD-72852",
+      customerName: "B.Kowshik",
+      email: "kowshikbaddam08@gmail.com",
+      phone: "9493576797",
+      items: [
+        {
+          id: "SPK-CL-001",
+          name: "Plumeria flower claw clip",
+          price: 169,
+          quantity: 1,
+          image: "images/plumeria_flower_claw_clip.jpg",
+          deliveryDays: 7
+        }
+      ],
+      totalAmount: 169,
+      discount: 0,
+      shippingFee: 0,
+      finalAmount: 169,
+      cartSubtotal: 169,
+      discountAmount: 0,
+      cartTotal: 169,
+      paymentMethod: "PhonePe",
+      paymentStatus: "Paid",
+      orderStatus: "Order Received",
+      utrNumber: "UPI-503577691840",
+      trackingNumber: "SPK-IN-5035776",
+      shippingAddress: {
+        fullName: "B.Kowshik",
+        phone: "9493576797",
+        email: "kowshikbaddam08@gmail.com",
+        street: "Madhapur",
+        city: "Hyderabad",
+        state: "Telangana",
+        pincode: "500081"
+      },
+      estimatedDeliveryDate: "29 Aug 2026",
+      createdAt: "22 Aug 2026"
+    }
+  ];
 
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem('sparkel_orders');
-      if (!saved) return defaultOrders;
-      const parsed = JSON.parse(saved);
-      // Clean mock orders from localStorage if present
-      const filtered = Array.isArray(parsed) ? parsed.filter(o => o.id !== 'ORD-98241') : [];
-      return filtered;
+      const parsed = saved ? JSON.parse(saved) : [];
+      const filtered = Array.isArray(parsed) ? parsed.filter(o => o && o.id !== 'ORD-98241') : [];
+      const mergedMap = new Map();
+      [...defaultOrders, ...filtered].forEach(o => { if (o && o.id) mergedMap.set(o.id, o); });
+      return Array.from(mergedMap.values());
     } catch (e) {
       return defaultOrders;
     }
