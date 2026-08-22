@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
 import { 
   ShieldCheck, Package, DollarSign, Users, ShoppingBag, 
@@ -114,7 +114,7 @@ export const AdminDashboard = () => {
   };
 
   // Sync live orders on mount and auto-refresh every 10 seconds
-  React.useEffect(() => {
+  useEffect(() => {
     syncLiveCloudOrders();
 
     const interval = setInterval(() => {
