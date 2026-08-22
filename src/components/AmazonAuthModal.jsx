@@ -18,9 +18,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   const [signInPassword, setSignInPassword] = useState('');
   const [useOtpSignIn, setUseOtpSignIn] = useState(false);
 
-  // Admin Sign In State - Clean empty defaults
-  const [adminEmailInput, setAdminEmailInput] = useState('');
-  const [adminPasswordInput, setAdminPasswordInput] = useState('');
+
 
   // Register State - Clean empty defaults
   const [regName, setRegName] = useState('');
@@ -205,28 +203,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setIsLoading(false);
   };
 
-  // 2. Handle Admin Sign In Submission
-  const handleAdminSignInSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage('');
-    setSuccessMessage('');
 
-    const targetAdmin = adminEmailInput.trim() || 'admin@sparklekkv.com';
-
-    if (!adminPasswordInput) {
-      setErrorMessage('Please enter the Admin Passcode.');
-      return;
-    }
-
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      loginUser('Sparkle Admin @ KKV', targetAdmin, adminPasswordInput, 'admin@sparklekkv.com');
-      showToast('🛡️ Welcome, Administrator!');
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      onClose();
-    }, 300);
-  };
 
   // 3. Handle Account Creation (Registration)
   const handleRegisterSubmit = async (e) => {
