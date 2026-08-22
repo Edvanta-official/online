@@ -409,18 +409,23 @@ export const CheckoutModal = () => {
               {/* Order Summary Receipt Box */}
               <div className="bg-[#FFF9F5] p-6 rounded-3xl border border-[#FCE4EC] max-w-md mx-auto text-left space-y-3 text-xs">
                 
-                {/* ORDER RECEIVED & VERIFIED STATUS BADGE */}
-                <div className="bg-emerald-600 text-white p-3.5 rounded-2xl flex items-center justify-between shadow-md">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
-                    <div>
-                      <span className="text-[10px] font-montserrat uppercase tracking-wider text-emerald-100 font-bold block">Order Status</span>
-                      <strong className="text-sm font-bold uppercase">Order Received</strong>
+                {/* AMAZON-STYLE PAYMENT DONE & VERIFIED STATUS BADGE */}
+                <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-4 rounded-2xl space-y-2 shadow-md">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <CheckCircle2 className="w-6 h-6 text-emerald-200 shrink-0 animate-pulse" />
+                      <div>
+                        <span className="text-[10px] font-montserrat uppercase tracking-wider text-emerald-100 font-bold block">Amazon Style Verified Update</span>
+                        <strong className="text-base font-extrabold uppercase tracking-wide">YOUR PAYMENT IS DONE!</strong>
+                      </div>
                     </div>
+                    <span className="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase border border-white/30">
+                      Payment Verified
+                    </span>
                   </div>
-                  <span className="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    Payment Verified
-                  </span>
+                  <p className="text-[11px] text-emerald-100 font-light border-t border-emerald-500/50 pt-2">
+                    ✅ Your payment of <strong>₹{placedOrderInfo.cartTotal}</strong> has been received & verified. Order confirmation sent to <strong>sparklekkvofficial@gmail.com</strong>.
+                  </p>
                 </div>
 
                 {/* 7-Day Express Delivery Guarantee Box */}
@@ -429,30 +434,47 @@ export const CheckoutModal = () => {
                     <Truck className="w-5 h-5" />
                   </div>
                   <div>
-                    <strong className="block text-xs text-emerald-900 font-bold">🚚 Guaranteed 7-Day Product Delivery</strong>
+                    <strong className="block text-xs text-emerald-900 font-bold">🚚 Guaranteed 7-Day Express Delivery</strong>
                     <span className="text-[11px] text-emerald-700">Estimated Delivery Date: <strong className="text-emerald-900">{placedOrderInfo.estimatedDeliveryDate || 'Within 7 Business Days'}</strong></span>
                   </div>
                 </div>
 
-                <div className="flex justify-between font-semibold text-gray-700 border-b border-[#D4AF7F]/30 pb-2 pt-1">
-                  <span>Items Total ({placedOrderInfo.items.length} Product{placedOrderInfo.items.length > 1 ? 's' : ''})</span>
+                {/* Purchased Items List */}
+                <div className="space-y-2 pt-1 border-t border-[#D4AF7F]/20">
+                  <span className="text-[10px] font-montserrat uppercase font-bold text-gray-500 block">Purchased Items ({placedOrderInfo.items.length})</span>
+                  {placedOrderInfo.items?.map((item, idx) => (
+                    <div key={idx} className="flex items-center justify-between text-xs font-poppins bg-white p-2.5 rounded-xl border border-gray-200 shadow-2xs">
+                      <div className="flex items-center gap-2.5">
+                        <img src={item.image || "images/plumeria_flower.jpg"} alt={item.name} className="w-9 h-9 rounded-lg object-cover" />
+                        <div>
+                          <h4 className="font-bold text-[#2C2C2C] text-[11px]">{item.name}</h4>
+                          <span className="text-gray-500 text-[10px]">Qty: {item.quantity} × ₹{item.price}</span>
+                        </div>
+                      </div>
+                      <span className="font-bold text-[#2C2C2C] text-xs">₹{item.price * item.quantity}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex justify-between font-semibold text-gray-700 border-b border-[#D4AF7F]/30 pb-2 pt-2">
+                  <span>Items Subtotal</span>
                   <span>₹{placedOrderInfo.cartSubtotal}</span>
                 </div>
                 <div className="flex justify-between text-emerald-600 font-semibold">
-                  <span>30% Discount Saved</span>
+                  <span>30% Special Discount Saved</span>
                   <span>-₹{placedOrderInfo.discountAmount}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Shipping Fee</span>
+                  <span>Express Shipping Fee</span>
                   <span>{placedOrderInfo.shippingFee === 0 ? <strong className="text-emerald-600">FREE</strong> : `₹${placedOrderInfo.shippingFee}`}</span>
                 </div>
                 <div className="flex justify-between font-bold text-sm text-[#2C2C2C] border-t border-[#D4AF7F]/30 pt-2">
                   <span>Total Amount Paid</span>
-                  <span className="text-[#C89B3C]">₹{placedOrderInfo.cartTotal}</span>
+                  <span className="text-[#C89B3C] font-extrabold text-base">₹{placedOrderInfo.cartTotal}</span>
                 </div>
                 <div className="pt-2 text-[11px] text-gray-500 font-light border-t border-gray-100 space-y-1">
                   <p><strong>Deliver To:</strong> {placedOrderInfo.shippingAddress.street}, {placedOrderInfo.shippingAddress.city} - {placedOrderInfo.shippingAddress.pincode}</p>
-                  <p><strong>Guaranteed Delivery:</strong> All items arriving by <strong>{placedOrderInfo.estimatedDeliveryDate}</strong></p>
+                  <p><strong>Guaranteed Delivery:</strong> Arriving by <strong>{placedOrderInfo.estimatedDeliveryDate}</strong></p>
                 </div>
               </div>
 

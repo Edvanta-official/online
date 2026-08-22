@@ -418,13 +418,14 @@ export const ShopProvider = ({ children }) => {
     sendOrderPaymentConfirmationEmail({
       id: newOrder.id,
       customerName: newOrder.shippingAddress?.fullName || user.name || "Customer",
-      customerEmail: user.email,
+      customerEmail: user.email || newOrder.shippingAddress?.email,
       phone: newOrder.shippingAddress?.phone || user.phone,
       total: newOrder.finalAmount || newOrder.cartTotal,
       paymentMethod: newOrder.paymentMethod,
       address: newOrder.shippingAddress?.street,
       city: newOrder.shippingAddress?.city,
-      pincode: newOrder.shippingAddress?.pincode
+      pincode: newOrder.shippingAddress?.pincode,
+      items: newOrder.items
     });
 
     return newOrder;

@@ -185,19 +185,24 @@ export const sendOrderPaymentConfirmationEmail = async (orderData) => {
 
   console.log(`[Order Payment Done Dispatch]: Sending payment verification for ${orderId} to ${OWNER_NOTIFICATION_EMAIL}...`);
 
+  const itemsText = Array.isArray(orderData?.items) 
+    ? orderData.items.map((i, index) => `• ${i.name} (Qty: ${i.quantity || 1}) - ₹${(i.price || 0) * (i.quantity || 1)}`).join('\n')
+    : (orderData?.itemsListText || 'N/A');
+
   const orderAlertBody = {
     _subject: `💰 NEW ORDER & PAYMENT DONE: ${orderId} (₹${totalAmount})`,
     order_id: orderId,
     customer_name: customerName,
     customer_email: customerEmail,
-    customer_phone: orderData?.phone || 'N/A',
+    customer_phone: orderData?.phone || orderData?.shippingAddress?.phone || 'N/A',
     total_paid: `₹${totalAmount}`,
     payment_status: "PAYMENT DONE & VERIFIED",
     payment_method: paymentMethod,
+    ordered_items: itemsText,
     delivery_type: "Guaranteed 7-Day Express Delivery",
     order_date: timestamp,
     shipping_address: orderData?.address ? `${orderData.address}, ${orderData.city || ''}, ${orderData.pincode || ''}` : 'N/A',
-    message: `🛍️ NEW ORDER RECEIVED!\n\nOrder ID: ${orderId}\nCustomer Name: ${customerName}\nPhone: ${orderData?.phone || 'N/A'}\nEmail: ${customerEmail}\nAddress: ${orderData?.address || ''}\nTotal Paid: ₹${totalAmount}\nPayment Method: ${paymentMethod}\nStatus: Payment Verified / Order Received`
+    message: `🛍️ NEW CUSTOMER ORDER & PAYMENT RECEIVED!\n\n📌 Order ID: ${orderId}\n👤 Customer Name: ${customerName}\n📱 Phone: ${orderData?.phone || 'N/A'}\n✉️ Email: ${customerEmail}\n📍 Delivery Address: ${orderData?.address || ''}\n\n💰 Total Amount Paid: ₹${totalAmount}\n💳 Payment Method: ${paymentMethod}\n✅ Payment Status: PAYMENT DONE & VERIFIED\n\n📦 PURCHASED ITEMS:\n${itemsText}\n\n🚚 Delivery: Guaranteed 7-Day Express Delivery`
   };
 
   try {
