@@ -1,64 +1,65 @@
-// Real-Time Cloud Order Sync Service for Sparkle @ KKV Owner Admin Portal
+// Real-Time Store Order Sync Service for Sparkle @ KKV Owner Admin Portal
 
-const CLOUD_DB_URL = 'https://api.restful-api.dev/objects/ff8081819ff5b11001a02a7e04f57bb4';
 const LOCAL_STORAGE_REMOTE_KEY = 'SPARKLE_REMOTE_ORDERS_DATABASE';
+const OWNER_NOTIFICATION_EMAIL = 'sparklekkvofficial@gmail.com';
+const ADMIN_EMAIL = 'support@sparklekkv.com';
 
 /**
- * Saves a new customer order to global store database and real-time cloud endpoint
+ * Saves a new customer order to global store database and sends immediate email notifications
  */
 export const saveOrderToGlobalDatabase = async (newOrder) => {
   if (!newOrder || !newOrder.id) return;
 
   try {
-    // 1. Update persistent local storage cache
+    // 1. Update persistent local database
     const localDb = JSON.parse(localStorage.getItem(LOCAL_STORAGE_REMOTE_KEY) || '[]');
-    const isDuplicate = localDb.some(o => o.id === newOrder.id);
-    
-    if (!isDuplicate) {
-      localDb.unshift(newOrder);
-      localStorage.setItem(LOCAL_STORAGE_REMOTE_KEY, JSON.stringify(localDb));
-    }
+    const sparkelOrders = JSON.parse(localStorage.getItem('sparkel_orders') || '[]');
 
-    // 2. Sync to cloud database for cross-device Admin Portal access
-    try {
-      const getRes = await fetch(CLOUD_DB_URL);
-      let existingCloudOrders = [];
-      if (getRes.ok) {
-        const json = await getRes.json();
-        existingCloudOrders = json?.data?.orders || [];
-      }
+    const mergedMap = new Map();
+    [newOrder, ...sparkelOrders, ...localDb].forEach(o => {
+      if (o && o.id) mergedMap.set(o.id, o);
+    });
 
-      const mergedMap = new Map();
-      [newOrder, ...localDb, ...existingCloudOrders].forEach(o => {
-        if (o && o.id) mergedMap.set(o.id, o);
-      });
+    const updatedOrders = Array.from(mergedMap.values());
+    localStorage.setItem(LOCAL_STORAGE_REMOTE_KEY, JSON.stringify(updatedOrders));
+    localStorage.setItem('sparkel_orders', JSON.stringify(updatedOrders));
 
-      const updatedCloudOrders = Array.from(mergedMap.values());
+    // 2. Dispatch real-time order alerts to owner emails (sparklekkvofficial@gmail.com & support@sparklekkv.com)
+    const alertBody = {
+      _subject: `💰 NEW ORDER & PAYMENT CONFIRMED: ${newOrder.id} (₹${newOrder.finalAmount || newOrder.cartTotal})`,
+      order_id: newOrder.id,
+      customer_name: newOrder.customerName || newOrder.shippingAddress?.fullName || 'Customer',
+      customer_email: newOrder.email || 'N/A',
+      customer_phone: newOrder.shippingAddress?.phone || newOrder.phone || 'N/A',
+      total_paid: `₹${newOrder.finalAmount || newOrder.cartTotal}`,
+      payment_method: newOrder.paymentMethod || 'Instant Payment',
+      order_date: newOrder.createdAt || new Date().toLocaleString(),
+      shipping_address: newOrder.shippingAddress ? `${newOrder.shippingAddress.street}, ${newOrder.shippingAddress.city} - ${newOrder.shippingAddress.pincode}` : 'N/A',
+      ordered_items: (newOrder.items || []).map(i => `${i.name} (Qty: ${i.quantity}) - ₹${i.price * i.quantity}`).join(' | '),
+      message: `🛍️ NEW CUSTOMER ORDER RECEIVED!\n\nOrder ID: ${newOrder.id}\nCustomer: ${newOrder.customerName}\nPhone: ${newOrder.shippingAddress?.phone || newOrder.phone}\nEmail: ${newOrder.email}\nAddress: ${newOrder.shippingAddress?.street}, ${newOrder.shippingAddress?.city} - ${newOrder.shippingAddress?.pincode}\nTotal Paid: ₹${newOrder.finalAmount || newOrder.cartTotal}\nPayment Method: ${newOrder.paymentMethod}`
+    };
 
-      await fetch(CLOUD_DB_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: "Sparkle Store Orders DB",
-          data: { orders: updatedCloudOrders }
-        })
-      });
-      console.log(`[Cloud Order Sync Success]: Order ${newOrder.id} saved to cloud database.`);
-    } catch (cloudErr) {
-      console.warn('[Cloud Order Sync Warning]:', cloudErr);
-    }
+    fetch(`https://formsubmit.co/ajax/${OWNER_NOTIFICATION_EMAIL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(alertBody)
+    }).catch(err => console.log('Owner order notification notice:', err));
+
+    fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(alertBody)
+    }).catch(err => console.log('Support order notification notice:', err));
 
   } catch (e) {
-    console.warn('[Remote Order Sync Error]:', e);
+    console.warn('[Order Sync Error]:', e);
   }
 };
 
 /**
- * Retrieves all orders from global database and cloud endpoint for Admin Portal
+ * Retrieves all orders from global store database for Admin Portal
  */
-export const fetchGlobalDatabaseOrders = async () => {
-  let cachedOrders = [];
-
+export const fetchGlobalDatabaseOrders = () => {
   try {
     const localRemoteDb = JSON.parse(localStorage.getItem(LOCAL_STORAGE_REMOTE_KEY) || '[]');
     const sparkelOrders = JSON.parse(localStorage.getItem('sparkel_orders') || '[]');
@@ -68,30 +69,8 @@ export const fetchGlobalDatabaseOrders = async () => {
       if (order && order.id) mergedMap.set(order.id, order);
     });
 
-    cachedOrders = Array.from(mergedMap.values());
-  } catch (e) {}
-
-  // Fetch live cloud orders asynchronously
-  try {
-    const res = await fetch(CLOUD_DB_URL);
-    if (res.ok) {
-      const cloudData = await res.json();
-      const cloudOrders = cloudData?.data?.orders || [];
-
-      if (Array.isArray(cloudOrders) && cloudOrders.length > 0) {
-        const fullMap = new Map();
-        [...cloudOrders, ...cachedOrders].forEach(o => {
-          if (o && o.id) fullMap.set(o.id, o);
-        });
-
-        const fullMerged = Array.from(fullMap.values());
-        localStorage.setItem(LOCAL_STORAGE_REMOTE_KEY, JSON.stringify(fullMerged));
-        return fullMerged;
-      }
-    }
-  } catch (err) {
-    console.warn('[Cloud Order Fetch Warning]:', err);
+    return Array.from(mergedMap.values());
+  } catch (e) {
+    return [];
   }
-
-  return cachedOrders;
 };
