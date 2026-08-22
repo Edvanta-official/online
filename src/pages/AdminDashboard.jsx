@@ -29,19 +29,26 @@ export const AdminDashboard = () => {
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("ALL");
 
   // Custom order status state for live management
-  const [liveOrders, setLiveOrders] = useState(() => {
-    const globalOrders = fetchGlobalDatabaseOrders();
-    const map = new Map();
-    [...globalOrders, ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
-    return Array.from(map.values());
-  });
+  const [liveOrders, setLiveOrders] = useState([]);
 
-  // Sync live orders if shop context or remote DB updates
+  const syncLiveCloudOrders = async () => {
+    try {
+      const globalOrders = await fetchGlobalDatabaseOrders();
+      const map = new Map();
+      [...(Array.isArray(globalOrders) ? globalOrders : []), ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
+      setLiveOrders(Array.from(map.values()));
+    } catch (e) {}
+  };
+
+  // Sync live orders on mount and auto-refresh every 10 seconds
   React.useEffect(() => {
-    const globalOrders = fetchGlobalDatabaseOrders();
-    const map = new Map();
-    [...globalOrders, ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
-    setLiveOrders(Array.from(map.values()));
+    syncLiveCloudOrders();
+
+    const interval = setInterval(() => {
+      syncLiveCloudOrders();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, [orders]);
 
   const totalRevenue = liveOrders.reduce((sum, o) => sum + (o.finalAmount || o.cartTotal || 0), 0);
