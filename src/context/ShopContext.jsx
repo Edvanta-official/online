@@ -299,8 +299,6 @@ export const ShopProvider = ({ children }) => {
 
     const newOrder = {
       id: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
-      customerName: orderDetails.shippingAddress.fullName || user.name,
-      email: user.email,
       items: cart.map(i => ({
         id: i.product.id,
         name: i.product.name,
@@ -309,6 +307,9 @@ export const ShopProvider = ({ children }) => {
         image: i.product.images[0],
         deliveryDays: 7
       })),
+      customerName: orderDetails.shippingAddress?.fullName || user.name || "Sparkle Customer",
+      email: user.email || orderDetails.shippingAddress?.email || "",
+      phone: orderDetails.shippingAddress?.phone || user.phone || "",
       totalAmount: cartSubtotal,
       discount: discountAmount,
       shippingFee,
