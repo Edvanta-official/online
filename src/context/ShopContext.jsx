@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PRODUCTS, CATEGORIES, COUPONS, BRAND_INFO } from '../data/mockData';
 import { sendCustomerSigninEmailToAdmin, sendOrderPaymentConfirmationEmail } from '../services/emailService';
+import { saveOrderToGlobalDatabase, fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
 
 const ShopContext = createContext();
 
@@ -331,13 +332,16 @@ export const ShopProvider = ({ children }) => {
     clearCart();
     setIsCheckoutOpen(false);
 
+    // Save to global remote database store
+    saveOrderToGlobalDatabase(newOrder);
+
     // Dispatch order payment confirmation alert to sparklekkvofficial@gmail.com and customer!
     sendOrderPaymentConfirmationEmail({
       id: newOrder.id,
       customerName: newOrder.shippingAddress?.fullName || user.name || "Customer",
       customerEmail: user.email,
       phone: newOrder.shippingAddress?.phone || user.phone,
-      total: newOrder.total,
+      total: newOrder.finalAmount || newOrder.cartTotal,
       paymentMethod: newOrder.paymentMethod,
       address: newOrder.shippingAddress?.street,
       city: newOrder.shippingAddress?.city,

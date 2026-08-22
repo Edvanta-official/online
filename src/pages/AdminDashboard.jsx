@@ -5,6 +5,8 @@ import {
   Check, X, Sparkles, Tag, Search, Truck, Clock, RefreshCw, Download, Filter, CheckCircle2
 } from 'lucide-react';
 
+import { fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
+
 export const AdminDashboard = () => {
   const {
     user,
@@ -25,12 +27,20 @@ export const AdminDashboard = () => {
   const [orderSearchQuery, setOrderSearchQuery] = useState("");
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("ALL");
 
-  // Custom local order status state for live management
-  const [liveOrders, setLiveOrders] = useState(orders);
+  // Custom order status state for live management
+  const [liveOrders, setLiveOrders] = useState(() => {
+    const globalOrders = fetchGlobalDatabaseOrders();
+    const map = new Map();
+    [...globalOrders, ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
+    return Array.from(map.values());
+  });
 
-  // Sync live orders if shop context updates
+  // Sync live orders if shop context or remote DB updates
   React.useEffect(() => {
-    setLiveOrders(orders);
+    const globalOrders = fetchGlobalDatabaseOrders();
+    const map = new Map();
+    [...globalOrders, ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
+    setLiveOrders(Array.from(map.values()));
   }, [orders]);
 
   const totalRevenue = liveOrders.reduce((sum, o) => sum + (o.finalAmount || o.cartTotal || 0), 0);
