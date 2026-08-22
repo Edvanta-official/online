@@ -76,6 +76,16 @@ export const CheckoutModal = () => {
   const handleVerifyAndCompleteOrder = () => {
     setPaymentError('');
 
+    // Authenticate customer if not already logged in
+    if (!user || !user.isLoggedIn) {
+      loginUser(
+        shippingForm.fullName || "Sparkle Customer",
+        shippingForm.phone || "+91 9876543210",
+        "••••••••",
+        shippingForm.email || `${(shippingForm.fullName || 'customer').toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`
+      );
+    }
+
     const newOrder = placeOrder({
       shippingAddress: shippingForm,
       paymentMethod,
@@ -88,7 +98,7 @@ export const CheckoutModal = () => {
 
     setPlacedOrderInfo(newOrder);
     setStep(3);
-    showToast("🎉 Payment Confirmed & Order Placed Successfully!", "success");
+    showToast(`🎉 Payment Verified & Order Placed Successfully for ${shippingForm.fullName}!`, "success");
   };
 
   return (
