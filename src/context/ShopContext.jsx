@@ -341,6 +341,7 @@ export const ShopProvider = ({ children }) => {
       paymentMethod: orderDetails.paymentMethod,
       paymentStatus: orderDetails.paymentMethod === 'COD' ? 'Pending' : 'Paid',
       orderStatus: 'Order Received',
+      utrNumber: orderDetails.utrNumber || `UPI-${Math.floor(100000000000 + Math.random() * 900000000000)}`,
       trackingNumber: `SPK-IN-${Math.floor(1000000 + Math.random() * 9000000)}`,
       shippingAddress: orderDetails.shippingAddress,
       estimatedDeliveryDate,

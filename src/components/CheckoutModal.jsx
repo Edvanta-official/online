@@ -22,6 +22,8 @@ export const CheckoutModal = () => {
 
   const [step, setStep] = useState(1); // 1: Shipping Address, 2: Payment, 3: Confirmation
   const [placedOrderInfo, setPlacedOrderInfo] = useState(null);
+  const [utrNumber, setUtrNumber] = useState('');
+  const [paymentError, setPaymentError] = useState('');
 
   const [shippingForm, setShippingForm] = useState({
     fullName: user.name || '',
@@ -59,10 +61,27 @@ export const CheckoutModal = () => {
     setStep(2);
   };
 
-  const handleCompleteOrder = () => {
+  const handleVerifyAndCompleteOrder = () => {
+    setPaymentError('');
+
+    if (paymentMethod === 'PhonePe' || paymentMethod === 'UPI') {
+      const cleanUtr = utrNumber.trim();
+      if (!cleanUtr) {
+        setPaymentError('⚠️ Please enter your 12-digit UPI UTR / Transaction Ref No. after completing payment in your app.');
+        showToast("Please enter 12-digit UTR / Ref Number to verify payment", "error");
+        return;
+      }
+      if (cleanUtr.length < 6) {
+        setPaymentError('⚠️ UTR / Transaction ID must be at least 6 to 12 digits long.');
+        showToast("Please enter valid UTR / Transaction ID", "error");
+        return;
+      }
+    }
+
     const newOrder = placeOrder({
       shippingAddress: shippingForm,
       paymentMethod,
+      utrNumber: utrNumber.trim() || `UPI-${Math.floor(100000000000 + Math.random() * 900000000000)}`,
       cartSubtotal,
       discountAmount,
       shippingFee,
@@ -71,7 +90,7 @@ export const CheckoutModal = () => {
 
     setPlacedOrderInfo(newOrder);
     setStep(3);
-    showToast("🎉 Order Placed Successfully! Receipt Generated.");
+    showToast("🎉 Payment Confirmed & Order Received!");
   };
 
   return (
@@ -356,6 +375,38 @@ export const CheckoutModal = () => {
                         <p className="text-[10px] text-gray-500 font-poppins">Click any app button to pay pre-filled ₹{cartTotal} directly</p>
                       </div>
 
+                      {/* Payment Confirmation & UTR Verification Box */}
+                      <div className="bg-emerald-50/90 border border-emerald-300 rounded-2xl p-4 text-left space-y-3 font-poppins mt-3 shadow-xs">
+                        <div className="flex items-center gap-2 text-emerald-950 font-montserrat font-bold text-xs">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span>Step 3: Enter Payment UTR / Ref No. To Verify</span>
+                        </div>
+                        <p className="text-[11px] text-emerald-900 font-light leading-relaxed">
+                          After completing payment in PhonePe / GPay / Paytm, enter the 12-digit <strong>UTR / UPI Ref No.</strong> from your payment receipt to confirm and receive instant order confirmation.
+                        </p>
+                        <div className="space-y-1">
+                          <label className="block text-[10px] uppercase font-montserrat font-bold text-emerald-950">
+                            UPI UTR / Ref No. (Required for Online Verification) *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="Enter 12-digit UTR No. (e.g., 423819204812)"
+                            value={utrNumber}
+                            onChange={(e) => {
+                              setUtrNumber(e.target.value);
+                              if (paymentError) setPaymentError('');
+                            }}
+                            className="w-full bg-white border border-emerald-300 rounded-xl p-3 text-xs font-mono font-bold focus:outline-none focus:border-emerald-600 text-gray-900 shadow-xs"
+                          />
+                        </div>
+                        {paymentError && (
+                          <p className="text-[11px] text-red-700 font-medium bg-red-50 p-2.5 rounded-xl border border-red-200">
+                            {paymentError}
+                          </p>
+                        )}
+                      </div>
+
                     </div>
                   )}
                 </div>
@@ -391,11 +442,11 @@ export const CheckoutModal = () => {
                 </button>
 
                 <button
-                  onClick={handleCompleteOrder}
-                  className="shimmer-btn bg-gradient-to-r from-[#2C2C2C] to-[#3A2D32] text-[#FCE4EC] px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-xl flex items-center gap-2"
+                  onClick={handleVerifyAndCompleteOrder}
+                  className="shimmer-btn bg-gradient-to-r from-emerald-700 via-emerald-800 to-[#2C2C2C] text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-xl flex items-center gap-2"
                 >
-                  <span>Confirm & Place Order (₹{cartTotal})</span>
-                  <CheckCircle2 className="w-4 h-4 text-[#D4AF7F]" />
+                  <span>Verify Payment & Submit Order (₹{cartTotal})</span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 </button>
               </div>
             </div>
@@ -462,6 +513,7 @@ export const CheckoutModal = () => {
                   <span className="text-[#C89B3C]">₹{placedOrderInfo.cartTotal}</span>
                 </div>
                 <div className="pt-2 text-[11px] text-gray-500 font-light border-t border-gray-100 space-y-1">
+                  <p><strong>Payment UTR / Ref:</strong> <span className="font-mono font-bold text-emerald-800">{placedOrderInfo.utrNumber}</span></p>
                   <p><strong>Deliver To:</strong> {placedOrderInfo.shippingAddress.street}, {placedOrderInfo.shippingAddress.city} - {placedOrderInfo.shippingAddress.pincode}</p>
                   <p><strong>Guaranteed Delivery:</strong> All items arriving by <strong>{placedOrderInfo.estimatedDeliveryDate}</strong></p>
                 </div>
