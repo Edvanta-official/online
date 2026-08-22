@@ -702,22 +702,45 @@ export const AdminDashboard = () => {
                 </p>
               </div>
 
-              <button
-                onClick={() => {
-                  const sqlContent = "data:text/plain;charset=utf-8," + encodeURIComponent(generateSQLDumpScript());
-                  const link = document.createElement("a");
-                  link.setAttribute("href", sqlContent);
-                  link.setAttribute("download", `sparkle_store_database_${Date.now()}.sql`);
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  showToast("📥 Exported SQL Database Backup (.sql) successfully!");
-                }}
-                className="bg-emerald-700 hover:bg-emerald-800 text-white font-montserrat font-bold text-xs px-5 py-3 rounded-2xl uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
-              >
-                <Download className="w-4 h-4 text-emerald-200" />
-                <span>Export .SQL Database Backup</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const customers = getSQLLoggedInUsers();
+                    const csvContent = "data:text/csv;charset=utf-8," + ["User ID,Customer Name,Email,Phone,Role,Last Login"].concat(
+                      customers.map(c => `${c.user_id},"${c.full_name}",${c.email},${c.phone},${c.role},"${c.last_login_at}"`)
+                    ).join("\n");
+                    const encodedUri = encodeURI(csvContent);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", `sparkle_customers_database_${Date.now()}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("📥 Exported Customer Database as CSV!");
+                  }}
+                  className="bg-blue-700 hover:bg-blue-800 text-white font-montserrat font-bold text-xs px-4 py-3 rounded-2xl uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4 text-blue-200" />
+                  <span>Export Customer CSV</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    const sqlContent = "data:text/plain;charset=utf-8," + encodeURIComponent(generateSQLDumpScript());
+                    const link = document.createElement("a");
+                    link.setAttribute("href", sqlContent);
+                    link.setAttribute("download", `sparkle_store_database_${Date.now()}.sql`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("📥 Exported SQL Database Backup (.sql) successfully!");
+                  }}
+                  className="bg-emerald-700 hover:bg-emerald-800 text-white font-montserrat font-bold text-xs px-4 py-3 rounded-2xl uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4 text-emerald-200" />
+                  <span>Export .SQL Backup</span>
+                </button>
+              </div>
             </div>
 
             {/* Table 0: Store Catalog Products */}
