@@ -437,7 +437,7 @@ export const ProductDetailsPage = () => {
               <p>{product.description}</p>
               <ul className="list-disc pl-5 space-y-1.5 text-gray-700 font-medium">
                 {product.details?.map((d, i) => <li key={i}>{d}</li>) || <li>100% Quality Inspected before velvet packaging.</li>}
-                <li>Dispatched directly from Sparkel Boutique Mumbai Workshop.</li>
+                <li>Dispatched directly from Sparkle Boutique Hyderabad Workshop.</li>
                 <li>Hassle-free 7-day exchange or replacement policy.</li>
               </ul>
             </div>
@@ -506,7 +506,7 @@ export const ProductDetailsPage = () => {
                 <textarea
                   required
                   rows={2}
-                  placeholder="Share your experience wearing this Sparkel accessory..."
+                  placeholder="Share your experience wearing this Sparkle accessory..."
                   value={newReview.comment}
                   onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                   className="w-full bg-white border border-[#D4AF7F]/40 rounded-xl p-3 text-xs"
