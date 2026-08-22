@@ -66,8 +66,30 @@ export const AdminDashboard = () => {
     try {
       const updatedList = liveOrders.map(o => o.id === orderId ? { ...o, orderStatus: newStatus } : o);
       localStorage.setItem('sparkel_orders', JSON.stringify(updatedList));
+      localStorage.setItem('SPARKLE_REMOTE_ORDERS_DATABASE', JSON.stringify(updatedList));
     } catch (e) {}
     showToast(`Order ${orderId} status updated to "${newStatus}"!`, "success");
+  };
+
+  const handleClearAllOrders = () => {
+    if (window.confirm("Are you sure you want to clear all test orders from your admin portal?")) {
+      localStorage.removeItem('sparkel_orders');
+      localStorage.removeItem('SPARKLE_REMOTE_ORDERS_DATABASE');
+      setLiveOrders([]);
+      showToast("🗑️ All test orders cleared from Admin Portal!", "info");
+    }
+  };
+
+  const handleDeleteSingleOrder = (orderId) => {
+    if (window.confirm(`Are you sure you want to delete order ${orderId}?`)) {
+      const updated = liveOrders.filter(o => o.id !== orderId);
+      setLiveOrders(updated);
+      try {
+        localStorage.setItem('sparkel_orders', JSON.stringify(updated));
+        localStorage.setItem('SPARKLE_REMOTE_ORDERS_DATABASE', JSON.stringify(updated));
+      } catch (e) {}
+      showToast(`Deleted order ${orderId}!`, "info");
+    }
   };
 
   // Filtered orders list for Admin Search
@@ -227,7 +249,7 @@ export const AdminDashboard = () => {
                 />
               </div>
 
-              {/* Status Filter Buttons */}
+              {/* Status Filter Buttons & Clear All */}
               <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto font-montserrat text-[10px] font-bold uppercase">
                 {['ALL', 'Order Received', 'Processing', 'Shipped', 'Delivered'].map(status => (
                   <button
@@ -238,6 +260,15 @@ export const AdminDashboard = () => {
                     {status}
                   </button>
                 ))}
+
+                <button
+                  type="button"
+                  onClick={handleClearAllOrders}
+                  className="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-lg transition-colors shrink-0 font-bold flex items-center gap-1"
+                  title="Clear all test orders from Admin Portal"
+                >
+                  <span>🗑️ Clear All Orders</span>
+                </button>
               </div>
             </div>
 
@@ -329,8 +360,8 @@ export const AdminDashboard = () => {
                       ))}
                     </div>
 
-                    {/* Action Bar - Update Order Status */}
-                    <div className="border-t border-gray-100 pt-3 flex items-center justify-between font-montserrat text-xs">
+                    {/* Action Bar - Update Order Status & Delete */}
+                    <div className="border-t border-gray-100 pt-3 flex flex-wrap items-center justify-between font-montserrat text-xs gap-2">
                       <span className="text-gray-500 font-medium text-[11px]">Update Order Status:</span>
 
                       <div className="flex items-center gap-2">
@@ -347,6 +378,15 @@ export const AdminDashboard = () => {
                             {statusOption}
                           </button>
                         ))}
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteSingleOrder(order.id)}
+                          className="bg-red-50 hover:bg-red-100 text-red-700 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase transition-all border border-red-200 ml-2"
+                          title="Delete this order from Admin Portal"
+                        >
+                          🗑️ Delete
+                        </button>
                       </div>
                     </div>
 
