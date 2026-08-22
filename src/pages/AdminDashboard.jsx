@@ -28,8 +28,72 @@ export const AdminDashboard = () => {
   const [orderSearchQuery, setOrderSearchQuery] = useState("");
   const [selectedStatusFilter, setSelectedStatusFilter] = useState("ALL");
 
-  // Custom order status state for live management
-  const [liveOrders, setLiveOrders] = useState([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [manualOrder, setManualOrder] = useState({
+    customerName: '',
+    phone: '',
+    email: '',
+    street: '',
+    city: '',
+    pincode: '',
+    totalAmount: '',
+    itemName: '',
+    paymentMethod: 'PhonePe'
+  });
+
+  const handleCreateManualOrder = (e) => {
+    e.preventDefault();
+    if (!manualOrder.customerName || !manualOrder.totalAmount) {
+      showToast("Please fill customer name and order total!", "error");
+      return;
+    }
+
+    const createdOrder = {
+      id: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
+      customerName: manualOrder.customerName,
+      email: manualOrder.email || 'customer@sparklekkv.com',
+      phone: manualOrder.phone || 'N/A',
+      items: [
+        {
+          id: 'SPK-CUSTOM',
+          name: manualOrder.itemName || 'Jewelry Accessory',
+          price: Number(manualOrder.totalAmount),
+          quantity: 1,
+          image: 'images/plumeria_flower.jpg'
+        }
+      ],
+      totalAmount: Number(manualOrder.totalAmount),
+      finalAmount: Number(manualOrder.totalAmount),
+      cartTotal: Number(manualOrder.totalAmount),
+      cartSubtotal: Number(manualOrder.totalAmount),
+      discountAmount: 0,
+      shippingFee: 0,
+      paymentMethod: manualOrder.paymentMethod,
+      paymentStatus: 'Paid',
+      orderStatus: 'Order Received',
+      trackingNumber: `SPK-IN-${Math.floor(1000000 + Math.random() * 9000000)}`,
+      shippingAddress: {
+        fullName: manualOrder.customerName,
+        phone: manualOrder.phone || 'N/A',
+        street: manualOrder.street || 'Madhapur',
+        city: manualOrder.city || 'Hyderabad',
+        pincode: manualOrder.pincode || '500081'
+      },
+      estimatedDeliveryDate: 'Within 7 Business Days',
+      createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+    };
+
+    const updated = [createdOrder, ...liveOrders];
+    setLiveOrders(updated);
+    try {
+      localStorage.setItem('sparkel_orders', JSON.stringify(updated));
+      localStorage.setItem('SPARKLE_REMOTE_ORDERS_DATABASE', JSON.stringify(updated));
+    } catch (err) {}
+
+    setIsAddModalOpen(false);
+    setManualOrder({ customerName: '', phone: '', email: '', street: '', city: '', pincode: '', totalAmount: '', itemName: '', paymentMethod: 'PhonePe' });
+    showToast(`🎉 Order ${createdOrder.id} added successfully!`, "success");
+  };
 
   const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241'];
 
@@ -269,6 +333,15 @@ export const AdminDashboard = () => {
 
                 <button
                   type="button"
+                  onClick={() => setIsAddModalOpen(true)}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg transition-colors shrink-0 font-bold flex items-center gap-1 shadow-sm"
+                  title="Add customer order details manually from email or phone"
+                >
+                  <span>➕ Add Order</span>
+                </button>
+
+                <button
+                  type="button"
                   onClick={handleClearAllOrders}
                   className="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-lg transition-colors shrink-0 font-bold flex items-center gap-1"
                   title="Clear all test orders from Admin Portal"
@@ -277,6 +350,105 @@ export const AdminDashboard = () => {
                 </button>
               </div>
             </div>
+
+            {/* MANUAL ORDER CREATION MODAL */}
+            {isAddModalOpen && (
+              <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 max-w-md w-full border border-[#FCE4EC] shadow-2xl space-y-4 font-poppins">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                    <h3 className="font-serif-luxury font-bold text-lg text-[#2C2C2C]">➕ Add Customer Order</h3>
+                    <button onClick={() => setIsAddModalOpen(false)} className="text-gray-400 hover:text-gray-600 font-bold text-lg">✕</button>
+                  </div>
+
+                  <form onSubmit={handleCreateManualOrder} className="space-y-3 text-xs">
+                    <div>
+                      <label className="block font-semibold text-gray-700 mb-1">Customer Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Kowshik / Priya Varma"
+                        value={manualOrder.customerName}
+                        onChange={(e) => setManualOrder({ ...manualOrder, customerName: e.target.value })}
+                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block font-semibold text-gray-700 mb-1">Phone Number</label>
+                        <input
+                          type="text"
+                          placeholder="9493576797"
+                          value={manualOrder.phone}
+                          onChange={(e) => setManualOrder({ ...manualOrder, phone: e.target.value })}
+                          className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-semibold text-gray-700 mb-1">Total Paid (₹) *</label>
+                        <input
+                          type="number"
+                          required
+                          placeholder="169"
+                          value={manualOrder.totalAmount}
+                          onChange={(e) => setManualOrder({ ...manualOrder, totalAmount: e.target.value })}
+                          className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-semibold text-gray-700 mb-1">Email Address</label>
+                      <input
+                        type="email"
+                        placeholder="customer@gmail.com"
+                        value={manualOrder.email}
+                        onChange={(e) => setManualOrder({ ...manualOrder, email: e.target.value })}
+                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-semibold text-gray-700 mb-1">Item Purchased Name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Plumeria flower claw clip / Kundhan Kadas"
+                        value={manualOrder.itemName}
+                        onChange={(e) => setManualOrder({ ...manualOrder, itemName: e.target.value })}
+                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-semibold text-gray-700 mb-1">Delivery Street Address & City</label>
+                      <input
+                        type="text"
+                        placeholder="Madhapur, Hyderabad - 500081"
+                        value={manualOrder.street}
+                        onChange={(e) => setManualOrder({ ...manualOrder, street: e.target.value })}
+                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#C89B3C]"
+                      />
+                    </div>
+
+                    <div className="pt-2 flex justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsAddModalOpen(false)}
+                        className="px-4 py-2 bg-gray-100 text-gray-600 rounded-xl font-bold hover:bg-gray-200"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2 bg-[#2C2C2C] text-[#FCE4EC] rounded-xl font-bold hover:bg-[#3A2D32]"
+                      >
+                        Save Order to Admin
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
 
             {/* Orders Cards List */}
             {filteredOrdersList.length === 0 ? (
