@@ -135,7 +135,7 @@ export const ProductQuickViewModal = () => {
                     Select Bangle Size: <span className="text-[#C89B3C] font-bold">{selectedSize}</span>
                   </label>
                   <div className="flex items-center gap-2">
-                    {(quickViewProduct.sizes || ["2*4", "2*6", "2*7"]).map(sz => (
+                    {(quickViewProduct.sizes || ["2*4", "2*6", "2*8"]).map(sz => (
                       <button
                         key={sz}
                         type="button"

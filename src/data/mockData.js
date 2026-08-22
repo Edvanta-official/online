@@ -1519,7 +1519,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 16,
-    sizes: ["2*4", "2*6", "2*7"],
+    sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_1.png"
     ],
@@ -1528,7 +1528,7 @@ export const PRODUCTS = [
     ],
     description: "1.png Kundhan Kadas from Drive BANGLES folder.",
     details: [
-      "Bangle Sizes Available: 2*4, 2*6, 2*7",
+      "Bangle Sizes Available: 2*4, 2*6, 2*8",
       "Quantity: 1 Set (16 Pieces)",
       "Purchase Price: ₹150",
       "Drive File: 1.png"
@@ -1550,7 +1550,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 40,
-    sizes: ["2*4", "2*6", "2*7"],
+    sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_2.png"
     ],
@@ -1559,7 +1559,7 @@ export const PRODUCTS = [
     ],
     description: "2.png Oxidised silver thin metal bangles from Drive BANGLES folder.",
     details: [
-      "Bangle Sizes Available: 2*4, 2*6, 2*7",
+      "Bangle Sizes Available: 2*4, 2*6, 2*8",
       "Quantity: 10 Sets (40 Pieces)",
       "Purchase Rate: ₹74/Set (Total: ₹740)",
       "Drive File: 2.png"
@@ -1581,7 +1581,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 30,
-    sizes: ["2*4", "2*6", "2*7"],
+    sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_3.png"
     ],
@@ -1590,7 +1590,7 @@ export const PRODUCTS = [
     ],
     description: "3.png Kemp Stone Bangles from Drive BANGLES folder.",
     details: [
-      "Bangle Sizes Available: 2*4, 2*6, 2*7",
+      "Bangle Sizes Available: 2*4, 2*6, 2*8",
       "Quantity: 6 Sets (30 Pieces)",
       "Purchase Rate: ₹81/Set (Total: ₹486)",
       "Drive File: 3.png"
@@ -1612,7 +1612,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: false,
     stock: 8,
-    sizes: ["2*4", "2*6", "2*7"],
+    sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_4.png"
     ],
@@ -1621,7 +1621,7 @@ export const PRODUCTS = [
     ],
     description: "4.png Silver Stone Chura Set from Drive BANGLES folder.",
     details: [
-      "Bangle Sizes Available: 2*4, 2*6, 2*7",
+      "Bangle Sizes Available: 2*4, 2*6, 2*8",
       "Quantity: 4 Sets (8 Pieces)",
       "Purchase Rate: ₹110/Set (Total: ₹440)",
       "Drive File: 4.png"
@@ -1643,7 +1643,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 12,
-    sizes: ["2*4", "2*6", "2*7"],
+    sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_5.png"
     ],
@@ -1652,7 +1652,7 @@ export const PRODUCTS = [
     ],
     description: "5.png Antique gold plated metal bangle from Drive BANGLES folder.",
     details: [
-      "Bangle Sizes Available: 2*4, 2*6, 2*7",
+      "Bangle Sizes Available: 2*4, 2*6, 2*8",
       "Quantity: 6 Sets (12 Pieces)",
       "Purchase Rate: ₹65/Set (Total: ₹195)",
       "Drive File: 5.png"
