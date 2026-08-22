@@ -23,6 +23,7 @@ export const AdminDashboard = () => {
   const [adminPassword, setAdminPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isAdminAuthed, setIsAdminAuthed] = useState(true);
+  const [liveOrders, setLiveOrders] = useState([]);
 
   const [adminTab, setAdminTab] = useState('orders');
   const [orderSearchQuery, setOrderSearchQuery] = useState("");
