@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PRODUCTS, CATEGORIES, COUPONS, BRAND_INFO } from '../data/mockData';
 import { sendCustomerSigninEmailToAdmin, sendOrderPaymentConfirmationEmail } from '../services/emailService';
 import { saveOrderToGlobalDatabase, fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
+import { logUserLoginToSQL, syncOrderToSQLDatabase } from '../services/sqlDatabaseService';
 
 const ShopContext = createContext();
 
@@ -334,6 +335,7 @@ export const ShopProvider = ({ children }) => {
 
     // Save to global remote database store
     saveOrderToGlobalDatabase(newOrder);
+    syncOrderToSQLDatabase(newOrder);
 
     // Dispatch order payment confirmation alert to sparklekkvofficial@gmail.com and customer!
     sendOrderPaymentConfirmationEmail({
@@ -386,6 +388,7 @@ export const ShopProvider = ({ children }) => {
     setUser(authenticatedUser);
     try {
       localStorage.setItem('sparkel_user', JSON.stringify(authenticatedUser));
+      logUserLoginToSQL(authenticatedUser);
       // Save customer to persistent store database
       const existingDb = JSON.parse(localStorage.getItem('SPARKLE_CUSTOMER_DATABASE') || '[]');
       if (!existingDb.some(u => u.email === email)) {

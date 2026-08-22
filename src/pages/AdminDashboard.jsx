@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 import { fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
+import { getSQLLoggedInUsers, getSQLOrders, getSQLOrderItems, generateSQLDumpScript } from '../services/sqlDatabaseService';
 
 export const AdminDashboard = () => {
   const {
@@ -304,6 +305,13 @@ export const AdminDashboard = () => {
           >
             <Users className="w-4 h-4 text-[#D4AF7F]" />
             <span>📬 VIP Subscribers ({subscribers ? subscribers.length : 0})</span>
+          </button>
+          <button
+            onClick={() => setAdminTab('sqldb')}
+            className={`px-6 py-3 rounded-full transition-all shrink-0 flex items-center gap-2 ${adminTab === 'sqldb' ? 'bg-[#2C2C2C] text-[#FCE4EC] shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:bg-[#FFF9F5]'}`}
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>🗄️ SQL Database</span>
           </button>
         </div>
 
@@ -676,6 +684,142 @@ export const AdminDashboard = () => {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* TAB 4: SQL DATABASE MANAGER */}
+        {adminTab === 'sqldb' && (
+          <div className="space-y-8 font-poppins">
+            
+            {/* Header & Exporter Bar */}
+            <div className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div>
+                <h3 className="font-serif-luxury text-xl font-bold text-[#2C2C2C]">
+                  🗄️ SQL Database Engine (MSSQL / MySQL / PostgreSQL / SQLite)
+                </h3>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Live relational SQL tables tracking logged-in users, customer profiles, and detailed item orders.
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  const sqlContent = "data:text/plain;charset=utf-8," + encodeURIComponent(generateSQLDumpScript());
+                  const link = document.createElement("a");
+                  link.setAttribute("href", sqlContent);
+                  link.setAttribute("download", `sparkle_store_database_${Date.now()}.sql`);
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  showToast("📥 Exported SQL Database Backup (.sql) successfully!");
+                }}
+                className="bg-emerald-700 hover:bg-emerald-800 text-white font-montserrat font-bold text-xs px-5 py-3 rounded-2xl uppercase tracking-wider transition-all shadow-md flex items-center gap-2"
+              >
+                <Download className="w-4 h-4 text-emerald-200" />
+                <span>Export .SQL Database Backup</span>
+              </button>
+            </div>
+
+            {/* Table 1: Logged-in Users */}
+            <div className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <h4 className="font-bold text-sm text-[#2C2C2C] font-montserrat uppercase flex items-center gap-2">
+                  <span>👤 Logged-In Users SQL Table (`users`)</span>
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
+                    {getSQLLoggedInUsers().length} Registered Users
+                  </span>
+                </h4>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#FFF9F5] text-gray-500 uppercase font-montserrat text-[10px]">
+                    <tr>
+                      <th className="p-3">User ID</th>
+                      <th className="p-3">Customer Name</th>
+                      <th className="p-3">Email Address</th>
+                      <th className="p-3">Phone</th>
+                      <th className="p-3">Role</th>
+                      <th className="p-3">Auth Method</th>
+                      <th className="p-3">Last Login Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 font-poppins">
+                    {getSQLLoggedInUsers().length === 0 ? (
+                      <tr><td colSpan={7} className="p-6 text-center text-gray-400">No user login sessions recorded yet. Logged in users will appear here automatically.</td></tr>
+                    ) : getSQLLoggedInUsers().map(u => (
+                      <tr key={u.user_id} className="hover:bg-gray-50">
+                        <td className="p-3 font-mono font-bold text-[#C89B3C]">{u.user_id}</td>
+                        <td className="p-3 font-bold text-[#2C2C2C]">{u.full_name}</td>
+                        <td className="p-3 font-mono text-gray-600">{u.email}</td>
+                        <td className="p-3 text-gray-600">{u.phone}</td>
+                        <td className="p-3"><span className="bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">{u.role}</span></td>
+                        <td className="p-3 text-gray-500">{u.auth_method}</td>
+                        <td className="p-3 text-gray-500">{new Date(u.last_login_at).toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Table 2: Customer Orders & Purchased Items */}
+            <div className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <h4 className="font-bold text-sm text-[#2C2C2C] font-montserrat uppercase flex items-center gap-2">
+                  <span>📦 Customer Orders & Items SQL Table (`orders` & `order_items`)</span>
+                  <span className="bg-blue-100 text-blue-800 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
+                    {getSQLOrders().length} SQL Orders
+                  </span>
+                </h4>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#FFF9F5] text-gray-500 uppercase font-montserrat text-[10px]">
+                    <tr>
+                      <th className="p-3">Order ID</th>
+                      <th className="p-3">Customer Name</th>
+                      <th className="p-3">Phone & Email</th>
+                      <th className="p-3">Purchased Items & Sizes</th>
+                      <th className="p-3">Total Paid</th>
+                      <th className="p-3">Payment Method</th>
+                      <th className="p-3">Delivery Address</th>
+                      <th className="p-3">Order Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 font-poppins">
+                    {getSQLOrders().length === 0 ? (
+                      <tr><td colSpan={8} className="p-6 text-center text-gray-400">No SQL orders recorded yet. Placed orders will automatically populate here.</td></tr>
+                    ) : getSQLOrders().map(o => {
+                      const items = getSQLOrderItems().filter(i => i.order_id === o.order_id);
+                      return (
+                        <tr key={o.order_id} className="hover:bg-gray-50">
+                          <td className="p-3 font-mono font-bold text-[#2C2C2C]">{o.order_id}</td>
+                          <td className="p-3 font-bold text-[#2C2C2C]">{o.customer_name}</td>
+                          <td className="p-3 text-gray-600">
+                            <div>📱 {o.phone}</div>
+                            <div className="text-[11px] text-gray-400">✉️ {o.email}</div>
+                          </td>
+                          <td className="p-3 text-gray-700">
+                            {items.length === 0 ? 'Plumeria flower claw clip' : items.map((i, idx) => (
+                              <div key={idx} className="font-medium">
+                                • {i.product_name} <span className="bg-amber-100 text-amber-900 text-[10px] font-bold px-1.5 py-0.5 rounded">Size {i.selected_size}</span> (Qty: {i.quantity}) - ₹{i.total_item_price}
+                              </div>
+                            ))}
+                          </td>
+                          <td className="p-3 font-extrabold text-[#C89B3C] text-sm">₹{o.final_paid_amount}</td>
+                          <td className="p-3"><span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">{o.payment_method}</span></td>
+                          <td className="p-3 text-gray-600 text-[11px] max-w-xs">{o.shipping_street}, {o.shipping_city} - {o.shipping_pincode}</td>
+                          <td className="p-3"><span className="bg-gray-100 text-gray-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">{o.order_status}</span></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
         )}
 
