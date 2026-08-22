@@ -21,7 +21,6 @@ import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { ProductDetailsPage } from './pages/ProductDetailsPage';
 import { CustomerDashboard } from './pages/CustomerDashboard';
-import { AdminDashboard } from './pages/AdminDashboard';
 import { CheckCircle2, AlertCircle, Info } from 'lucide-react';
 
 const ToastNotification = () => {
@@ -98,7 +97,6 @@ export function App() {
                 <Route path="/shop" element={<ShopPage />} />
                 <Route path="/product/:id" element={<ProductDetailsPage />} />
                 <Route path="/dashboard" element={<CustomerDashboard />} />
-                <Route path="/admin" element={<AdminDashboard />} />
               </Routes>
             </main>
 

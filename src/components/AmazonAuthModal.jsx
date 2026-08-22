@@ -487,71 +487,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
             </form>
           )}
 
-          {/* ================= MODE 2: ADMIN SIGN IN ================= */}
-          {authMode === 'admin_signin' && (
-            <form onSubmit={handleAdminSignInSubmit} className="space-y-4">
-              <div className="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900 font-medium flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#C89B3C] shrink-0" />
-                <span>Restricted Administrator Sign In Portal for Sparkle @ KKV.</span>
-              </div>
 
-              <div className="space-y-1.5">
-                <label className="font-montserrat text-[11px] font-semibold uppercase tracking-wider text-[#2C2C2C]">
-                  Admin Email / ID
-                </label>
-                <div className="relative">
-                  <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C89B3C]" />
-                  <input
-                    type="text"
-                    required
-                    placeholder="admin@sparklekkv.com"
-                    value={adminEmailInput}
-                    onChange={(e) => setAdminEmailInput(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#D4AF7F]/50 bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="font-montserrat text-[11px] font-semibold uppercase tracking-wider text-[#2C2C2C]">
-                  Admin Passcode
-                </label>
-                <div className="relative">
-                  <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C89B3C]" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    required
-                    placeholder="Enter Admin Password"
-                    value={adminPasswordInput}
-                    onChange={(e) => setAdminPasswordInput(e.target.value)}
-                    className="w-full pl-10 pr-10 py-3 rounded-xl border border-[#D4AF7F]/50 bg-white focus:outline-none focus:border-[#C89B3C] text-xs font-medium text-[#2C2C2C]"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-[#C89B3C] hover:bg-[#AA7C11] text-white font-montserrat font-bold py-3.5 rounded-xl uppercase tracking-wider text-xs shadow-md transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                {isLoading ? (
-                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                ) : (
-                  <>
-                    <span>Authenticate As Administrator</span>
-                    <ShieldCheck className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            </form>
-          )}
 
           {/* ================= MODE 3: CREATE ACCOUNT ================= */}
           {authMode === 'register' && (

@@ -368,21 +368,11 @@ export const ShopProvider = ({ children }) => {
     return newOrder;
   };
 
-  // Toggle user role between Customer and Admin for live preview!
-  const switchUserRole = (role) => {
-    setUser(prev => ({
-      ...prev,
-      role,
-      name: role === 'admin' ? "Sparkle Admin @ KKV" : "Ananya Sharma"
-    }));
-    showToast(`Switched view to ${role.toUpperCase()} mode!`, "info");
-  };
-
   const loginUser = (nameInput, phoneInput, passwordInput, emailInput) => {
     const name = nameInput || "Sparkle Customer";
     const phone = phoneInput || "+91 9876543210";
     const password = passwordInput || "••••••••";
-    const role = name.toLowerCase().includes('admin') ? 'admin' : 'customer';
+    const role = 'customer';
     const email = emailInput || (name.includes('@') ? name : `${name.toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`);
 
     const authenticatedUser = {
@@ -541,7 +531,6 @@ export const ShopProvider = ({ children }) => {
       applyCoupon,
       removeCoupon,
       placeOrder,
-      switchUserRole,
       loginUser,
       logoutUser,
       addProduct,

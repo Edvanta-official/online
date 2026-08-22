@@ -217,7 +217,7 @@ export const Navbar = () => {
                       className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] transition-all bg-[#FFF9F5]"
                     >
                       <div className="w-8 h-8 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center text-xs font-bold font-montserrat">
-                        {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
+                        {user.name.charAt(0)}
                       </div>
                       <ChevronDown className="w-3.5 h-3.5 text-[#2C2C2C]" />
                     </button>
@@ -237,23 +237,13 @@ export const Navbar = () => {
                         </div>
 
                         <div className="py-1">
-                          {user.role === 'admin' ? (
-                            <Link
-                              to="/admin"
-                              onClick={() => setIsUserMenuOpen(false)}
-                              className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#C89B3C] font-semibold"
-                            >
-                              <ShieldCheck className="w-4 h-4" /> Admin Portal
-                            </Link>
-                          ) : (
-                            <Link
-                              to="/dashboard"
-                              onClick={() => setIsUserMenuOpen(false)}
-                              className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#2C2C2C]"
-                            >
-                              <User className="w-4 h-4" /> My Account & Orders
-                            </Link>
-                          )}
+                          <Link
+                            to="/dashboard"
+                            onClick={() => setIsUserMenuOpen(false)}
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#2C2C2C]"
+                          >
+                            <User className="w-4 h-4" /> My Account & Orders
+                          </Link>
                           <button
                             onClick={() => {
                               logoutUser();
@@ -375,21 +365,12 @@ export const Navbar = () => {
             <div className="bg-[#FFF9F5] p-3 rounded-2xl border border-[#D4AF7F]/30 flex items-center justify-between font-poppins text-xs">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-[#2C2C2C] text-[#FCE4EC] flex items-center justify-center font-bold font-montserrat text-xs">
-                  {user.role === 'admin' ? 'AD' : user.name.charAt(0)}
+                  {user.name ? user.name.charAt(0) : 'U'}
                 </div>
                 <div>
-                  <p className="font-semibold text-[#2C2C2C]">{user.name}</p>
-                  <p className="text-[10px] text-gray-500">{user.role === 'admin' ? 'Administrator' : user.email}</p>
+                  <p className="font-semibold text-[#2C2C2C]">{user.name || 'Sparkle Member'}</p>
+                  <p className="text-[10px] text-gray-500">{user.email || 'Welcome to Sparkle @kkv'}</p>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-1 bg-[#F5F5F5] p-1 rounded-xl">
-                <button
-                  onClick={() => switchUserRole(user.role === 'admin' ? 'customer' : 'admin')}
-                  className="px-2.5 py-1 bg-white shadow-xs rounded-lg text-[10px] font-bold text-[#C89B3C]"
-                >
-                  {user.role === 'admin' ? 'Customer Mode' : 'Admin Mode'}
-                </button>
               </div>
             </div>
 
@@ -506,15 +487,9 @@ export const Navbar = () => {
               <span className="text-gray-300">•</span>
               {user.isLoggedIn ? (
                 <>
-                  {user.role === 'admin' ? (
-                    <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="text-[#C89B3C] font-semibold">
-                      Admin
-                    </Link>
-                  ) : (
-                    <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#C89B3C]">
-                      My Orders
-                    </Link>
-                  )}
+                  <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#C89B3C]">
+                    My Orders
+                  </Link>
                   <span className="text-gray-300">•</span>
                   <button
                     onClick={() => {
