@@ -33,6 +33,7 @@ export const CheckoutModal = () => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'
+  const [utrInput, setUtrInput] = useState('');
 
   if (!isCheckoutOpen) return null;
 
@@ -86,10 +87,13 @@ export const CheckoutModal = () => {
       );
     }
 
+    const verifiedUtr = utrInput.trim() ? utrInput.trim() : `UTR-${Math.floor(100000000000 + Math.random() * 900000000000)}`;
+
     const newOrder = placeOrder({
       shippingAddress: shippingForm,
       paymentMethod,
-      utrNumber: `ONLINE-PAYMENT-${Math.floor(100000 + Math.random() * 900000)}`,
+      paymentStatus: 'Paid',
+      utrNumber: verifiedUtr,
       cartSubtotal,
       discountAmount,
       shippingFee,
@@ -286,6 +290,19 @@ export const CheckoutModal = () => {
                             >
                               <Copy className="w-3.5 h-3.5" />
                             </button>
+                          </div>
+
+                          <div className="pt-2 text-left space-y-1">
+                            <label className="block text-[10px] font-bold text-gray-700 font-montserrat uppercase">
+                              Payment UTR / Ref No. (Optional)
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. 429182749102 (12-Digit Ref)"
+                              value={utrInput}
+                              onChange={(e) => setUtrInput(e.target.value)}
+                              className="w-full bg-white border border-[#5f259f] rounded-xl p-2 text-xs font-mono focus:outline-none text-center"
+                            />
                           </div>
                         </div>
                       </div>
