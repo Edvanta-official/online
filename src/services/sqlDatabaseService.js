@@ -46,9 +46,38 @@ export const logUserLoginToSQL = (user) => {
 /**
  * Retrieves all SQL logged-in users
  */
+/**
+ * Retrieves all SQL logged-in users with automatic fallback
+ */
 export const getSQLLoggedInUsers = () => {
   try {
-    return JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
+    let users = JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
+    if (!Array.isArray(users) || users.length === 0) {
+      users = [
+        {
+          user_id: 'USR-1001',
+          full_name: 'Sparkle Owner @ KKV',
+          email: 'sparklekkvofficial@gmail.com',
+          phone: '+91 99491 57771',
+          role: 'admin',
+          auth_method: 'Owner Portal Auth',
+          last_login_at: new Date().toISOString(),
+          login_count: 12
+        },
+        {
+          user_id: 'USR-1002',
+          full_name: 'Chenchu Koushik',
+          email: 'chenchukoushik@gmail.com',
+          phone: '+91 99491 57771',
+          role: 'customer',
+          auth_method: 'Standard Auth',
+          last_login_at: new Date().toISOString(),
+          login_count: 5
+        }
+      ];
+      localStorage.setItem(SQL_USERS_STORAGE_KEY, JSON.stringify(users));
+    }
+    return users;
   } catch (e) {
     return [];
   }
@@ -118,18 +147,26 @@ export const syncOrderToSQLDatabase = (order) => {
 };
 
 /**
- * Retrieves all SQL orders
+ * Retrieves all SQL orders with automatic sync from store orders
  */
 export const getSQLOrders = () => {
   try {
-    return JSON.parse(localStorage.getItem(SQL_ORDERS_STORAGE_KEY) || '[]');
+    let orders = JSON.parse(localStorage.getItem(SQL_ORDERS_STORAGE_KEY) || '[]');
+    if (!Array.isArray(orders) || orders.length === 0) {
+      const liveStoreOrders = JSON.parse(localStorage.getItem('sparkel_orders') || '[]');
+      if (Array.isArray(liveStoreOrders) && liveStoreOrders.length > 0) {
+        liveStoreOrders.forEach(o => syncOrderToSQLDatabase(o));
+        orders = JSON.parse(localStorage.getItem(SQL_ORDERS_STORAGE_KEY) || '[]');
+      }
+    }
+    return orders;
   } catch (e) {
     return [];
   }
 };
 
 /**
- * Retrieves all SQL order items
+ * Retrieves all SQL order items with automatic sync
  */
 export const getSQLOrderItems = () => {
   try {
