@@ -189,20 +189,26 @@ export const sendOrderPaymentConfirmationEmail = async (orderData) => {
     ? orderData.items.map((i, index) => `• ${i.name} (Qty: ${i.quantity || 1}) - ₹${(i.price || 0) * (i.quantity || 1)}`).join('\n')
     : (orderData?.itemsListText || 'N/A');
 
+  const fullAddress = typeof orderData?.shippingAddress === 'object' && orderData?.shippingAddress !== null
+    ? `${orderData.shippingAddress.street || ''}, ${orderData.shippingAddress.city || ''} - ${orderData.shippingAddress.pincode || ''}`
+    : (orderData?.address ? `${orderData.address}, ${orderData.city || ''} ${orderData.pincode || ''}` : 'N/A');
+
+  const customerPhone = orderData?.phone || orderData?.shippingAddress?.phone || 'N/A';
+
   const orderAlertBody = {
     _subject: `💰 NEW ORDER & PAYMENT DONE: ${orderId} (₹${totalAmount})`,
     order_id: orderId,
     customer_name: customerName,
     customer_email: customerEmail,
-    customer_phone: orderData?.phone || orderData?.shippingAddress?.phone || 'N/A',
+    customer_phone: customerPhone,
     total_paid: `₹${totalAmount}`,
     payment_status: "PAYMENT DONE & VERIFIED",
     payment_method: paymentMethod,
     ordered_items: itemsText,
     delivery_type: "Guaranteed 7-Day Express Delivery",
     order_date: timestamp,
-    shipping_address: orderData?.address ? `${orderData.address}, ${orderData.city || ''}, ${orderData.pincode || ''}` : 'N/A',
-    message: `🛍️ NEW CUSTOMER ORDER & PAYMENT RECEIVED!\n\n📌 Order ID: ${orderId}\n👤 Customer Name: ${customerName}\n📱 Phone: ${orderData?.phone || 'N/A'}\n✉️ Email: ${customerEmail}\n📍 Delivery Address: ${orderData?.address || ''}\n\n💰 Total Amount Paid: ₹${totalAmount}\n💳 Payment Method: ${paymentMethod}\n✅ Payment Status: PAYMENT DONE & VERIFIED\n\n📦 PURCHASED ITEMS:\n${itemsText}\n\n🚚 Delivery: Guaranteed 7-Day Express Delivery`
+    shipping_address: fullAddress,
+    message: `🛍️ NEW CUSTOMER ORDER & PAYMENT RECEIVED!\n\n📌 Order ID: ${orderId}\n👤 Customer Name: ${customerName}\n📱 Customer Phone: ${customerPhone}\n✉️ Customer Email: ${customerEmail}\n📍 Full Delivery Address: ${fullAddress}\n\n💰 Total Amount Paid: ₹${totalAmount}\n💳 Payment Method: ${paymentMethod}\n✅ Payment Status: PAYMENT DONE & VERIFIED\n\n📦 PURCHASED ITEMS:\n${itemsText}\n\n🚚 Delivery Target: Guaranteed 7-Day Express Delivery`
   };
 
   try {

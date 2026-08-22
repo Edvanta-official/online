@@ -338,11 +338,12 @@ export const ShopProvider = ({ children }) => {
     // Dispatch order payment confirmation alert to sparklekkvofficial@gmail.com and customer!
     sendOrderPaymentConfirmationEmail({
       id: newOrder.id,
-      customerName: newOrder.shippingAddress?.fullName || user.name || "Customer",
-      customerEmail: user.email || newOrder.shippingAddress?.email,
-      phone: newOrder.shippingAddress?.phone || user.phone,
+      customerName: newOrder.customerName || newOrder.shippingAddress?.fullName || user.name || "Customer",
+      customerEmail: newOrder.email || newOrder.shippingAddress?.email || user.email,
+      phone: newOrder.shippingAddress?.phone || newOrder.phone || user.phone,
       total: newOrder.finalAmount || newOrder.cartTotal,
       paymentMethod: newOrder.paymentMethod,
+      shippingAddress: newOrder.shippingAddress,
       address: newOrder.shippingAddress?.street,
       city: newOrder.shippingAddress?.city,
       pincode: newOrder.shippingAddress?.pincode,
