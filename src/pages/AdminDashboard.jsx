@@ -31,11 +31,17 @@ export const AdminDashboard = () => {
   // Custom order status state for live management
   const [liveOrders, setLiveOrders] = useState([]);
 
+  const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241'];
+
   const syncLiveCloudOrders = async () => {
     try {
       const globalOrders = await fetchGlobalDatabaseOrders();
       const map = new Map();
-      [...(Array.isArray(globalOrders) ? globalOrders : []), ...orders].forEach(o => { if (o && o.id) map.set(o.id, o); });
+      [...(Array.isArray(globalOrders) ? globalOrders : []), ...orders].forEach(o => {
+        if (o && o.id && !TEST_ORDER_IDS.includes(o.id)) {
+          map.set(o.id, o);
+        }
+      });
       setLiveOrders(Array.from(map.values()));
     } catch (e) {}
   };

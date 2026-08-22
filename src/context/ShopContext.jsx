@@ -44,11 +44,13 @@ export const ShopProvider = ({ children }) => {
 
   const defaultOrders = [];
 
+  const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241'];
+
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem('sparkel_orders');
       const parsed = saved ? JSON.parse(saved) : [];
-      const filtered = Array.isArray(parsed) ? parsed.filter(o => o && o.id !== 'ORD-98241') : [];
+      const filtered = Array.isArray(parsed) ? parsed.filter(o => o && o.id && !TEST_ORDER_IDS.includes(o.id)) : [];
       return filtered;
     } catch (e) {
       return [];

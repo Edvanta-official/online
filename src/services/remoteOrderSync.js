@@ -56,6 +56,8 @@ export const saveOrderToGlobalDatabase = async (newOrder) => {
   }
 };
 
+const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241'];
+
 /**
  * Retrieves all orders from global store database for Admin Portal
  */
@@ -66,7 +68,9 @@ export const fetchGlobalDatabaseOrders = () => {
 
     const mergedMap = new Map();
     [...sparkelOrders, ...localRemoteDb].forEach(order => {
-      if (order && order.id) mergedMap.set(order.id, order);
+      if (order && order.id && !TEST_ORDER_IDS.includes(order.id)) {
+        mergedMap.set(order.id, order);
+      }
     });
 
     return Array.from(mergedMap.values());
