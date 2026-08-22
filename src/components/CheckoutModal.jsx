@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video, Truck } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video, Truck, MessageSquare } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { Link } from 'react-router-dom';
 import exactScannerImg from '../assets/phonepe_scanner_exact.png';
@@ -13,8 +13,6 @@ export const CheckoutModal = () => {
     discountAmount,
     shippingFee,
     cartTotal,
-    appliedCoupon,
-    clearCart,
     user,
     placeOrder,
     showToast
@@ -22,7 +20,6 @@ export const CheckoutModal = () => {
 
   const [step, setStep] = useState(1); // 1: Shipping Address, 2: Payment, 3: Confirmation
   const [placedOrderInfo, setPlacedOrderInfo] = useState(null);
-  const [utrNumber, setUtrNumber] = useState('');
   const [paymentError, setPaymentError] = useState('');
 
   const [shippingForm, setShippingForm] = useState({
@@ -52,6 +49,21 @@ export const CheckoutModal = () => {
     }
   };
 
+  const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
+  const handleAppPaymentClick = (e, deepLink) => {
+    e.stopPropagation();
+    if (isMobileDevice()) {
+      window.location.href = deepLink;
+    } else {
+      e.preventDefault();
+      copyUpiId();
+      showToast(`✨ Copied UPI ID sparklekkv@ibl! Scan QR code or pay ₹${cartTotal} in your mobile app.`);
+    }
+  };
+
   const handleShippingSubmit = (e) => {
     e.preventDefault();
     if (!shippingForm.fullName || !shippingForm.phone || !shippingForm.street || !shippingForm.pincode) {
@@ -76,41 +88,14 @@ export const CheckoutModal = () => {
 
     setPlacedOrderInfo(newOrder);
     setStep(3);
-
-    // Construct instant WhatsApp order message for owner phone 9949157771
-    const itemsListText = (newOrder.items || []).map(i => `• ${i.name} (Qty: ${i.quantity}) - ₹${i.price * i.quantity}`).join('\n');
-    const waText = `🛍️ *NEW SPARKLE @ KKV ORDER & PAYMENT RECEIVED!*
-
-📌 *Order ID:* ${newOrder.id}
-👤 *Customer Name:* ${shippingForm.fullName}
-📱 *Customer Phone:* ${shippingForm.phone}
-✉️ *Email:* ${shippingForm.email || 'N/A'}
-📍 *Address:* ${shippingForm.street}, ${shippingForm.city}, ${shippingForm.state} - ${shippingForm.pincode}
-
-💰 *Total Paid:* ₹${cartTotal}
-💳 *Payment Method:* ${paymentMethod}
-📦 *Status:* Order Received
-
-🛒 *Items:*
-${itemsListText}
-
-🚚 *Guaranteed 7-Day Express Delivery*`;
-
-    const whatsappUrl = `https://wa.me/919949157771?text=${encodeURIComponent(waText)}`;
-    
-    // Automatically trigger WhatsApp notification
-    try {
-      window.open(whatsappUrl, '_blank');
-    } catch(e) {}
-
-    showToast("🎉 Payment Confirmed & Order Received! WhatsApp Alert Sent!");
+    showToast("🎉 Payment Confirmed & Order Placed Successfully!", "success");
   };
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
       <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden border border-[#FCE4EC] my-auto font-poppins relative">
         
-        {/* Header - Fixed inside modal container */}
+        {/* Header */}
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] p-4 sm:p-6 flex items-center justify-between shrink-0">
           <div>
             <span className="text-[10px] font-montserrat tracking-widest uppercase font-bold">
@@ -118,7 +103,7 @@ ${itemsListText}
             </span>
             <h2 className="font-serif-luxury text-xl font-bold">
               {step === 1 && "Shipping & Delivery Address"}
-              {step === 2 && "PhonePe & Payment Options"}
+              {step === 2 && "Payment Options"}
               {step === 3 && "Order Placed & Received Successfully!"}
             </h2>
           </div>
@@ -131,27 +116,12 @@ ${itemsListText}
           </button>
         </div>
 
-        {/* Cart Item Summary Bar */}
+        {/* Cart Summary Bar */}
         {cart.length > 0 && (
           <div className="bg-[#FFF9F5] px-4 sm:px-6 py-2.5 border-b border-[#FCE4EC] flex items-center justify-between text-xs font-poppins shrink-0">
             <span className="text-gray-600 font-medium">
               Checkout Items: <strong className="text-[#2C2C2C]">{cart.length} Product{cart.length > 1 ? 's' : ''} ({cart.reduce((s, i) => s + i.quantity, 0)} Units)</strong>
             </span>
-            {cart.length > 1 && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (cart[0] && cart[0].product) {
-                    clearCart();
-                    addToCart(cart[0].product, cart[0].quantity, cart[0].selectedColor);
-                    showToast("Updated to checkout ONLY 1 item!");
-                  }
-                }}
-                className="text-[11px] text-amber-700 bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-full font-bold font-montserrat transition-colors"
-              >
-                Reset to Only 1 Item
-              </button>
-            )}
           </div>
         )}
 
@@ -237,66 +207,27 @@ ${itemsListText}
                   </div>
                 </div>
 
-                {/* Mandatory Unboxing Video Warning Banner */}
-                <div className="bg-amber-50/95 border border-amber-300/80 rounded-2xl p-3.5 space-y-1 text-left font-poppins">
-                  <div className="flex items-center gap-1.5 text-amber-900 font-montserrat text-xs font-bold">
-                    <Video className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span>Mandatory Unboxing Video Policy</span>
-                  </div>
-                  <p className="text-[11px] text-amber-800 font-light leading-relaxed">
-                    ⚠️ <strong>Important Return & Damage Guarantee:</strong> Returns/replacements for damaged or defective products are accepted <u>ONLY with a continuous unboxing video proof</u> (showing original parcel seal being opened on camera for the first time without edits).
-                  </p>
-                </div>
-
-                <div className="pt-2 flex justify-end font-montserrat">
+                <div className="pt-4 flex justify-end">
                   <button
                     type="submit"
-                    className="bg-[#2C2C2C] text-[#FCE4EC] px-8 py-3 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:bg-[#3A2D32]"
+                    className="bg-[#2C2C2C] hover:bg-[#C89B3C] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center gap-2"
                   >
-                    <span>Continue to Payment</span>
-                    <ArrowRight className="w-4 h-4 text-[#D4AF7F]" />
+                    <span>Proceed to Payment</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </form>
             </div>
           )}
 
-          {/* STEP 2: PhonePe & Payment Methods */}
+          {/* STEP 2: Payment Options */}
           {step === 2 && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">
-                  2. Select Payment Method
-                </h3>
-                <button
-                  onClick={() => setStep(1)}
-                  className="text-xs font-montserrat font-bold text-[#C89B3C] underline"
-                >
-                  Edit Address
-                </button>
-              </div>
-
-              {/* Order Total & 7-Day Express Delivery Banner */}
-              <div className="p-4 bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] rounded-2xl space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase font-montserrat tracking-widest text-[#D4AF7F]">Amount Payable</span>
-                    <p className="text-2xl font-bold font-poppins">₹{cartTotal}</p>
-                  </div>
-                  <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold text-[10px] px-3 py-1 rounded-full uppercase font-montserrat">
-                    30% OFF Applied
-                  </span>
-                </div>
-                <div className="pt-2 border-t border-white/10 flex items-center gap-2 text-xs text-amber-300 font-poppins font-medium">
-                  <Truck className="w-4 h-4 text-[#D4AF7F] shrink-0" />
-                  <span>🚚 <strong>Guaranteed 7-Day Delivery:</strong> Every item in your order is delivered within 7 business days pan-India.</span>
-                </div>
-              </div>
-
-              {/* Payment Mode Options */}
-              <div className="space-y-3 font-montserrat">
+              <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">2. Select Payment Method</h3>
+              
+              <div className="space-y-4">
                 
-                {/* PhonePe / UPI Scanner Option */}
+                {/* PhonePe / Scanner Option */}
                 <div
                   onClick={() => setPaymentMethod('PhonePe')}
                   className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'PhonePe' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
@@ -315,7 +246,7 @@ ${itemsListText}
                   {paymentMethod === 'PhonePe' && (
                     <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-4 text-center">
                       
-                      {/* Dynamic Live Auto-Filling QR Code */}
+                      {/* Dynamic QR Code */}
                       <div className="max-w-[260px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
                         <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                           <span className="text-[10px] text-gray-400 font-montserrat font-bold uppercase tracking-wider">Dynamic QR</span>
@@ -349,7 +280,7 @@ ${itemsListText}
                         </div>
                       </div>
 
-                      {/* Instant Payment Buttons Grid: PhonePe, GPay, Paytm, SuperMoney */}
+                      {/* Instant App Payment Buttons Grid */}
                       <div className="space-y-2 pt-1 max-w-md mx-auto">
                         <p className="text-[11px] font-montserrat font-bold text-[#2C2C2C] uppercase tracking-wider">
                           Instant App Payment Buttons
@@ -357,7 +288,7 @@ ${itemsListText}
                         <div className="grid grid-cols-2 gap-2">
                           <a
                             href={phonepeLink}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => handleAppPaymentClick(e, phonepeLink)}
                             className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
                           >
                             <Smartphone className="w-3.5 h-3.5" />
@@ -366,7 +297,7 @@ ${itemsListText}
 
                           <a
                             href={gpayLink}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => handleAppPaymentClick(e, gpayLink)}
                             className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
                           >
                             <Smartphone className="w-3.5 h-3.5" />
@@ -375,7 +306,7 @@ ${itemsListText}
 
                           <a
                             href={paytmLink}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => handleAppPaymentClick(e, paytmLink)}
                             className="bg-[#00baf2] hover:bg-[#0094c4] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
                           >
                             <Smartphone className="w-3.5 h-3.5" />
@@ -384,7 +315,7 @@ ${itemsListText}
 
                           <a
                             href={upiDeepLink}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => handleAppPaymentClick(e, upiDeepLink)}
                             className="bg-[#2C2C2C] hover:bg-[#3A2D32] text-[#FCE4EC] font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
                           >
                             <Smartphone className="w-3.5 h-3.5" />
@@ -401,7 +332,7 @@ ${itemsListText}
                           <span>Direct Instant WhatsApp Order Alert (+91 9949157771)</span>
                         </div>
                         <p className="text-[11px] text-emerald-900 font-light leading-relaxed">
-                          Once your payment is done, your order details & payment confirmation will automatically trigger a WhatsApp message to notify the store owner directly at <strong>+91 9949157771</strong>.
+                          Once your payment is done, your order details & payment confirmation will notify the store owner directly at <strong>+91 9949157771</strong>.
                         </p>
                       </div>
 
@@ -409,8 +340,7 @@ ${itemsListText}
                   )}
                 </div>
 
-
-                {/* Security Trust Footer Badges */}
+                {/* Security Badges */}
                 <div className="bg-[#FFF9F5] border border-[#D4AF7F]/30 p-3 rounded-2xl flex items-center justify-around text-[10px] text-gray-600 font-montserrat font-bold">
                   <div className="flex items-center gap-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -524,6 +454,7 @@ ${itemsListText}
                   rel="noopener noreferrer"
                   className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-montserrat font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 text-xs shadow-md transition-all uppercase tracking-wider"
                 >
+                  <MessageSquare className="w-4 h-4 text-white" />
                   <span>💬 Notify Store Owner on WhatsApp (+91 9949157771)</span>
                 </a>
               </div>
@@ -549,7 +480,6 @@ ${itemsListText}
           )}
 
         </div>
-
       </div>
     </div>
   );
