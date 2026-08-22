@@ -598,7 +598,7 @@ export const AdminDashboard = () => {
                   <span>Total Customer Orders</span>
                   <ShoppingBag className="w-5 h-5 text-[#F48FB1]" />
                 </div>
-                <p className="text-2xl font-extrabold text-[#2C2C2C]">{liveOrders.length}</p>
+                <p className="text-2xl font-extrabold text-[#2C2C2C]">{Array.isArray(liveOrders) ? liveOrders.length : 0}</p>
                 <span className="text-[10px] text-emerald-600 font-bold">100% Guaranteed Fulfilled</span>
               </div>
 
@@ -607,7 +607,7 @@ export const AdminDashboard = () => {
                   <span>Active Catalog Items</span>
                   <Package className="w-5 h-5 text-[#D4AF7F]" />
                 </div>
-                <p className="text-2xl font-extrabold text-[#2C2C2C]">{products.length}</p>
+                <p className="text-2xl font-extrabold text-[#2C2C2C]">{Array.isArray(products) ? products.length : 0}</p>
                 <span className="text-[10px] text-gray-400">8 Luxury Categories</span>
               </div>
 
@@ -616,7 +616,7 @@ export const AdminDashboard = () => {
                   <span>Active VIP Subscribers</span>
                   <Users className="w-5 h-5 text-emerald-600" />
                 </div>
-                <p className="text-2xl font-extrabold text-[#2C2C2C]">{subscribers ? subscribers.length : 0}</p>
+                <p className="text-2xl font-extrabold text-[#2C2C2C]">{Array.isArray(subscribers) ? subscribers.length : 0}</p>
                 <span className="text-[10px] text-emerald-600 font-bold">FormSubmit Alerting Active</span>
               </div>
 

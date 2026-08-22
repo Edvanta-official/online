@@ -47,44 +47,18 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("Session load error caught by ErrorBoundary:", error, errorInfo);
     try {
       localStorage.clear();
       sessionStorage.clear();
     } catch (e) {}
+    return { hasError: false };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Session error caught by ErrorBoundary:", error, errorInfo);
   }
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen bg-[#FFF9F5] flex flex-col items-center justify-center p-6 text-center font-poppins">
-          <div className="w-16 h-16 rounded-full bg-[#FCE4EC] flex items-center justify-center text-3xl mb-4 text-[#C89B3C] shadow-sm">
-            ✨
-          </div>
-          <h2 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C] mb-2">Sparkle @kkv Luxury Accessories</h2>
-          <p className="text-xs text-gray-500 max-w-sm mb-6 font-light">
-            Optimizing your store session. Click below to load the live Admin Portal cleanly!
-          </p>
-          <button
-            onClick={() => {
-              try {
-                localStorage.clear();
-                sessionStorage.clear();
-              } catch (e) {}
-              window.location.href = window.location.origin + window.location.pathname + '#/admin';
-              window.location.reload();
-            }}
-            className="bg-[#2C2C2C] text-[#FCE4EC] hover:bg-[#C89B3C] hover:text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-md font-montserrat"
-          >
-            Open Admin Portal Live
-          </button>
-        </div>
-      );
-    }
     return this.props.children;
   }
 }
