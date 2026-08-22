@@ -41,28 +41,16 @@ export const ShopProvider = ({ children }) => {
     }
   });
 
-  const defaultOrders = [
-    {
-      id: "ORD-98241",
-      customerName: "Ananya Sharma",
-      items: [
-        { name: "Premium Swarovski Butterfly Hair Clip", price: 179, quantity: 2, image: "images/plumeria_flower.jpg" }
-      ],
-      finalAmount: 358,
-      paymentMethod: "Razorpay / UPI",
-      paymentStatus: "Paid",
-      orderStatus: "Shipped",
-      trackingNumber: "SPK-IN-9812489",
-      createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-    }
-  ];
+  const defaultOrders = [];
 
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem('sparkel_orders');
       if (!saved) return defaultOrders;
       const parsed = JSON.parse(saved);
-      return Array.isArray(parsed) ? parsed : defaultOrders;
+      // Clean mock orders from localStorage if present
+      const filtered = Array.isArray(parsed) ? parsed.filter(o => o.id !== 'ORD-98241') : [];
+      return filtered;
     } catch (e) {
       return defaultOrders;
     }

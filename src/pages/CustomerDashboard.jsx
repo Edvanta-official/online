@@ -111,6 +111,14 @@ export const CustomerDashboard = () => {
     );
   }
 
+  const userOrders = orders.filter(o => 
+    (user.email && o.email && o.email.toLowerCase() === user.email.toLowerCase()) ||
+    (user.phone && o.phone && o.phone.replace(/\D/g, '') === user.phone.replace(/\D/g, '')) ||
+    (user.name && o.customerName && o.customerName.toLowerCase() === user.name.toLowerCase()) ||
+    (o.shippingAddress?.email && user.email && o.shippingAddress.email.toLowerCase() === user.email.toLowerCase()) ||
+    (o.shippingAddress?.phone && user.phone && o.shippingAddress.phone.replace(/\D/g, '') === user.phone.replace(/\D/g, ''))
+  );
+
   return (
     <div className="py-12 bg-[#FFF9F5] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,11 +127,11 @@ export const CustomerDashboard = () => {
         <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-10 flex flex-col sm:flex-row items-center justify-between gap-6 border border-[#D4AF7F]/30">
           <div className="flex items-center gap-4 text-center sm:text-left">
             <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#FCE4EC] via-[#F48FB1] to-[#D4AF7F] text-[#2C2C2C] font-serif-luxury text-2xl font-bold flex items-center justify-center border-2 border-white shadow-md">
-              {user.name.charAt(0)}
+              {user.name ? user.name.charAt(0) : 'U'}
             </div>
             <div>
               <div className="flex items-center justify-center sm:justify-start gap-2">
-                <h1 className="font-serif-luxury text-2xl font-bold text-[#FCE4EC]">{user.name}</h1>
+                <h1 className="font-serif-luxury text-2xl font-bold text-[#FCE4EC]">{user.name || 'Sparkle Member'}</h1>
                 <span className="bg-[#D4AF7F] text-[#2C2C2C] text-[10px] font-bold font-montserrat px-2 py-0.5 rounded-full uppercase">
                   Sparkle VIP Member
                 </span>
@@ -134,7 +142,7 @@ export const CustomerDashboard = () => {
 
           <div className="flex items-center gap-4 font-montserrat text-xs">
             <div className="bg-white/10 px-4 py-2 rounded-2xl border border-white/20 text-center">
-              <span className="block font-bold text-base text-[#D4AF7F]">{orders.length}</span>
+              <span className="block font-bold text-base text-[#D4AF7F]">{userOrders.length}</span>
               <span className="text-[10px] uppercase tracking-wider text-gray-300">Total Orders</span>
             </div>
             <div className="bg-white/10 px-4 py-2 rounded-2xl border border-white/20 text-center">
@@ -162,7 +170,7 @@ export const CustomerDashboard = () => {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition-all ${activeTab === 'orders' ? 'bg-[#2C2C2C] text-[#FCE4EC] shadow' : 'text-gray-600 hover:bg-[#FFF9F5]'}`}
               >
                 <Package className="w-4 h-4 text-[#D4AF7F]" />
-                <span>My Orders ({orders.length})</span>
+                <span>My Orders ({userOrders.length})</span>
               </button>
 
               <button
@@ -209,12 +217,20 @@ export const CustomerDashboard = () => {
                   Order History & Live Progress Tracker
                 </h2>
 
-                {orders.length === 0 ? (
-                  <div className="bg-white rounded-3xl p-12 text-center border border-[#FCE4EC] space-y-3">
-                    <p className="text-xs text-gray-500">No orders placed yet.</p>
+                {userOrders.length === 0 ? (
+                  <div className="bg-white rounded-3xl p-12 text-center border border-[#FCE4EC] space-y-4 font-poppins">
+                    <div className="w-14 h-14 rounded-full bg-[#FFF9F5] border border-[#D4AF7F]/40 flex items-center justify-center mx-auto text-2xl text-[#C89B3C]">
+                      📦
+                    </div>
+                    <div>
+                      <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">No Orders Placed Yet</h3>
+                      <p className="text-xs text-gray-500 max-w-sm mx-auto mt-1 font-light leading-relaxed">
+                        When you place an order, your order details and live delivery tracking progress will appear here.
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  orders.map(order => (
+                  userOrders.map(order => (
                     <div key={order.id} className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm space-y-6">
                       
                       {/* Order Header */}
