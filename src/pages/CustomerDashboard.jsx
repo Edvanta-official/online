@@ -30,7 +30,6 @@ export const CustomerDashboard = () => {
               const phone = e.target.phone.value;
               const password = e.target.password.value;
 
-              // Security Password Strength Check
               const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/;
               if (!passwordRegex.test(password)) {
                 setPasswordError("🔒 Security check failed: Password must be at least 6 characters long and contain both letters and numbers!");
@@ -44,11 +43,6 @@ export const CustomerDashboard = () => {
             }}
             className="space-y-4 font-poppins text-xs text-[#2C2C2C]"
           >
-            {/* Secure Badge */}
-            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-2.5 flex items-center justify-center gap-1.5 font-montserrat text-[10px] font-bold">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>🛡️ 256-Bit SSL Encrypted Secure Login</span>
-            </div>
 
             <div className="space-y-1">
               <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
@@ -135,12 +129,6 @@ export const CustomerDashboard = () => {
                 </span>
               </div>
               <p className="text-xs text-gray-300 font-poppins">{user.email} • {user.phone || '+91 9876543210'}</p>
-              <div className="flex items-center gap-1.5 mt-1.5">
-                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[9px] font-bold font-montserrat px-2 py-0.5 rounded-full uppercase flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                  256-Bit SSL Authenticated Session
-                </span>
-              </div>
             </div>
           </div>
 

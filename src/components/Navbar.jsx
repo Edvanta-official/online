@@ -228,12 +228,6 @@ export const Navbar = () => {
                           <p className="font-bold text-[#2C2C2C] text-sm">{user.name}</p>
                           <p className="text-[11px] text-gray-600 truncate">{user.email}</p>
                           {user.phone && <p className="text-[11px] text-[#C89B3C] font-mono font-medium">📱 {user.phone}</p>}
-                          <div className="flex items-center gap-1 mt-1 pt-0.5">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-[9px] font-bold rounded-full uppercase font-montserrat">
-                              <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                              256-Bit SSL Authenticated
-                            </span>
-                          </div>
                         </div>
 
                         <div className="py-1">

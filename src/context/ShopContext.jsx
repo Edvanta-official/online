@@ -372,7 +372,7 @@ export const ShopProvider = ({ children }) => {
       password,
       role,
       isLoggedIn: true,
-      authMethod: "256-Bit SSL Amazon Security Auth",
+      authMethod: "Secure Authentication",
       authDate: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
       savedAddresses: [
         {
