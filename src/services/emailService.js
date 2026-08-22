@@ -179,36 +179,49 @@ export const sendOrderPaymentConfirmationEmail = async (orderData) => {
   const customerEmail = orderData?.customerEmail || 'customer@sparklekkv.com';
   const customerName = orderData?.customerName || 'Customer';
   const orderId = orderData?.id || 'SPK-ORDER';
-  const totalAmount = orderData?.total || 0;
+  const totalAmount = orderData?.total || orderData?.cartTotal || 0;
   const paymentMethod = orderData?.paymentMethod || 'PhonePe / Instant UPI';
   const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
   console.log(`[Order Payment Done Dispatch]: Sending payment verification for ${orderId} to ${OWNER_NOTIFICATION_EMAIL}...`);
 
+  const orderAlertBody = {
+    _subject: `💰 NEW ORDER & PAYMENT DONE: ${orderId} (₹${totalAmount})`,
+    order_id: orderId,
+    customer_name: customerName,
+    customer_email: customerEmail,
+    customer_phone: orderData?.phone || 'N/A',
+    total_paid: `₹${totalAmount}`,
+    payment_status: "PAYMENT DONE & VERIFIED",
+    payment_method: paymentMethod,
+    delivery_type: "Guaranteed 7-Day Express Delivery",
+    order_date: timestamp,
+    shipping_address: orderData?.address ? `${orderData.address}, ${orderData.city || ''}, ${orderData.pincode || ''}` : 'N/A',
+    message: `🛍️ NEW ORDER RECEIVED!\n\nOrder ID: ${orderId}\nCustomer Name: ${customerName}\nPhone: ${orderData?.phone || 'N/A'}\nEmail: ${customerEmail}\nAddress: ${orderData?.address || ''}\nTotal Paid: ₹${totalAmount}\nPayment Method: ${paymentMethod}\nStatus: Payment Verified / Order Received`
+  };
+
   try {
-    // Notify Owner sparklekkvofficial@gmail.com
+    // 1. Notify Owner Email: sparklekkvofficial@gmail.com
     fetch(`https://formsubmit.co/ajax/${OWNER_NOTIFICATION_EMAIL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        _subject: `💰 Payment Done & Order Verified: ${orderId} (₹${totalAmount})`,
-        order_id: orderId,
-        customer_name: customerName,
-        customer_email: customerEmail,
-        customer_phone: orderData?.phone || 'N/A',
-        total_paid: `₹${totalAmount}`,
-        payment_status: "PAYMENT DONE & VERIFIED",
-        payment_method: paymentMethod,
-        delivery_type: "Guaranteed 7-Day Express Delivery",
-        order_date: timestamp,
-        shipping_address: orderData?.address ? `${orderData.address}, ${orderData.city || ''}, ${orderData.pincode || ''}` : 'N/A'
-      })
-    }).catch(err => console.log('Payment notification error:', err));
+      body: JSON.stringify(orderAlertBody)
+    }).catch(err => console.log('Owner payment notification notice:', err));
 
-    // Notify Customer
+    // 2. Notify Support Email: support@sparklekkv.com
+    fetch(`https://formsubmit.co/ajax/${ADMIN_EMAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(orderAlertBody)
+    }).catch(err => console.log('Support payment notification notice:', err));
+
+    // 3. Notify Customer Email if valid
     if (customerEmail.includes('@')) {
       fetch(`https://formsubmit.co/ajax/${customerEmail}`, {
         method: 'POST',
@@ -218,9 +231,9 @@ export const sendOrderPaymentConfirmationEmail = async (orderData) => {
         },
         body: JSON.stringify({
           _subject: `✅ Payment Received & Order Confirmed - ${orderId}`,
-          message: `Hello ${customerName},\n\nThank you for shopping at Sparkle @ KKV!\n\nYour payment of ₹${totalAmount} via ${paymentMethod} has been RECEIVED & VERIFIED.\nOrder ID: ${orderId}\nStatus: Payment Done / Dispatched in 24 Hours\nGuaranteed Delivery: 7 Days Pan-India\n\nBest regards,\nSparkle @ KKV Team\nsparklekkv.com`
+          message: `Hello ${customerName},\n\nThank you for shopping at Sparkle @ KKV!\n\nYour payment of ₹${totalAmount} via ${paymentMethod} has been RECEIVED & VERIFIED.\nOrder ID: ${orderId}\nStatus: Order Received / Dispatched in 24 Hours\nGuaranteed Delivery: 7 Days Pan-India\n\nBest regards,\nSparkle @ KKV Team\nsparklekkv.com`
         })
-      }).catch(err => console.log('Customer payment confirmation error:', err));
+      }).catch(err => console.log('Customer payment confirmation notice:', err));
     }
   } catch (e) {
     console.warn('[Payment Notification Error]:', e);
