@@ -101,7 +101,10 @@ export const AdminDashboard = () => {
     try {
       const globalOrders = await fetchGlobalDatabaseOrders();
       const map = new Map();
-      [...(Array.isArray(globalOrders) ? globalOrders : []), ...orders].forEach(o => {
+      const safeGlobal = Array.isArray(globalOrders) ? globalOrders : [];
+      const safeContextOrders = Array.isArray(orders) ? orders : [];
+
+      [...safeGlobal, ...safeContextOrders].forEach(o => {
         if (o && o.id && !TEST_ORDER_IDS.includes(o.id)) {
           map.set(o.id, o);
         }
@@ -121,7 +124,7 @@ export const AdminDashboard = () => {
     return () => clearInterval(interval);
   }, [orders]);
 
-  const totalRevenue = liveOrders.reduce((sum, o) => sum + (o.finalAmount || o.cartTotal || 0), 0);
+  const totalRevenue = (Array.isArray(liveOrders) ? liveOrders : []).reduce((sum, o) => sum + (o?.finalAmount || o?.cartTotal || 0), 0);
 
   const handleAdminAuth = (e) => {
     e.preventDefault();
@@ -132,9 +135,9 @@ export const AdminDashboard = () => {
   };
 
   const handleUpdateOrderStatus = (orderId, newStatus) => {
-    setLiveOrders(prev => prev.map(o => o.id === orderId ? { ...o, orderStatus: newStatus } : o));
+    setLiveOrders(prev => (Array.isArray(prev) ? prev : []).map(o => o.id === orderId ? { ...o, orderStatus: newStatus } : o));
     try {
-      const updatedList = liveOrders.map(o => o.id === orderId ? { ...o, orderStatus: newStatus } : o);
+      const updatedList = (Array.isArray(liveOrders) ? liveOrders : []).map(o => o.id === orderId ? { ...o, orderStatus: newStatus } : o);
       localStorage.setItem('sparkel_orders', JSON.stringify(updatedList));
       localStorage.setItem('SPARKLE_REMOTE_ORDERS_DATABASE', JSON.stringify(updatedList));
     } catch (e) {}
@@ -152,7 +155,7 @@ export const AdminDashboard = () => {
 
   const handleDeleteSingleOrder = (orderId) => {
     if (window.confirm(`Are you sure you want to delete order ${orderId}?`)) {
-      const updated = liveOrders.filter(o => o.id !== orderId);
+      const updated = (Array.isArray(liveOrders) ? liveOrders : []).filter(o => o.id !== orderId);
       setLiveOrders(updated);
       try {
         localStorage.setItem('sparkel_orders', JSON.stringify(updated));
@@ -163,12 +166,13 @@ export const AdminDashboard = () => {
   };
 
   // Filtered orders list for Admin Search
-  const filteredOrdersList = liveOrders.filter(o => {
+  const filteredOrdersList = (Array.isArray(liveOrders) ? liveOrders : []).filter(o => {
+    if (!o) return false;
     const matchesSearch = 
       (o.id && o.id.toLowerCase().includes(orderSearchQuery.toLowerCase())) ||
       (o.customerName && o.customerName.toLowerCase().includes(orderSearchQuery.toLowerCase())) ||
       (o.email && o.email.toLowerCase().includes(orderSearchQuery.toLowerCase())) ||
-      (o.shippingAddress?.phone && o.shippingAddress.phone.includes(orderSearchQuery)) ||
+      (o.shippingAddress?.phone && String(o.shippingAddress.phone).includes(orderSearchQuery)) ||
       (o.utrNumber && o.utrNumber.toLowerCase().includes(orderSearchQuery.toLowerCase()));
 
     const matchesStatus = selectedStatusFilter === "ALL" || o.orderStatus === selectedStatusFilter;
