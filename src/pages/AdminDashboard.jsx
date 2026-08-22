@@ -474,9 +474,9 @@ export const AdminDashboard = () => {
                           <span>👤 {order.customerName || order.shippingAddress?.fullName}</span>
                           <span>•</span>
                           <span>📱 {order.shippingAddress?.phone || order.phone || 'N/A'}</span>
-                          {(order.shippingAddress?.phone || order.phone) && (
+                          {(order?.shippingAddress?.phone || order?.phone) && (
                             <a
-                              href={`https://wa.me/91${(order.shippingAddress?.phone || order.phone).replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${order.customerName || 'Customer'},\n\nThis is Sparkle @ KKV regarding your Order ${order.id} (₹${order.finalAmount || order.cartTotal}).`)}`}
+                              href={`https://wa.me/91${String(order?.shippingAddress?.phone || order?.phone || '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${order?.customerName || 'Customer'},\n\nThis is Sparkle @ KKV regarding your Order ${order?.id} (₹${order?.finalAmount || order?.cartTotal || 0}).`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 transition-all"
