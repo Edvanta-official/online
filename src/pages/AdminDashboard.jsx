@@ -275,8 +275,7 @@ export const AdminDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#FFF9F5] p-4 rounded-2xl border border-[#FCE4EC] text-xs font-poppins">
                       <div className="space-y-1">
                         <span className="text-[10px] font-montserrat uppercase font-bold text-[#C89B3C] block">Verified Payment Details</span>
-                        <p><strong>Payment Status:</strong> <span className="text-emerald-700 font-bold uppercase">Payment Verified Online</span></p>
-                        <p><strong>Submitted UTR / Ref No:</strong> <span className="font-mono font-bold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200 inline-block mt-0.5">{order.utrNumber || 'UPI-VERIFIED'}</span></p>
+                        <p><strong>Payment Verification:</strong> <span className="font-mono font-bold text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-200 inline-block mt-0.5">💬 Direct WhatsApp Alert Sent (+91 9949157771)</span></p>
                         <p><strong>Total Paid:</strong> <strong className="text-[#C89B3C] text-sm">₹{order.finalAmount || order.cartTotal}</strong></p>
                       </div>
 

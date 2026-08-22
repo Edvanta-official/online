@@ -64,24 +64,10 @@ export const CheckoutModal = () => {
   const handleVerifyAndCompleteOrder = () => {
     setPaymentError('');
 
-    if (paymentMethod === 'PhonePe' || paymentMethod === 'UPI') {
-      const cleanUtr = utrNumber.trim();
-      if (!cleanUtr) {
-        setPaymentError('⚠️ Please enter your 12-digit UPI UTR / Transaction Ref No. after completing payment in your app.');
-        showToast("Please enter 12-digit UTR / Ref Number to verify payment", "error");
-        return;
-      }
-      if (cleanUtr.length < 6) {
-        setPaymentError('⚠️ UTR / Transaction ID must be at least 6 to 12 digits long.');
-        showToast("Please enter valid UTR / Transaction ID", "error");
-        return;
-      }
-    }
-
     const newOrder = placeOrder({
       shippingAddress: shippingForm,
       paymentMethod,
-      utrNumber: utrNumber.trim() || `UPI-${Math.floor(100000000000 + Math.random() * 900000000000)}`,
+      utrNumber: `ONLINE-PAYMENT-${Math.floor(100000 + Math.random() * 900000)}`,
       cartSubtotal,
       discountAmount,
       shippingFee,
@@ -90,7 +76,34 @@ export const CheckoutModal = () => {
 
     setPlacedOrderInfo(newOrder);
     setStep(3);
-    showToast("🎉 Payment Confirmed & Order Received!");
+
+    // Construct instant WhatsApp order message for owner phone 9949157771
+    const itemsListText = (newOrder.items || []).map(i => `• ${i.name} (Qty: ${i.quantity}) - ₹${i.price * i.quantity}`).join('\n');
+    const waText = `🛍️ *NEW SPARKLE @ KKV ORDER & PAYMENT RECEIVED!*
+
+📌 *Order ID:* ${newOrder.id}
+👤 *Customer Name:* ${shippingForm.fullName}
+📱 *Customer Phone:* ${shippingForm.phone}
+✉️ *Email:* ${shippingForm.email || 'N/A'}
+📍 *Address:* ${shippingForm.street}, ${shippingForm.city}, ${shippingForm.state} - ${shippingForm.pincode}
+
+💰 *Total Paid:* ₹${cartTotal}
+💳 *Payment Method:* ${paymentMethod}
+📦 *Status:* Order Received
+
+🛒 *Items:*
+${itemsListText}
+
+🚚 *Guaranteed 7-Day Express Delivery*`;
+
+    const whatsappUrl = `https://wa.me/919949157771?text=${encodeURIComponent(waText)}`;
+    
+    // Automatically trigger WhatsApp notification
+    try {
+      window.open(whatsappUrl, '_blank');
+    } catch(e) {}
+
+    showToast("🎉 Payment Confirmed & Order Received! WhatsApp Alert Sent!");
   };
 
   return (
@@ -381,36 +394,15 @@ export const CheckoutModal = () => {
                         <p className="text-[10px] text-gray-500 font-poppins">Click any app button to pay pre-filled ₹{cartTotal} directly</p>
                       </div>
 
-                      {/* Payment Confirmation & UTR Verification Box */}
-                      <div className="bg-emerald-50/90 border border-emerald-300 rounded-2xl p-4 text-left space-y-3 font-poppins mt-3 shadow-xs">
+                      {/* Direct WhatsApp Payment Notification Box */}
+                      <div className="bg-emerald-50/90 border border-emerald-300 rounded-2xl p-4 text-left space-y-2 font-poppins mt-3 shadow-xs">
                         <div className="flex items-center gap-2 text-emerald-950 font-montserrat font-bold text-xs">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span>Step 3: Enter Payment UTR / Ref No. To Verify</span>
+                          <span>Direct Instant WhatsApp Order Alert (+91 9949157771)</span>
                         </div>
                         <p className="text-[11px] text-emerald-900 font-light leading-relaxed">
-                          After completing payment in PhonePe / GPay / Paytm, enter the 12-digit <strong>UTR / UPI Ref No.</strong> from your payment receipt to confirm and receive instant order confirmation.
+                          Once your payment is done, your order details & payment confirmation will automatically trigger a WhatsApp message to notify the store owner directly at <strong>+91 9949157771</strong>.
                         </p>
-                        <div className="space-y-1">
-                          <label className="block text-[10px] uppercase font-montserrat font-bold text-emerald-950">
-                            UPI UTR / Ref No. (Required for Online Verification) *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            placeholder="Enter 12-digit UTR No. (e.g., 423819204812)"
-                            value={utrNumber}
-                            onChange={(e) => {
-                              setUtrNumber(e.target.value);
-                              if (paymentError) setPaymentError('');
-                            }}
-                            className="w-full bg-white border border-emerald-300 rounded-xl p-3 text-xs font-mono font-bold focus:outline-none focus:border-emerald-600 text-gray-900 shadow-xs"
-                          />
-                        </div>
-                        {paymentError && (
-                          <p className="text-[11px] text-red-700 font-medium bg-red-50 p-2.5 rounded-xl border border-red-200">
-                            {paymentError}
-                          </p>
-                        )}
                       </div>
 
                     </div>
@@ -418,11 +410,11 @@ export const CheckoutModal = () => {
                 </div>
 
 
-                {/* Myntra / Meesho Security Trust Footer Badges */}
+                {/* Security Trust Footer Badges */}
                 <div className="bg-[#FFF9F5] border border-[#D4AF7F]/30 p-3 rounded-2xl flex items-center justify-around text-[10px] text-gray-600 font-montserrat font-bold">
                   <div className="flex items-center gap-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>256-Bit SSL Protection</span>
+                    <span>Secure Encrypted Payment</span>
                   </div>
                   <span>•</span>
                   <div className="flex items-center gap-1">
@@ -451,7 +443,7 @@ export const CheckoutModal = () => {
                   onClick={handleVerifyAndCompleteOrder}
                   className="shimmer-btn bg-gradient-to-r from-emerald-700 via-emerald-800 to-[#2C2C2C] text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-xl flex items-center gap-2"
                 >
-                  <span>Verify Payment & Submit Order (₹{cartTotal})</span>
+                  <span>Confirm Payment & Submit Order (₹{cartTotal})</span>
                   <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 </button>
               </div>
@@ -519,10 +511,21 @@ export const CheckoutModal = () => {
                   <span className="text-[#C89B3C]">₹{placedOrderInfo.cartTotal}</span>
                 </div>
                 <div className="pt-2 text-[11px] text-gray-500 font-light border-t border-gray-100 space-y-1">
-                  <p><strong>Payment UTR / Ref:</strong> <span className="font-mono font-bold text-emerald-800">{placedOrderInfo.utrNumber}</span></p>
                   <p><strong>Deliver To:</strong> {placedOrderInfo.shippingAddress.street}, {placedOrderInfo.shippingAddress.city} - {placedOrderInfo.shippingAddress.pincode}</p>
                   <p><strong>Guaranteed Delivery:</strong> All items arriving by <strong>{placedOrderInfo.estimatedDeliveryDate}</strong></p>
                 </div>
+              </div>
+
+              {/* Direct WhatsApp Alert Button */}
+              <div className="max-w-md mx-auto">
+                <a
+                  href={`https://wa.me/919949157771?text=${encodeURIComponent(`🛍️ *SPARKLE @ KKV ORDER PAYMENT CONFIRMATION*\n\n📌 *Order Ref:* ${placedOrderInfo.id}\n👤 *Customer:* ${placedOrderInfo.customerName}\n📱 *Phone:* ${placedOrderInfo.shippingAddress.phone}\n📍 *Address:* ${placedOrderInfo.shippingAddress.street}, ${placedOrderInfo.shippingAddress.city} - ${placedOrderInfo.shippingAddress.pincode}\n💰 *Total Paid:* ₹${placedOrderInfo.cartTotal}\n💳 *Payment Method:* ${placedOrderInfo.paymentMethod}\n📦 *Status:* Order Received`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-montserrat font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 text-xs shadow-md transition-all uppercase tracking-wider"
+                >
+                  <span>💬 Notify Store Owner on WhatsApp (+91 9949157771)</span>
+                </a>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 font-montserrat">
