@@ -703,7 +703,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 0,
     images: [
       "images/adjustable_floral_bolo_necklace_drive.jpg"
     ],
