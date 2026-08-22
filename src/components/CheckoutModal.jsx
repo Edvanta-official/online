@@ -147,7 +147,7 @@ export const CheckoutModal = () => {
             <div className="space-y-6">
               <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">1. Delivery Details</h3>
               <form onSubmit={handleShippingSubmit} className="space-y-4 text-xs font-poppins">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-gray-700 font-semibold mb-1">Full Name *</label>
                     <input
@@ -167,6 +167,17 @@ export const CheckoutModal = () => {
                       placeholder="+91 9876543210"
                       value={shippingForm.phone}
                       onChange={(e) => setShippingForm({ ...shippingForm, phone: e.target.value })}
+                      className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="customer@example.com"
+                      value={shippingForm.email}
+                      onChange={(e) => setShippingForm({ ...shippingForm, email: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
                     />
                   </div>
