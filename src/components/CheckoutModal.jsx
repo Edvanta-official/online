@@ -27,10 +27,10 @@ export const CheckoutModal = () => {
     fullName: user.name || '',
     phone: '+91 9949157771',
     email: user.email || '',
-    street: 'Flat 402, Rosewood Heights, Bandra West',
-    city: 'Mumbai',
-    state: 'Maharashtra',
-    pincode: '400050'
+    street: 'Flat 402, Rosewood Heights, Madhapur',
+    city: 'Hyderabad',
+    state: 'Telangana',
+    pincode: '500081'
   });
 
   const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'

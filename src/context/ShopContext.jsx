@@ -81,10 +81,10 @@ export const ShopProvider = ({ children }) => {
         id: "addr1",
         fullName: "Ananya Sharma",
         phone: "+91 9949157771",
-        street: "Flat 402, Rosewood Heights, Bandra West",
-        city: "Mumbai",
-        state: "Maharashtra",
-        pincode: "400050",
+        street: "Flat 402, Rosewood Heights, Madhapur",
+        city: "Hyderabad",
+        state: "Telangana",
+        pincode: "500081",
         isDefault: true
       }
     ]
@@ -398,10 +398,10 @@ export const ShopProvider = ({ children }) => {
           id: "addr1",
           fullName: name,
           phone: phone,
-          street: "Flat 402, Rosewood Heights, Bandra West",
-          city: "Mumbai",
-          state: "Maharashtra",
-          pincode: "400050",
+          street: "Flat 402, Rosewood Heights, Madhapur",
+          city: "Hyderabad",
+          state: "Telangana",
+          pincode: "500081",
           isDefault: true
         }
       ]
