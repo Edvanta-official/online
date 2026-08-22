@@ -9,7 +9,7 @@
     "build": "vite build && node scripts/copy-to-root.cjs",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "start": "node server/index.js"
+    "start": "node scripts/prepare-dev.cjs && vite"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
