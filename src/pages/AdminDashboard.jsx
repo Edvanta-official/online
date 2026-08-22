@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 import { fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
-import { getSQLLoggedInUsers, getSQLOrders, getSQLOrderItems, generateSQLDumpScript } from '../services/sqlDatabaseService';
+import { getSQLLoggedInUsers, getSQLOrders, getSQLOrderItems, getSQLProducts, generateSQLDumpScript } from '../services/sqlDatabaseService';
 
 export const AdminDashboard = () => {
   const {
@@ -718,6 +718,45 @@ export const AdminDashboard = () => {
                 <Download className="w-4 h-4 text-emerald-200" />
                 <span>Export .SQL Database Backup</span>
               </button>
+            </div>
+
+            {/* Table 0: Store Catalog Products */}
+            <div className="bg-white rounded-3xl p-6 border border-[#FCE4EC] shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <h4 className="font-bold text-sm text-[#2C2C2C] font-montserrat uppercase flex items-center gap-2">
+                  <span>🏷️ Store Catalog SQL Table (`products`)</span>
+                  <span className="bg-amber-100 text-amber-900 text-[10px] px-2.5 py-0.5 rounded-full font-bold">
+                    {getSQLProducts().length} Catalog Items
+                  </span>
+                </h4>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#FFF9F5] text-gray-500 uppercase font-montserrat text-[10px]">
+                    <tr>
+                      <th className="p-3">Product ID</th>
+                      <th className="p-3">Product Name</th>
+                      <th className="p-3">Category</th>
+                      <th className="p-3">Price</th>
+                      <th className="p-3">Stock</th>
+                      <th className="p-3">Available Sizes</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 font-poppins">
+                    {getSQLProducts().map(p => (
+                      <tr key={p.product_id} className="hover:bg-gray-50">
+                        <td className="p-3 font-mono font-bold text-[#C89B3C]">{p.product_id}</td>
+                        <td className="p-3 font-bold text-[#2C2C2C]">{p.product_name}</td>
+                        <td className="p-3"><span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-[10px] font-bold">{p.category}</span></td>
+                        <td className="p-3 font-extrabold text-[#C89B3C]">₹{p.price}</td>
+                        <td className="p-3 font-mono text-gray-600">{p.stock} Units</td>
+                        <td className="p-3"><span className="bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded text-[10px] font-bold">{p.available_sizes}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* Table 1: Logged-in Users */}

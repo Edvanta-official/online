@@ -3,22 +3,31 @@
 -- Compatible with: Microsoft SQL Server (MSSQL), MySQL, PostgreSQL, SQLite
 -- =================================================================
 
--- 1. CREATE DATABASE (Execute if creating a new database instance)
--- CREATE DATABASE SparkleStoreDB;
--- GO
--- USE SparkleStoreDB;
--- GO
+-- -----------------------------------------------------------------
+-- Table 1: PRODUCTS CATALOG DATABASE
+-- Tracks store items, categories, price, stock & bangle sizes
+-- -----------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS products (
+    product_id VARCHAR(50) PRIMARY KEY,
+    product_name VARCHAR(150) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    original_price DECIMAL(10, 2),
+    stock INT DEFAULT 50,
+    available_sizes VARCHAR(100) DEFAULT 'Standard', -- Bangle sizes: 2*4, 2*6, 2*8
+    is_best_seller BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 -- -----------------------------------------------------------------
--- Table 1: USERS & LOGIN SESSIONS LOG
--- Tracks who logged in, their profile details, and login timestamps
+-- Table 2: USERS & LOGIN SESSIONS LOG
 -- -----------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS users (
     user_id VARCHAR(50) PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     phone VARCHAR(20),
-    role VARCHAR(20) DEFAULT 'customer', -- 'customer' or 'admin'
+    role VARCHAR(20) DEFAULT 'customer',
     auth_method VARCHAR(50) DEFAULT 'Standard Auth',
     last_login_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     login_count INT DEFAULT 1,
@@ -26,8 +35,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- -----------------------------------------------------------------
--- Table 2: CUSTOMER ORDERS & PAYMENTS LOG
--- Tracks customer orders, total paid, payment method, & address
+-- Table 3: CUSTOMER ORDERS & PAYMENTS LOG
 -- -----------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS orders (
     order_id VARCHAR(50) PRIMARY KEY,
@@ -38,8 +46,8 @@ CREATE TABLE IF NOT EXISTS orders (
     discount_amount DECIMAL(10, 2) DEFAULT 0.00,
     final_paid_amount DECIMAL(10, 2) NOT NULL,
     payment_method VARCHAR(50) DEFAULT 'PhonePe',
-    payment_status VARCHAR(20) DEFAULT 'Paid', -- 'Paid' or 'Pending'
-    order_status VARCHAR(30) DEFAULT 'Order Received', -- 'Order Received', 'Processing', 'Shipped', 'Delivered'
+    payment_status VARCHAR(20) DEFAULT 'Paid',
+    order_status VARCHAR(30) DEFAULT 'Order Received',
     utr_number VARCHAR(100),
     tracking_number VARCHAR(100),
     shipping_street TEXT,
@@ -50,15 +58,14 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- -----------------------------------------------------------------
--- Table 3: ORDERED ITEMS & SIZES BREAKDOWN
--- Tracks item name, selected size (e.g. 2*4, 2*6, 2*8), price, & qty
+-- Table 4: ORDERED ITEMS & SIZES BREAKDOWN
 -- -----------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS order_items (
     item_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id VARCHAR(50) NOT NULL,
     product_id VARCHAR(50) NOT NULL,
     product_name VARCHAR(150) NOT NULL,
-    selected_size VARCHAR(20) DEFAULT 'N/A', -- Bangle sizes: 2*4, 2*6, 2*8
+    selected_size VARCHAR(20) DEFAULT 'N/A',
     quantity INT DEFAULT 1,
     unit_price DECIMAL(10, 2) NOT NULL,
     total_item_price DECIMAL(10, 2) NOT NULL,
@@ -66,41 +73,17 @@ CREATE TABLE IF NOT EXISTS order_items (
 );
 
 -- -----------------------------------------------------------------
--- Table 4: NEWSLETTER & VIP SUBSCRIBERS DATABASE
+-- SEED STORE CATALOG PRODUCTS INTO DATABASE
 -- -----------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS subscribers (
-    subscriber_id VARCHAR(50) PRIMARY KEY,
-    email VARCHAR(150) NOT NULL UNIQUE,
-    coupon_code VARCHAR(30) DEFAULT 'SPARKEL10',
-    status VARCHAR(20) DEFAULT 'active',
-    subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
--- =================================================================
--- SAMPLE SELECT QUERIES FOR ADMIN REPORTS
--- =================================================================
-
--- Query 1: View all logged in users & last login time
--- SELECT user_id, full_name, email, phone, role, last_login_at, login_count FROM users ORDER BY last_login_at DESC;
-
--- Query 2: View complete customer orders with payment & item details
--- SELECT 
---     o.order_id,
---     o.customer_name,
---     o.email,
---     o.phone,
---     o.final_paid_amount,
---     o.payment_method,
---     o.order_status,
---     i.product_name,
---     i.selected_size,
---     i.quantity,
---     i.unit_price,
---     i.total_item_price,
---     o.shipping_street,
---     o.shipping_city,
---     o.shipping_pincode,
---     o.created_at
--- FROM orders o
--- INNER JOIN order_items i ON o.order_id = i.order_id
--- ORDER BY o.created_at DESC;
+INSERT INTO products (product_id, product_name, category, price, original_price, stock, available_sizes, is_best_seller) VALUES
+('SPK-HC-001', 'Plumeria flower claw clip', 'Clips', 99.00, 199.00, 12, 'Standard', 1),
+('SPK-HC-002', 'Claw Clips', 'Clips', 99.00, 199.00, 10, 'Standard', 1),
+('SPK-BG-501', 'Royal Kundan Gold Bangle Set', 'Bangles', 1299.00, 2499.00, 15, '2*4, 2*6, 2*8', 1),
+('SPK-BG-502', 'Traditional Temple Kada Bangles', 'Bangles', 999.00, 1899.00, 20, '2*4, 2*6, 2*8', 0),
+('SPK-BG-503', 'Antique Matte Gold Peacock Bangle', 'Bangles', 1499.00, 2799.00, 8, '2*4, 2*6, 2*8', 1),
+('SPK-BG-504', 'Pearl & Emerald Studded Bangles', 'Bangles', 899.00, 1599.00, 25, '2*4, 2*6, 2*8', 0),
+('SPK-BG-505', 'Designer Oxidised Silver Bangle Set', 'Bangles', 699.00, 1299.00, 30, '2*4, 2*6, 2*8', 0),
+('SPK-NC-101', 'Matte Gold Antique Choker Set', 'Necklace Sets', 1899.00, 3499.00, 10, 'Standard', 1),
+('SPK-CH-301', 'Satellite Chain 18K Gold Plated', 'Chains', 499.00, 999.00, 50, 'Standard', 1),
+('SPK-BR-401', 'Adjustable Gold Plated Kada Bracelet', 'Bracelets', 599.00, 1199.00, 40, 'Standard', 1),
+('SPK-ER-201', 'Kundan Chandbali Earrings', 'Ear Rings', 499.00, 899.00, 35, 'Standard', 1);

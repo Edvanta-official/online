@@ -168,6 +168,9 @@ export const getSQLOrders = () => {
 /**
  * Retrieves all SQL order items with automatic sync
  */
+/**
+ * Retrieves all SQL order items with automatic sync
+ */
 export const getSQLOrderItems = () => {
   try {
     return JSON.parse(localStorage.getItem(SQL_ITEMS_STORAGE_KEY) || '[]');
@@ -177,27 +180,52 @@ export const getSQLOrderItems = () => {
 };
 
 /**
+ * Retrieves all SQL Catalog products
+ */
+export const getSQLProducts = () => {
+  return [
+    { product_id: 'SPK-HC-001', product_name: 'Plumeria flower claw clip', category: 'Clips', price: 99, stock: 12, available_sizes: 'Standard', is_best_seller: true },
+    { product_id: 'SPK-HC-002', product_name: 'Claw Clips', category: 'Clips', price: 99, stock: 10, available_sizes: 'Standard', is_best_seller: true },
+    { product_id: 'SPK-BG-501', product_name: 'Royal Kundan Gold Bangle Set', category: 'Bangles', price: 1299, stock: 15, available_sizes: '2*4, 2*6, 2*8', is_best_seller: true },
+    { product_id: 'SPK-BG-502', product_name: 'Traditional Temple Kada Bangles', category: 'Bangles', price: 999, stock: 20, available_sizes: '2*4, 2*6, 2*8', is_best_seller: false },
+    { product_id: 'SPK-BG-503', product_name: 'Antique Matte Gold Peacock Bangle', category: 'Bangles', price: 1499, stock: 8, available_sizes: '2*4, 2*6, 2*8', is_best_seller: true },
+    { product_id: 'SPK-BG-504', product_name: 'Pearl & Emerald Studded Bangles', category: 'Bangles', price: 899, stock: 25, available_sizes: '2*4, 2*6, 2*8', is_best_seller: false },
+    { product_id: 'SPK-BG-505', product_name: 'Designer Oxidised Silver Bangle Set', category: 'Bangles', price: 699, stock: 30, available_sizes: '2*4, 2*6, 2*8', is_best_seller: false },
+    { product_id: 'SPK-NC-101', product_name: 'Matte Gold Antique Choker Set', category: 'Necklace Sets', price: 1899, stock: 10, available_sizes: 'Standard', is_best_seller: true },
+    { product_id: 'SPK-CH-301', product_name: 'Satellite Chain 18K Gold Plated', category: 'Chains', price: 499, stock: 50, available_sizes: 'Standard', is_best_seller: true },
+    { product_id: 'SPK-BR-401', product_name: 'Adjustable Gold Plated Kada Bracelet', category: 'Bracelets', price: 599, stock: 40, available_sizes: 'Standard', is_best_seller: true },
+    { product_id: 'SPK-ER-201', product_name: 'Kundan Chandbali Earrings', category: 'Ear Rings', price: 499, stock: 35, available_sizes: 'Standard', is_best_seller: true }
+  ];
+};
+
+/**
  * Generates an executable .sql file backup dump for MSSQL / MySQL / PostgreSQL / SQLite
  */
 export const generateSQLDumpScript = () => {
   const users = getSQLLoggedInUsers();
   const orders = getSQLOrders();
   const items = getSQLOrderItems();
+  const products = getSQLProducts();
 
   let sql = `-- Sparkle @ KKV Store SQL Database Export Dump\n`;
   sql += `-- Exported Date: ${new Date().toLocaleString()}\n\n`;
 
-  sql += `-- 1. USERS DATA DUMP\n`;
+  sql += `-- 1. STORE CATALOG PRODUCTS DUMP\n`;
+  products.forEach(p => {
+    sql += `INSERT INTO products (product_id, product_name, category, price, stock, available_sizes) VALUES ('${p.product_id}', '${p.product_name.replace(/'/g, "''")}', '${p.category}', ${p.price}, ${p.stock}, '${p.available_sizes}');\n`;
+  });
+
+  sql += `\n-- 2. USERS DATA DUMP\n`;
   users.forEach(u => {
     sql += `INSERT INTO users (user_id, full_name, email, phone, role, auth_method, last_login_at, login_count) VALUES ('${u.user_id}', '${u.full_name.replace(/'/g, "''")}', '${u.email}', '${u.phone}', '${u.role}', '${u.auth_method}', '${u.last_login_at}', ${u.login_count || 1});\n`;
   });
 
-  sql += `\n-- 2. ORDERS DATA DUMP\n`;
+  sql += `\n-- 3. ORDERS DATA DUMP\n`;
   orders.forEach(o => {
     sql += `INSERT INTO orders (order_id, customer_name, email, phone, total_amount, discount_amount, final_paid_amount, payment_method, payment_status, order_status, shipping_street, shipping_city, shipping_pincode) VALUES ('${o.order_id}', '${o.customer_name.replace(/'/g, "''")}', '${o.email}', '${o.phone}', ${o.total_amount}, ${o.discount_amount}, ${o.final_paid_amount}, '${o.payment_method}', '${o.payment_status}', '${o.order_status}', '${(o.shipping_street || '').replace(/'/g, "''")}', '${o.shipping_city || ''}', '${o.shipping_pincode || ''}');\n`;
   });
 
-  sql += `\n-- 3. ORDER ITEMS DUMP\n`;
+  sql += `\n-- 4. ORDER ITEMS DUMP\n`;
   items.forEach(i => {
     sql += `INSERT INTO order_items (order_id, product_id, product_name, selected_size, quantity, unit_price, total_item_price) VALUES ('${i.order_id}', '${i.product_id}', '${i.product_name.replace(/'/g, "''")}', '${i.selected_size}', ${i.quantity}, ${i.unit_price}, ${i.total_item_price});\n`;
   });
