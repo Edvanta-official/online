@@ -72,22 +72,12 @@ export const ShopProvider = ({ children }) => {
   const [couponError, setCouponError] = useState("");
 
   const defaultUser = {
-    name: "Ananya Sharma",
-    email: "ananya@example.com",
+    name: "",
+    email: "",
+    phone: "",
     role: "customer",
     isLoggedIn: false,
-    savedAddresses: [
-      {
-        id: "addr1",
-        fullName: "Ananya Sharma",
-        phone: "+91 9949157771",
-        street: "Flat 402, Rosewood Heights, Madhapur",
-        city: "Hyderabad",
-        state: "Telangana",
-        pincode: "500081",
-        isDefault: true
-      }
-    ]
+    savedAddresses: []
   };
 
   const [user, setUser] = useState(() => {
@@ -95,7 +85,7 @@ export const ShopProvider = ({ children }) => {
       const saved = localStorage.getItem('sparkel_user');
       if (!saved) return defaultUser;
       const parsed = JSON.parse(saved);
-      return (parsed && typeof parsed === 'object') ? parsed : defaultUser;
+      return (parsed && typeof parsed === 'object' && parsed.isLoggedIn) ? parsed : defaultUser;
     } catch (e) {
       return defaultUser;
     }
@@ -417,10 +407,10 @@ export const ShopProvider = ({ children }) => {
   };
 
   const logoutUser = () => {
-    setUser(prev => ({
-      ...prev,
-      isLoggedIn: false
-    }));
+    setUser(defaultUser);
+    try {
+      localStorage.removeItem('sparkel_user');
+    } catch (e) {}
     showToast("Logged out successfully.", "info");
   };
 

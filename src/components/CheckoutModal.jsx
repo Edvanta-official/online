@@ -26,13 +26,13 @@ export const CheckoutModal = () => {
   const [paymentError, setPaymentError] = useState('');
 
   const [shippingForm, setShippingForm] = useState({
-    fullName: user.name || '',
-    phone: '+91 9949157771',
-    email: user.email || '',
-    street: 'Flat 402, Rosewood Heights, Madhapur',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    pincode: '500081'
+    fullName: user?.name || '',
+    phone: user?.phone || '',
+    email: user?.email || '',
+    street: user?.savedAddresses?.[0]?.street || '',
+    city: user?.savedAddresses?.[0]?.city || '',
+    state: user?.savedAddresses?.[0]?.state || '',
+    pincode: user?.savedAddresses?.[0]?.pincode || ''
   });
 
   const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'
@@ -156,6 +156,7 @@ export const CheckoutModal = () => {
                     <input
                       type="text"
                       required
+                      placeholder="Enter your full name"
                       value={shippingForm.fullName}
                       onChange={(e) => setShippingForm({ ...shippingForm, fullName: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
@@ -166,6 +167,7 @@ export const CheckoutModal = () => {
                     <input
                       type="text"
                       required
+                      placeholder="+91 9876543210"
                       value={shippingForm.phone}
                       onChange={(e) => setShippingForm({ ...shippingForm, phone: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
@@ -178,6 +180,7 @@ export const CheckoutModal = () => {
                   <input
                     type="text"
                     required
+                    placeholder="Flat No, Building Name, Street / Area (e.g. Madhapur)"
                     value={shippingForm.street}
                     onChange={(e) => setShippingForm({ ...shippingForm, street: e.target.value })}
                     className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
@@ -190,6 +193,7 @@ export const CheckoutModal = () => {
                     <input
                       type="text"
                       required
+                      placeholder="e.g. Hyderabad"
                       value={shippingForm.city}
                       onChange={(e) => setShippingForm({ ...shippingForm, city: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
@@ -200,6 +204,7 @@ export const CheckoutModal = () => {
                     <input
                       type="text"
                       required
+                      placeholder="e.g. Telangana"
                       value={shippingForm.state}
                       onChange={(e) => setShippingForm({ ...shippingForm, state: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
@@ -211,6 +216,7 @@ export const CheckoutModal = () => {
                       type="text"
                       required
                       maxLength={6}
+                      placeholder="500081"
                       value={shippingForm.pincode}
                       onChange={(e) => setShippingForm({ ...shippingForm, pincode: e.target.value })}
                       className="w-full bg-[#FFF9F5] border border-[#D4AF7F]/40 rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
