@@ -13,6 +13,7 @@ export const ProductDetailsPage = () => {
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || 'Default');
+  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '2*6');
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
 
@@ -271,6 +272,27 @@ export const ProductDetailsPage = () => {
                         className={`px-4 py-2 rounded-full text-xs font-montserrat font-semibold border transition-all ${selectedColor === c ? 'bg-[#2C2C2C] text-[#FCE4EC] border-[#2C2C2C] shadow-md' : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-[#D4AF7F]'}`}
                       >
                         {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Bangle Size Selector */}
+              {(product.sizes || product.category === 'bangles') && (
+                <div className="pt-2">
+                  <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block mb-2">
+                    Select Bangle Size: <span className="text-[#C89B3C] font-extrabold text-sm">{selectedSize}</span>
+                  </label>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {(product.sizes || ["2*4", "2*6", "2*8"]).map(sz => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => setSelectedSize(sz)}
+                        className={`px-5 py-2.5 rounded-2xl text-xs font-montserrat font-bold border transition-all ${selectedSize === sz ? 'bg-[#2C2C2C] text-[#FCE4EC] border-[#2C2C2C] shadow-md scale-105' : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-[#D4AF7F]'}`}
+                      >
+                        Size {sz}
                       </button>
                     ))}
                   </div>
