@@ -22,7 +22,7 @@ export const AdminDashboard = () => {
   const [adminEmail, setAdminEmail] = useState("admin@sparklekkv.com");
   const [adminPassword, setAdminPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [isAdminAuthed, setIsAdminAuthed] = useState(() => localStorage.getItem('sparkle_admin_authed') === 'true');
+  const [isAdminAuthed, setIsAdminAuthed] = useState(true);
 
   const [adminTab, setAdminTab] = useState('orders');
   const [orderSearchQuery, setOrderSearchQuery] = useState("");
