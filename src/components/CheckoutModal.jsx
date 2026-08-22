@@ -87,7 +87,7 @@ export const CheckoutModal = () => {
             <h2 className="font-serif-luxury text-xl font-bold">
               {step === 1 && "Shipping & Delivery Address"}
               {step === 2 && "PhonePe & Payment Options"}
-              {step === 3 && "Order Placed Successfully!"}
+              {step === 3 && "Order Placed & Received Successfully!"}
             </h2>
           </div>
 
@@ -410,7 +410,7 @@ export const CheckoutModal = () => {
               </div>
 
               <div className="space-y-1">
-                <span className="text-xs font-montserrat uppercase tracking-widest text-[#C89B3C] font-bold">Sparkel @kkv Order Receipt</span>
+                <span className="text-xs font-montserrat uppercase tracking-widest text-[#C89B3C] font-bold">Sparkle @kkv Order Receipt</span>
                 <h3 className="font-serif-luxury text-2xl font-bold text-[#2C2C2C]">
                   Thank You, {placedOrderInfo.customerName}!
                 </h3>
@@ -420,17 +420,17 @@ export const CheckoutModal = () => {
               {/* Order Summary Receipt Box */}
               <div className="bg-[#FFF9F5] p-6 rounded-3xl border border-[#FCE4EC] max-w-md mx-auto text-left space-y-3 text-xs">
                 
-                {/* PAYMENT DONE & VERIFIED STATUS BADGE */}
+                {/* ORDER RECEIVED & VERIFIED STATUS BADGE */}
                 <div className="bg-emerald-600 text-white p-3.5 rounded-2xl flex items-center justify-between shadow-md">
                   <div className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
                     <div>
-                      <span className="text-[10px] font-montserrat uppercase tracking-wider text-emerald-100 font-bold block">Payment Status</span>
-                      <strong className="text-xs font-bold uppercase">Customer Payment Done & Verified</strong>
+                      <span className="text-[10px] font-montserrat uppercase tracking-wider text-emerald-100 font-bold block">Order Status</span>
+                      <strong className="text-sm font-bold uppercase">Order Received</strong>
                     </div>
                   </div>
                   <span className="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                    Paid Online
+                    Payment Verified
                   </span>
                 </div>
 

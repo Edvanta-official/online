@@ -255,7 +255,7 @@ export const CustomerDashboard = () => {
                         <div className="grid grid-cols-4 gap-2 text-center font-montserrat text-[10px] font-bold">
                           <div className="flex flex-col items-center gap-1 text-emerald-600">
                             <CheckCircle2 className="w-5 h-5" />
-                            <span>1. Placed</span>
+                            <span>1. Order Received</span>
                           </div>
                           <div className="flex flex-col items-center gap-1 text-emerald-600">
                             <CheckCircle2 className="w-5 h-5" />

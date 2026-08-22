@@ -340,7 +340,7 @@ export const ShopProvider = ({ children }) => {
       cartTotal,
       paymentMethod: orderDetails.paymentMethod,
       paymentStatus: orderDetails.paymentMethod === 'COD' ? 'Pending' : 'Paid',
-      orderStatus: 'Placed',
+      orderStatus: 'Order Received',
       trackingNumber: `SPK-IN-${Math.floor(1000000 + Math.random() * 9000000)}`,
       shippingAddress: orderDetails.shippingAddress,
       estimatedDeliveryDate,
