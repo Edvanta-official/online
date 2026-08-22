@@ -17,6 +17,7 @@ export const ProductQuickViewModal = () => {
   } = useShop();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(quickViewProduct?.colors?.[0] || '');
+  const [selectedSize, setSelectedSize] = useState(quickViewProduct?.sizes?.[0] || '2*6');
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
 
@@ -126,6 +127,27 @@ export const ProductQuickViewModal = () => {
                   Save ₹{quickViewProduct.originalPrice - quickViewProduct.price}
                 </span>
               </div>
+
+              {/* Bangle Size Selector */}
+              {(quickViewProduct.sizes || quickViewProduct.category === 'bangles') && (
+                <div className="pt-2">
+                  <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block mb-2">
+                    Select Bangle Size: <span className="text-[#C89B3C] font-bold">{selectedSize}</span>
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {(quickViewProduct.sizes || ["2*4", "2*6", "2*7"]).map(sz => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => setSelectedSize(sz)}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${selectedSize === sz ? 'bg-[#2C2C2C] text-[#FCE4EC] border-[#2C2C2C] shadow-md' : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-[#D4AF7F]'}`}
+                      >
+                        {sz}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Color Options */}
               {quickViewProduct.colors && (
