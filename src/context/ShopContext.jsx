@@ -351,12 +351,12 @@ export const ShopProvider = ({ children }) => {
     return newOrder;
   };
 
-  const loginUser = (nameInput, phoneInput, passwordInput, emailInput) => {
+  const loginUser = (nameInput, phoneInput, passwordInput, emailInput, roleInput) => {
     const name = nameInput || "Sparkle Customer";
     const phone = phoneInput || "+91 9876543210";
     const password = passwordInput || "••••••••";
-    const role = 'customer';
     const email = emailInput || (name.includes('@') ? name : `${name.toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`);
+    const role = roleInput || (email.includes('admin') || name.includes('Owner') ? 'admin' : 'customer');
 
     const authenticatedUser = {
       name,

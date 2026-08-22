@@ -22,6 +22,7 @@ export const AdminDashboard = () => {
   const [adminEmail, setAdminEmail] = useState("admin@sparklekkv.com");
   const [adminPassword, setAdminPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [isAdminAuthed, setIsAdminAuthed] = useState(() => localStorage.getItem('sparkle_admin_authed') === 'true');
 
   const [adminTab, setAdminTab] = useState('orders');
   const [orderSearchQuery, setOrderSearchQuery] = useState("");
@@ -47,8 +48,10 @@ export const AdminDashboard = () => {
 
   const handleAdminAuth = (e) => {
     e.preventDefault();
-    loginUser("Sparkle Owner @ KKV", adminEmail || "admin@sparklekkv.com", adminPassword || "admin123", "admin@sparklekkv.com");
-    showToast("🛡️ Owner Admin Authenticated Successfully!");
+    loginUser("Sparkle Owner @ KKV", adminEmail || "admin@sparklekkv.com", adminPassword || "admin123", "admin@sparklekkv.com", "admin");
+    setIsAdminAuthed(true);
+    localStorage.setItem('sparkle_admin_authed', 'true');
+    showToast("🛡️ Owner Admin Authenticated Successfully!", "success");
   };
 
   const handleUpdateOrderStatus = (orderId, newStatus) => {
@@ -75,7 +78,7 @@ export const AdminDashboard = () => {
   });
 
   // Admin Auth Login Screen if user is not admin authenticated
-  if (!user || !user.isLoggedIn || user.role !== 'admin') {
+  if (!isAdminAuthed && (!user || !user.isLoggedIn || user.role !== 'admin')) {
     return (
       <div className="py-16 sm:py-24 bg-[#FFF9F5] min-h-screen font-poppins flex items-center justify-center p-4">
         <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-8 border border-[#D4AF7F]/40 shadow-2xl space-y-6 text-center">
