@@ -5,54 +5,83 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
+import bcrypt from 'bcryptjs';
+import db from './db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'sparklekkvofficial@gmail.com';
+const ADMIN_EMAIL =
+  process.env.ADMIN_EMAIL || 'sparklekkvofficial@gmail.com';
 
-// Ensure data directory exists
+// ============================================================
+// DATA DIRECTORY
+// ============================================================
+
 const DATA_DIR = path.join(__dirname, 'data');
+
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
 const SUBSCRIBERS_FILE = path.join(DATA_DIR, 'subscribers.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
-const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const OTPS_FILE = path.join(DATA_DIR, 'otps.json');
 
-// Helper to read JSON file safely
+// ============================================================
+// JSON HELPERS
+// ============================================================
+
 const readJsonFile = (filePath, fallback = []) => {
   try {
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8');
+
+      if (!data.trim()) {
+        return fallback;
+      }
+
       return JSON.parse(data);
     }
   } catch (err) {
     console.error(`Error reading ${filePath}:`, err);
   }
+
   return fallback;
 };
 
-// Helper to write JSON file safely
 const writeJsonFile = (filePath, data) => {
   try {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify(data, null, 2),
+      'utf8'
+    );
   } catch (err) {
     console.error(`Error writing ${filePath}:`, err);
   }
 };
 
-// Middleware
+// ============================================================
+// MIDDLEWARE
+// ============================================================
+
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// Create Nodemailer Transporter
+// ============================================================
+// EMAIL TRANSPORTER
+// ============================================================
+
 const createTransporter = async () => {
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  // Custom SMTP
+  if (
+    process.env.SMTP_HOST &&
+    process.env.SMTP_USER &&
+    process.env.SMTP_PASS
+  ) {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
@@ -64,8 +93,12 @@ const createTransporter = async () => {
     });
   }
 
-  // Gmail SMTP Transport
-  if (process.env.GMAIL_USER && process.env.GMAIL_PASS && !process.env.GMAIL_PASS.includes('your_16_character')) {
+  // Gmail
+  if (
+    process.env.GMAIL_USER &&
+    process.env.GMAIL_PASS &&
+    !process.env.GMAIL_PASS.includes('your_16_character')
+  ) {
     return nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -75,9 +108,10 @@ const createTransporter = async () => {
     });
   }
 
-  // Automatic Test Transporter for instant zero-config email preview
+  // Ethereal test email
   try {
     const testAccount = await nodemailer.createTestAccount();
+
     return nodemailer.createTransport({
       host: testAccount.smtp.host,
       port: testAccount.smtp.port,
@@ -87,87 +121,231 @@ const createTransporter = async () => {
         pass: testAccount.pass
       }
     });
-  } catch (e) {
+  } catch (err) {
+    console.error('Email transporter error:', err.message);
     return null;
   }
 };
 
-// Health Check Endpoint
-app.get('/api/health', (req, res) => {
-  const subscribers = readJsonFile(SUBSCRIBERS_FILE);
-  const orders = readJsonFile(ORDERS_FILE);
-  const users = readJsonFile(USERS_FILE);
-  res.json({
-    status: 'ok',
-    service: 'Sparkle @kkv Backend API',
-    adminEmail: ADMIN_EMAIL,
-    totalSubscribers: subscribers.length,
-    totalOrders: orders.length,
-    totalUsers: users.length,
-    timestamp: new Date().toISOString()
-  });
-});
+// ============================================================
+// HEALTH CHECK
+// ============================================================
 
-// ================= AUTHENTICATION ENDPOINTS =================
-
-// Register User Account Endpoint
-app.post('/api/auth/register', (req, res) => {
+app.get('/api/health', async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
-    if (!name || (!email && !phone) || !password) {
-      return res.status(400).json({ error: 'Name, Email/Phone, and Password are required.' });
-    }
+    const subscribers = readJsonFile(SUBSCRIBERS_FILE);
+    const orders = readJsonFile(ORDERS_FILE);
 
-    const users = readJsonFile(USERS_FILE);
-    const existing = users.find(u => 
-      (email && u.email && u.email.toLowerCase() === email.toLowerCase()) || 
-      (phone && u.phone && u.phone.replace(/\D/g, '') === phone.replace(/\D/g, ''))
+    const [userRows] = await db.execute(
+      'SELECT COUNT(*) AS totalUsers FROM users'
     );
 
-    if (existing) {
-      return res.status(400).json({ error: 'An account with this email or phone number already exists.' });
-    }
-
-    const newUser = {
-      id: `USR-${Date.now()}`,
-      name,
-      email: email || '',
-      phone: phone || '',
-      password, // Stored securely
-      role: 'customer',
-      savedAddresses: [],
-      createdAt: new Date().toISOString()
-    };
-
-    users.push(newUser);
-    writeJsonFile(USERS_FILE, users);
-
-    const { password: _, ...userSafe } = newUser;
-    res.status(201).json({
-      success: true,
-      message: 'Account registered successfully!',
-      user: userSafe,
-      token: `SPK-TOKEN-${Date.now()}`
+    res.json({
+      status: 'ok',
+      service: 'Sparkle @kkv Backend API',
+      adminEmail: ADMIN_EMAIL,
+      totalSubscribers: subscribers.length,
+      totalOrders: orders.length,
+      totalUsers: Number(userRows[0].totalUsers),
+      timestamp: new Date().toISOString()
     });
   } catch (err) {
-    console.error('Registration Error:', err);
-    res.status(500).json({ error: 'Failed to create user account.' });
+    console.error('Health Check Error:', err);
+
+    res.status(500).json({
+      status: 'error',
+      error: 'Database health check failed.'
+    });
   }
 });
 
-// Login User / Admin Endpoint
-app.post('/api/auth/login', (req, res) => {
+// ============================================================
+// AUTHENTICATION
+// ============================================================
+
+// ============================================================
+// REGISTER USER - MYSQL
+// ============================================================
+
+app.post('/api/auth/register', async (req, res) => {
   try {
-    const { identifier, password, role } = req.body;
-    if (!identifier || !password) {
-      return res.status(400).json({ error: 'Email/Phone and Password are required.' });
+    const { name, email, phone, password } = req.body;
+
+    if (!name || (!email && !phone) || !password) {
+      return res.status(400).json({
+        error: 'Name, Email/Phone, and Password are required.'
+      });
     }
 
-    const cleanId = identifier.trim().toLowerCase();
+    const cleanName = String(name).trim();
 
-    // Check for Admin Login
-    if (role === 'admin' || cleanId === 'admin@sparklekkv.com' || cleanId === 'admin') {
-      if (password === 'admin123' || password === 'sparkleadmin' || password === 'admin') {
+    const cleanEmail = email
+      ? String(email).trim().toLowerCase()
+      : null;
+
+    const cleanPhone = phone
+      ? String(phone).replace(/\D/g, '')
+      : null;
+
+    // --------------------------------------------------------
+    // CHECK EXISTING USER
+    // --------------------------------------------------------
+
+    let existingUsers;
+
+    if (cleanEmail && cleanPhone) {
+      [existingUsers] = await db.execute(
+        `
+        SELECT user_id
+        FROM users
+        WHERE LOWER(email) = ?
+           OR REPLACE(
+                REPLACE(
+                  REPLACE(phone, ' ', ''),
+                '-', ''),
+              '+', '') = ?
+        LIMIT 1
+        `,
+        [cleanEmail, cleanPhone]
+      );
+    } else if (cleanEmail) {
+      [existingUsers] = await db.execute(
+        `
+        SELECT user_id
+        FROM users
+        WHERE LOWER(email) = ?
+        LIMIT 1
+        `,
+        [cleanEmail]
+      );
+    } else {
+      [existingUsers] = await db.execute(
+        `
+        SELECT user_id
+        FROM users
+        WHERE REPLACE(
+                REPLACE(
+                  REPLACE(phone, ' ', ''),
+                '-', ''),
+              '+', '') = ?
+        LIMIT 1
+        `,
+        [cleanPhone]
+      );
+    }
+
+    if (existingUsers.length > 0) {
+      return res.status(409).json({
+        error:
+          'An account with this email or phone already exists.'
+      });
+    }
+
+    // --------------------------------------------------------
+    // HASH PASSWORD
+    // --------------------------------------------------------
+
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    const userId = `USR-${Date.now()}`;
+
+    // Your current MySQL table has email NOT NULL.
+    // For phone-only registration, use an empty string.
+    const databaseEmail = cleanEmail || '';
+
+    // --------------------------------------------------------
+    // INSERT INTO MYSQL
+    // --------------------------------------------------------
+
+    await db.execute(
+      `
+      INSERT INTO users
+      (
+        user_id,
+        full_name,
+        email,
+        phone,
+        password_hash,
+        role,
+        auth_method,
+        login_count
+      )
+      VALUES
+      (?, ?, ?, ?, ?, 'customer', 'Standard Auth', 0)
+      `,
+      [
+        userId,
+        cleanName,
+        databaseEmail,
+        cleanPhone,
+        passwordHash
+      ]
+    );
+
+    console.log(
+      `✅ Customer registered in MySQL: ${userId}`
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: 'Account registered successfully!',
+      user: {
+        id: userId,
+        name: cleanName,
+        email: databaseEmail,
+        phone: cleanPhone,
+        role: 'customer',
+        authMethod: 'Standard Auth'
+      },
+      token: `SPK-TOKEN-${Date.now()}`
+    });
+
+  } catch (err) {
+    console.error('❌ Registration Error:', err);
+
+    return res.status(500).json({
+      error: 'Failed to create user account.'
+    });
+  }
+});
+
+// ============================================================
+// LOGIN USER / ADMIN - MYSQL
+// ============================================================
+
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { identifier, password, role } = req.body;
+
+    if (!identifier || !password) {
+      return res.status(400).json({
+        error: 'Email/Phone and Password are required.'
+      });
+    }
+
+    const cleanId = String(identifier)
+      .trim()
+      .toLowerCase();
+
+    const cleanPhone = String(identifier).replace(
+      /\D/g,
+      ''
+    );
+
+    // ========================================================
+    // ADMIN LOGIN
+    // ========================================================
+
+    if (
+      role === 'admin' ||
+      cleanId === 'admin@sparklekkv.com' ||
+      cleanId === 'admin'
+    ) {
+      if (
+        password === 'admin123' ||
+        password === 'sparkleadmin' ||
+        password === 'admin'
+      ) {
         const adminUser = {
           id: 'ADM-001',
           name: 'Sparkle Admin @ KKV',
@@ -176,317 +354,903 @@ app.post('/api/auth/login', (req, res) => {
           role: 'admin',
           isLoggedIn: true
         };
+
         return res.json({
           success: true,
           message: 'Admin access granted!',
           user: adminUser,
           token: `SPK-ADMIN-${Date.now()}`
         });
-      } else {
-        return res.status(401).json({ error: 'Invalid Administrator passcode.' });
       }
-    }
 
-    // Customer Login
-    const users = readJsonFile(USERS_FILE);
-    const user = users.find(u => 
-      (u.email && u.email.toLowerCase() === cleanId) || 
-      (u.phone && u.phone.replace(/\D/g, '') === cleanId.replace(/\D/g, ''))
-    );
-
-    if (!user) {
-      // Auto-create customer user if valid credentials provided for convenience
-      const newCustomer = {
-        id: `USR-${Date.now()}`,
-        name: cleanId.includes('@') ? cleanId.split('@')[0] : 'Sparkle Member',
-        email: cleanId.includes('@') ? cleanId : '',
-        phone: !cleanId.includes('@') ? cleanId : '',
-        password,
-        role: 'customer',
-        createdAt: new Date().toISOString()
-      };
-      users.push(newCustomer);
-      writeJsonFile(USERS_FILE, users);
-      const { password: _, ...userSafe } = newCustomer;
-      return res.json({
-        success: true,
-        message: 'Signed in successfully!',
-        user: userSafe,
-        token: `SPK-TOKEN-${Date.now()}`
+      return res.status(401).json({
+        error: 'Invalid Administrator passcode.'
       });
     }
 
-    if (user.password !== password) {
-      return res.status(401).json({ error: 'Incorrect password. Please try again.' });
+    // ========================================================
+    // CUSTOMER LOGIN - MYSQL
+    // ========================================================
+
+    let rows;
+
+    if (cleanId.includes('@')) {
+      [rows] = await db.execute(
+        `
+        SELECT
+          user_id,
+          full_name,
+          email,
+          phone,
+          password_hash,
+          role,
+          auth_method,
+          last_login_at,
+          login_count,
+          created_at
+        FROM users
+        WHERE LOWER(email) = ?
+        LIMIT 1
+        `,
+        [cleanId]
+      );
+    } else {
+      [rows] = await db.execute(
+        `
+        SELECT
+          user_id,
+          full_name,
+          email,
+          phone,
+          password_hash,
+          role,
+          auth_method,
+          last_login_at,
+          login_count,
+          created_at
+        FROM users
+        WHERE REPLACE(
+                REPLACE(
+                  REPLACE(phone, ' ', ''),
+                '-', ''),
+              '+', '') = ?
+        LIMIT 1
+        `,
+        [cleanPhone]
+      );
     }
 
-    const { password: _, ...userSafe } = user;
-    res.json({
+    // --------------------------------------------------------
+    // USER NOT FOUND
+    // --------------------------------------------------------
+
+    if (rows.length === 0) {
+      return res.status(401).json({
+        error:
+          'Account not found. Please create an account first.'
+      });
+    }
+
+    const user = rows[0];
+
+    // --------------------------------------------------------
+    // PASSWORD CHECK
+    // --------------------------------------------------------
+
+    if (!user.password_hash) {
+      return res.status(401).json({
+        error:
+          'This account does not have a password configured.'
+      });
+    }
+
+    const passwordValid = await bcrypt.compare(
+      password,
+      user.password_hash
+    );
+
+    if (!passwordValid) {
+      return res.status(401).json({
+        error:
+          'Incorrect password. Please try again.'
+      });
+    }
+
+    // --------------------------------------------------------
+    // UPDATE LOGIN DETAILS
+    // --------------------------------------------------------
+
+    await db.execute(
+      `
+      UPDATE users
+      SET
+        last_login_at = CURRENT_TIMESTAMP,
+        login_count = COALESCE(login_count, 0) + 1
+      WHERE user_id = ?
+      `,
+      [user.user_id]
+    );
+
+    const newLoginCount =
+      Number(user.login_count || 0) + 1;
+
+    console.log(
+      `✅ Customer login recorded in MySQL: ${user.user_id}`
+    );
+
+    // --------------------------------------------------------
+    // LOGIN SUCCESS
+    // --------------------------------------------------------
+
+    return res.json({
       success: true,
       message: 'Signed in successfully!',
-      user: userSafe,
+      user: {
+        id: user.user_id,
+        name: user.full_name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        authMethod: user.auth_method,
+        lastLoginAt: new Date().toISOString(),
+        loginCount: newLoginCount,
+        createdAt: user.created_at
+      },
       token: `SPK-TOKEN-${Date.now()}`
     });
+
   } catch (err) {
-    console.error('Login Error:', err);
-    res.status(500).json({ error: 'Authentication failed.' });
+    console.error('❌ Login Error:', err);
+
+    return res.status(500).json({
+      error: 'Authentication failed.'
+    });
   }
 });
 
-// Dispatch OTP Endpoint
+// ============================================================
+// SEND OTP
+// ============================================================
+
 app.post('/api/auth/send-otp', async (req, res) => {
   try {
     const { destination } = req.body;
+
     if (!destination) {
-      return res.status(400).json({ error: 'Email or Mobile Number is required.' });
+      return res.status(400).json({
+        error: 'Email or Mobile Number is required.'
+      });
     }
 
-    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const cleanDestination = String(destination).trim();
+
+    const otpCode = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
     const otps = readJsonFile(OTPS_FILE);
-    
+
     otps.push({
       id: `OTP-${Date.now()}`,
-      destination: destination.trim(),
+      destination: cleanDestination,
       code: otpCode,
       createdAt: new Date().toISOString(),
-      expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString()
+      expiresAt: new Date(
+        Date.now() + 5 * 60 * 1000
+      ).toISOString()
     });
+
     writeJsonFile(OTPS_FILE, otps);
 
-    // If destination is email, send email
-    if (destination.includes('@')) {
+    // --------------------------------------------------------
+    // SEND EMAIL OTP
+    // --------------------------------------------------------
+
+    if (cleanDestination.includes('@')) {
       const mailOptions = {
-        from: `"Sparkle @kkv Security" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
-        to: destination,
-        subject: `🔑 Your Sparkle @ KKV Security OTP: ${otpCode}`,
+        from:
+          `"Sparkle @kkv Security" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
+        to: cleanDestination,
+        subject:
+          `🔑 Your Sparkle @ KKV Security OTP: ${otpCode}`,
         html: `
-          <div style="font-family: Arial, sans-serif; background-color: #FFF9F5; padding: 24px; border-radius: 16px; border: 2px solid #C89B3C; max-width: 500px; margin: 0 auto;">
-            <h2 style="color: #2C2C2C; font-family: Georgia, serif; margin-top: 0; text-align: center;">Sparkle @ KKV Security OTP</h2>
-            <p style="font-size: 14px; color: #555; text-align: center;">Use the code below to complete your authentication:</p>
-            <div style="background-color: #2C2C2C; color: #D4AF7F; font-size: 32px; font-weight: bold; letter-spacing: 8px; text-align: center; padding: 16px; border-radius: 12px; margin: 20px 0;">
+          <div style="
+            font-family: Arial, sans-serif;
+            background-color: #FFF9F5;
+            padding: 24px;
+            border-radius: 16px;
+            border: 2px solid #C89B3C;
+            max-width: 500px;
+            margin: 0 auto;
+          ">
+            <h2 style="
+              color: #2C2C2C;
+              font-family: Georgia, serif;
+              margin-top: 0;
+              text-align: center;
+            ">
+              Sparkle @ KKV Security OTP
+            </h2>
+
+            <p style="
+              font-size: 14px;
+              color: #555;
+              text-align: center;
+            ">
+              Use the code below to complete your authentication:
+            </p>
+
+            <div style="
+              background-color: #2C2C2C;
+              color: #D4AF7F;
+              font-size: 32px;
+              font-weight: bold;
+              letter-spacing: 8px;
+              text-align: center;
+              padding: 16px;
+              border-radius: 12px;
+              margin: 20px 0;
+            ">
               ${otpCode}
             </div>
-            <p style="font-size: 12px; color: #888; text-align: center;">This code will expire in 5 minutes. Do not share it with anyone.</p>
+
+            <p style="
+              font-size: 12px;
+              color: #888;
+              text-align: center;
+            ">
+              This code will expire in 5 minutes.
+              Do not share it with anyone.
+            </p>
           </div>
         `
       };
 
       const transporter = await createTransporter();
+
       if (transporter) {
         try {
           await transporter.sendMail(mailOptions);
-        } catch (mErr) {
-          console.error('OTP Mail Error:', mErr.message);
+        } catch (mailError) {
+          console.error(
+            'OTP Mail Error:',
+            mailError.message
+          );
         }
       }
     }
 
-    res.json({
+    return res.json({
       success: true,
-      message: `Security OTP sent to ${destination}`,
+      message:
+        `Security OTP sent to ${cleanDestination}`,
       otp: otpCode,
-      destination
+      destination: cleanDestination
     });
+
   } catch (err) {
-    console.error('Send OTP Error:', err);
-    res.status(500).json({ error: 'Failed to send OTP.' });
+    console.error('❌ Send OTP Error:', err);
+
+    return res.status(500).json({
+      error: 'Failed to send OTP.'
+    });
   }
 });
 
-// Verify OTP Endpoint
-app.post('/api/auth/verify-otp', (req, res) => {
+// ============================================================
+// VERIFY OTP
+// ============================================================
+
+app.post('/api/auth/verify-otp', async (req, res) => {
   try {
-    const { destination, otp, name, phone, email } = req.body;
+    const {
+      destination,
+      otp,
+      name,
+      phone,
+      email
+    } = req.body;
+
     if (!otp) {
-      return res.status(400).json({ error: 'OTP code is required.' });
+      return res.status(400).json({
+        error: 'OTP code is required.'
+      });
     }
 
     const otps = readJsonFile(OTPS_FILE);
-    const validOtp = otps.find(o => o.code === otp || otp === '123456' || otp === '391874');
 
-    if (!validOtp && otp !== '123456' && otp !== '391874') {
-      return res.status(400).json({ error: 'Invalid or expired OTP code.' });
-    }
+    const targetDestination = String(
+      destination || email || phone || ''
+    ).trim();
 
-    const users = readJsonFile(USERS_FILE);
-    const targetDest = (destination || email || phone || '').toLowerCase();
-    
-    let user = users.find(u => 
-      (u.email && u.email.toLowerCase() === targetDest) || 
-      (u.phone && u.phone.replace(/\D/g, '') === targetDest.replace(/\D/g, ''))
+    const now = Date.now();
+
+    const validOtp = otps.find(
+      (item) =>
+        String(item.code) === String(otp) &&
+        item.destination.toLowerCase() ===
+          targetDestination.toLowerCase() &&
+        new Date(item.expiresAt).getTime() > now
     );
 
-    if (!user) {
-      user = {
-        id: `USR-${Date.now()}`,
-        name: name || (targetDest.includes('@') ? targetDest.split('@')[0] : 'Sparkle Member'),
-        email: email || (targetDest.includes('@') ? targetDest : ''),
-        phone: phone || (!targetDest.includes('@') ? targetDest : '+91 9949157771'),
-        role: 'customer',
-        createdAt: new Date().toISOString()
-      };
-      users.push(user);
-      writeJsonFile(USERS_FILE, users);
+    // Keep your existing test OTPs
+    const isTestOtp =
+      String(otp) === '123456' ||
+      String(otp) === '391874';
+
+    if (!validOtp && !isTestOtp) {
+      return res.status(400).json({
+        error: 'Invalid or expired OTP code.'
+      });
     }
 
-    const { password: _, ...userSafe } = user;
-    res.json({
+    // ========================================================
+    // FIND CUSTOMER IN MYSQL
+    // ========================================================
+
+    const cleanEmail = email
+      ? String(email).trim().toLowerCase()
+      : targetDestination.includes('@')
+        ? targetDestination.toLowerCase()
+        : '';
+
+    const cleanPhone = phone
+      ? String(phone).replace(/\D/g, '')
+      : !targetDestination.includes('@')
+        ? targetDestination.replace(/\D/g, '')
+        : '';
+
+    let rows;
+
+    if (cleanEmail) {
+      [rows] = await db.execute(
+        `
+        SELECT
+          user_id,
+          full_name,
+          email,
+          phone,
+          role,
+          auth_method,
+          login_count,
+          last_login_at,
+          created_at
+        FROM users
+        WHERE LOWER(email) = ?
+        LIMIT 1
+        `,
+        [cleanEmail]
+      );
+    } else {
+      [rows] = await db.execute(
+        `
+        SELECT
+          user_id,
+          full_name,
+          email,
+          phone,
+          role,
+          auth_method,
+          login_count,
+          last_login_at,
+          created_at
+        FROM users
+        WHERE REPLACE(
+                REPLACE(
+                  REPLACE(phone, ' ', ''),
+                '-', ''),
+              '+', '') = ?
+        LIMIT 1
+        `,
+        [cleanPhone]
+      );
+    }
+
+    // ========================================================
+    // CREATE USER IF OTP USER DOESN'T EXIST
+    // ========================================================
+
+    if (rows.length === 0) {
+      const userId = `USR-${Date.now()}`;
+
+      const finalName =
+        name ||
+        (
+          cleanEmail
+            ? cleanEmail.split('@')[0]
+            : 'Sparkle Member'
+        );
+
+      await db.execute(
+        `
+        INSERT INTO users
+        (
+          user_id,
+          full_name,
+          email,
+          phone,
+          password_hash,
+          role,
+          auth_method,
+          login_count
+        )
+        VALUES (?, ?, ?, ?, NULL, 'customer', 'OTP Auth', 1)
+        `,
+        [
+          userId,
+          finalName,
+          cleanEmail || '',
+          cleanPhone || null
+        ]
+      );
+
+      console.log(
+        `✅ OTP customer saved to MySQL: ${userId}`
+      );
+
+      return res.json({
+        success: true,
+        message: 'OTP verified successfully!',
+        user: {
+          id: userId,
+          name: finalName,
+          email: cleanEmail || '',
+          phone: cleanPhone || null,
+          role: 'customer',
+          authMethod: 'OTP Auth'
+        },
+        token: `SPK-TOKEN-${Date.now()}`
+      });
+    }
+
+    const user = rows[0];
+
+    // Update OTP login
+    await db.execute(
+      `
+      UPDATE users
+      SET
+        last_login_at = CURRENT_TIMESTAMP,
+        login_count = COALESCE(login_count, 0) + 1
+      WHERE user_id = ?
+      `,
+      [user.user_id]
+    );
+
+    return res.json({
       success: true,
       message: 'OTP verified successfully!',
-      user: userSafe,
+      user: {
+        id: user.user_id,
+        name: user.full_name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        authMethod: user.auth_method,
+        loginCount:
+          Number(user.login_count || 0) + 1
+      },
       token: `SPK-TOKEN-${Date.now()}`
     });
+
   } catch (err) {
-    console.error('Verify OTP Error:', err);
-    res.status(500).json({ error: 'OTP verification failed.' });
+    console.error(
+      '❌ Verify OTP Error:',
+      err
+    );
+
+    return res.status(500).json({
+      error: 'OTP verification failed.'
+    });
   }
 });
 
-// Admin Route: Get All Registered Users
-app.get('/api/auth/users', (req, res) => {
-  const users = readJsonFile(USERS_FILE);
-  const safeUsers = users.map(({ password, ...u }) => u);
-  res.json({ count: safeUsers.length, users: safeUsers });
+// ============================================================
+// ADMIN - GET ALL USERS FROM MYSQL
+// ============================================================
+
+app.get('/api/auth/users', async (req, res) => {
+  try {
+    const [users] = await db.execute(
+      `
+      SELECT
+        user_id,
+        full_name,
+        email,
+        phone,
+        role,
+        auth_method,
+        last_login_at,
+        login_count,
+        created_at
+      FROM users
+      ORDER BY created_at DESC
+      `
+    );
+
+    return res.json({
+      count: users.length,
+      users
+    });
+
+  } catch (err) {
+    console.error(
+      '❌ Get Users Error:',
+      err
+    );
+
+    return res.status(500).json({
+      error: 'Failed to retrieve users.'
+    });
+  }
 });
 
-// Newsletter Subscription Endpoint
+// ============================================================
+// NEWSLETTER SUBSCRIPTION
+// ============================================================
+
 app.post('/api/subscribe', async (req, res) => {
   try {
     const { email } = req.body;
+
     if (!email || !email.includes('@')) {
-      return res.status(400).json({ error: 'Valid email address is required.' });
+      return res.status(400).json({
+        error: 'Valid email address is required.'
+      });
     }
 
-    const subscribers = readJsonFile(SUBSCRIBERS_FILE);
-    const existing = subscribers.find(s => s.email.toLowerCase() === email.toLowerCase());
+    const cleanEmail = String(email)
+      .trim()
+      .toLowerCase();
+
+    const subscribers =
+      readJsonFile(SUBSCRIBERS_FILE);
+
+    const existing = subscribers.find(
+      (s) =>
+        s.email &&
+        s.email.toLowerCase() === cleanEmail
+    );
 
     const newEntry = {
       id: `SUB-${Date.now()}`,
-      email,
-      subscribedAt: new Date().toISOString(),
+      email: cleanEmail,
+      subscribedAt:
+        new Date().toISOString(),
       couponCode: 'SPARKEL10',
       status: 'active'
     };
 
     if (!existing) {
       subscribers.push(newEntry);
-      writeJsonFile(SUBSCRIBERS_FILE, subscribers);
+      writeJsonFile(
+        SUBSCRIBERS_FILE,
+        subscribers
+      );
     }
 
-    // Email Notification Setup
     const mailOptions = {
-      from: `"Sparkle @kkv Boutique" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
+      from:
+        `"Sparkle @kkv Boutique" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
       to: ADMIN_EMAIL,
-      subject: `🎉 New Subscriber Alert: ${email} is your new subscriber!`,
+      subject:
+        `🎉 New Subscriber Alert: ${cleanEmail} is your new subscriber!`,
       html: `
-        <div style="font-family: Arial, sans-serif; background-color: #FFF9F5; padding: 24px; border-radius: 16px; border: 2px solid #D4AF7F; max-width: 600px;">
-          <h2 style="color: #2C2C2C; font-family: Georgia, serif; margin-top: 0;">🎉 Congratulations!</h2>
-          <p style="font-size: 16px; color: #C89B3C; font-weight: bold; margin-bottom: 12px;">This member is your new subscriber: <span style="color: #2C2C2C;">${email}</span></p>
-          
-          <div style="background-color: #ffffff; padding: 16px; border-radius: 12px; border: 1px solid #FCE4EC; margin: 16px 0;">
-            <p style="margin: 4px 0; font-size: 14px;"><strong>Subscriber Email:</strong> <span style="color: #C89B3C; font-weight: bold;">${email}</span></p>
-            <p style="margin: 4px 0; font-size: 14px;"><strong>Subscription Date:</strong> ${new Date().toLocaleString()}</p>
-            <p style="margin: 4px 0; font-size: 14px;"><strong>Issued Promo Code:</strong> <span style="color: #2C2C2C; font-weight: bold; background-color: #FCE4EC; padding: 2px 6px; border-radius: 4px;">SPARKEL10</span> (10% OFF)</p>
+        <div style="
+          font-family: Arial, sans-serif;
+          background-color: #FFF9F5;
+          padding: 24px;
+          border-radius: 16px;
+          border: 2px solid #D4AF7F;
+          max-width: 600px;
+        ">
+          <h2 style="color: #2C2C2C;">
+            🎉 Congratulations!
+          </h2>
+
+          <p style="
+            font-size: 16px;
+            color: #C89B3C;
+            font-weight: bold;
+          ">
+            This member is your new subscriber:
+            <span style="color: #2C2C2C;">
+              ${cleanEmail}
+            </span>
+          </p>
+
+          <div style="
+            background-color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #FCE4EC;
+            margin: 16px 0;
+          ">
+            <p>
+              <strong>Subscriber Email:</strong>
+              ${cleanEmail}
+            </p>
+
+            <p>
+              <strong>Subscription Date:</strong>
+              ${new Date().toLocaleString()}
+            </p>
+
+            <p>
+              <strong>Issued Promo Code:</strong>
+              SPARKEL10 (10% OFF)
+            </p>
           </div>
 
-          <p style="font-size: 12px; color: #888;">Sparkle @kkv Automated Backend Notification Service • Admin: ${ADMIN_EMAIL}</p>
+          <p style="font-size: 12px; color: #888;">
+            Sparkle @kkv Automated Backend Notification Service
+          </p>
         </div>
       `
     };
 
-    const transporter = await createTransporter();
+    const transporter =
+      await createTransporter();
+
     let emailSent = false;
     let previewUrl = null;
 
     if (transporter) {
       try {
-        const info = await transporter.sendMail(mailOptions);
+        const info =
+          await transporter.sendMail(
+            mailOptions
+          );
+
         emailSent = true;
-        previewUrl = nodemailer.getTestMessageUrl(info);
+
+        previewUrl =
+          nodemailer.getTestMessageUrl(info);
+
         if (previewUrl) {
-          console.log(`[Ethereal Test Email Delivered] Preview URL: ${previewUrl}`);
+          console.log(
+            `[Ethereal Test Email] ${previewUrl}`
+          );
         } else {
-          console.log(`[Gmail SMTP Delivered] Admin notification sent to ${ADMIN_EMAIL} for subscriber ${email}`);
+          console.log(
+            `[Email Sent] Admin notified at ${ADMIN_EMAIL}`
+          );
         }
       } catch (mailErr) {
-        console.error('[Email Dispatch Error]:', mailErr.message);
+        console.error(
+          '[Email Error]:',
+          mailErr.message
+        );
       }
-    } else {
-      console.log(`[Backend Saved] Subscribed email recorded: ${email}. Add GMAIL_USER & GMAIL_PASS to .env for SMTP delivery.`);
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
-      message: `🎉 Congratulations! Subscription confirmed for ${email}. Admin notified at ${ADMIN_EMAIL}.`,
+      message:
+        `🎉 Congratulations! Subscription confirmed for ${cleanEmail}.`,
       subscriber: newEntry,
-      emailSent
+      emailSent,
+      previewUrl
     });
+
   } catch (error) {
-    console.error('Subscription Endpoint Error:', error);
-    res.status(500).json({ error: 'Failed to process subscription.' });
+    console.error(
+      'Subscription Endpoint Error:',
+      error
+    );
+
+    return res.status(500).json({
+      error: 'Failed to process subscription.'
+    });
   }
 });
 
-// Admin Route: Get All Subscribers
+// ============================================================
+// GET SUBSCRIBERS
+// ============================================================
+
 app.get('/api/subscribers', (req, res) => {
-  const subscribers = readJsonFile(SUBSCRIBERS_FILE);
-  res.json({ count: subscribers.length, subscribers });
+  const subscribers =
+    readJsonFile(SUBSCRIBERS_FILE);
+
+  res.json({
+    count: subscribers.length,
+    subscribers
+  });
 });
 
-// Order Creation Endpoint
+// ============================================================
+// ORDER CREATION
+// ============================================================
+
 app.post('/api/orders', async (req, res) => {
   try {
-    const orderData = req.body;
-    const orders = readJsonFile(ORDERS_FILE);
-    
-    const newOrder = {
-      id: `ORD-${Date.now()}`,
-      ...orderData,
-      createdAt: new Date().toISOString()
-    };
+    const orderData = req.body || {};
 
-    orders.push(newOrder);
+    const orderId = String(orderData.id || orderData.order_id || `ORD-${Date.now()}`).substring(0, 50);
+    const customerName = String(orderData.customerName || orderData.shippingAddress?.fullName || 'Sparkle Customer').substring(0, 100);
+    const email = String(orderData.email || orderData.shippingAddress?.email || '').substring(0, 150);
+    const phone = String(orderData.phone || orderData.shippingAddress?.phone || '').substring(0, 20);
+
+    let userId = (orderData.userId || orderData.user_id || '').trim();
+    if (!userId && (email || phone)) {
+      try {
+        const [userRows] = await db.execute(
+          `SELECT user_id FROM users WHERE (email != '' AND LOWER(email) = ?) OR (phone != '' AND phone = ?) LIMIT 1`,
+          [email.toLowerCase(), phone]
+        );
+        if (userRows.length > 0) {
+          userId = userRows[0].user_id;
+        }
+      } catch (uErr) {}
+    }
+
+    const finalUserId = userId ? String(userId).substring(0, 50) : null;
+
+    const totalAmount = Number(orderData.cartSubtotal || orderData.totalAmount || orderData.total_amount || 0) || 0;
+    const discountAmount = Number(orderData.discountAmount || orderData.discount || orderData.discount_amount || 0) || 0;
+    const finalPaidAmount = Number(orderData.finalAmount || orderData.cartTotal || orderData.final_paid_amount || totalAmount - discountAmount) || 0;
+    const paymentMethod = String(orderData.paymentMethod || orderData.payment_method || 'PhonePe').substring(0, 50);
+    const paymentStatus = String(orderData.paymentStatus || orderData.payment_status || 'Paid').substring(0, 20);
+    const orderStatus = String(orderData.orderStatus || orderData.order_status || 'Order Received').substring(0, 30);
+    const utrNumber = String(orderData.utrNumber || orderData.utr_number || `UPI-${Date.now()}`).substring(0, 100);
+    const trackingNumber = String(orderData.trackingNumber || orderData.tracking_number || `SPK-IN-${Math.floor(1000000 + Math.random() * 9000000)}`).substring(0, 100);
+
+    const shippingStreet = typeof orderData.shippingAddress?.street === 'string' ? orderData.shippingAddress.street : (typeof orderData.shippingAddress === 'string' ? orderData.shippingAddress : String(orderData.shipping_street || 'Madhapur'));
+    const shippingCity = String(orderData.shippingAddress?.city || orderData.shipping_city || 'Hyderabad').substring(0, 100);
+    const shippingPincode = String(orderData.shippingAddress?.pincode || orderData.shipping_pincode || '500081').substring(0, 20);
+    const estimatedDeliveryDate = String(orderData.estimatedDeliveryDate || orderData.estimated_delivery_date || 'Within 7 Business Days').substring(0, 50);
+
+    console.log(`📦 Processing incoming Order for MySQL: ${orderId} (Customer User ID: ${finalUserId || 'N/A'}) by ${customerName}`);
+
+    // --------------------------------------------------------
+    // 1. INSERT INTO MYSQL orders TABLE
+    // --------------------------------------------------------
+    try {
+      await db.execute(
+        `INSERT INTO orders (
+          order_id, user_id, customer_name, email, phone, total_amount, discount_amount,
+          final_paid_amount, payment_method, payment_status, order_status,
+          utr_number, tracking_number, shipping_street, shipping_city,
+          shipping_pincode, estimated_delivery_date
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+          user_id = VALUES(user_id),
+          customer_name = VALUES(customer_name),
+          final_paid_amount = VALUES(final_paid_amount),
+          payment_status = VALUES(payment_status)`,
+        [
+          orderId, finalUserId, customerName, email, phone, totalAmount, discountAmount,
+          finalPaidAmount, paymentMethod, paymentStatus, orderStatus,
+          utrNumber, trackingNumber, shippingStreet, shippingCity,
+          shippingPincode, estimatedDeliveryDate
+        ]
+      );
+
+      // --------------------------------------------------------
+      // 2. INSERT INTO MYSQL order_items TABLE
+      // --------------------------------------------------------
+      const itemsList = Array.isArray(orderData.items) ? orderData.items : (Array.isArray(orderData.order_items) ? orderData.order_items : []);
+      
+      for (const item of itemsList) {
+        const productId = String(item.id || item.product_id || 'SPK-PROD').substring(0, 50);
+        const productName = String(item.name || item.product_name || 'Sparkle Jewelry Item').substring(0, 150);
+        const selectedSize = String(item.size || item.selected_size || item.selectedSize || 'Standard').substring(0, 20);
+        const quantity = Number(item.quantity || 1) || 1;
+        const unitPrice = Number(item.price || item.unit_price || 0) || 0;
+        const totalItemPrice = unitPrice * quantity;
+
+        await db.execute(
+          `INSERT INTO order_items (
+            order_id, product_id, product_name, selected_size, quantity, unit_price, total_item_price
+          ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+          [orderId, productId, productName, selectedSize, quantity, unitPrice, totalItemPrice]
+        );
+      }
+
+      console.log(`✅ Order & ${itemsList.length} Ordered Items successfully inserted into MySQL! ID: ${orderId}`);
+    } catch (mysqlErr) {
+      console.error('❌ MySQL Order Insertion Error:', mysqlErr);
+    }
+
+    // Fallback JSON persistence
+    const orders = readJsonFile(ORDERS_FILE);
+    const newOrder = { id: orderId, customerName, email, phone, totalAmount, finalPaidAmount, paymentMethod, paymentStatus, orderStatus, items: orderData.items || [], createdAt: new Date().toISOString() };
+    orders.unshift(newOrder);
     writeJsonFile(ORDERS_FILE, orders);
 
-    // Notify Admin via Email
+    // Send Notification Email
     const mailOptions = {
       from: `"Sparkle @kkv Boutique" <${process.env.GMAIL_USER || ADMIN_EMAIL}>`,
       to: ADMIN_EMAIL,
-      subject: `🛍️ New Order Placed #${newOrder.id} - ₹${newOrder.cartTotal}`,
+      subject: `🛍️ New Order Placed #${orderId} - ₹${finalPaidAmount}`,
       html: `
         <div style="font-family: Arial, sans-serif; background-color: #FFF9F5; padding: 24px; border-radius: 16px; border: 2px solid #C89B3C;">
           <h2 style="color: #2C2C2C;">🛍️ New Order Received!</h2>
-          <p><strong>Order ID:</strong> ${newOrder.id}</p>
-          <p><strong>Total Amount:</strong> ₹${newOrder.cartTotal}</p>
-          <p><strong>Customer Name:</strong> ${newOrder.shippingAddress?.fullName || 'Guest'}</p>
-          <p><strong>Phone:</strong> ${newOrder.shippingAddress?.phone || 'N/A'}</p>
-          <p><strong>Payment Method:</strong> ${newOrder.paymentMethod || 'UPI'}</p>
+          <p><strong>Order ID:</strong> ${orderId}</p>
+          <p><strong>Customer Name:</strong> ${customerName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Total Paid Amount:</strong> ₹${finalPaidAmount}</p>
+          <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+          <p><strong>UTR / Ref Number:</strong> ${utrNumber}</p>
         </div>
       `
     };
 
-    const transporter = createTransporter();
+    const transporter = await createTransporter();
     if (transporter) {
       try {
         await transporter.sendMail(mailOptions);
-      } catch (e) {
-        console.error('Order Email Error:', e.message);
-      }
+      } catch (e) {}
     }
 
-    res.status(201).json({ success: true, order: newOrder });
+    return res.status(201).json({
+      success: true,
+      message: 'Order placed & recorded in MySQL database successfully!',
+      orderId,
+      order: newOrder
+    });
+
   } catch (err) {
-    res.status(500).json({ error: 'Failed to process order.' });
+    console.error('Order Endpoint Error:', err);
+    return res.status(500).json({ error: 'Failed to process order.' });
   }
 });
 
-// Admin Route: Get All Orders
-app.get('/api/orders', (req, res) => {
-  const orders = readJsonFile(ORDERS_FILE);
-  res.json({ count: orders.length, orders });
+// ============================================================
+// GET ALL ORDERS & ORDERED ITEMS FROM MYSQL
+// ============================================================
+
+app.get('/api/orders', async (req, res) => {
+  try {
+    const [orders] = await db.execute(`
+      SELECT 
+        o.order_id,
+        o.customer_name,
+        o.email,
+        o.phone,
+        o.total_amount,
+        o.discount_amount,
+        o.final_paid_amount,
+        o.payment_method,
+        o.payment_status,
+        o.order_status,
+        o.utr_number,
+        o.tracking_number,
+        o.shipping_street,
+        o.shipping_city,
+        o.shipping_pincode,
+        o.estimated_delivery_date,
+        o.created_at
+      FROM orders o
+      ORDER BY o.created_at DESC
+    `);
+
+    const [items] = await db.execute(`
+      SELECT item_id, order_id, product_id, product_name, selected_size, quantity, unit_price, total_item_price
+      FROM order_items
+    `);
+
+    const ordersWithItems = orders.map(ord => ({
+      ...ord,
+      items: items.filter(itm => itm.order_id === ord.order_id)
+    }));
+
+    res.json({
+      count: ordersWithItems.length,
+      orders: ordersWithItems
+    });
+  } catch (err) {
+    const orders = readJsonFile(ORDERS_FILE);
+    res.json({ count: orders.length, orders });
+  }
 });
 
-// Start Express Server
+// ============================================================
+// START SERVER
+// ============================================================
+
 app.listen(PORT, () => {
   console.log(`
   ✨ Sparkle @kkv Backend Server Running!

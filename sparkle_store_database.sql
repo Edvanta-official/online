@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- -----------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS orders (
     order_id VARCHAR(50) PRIMARY KEY,
+    user_id VARCHAR(50),
     customer_name VARCHAR(100) NOT NULL,
     email VARCHAR(150),
     phone VARCHAR(20),

@@ -6,19 +6,22 @@
   "homepage": "https://edvanta-official.github.io/online/",
   "scripts": {
     "dev": "node scripts/prepare-dev.cjs && vite",
+    "dev:all": "node scripts/start-all.js",
     "build": "vite build && node scripts/copy-to-root.cjs",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "start": "node scripts/prepare-dev.cjs && vite"
+    "start": "node scripts/start-all.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "bcryptjs": "^3.0.3",
     "canvas-confetti": "^1.9.4",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.475.0",
+    "mysql2": "^3.24.2",
     "nodemailer": "^9.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

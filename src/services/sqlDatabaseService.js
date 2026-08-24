@@ -86,7 +86,7 @@ export const getSQLLoggedInUsers = () => {
 /**
  * Syncs a new customer order and item breakdown to SQL Orders and Order_Items tables
  */
-export const syncOrderToSQLDatabase = (order) => {
+export const syncOrderToSQLDatabase = async (order) => {
   if (!order || !order.id) return;
 
   try {
@@ -139,6 +139,17 @@ export const syncOrderToSQLDatabase = (order) => {
         items.unshift(itemRecord);
       });
       localStorage.setItem(SQL_ITEMS_STORAGE_KEY, JSON.stringify(items));
+    }
+
+    // Send Order & Items directly to backend Express server to store in MySQL database
+    try {
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+    } catch (apiErr) {
+      console.warn('[Backend MySQL Order Post Notice]:', apiErr);
     }
 
   } catch (e) {

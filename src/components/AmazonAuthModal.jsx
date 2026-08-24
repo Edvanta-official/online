@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { 
   X, ShieldCheck, Lock, Eye, EyeOff, Mail, Phone, User, 
   Sparkles, CheckCircle2, AlertCircle, ArrowRight, RefreshCw, KeyRound, Check
@@ -153,57 +154,62 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
     setIsLoading(true);
 
-    // Try backend API first if available
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier: signInInput.trim(), password: signInPassword })
       });
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          loginUser(data.user.name, data.user.phone || signInInput, signInPassword, data.user.email);
-          confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-          showToast(`✨ Welcome back, ${data.user.name}!`);
-          onClose();
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        saveStoredUser({
+          name: data.user.name,
+          email: data.user.email,
+          phone: data.user.phone,
+          password: signInPassword
+        });
+        loginUser(data.user.name, data.user.phone || signInInput, signInPassword, data.user.email);
+        confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+        showToast(`✨ Welcome back, ${data.user.name}!`);
+        onClose();
+        setIsLoading(false);
+        return;
+      } else {
+        // Backend MySQL returned invalid credentials error (e.g. 401 Unauthorized)
+        setErrorMessage(data.error || '🔒 Invalid email/phone or password. Please check your details or create an account.');
+        setIsLoading(false);
+        return;
+      }
+    } catch (err) {
+      // Fallback only if backend network fetch failed completely (e.g. static hosting)
+      const cleanInput = signInInput.trim().toLowerCase();
+      const storedUsers = getStoredUsers();
+      const foundUser = storedUsers.find(u => 
+        (u.email && u.email.toLowerCase() === cleanInput) ||
+        (u.phone && u.phone.replace(/\D/g, '') === cleanInput.replace(/\D/g, ''))
+      );
+
+      if (foundUser) {
+        if (foundUser.password && foundUser.password !== signInPassword) {
+          setErrorMessage('🔒 Incorrect password. Please check your password or reset via OTP.');
           setIsLoading(false);
           return;
         }
+        loginUser(foundUser.name, foundUser.phone, signInPassword, foundUser.email);
+        confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+        showToast(`✨ Welcome back, ${foundUser.name}!`);
+        onClose();
+        setIsLoading(false);
+        return;
+      } else {
+        setErrorMessage('🔒 Account not found. Please create an account first.');
+        setIsLoading(false);
+        return;
       }
-    } catch (err) {
-      // Backend not running (e.g. GitHub Pages / static hosting) -> Proceed with local secure auth
     }
-
-    // Local Persistent Authentication Check
-    const cleanInput = signInInput.trim().toLowerCase();
-    const storedUsers = getStoredUsers();
-    const foundUser = storedUsers.find(u => 
-      (u.email && u.email.toLowerCase() === cleanInput) ||
-      (u.phone && u.phone.replace(/\D/g, '') === cleanInput.replace(/\D/g, ''))
-    );
-
-    const targetName = foundUser?.name || (signInInput.includes('@') ? signInInput.split('@')[0] : (signInInput || 'Sparkle Member'));
-    const targetEmail = foundUser?.email || (signInInput.includes('@') ? signInInput : `${cleanInput.replace(/\s+/g, '')}@sparklekkv.com`);
-    const targetPhone = foundUser?.phone || (!signInInput.includes('@') ? signInInput : '+91 99491 57771');
-
-    const userObj = {
-      name: targetName,
-      email: targetEmail,
-      phone: targetPhone,
-      password: signInPassword || '••••••••',
-      createdAt: new Date().toISOString()
-    };
-
-    saveStoredUser(userObj);
-    loginUser(targetName, targetPhone, signInPassword || '••••••••', targetEmail);
-    confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-    showToast(`✨ Welcome back, ${targetName}!`);
-    onClose();
-    setIsLoading(false);
   };
-
-
 
   // 3. Handle Account Creation (Registration)
   const handleRegisterSubmit = async (e) => {
@@ -221,24 +227,55 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
       return;
     }
 
+    if (!regPassword || regPassword.length < 6) {
+      setErrorMessage('🔒 Password must be at least 6 characters long.');
+      return;
+    }
+
     setIsLoading(true);
     const newUser = {
       name: regName.trim(),
       email: regEmail.trim() || `${regName.toLowerCase().replace(/\s+/g, '')}@sparklekkv.com`,
       phone: regPhone.trim() || '+91 99491 57771',
-      password: regPassword || '••••••••',
+      password: regPassword,
       createdAt: new Date().toISOString()
     };
 
-    saveStoredUser(newUser);
+    // Save user into MySQL Database via Backend API
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newUser.name,
+          email: newUser.email,
+          phone: newUser.phone,
+          password: newUser.password
+        })
+      });
 
-    setTimeout(() => {
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.error || 'Failed to create account. Please try again.');
+        setIsLoading(false);
+        return;
+      }
+
+      saveStoredUser(newUser);
       setIsLoading(false);
       loginUser(newUser.name, newUser.phone, newUser.password, newUser.email);
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       showToast(`🎉 Account created & signed in! Welcome, ${newUser.name}!`);
       onClose();
-    }, 300);
+    } catch (err) {
+      saveStoredUser(newUser);
+      setIsLoading(false);
+      loginUser(newUser.name, newUser.phone, newUser.password, newUser.email);
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      showToast(`🎉 Account created & signed in! Welcome, ${newUser.name}!`);
+      onClose();
+    }
   };
 
   // 4. Handle OTP Code Verification
@@ -304,8 +341,10 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
   const strength = getPasswordStrength(authMode === 'register' ? regPassword : newPassword);
   const currentDisplayTarget = activeTargetDestination || regEmail || regPhone || signInInput || 'your registered email/phone';
 
-  return (
-    <div className="fixed inset-0 bg-[#2C2C2C]/75 backdrop-blur-md flex items-center justify-center z-[9999] p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-[99999] p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
       <div className="bg-[#FFF9F5] w-full max-w-md rounded-2xl sm:rounded-3xl overflow-hidden border border-[#D4AF7F]/40 shadow-2xl relative animate-in zoom-in-95 duration-200 font-poppins max-h-[90vh] flex flex-col my-auto">
         
         {/* Close Button */}
@@ -745,6 +784,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

@@ -1,0 +1,233 @@
+[
+  {
+    "id": "ORD-USER-LIVE-900",
+    "customerName": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "totalAmount": 1299,
+    "finalPaidAmount": 1169,
+    "paymentMethod": "PhonePe QR Scanner",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-BG-501",
+        "name": "Royal Kundan Gold Bangle Set",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1299
+      }
+    ],
+    "createdAt": "2026-08-24T17:23:04.537Z"
+  },
+  {
+    "id": "ORD-USERLINK-101",
+    "customerName": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "totalAmount": 1499,
+    "finalPaidAmount": 1349,
+    "paymentMethod": "PhonePe QR Scanner",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-BG-503",
+        "name": "Antique Matte Gold Peacock Bangle",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1499
+      }
+    ],
+    "createdAt": "2026-08-24T17:02:35.912Z"
+  },
+  {
+    "id": "ORD-17317",
+    "customerName": "AKASH GARRE",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "9515086714",
+    "totalAmount": 99,
+    "finalPaidAmount": 169,
+    "paymentMethod": "PhonePe",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-HC-001",
+        "name": "Plumeria flower claw clip",
+        "price": 99,
+        "quantity": 1,
+        "image": "images/plumeria_flower_claw_clip_drive.jpg",
+        "deliveryDays": 7
+      }
+    ],
+    "createdAt": "2026-08-24T16:55:59.597Z"
+  },
+  {
+    "id": "ORD-SCANNER-888",
+    "customerName": "Chenchu Koushik",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "totalAmount": 1299,
+    "finalPaidAmount": 1169,
+    "paymentMethod": "PhonePe QR Scanner",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-BG-501",
+        "name": "Royal Kundan Gold Bangle Set",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1299
+      }
+    ],
+    "createdAt": "2026-08-24T16:48:16.956Z"
+  },
+  {
+    "id": "ORD-KOUSHIK-102",
+    "customerName": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "totalAmount": 2198,
+    "finalPaidAmount": 1978,
+    "paymentMethod": "Google Pay",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-BG-501",
+        "name": "Royal Kundan Gold Bangle Set",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1299
+      },
+      {
+        "id": "SPK-HC-001",
+        "name": "Plumeria flower claw clip",
+        "size": "Standard",
+        "quantity": 2,
+        "price": 99
+      }
+    ],
+    "createdAt": "2026-08-24T16:41:06.972Z"
+  },
+  {
+    "id": "ORD-AKASH-101",
+    "customerName": "AKASH GARRE",
+    "email": "akashgarre9515@gmail.com",
+    "phone": "9515086714",
+    "totalAmount": 1899,
+    "finalPaidAmount": 1709,
+    "paymentMethod": "PhonePe UPI",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-NC-101",
+        "name": "Matte Gold Antique Choker Set",
+        "size": "Standard",
+        "quantity": 1,
+        "price": 1899
+      }
+    ],
+    "createdAt": "2026-08-24T16:41:03.646Z"
+  },
+  {
+    "id": "ORD-LIVE-777",
+    "customerName": "Chenchu Koushik",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "+91 99491 57771",
+    "totalAmount": 2498,
+    "finalPaidAmount": 2249,
+    "paymentMethod": "PhonePe Scanner",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "items": [
+      {
+        "id": "SPK-BG-501",
+        "name": "Royal Kundan Gold Bangle Set",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1299
+      },
+      {
+        "id": "SPK-NC-101",
+        "name": "Matte Gold Antique Choker Set",
+        "size": "Standard",
+        "quantity": 1,
+        "price": 1199
+      }
+    ],
+    "createdAt": "2026-08-24T16:26:44.829Z"
+  },
+  {
+    "id": "ORD-TEST-999",
+    "customerName": "Chenchu Koushik",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "+919949157771",
+    "cartSubtotal": 1998,
+    "discountAmount": 199,
+    "finalAmount": 1799,
+    "paymentMethod": "PhonePe UPI",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "utrNumber": "UPI-987654321012",
+    "items": [
+      {
+        "id": "SPK-BG-501",
+        "name": "Royal Kundan Gold Bangle Set",
+        "size": "2*6",
+        "quantity": 1,
+        "price": 1299
+      },
+      {
+        "id": "SPK-ER-201",
+        "name": "Kundan Chandbali Earrings",
+        "size": "Standard",
+        "quantity": 1,
+        "price": 499
+      }
+    ],
+    "createdAt": "2026-08-24T15:56:45.199Z"
+  },
+  {
+    "id": "ORD-54438",
+    "items": [
+      {
+        "id": "SPK-HC-001",
+        "name": "Plumeria flower claw clip",
+        "price": 99,
+        "quantity": 1,
+        "image": "images/plumeria_flower_claw_clip_drive.jpg",
+        "deliveryDays": 7
+      }
+    ],
+    "customerName": "AKASH GARRE",
+    "email": "akashgarre9515@gmail.com",
+    "phone": "9515086714",
+    "totalAmount": 99,
+    "discount": 0,
+    "shippingFee": 70,
+    "finalAmount": 169,
+    "cartSubtotal": 99,
+    "discountAmount": 0,
+    "cartTotal": 169,
+    "paymentMethod": "PhonePe",
+    "paymentStatus": "Paid",
+    "orderStatus": "Order Received",
+    "utrNumber": "UTR-543730446608",
+    "trackingNumber": "SPK-IN-5327284",
+    "shippingAddress": {
+      "fullName": "AKASH GARRE",
+      "phone": "9515086714",
+      "email": "akashgarre9515@gmail.com",
+      "street": "Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081"
+    },
+    "estimatedDeliveryDate": "31 Aug 2026",
+    "createdAt": "2026-08-24T16:23:18.386Z"
+  }
+]

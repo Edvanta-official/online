@@ -294,19 +294,21 @@ export const ShopProvider = ({ children }) => {
   const cartTotal = Math.max(0, cartSubtotal - discountAmount + shippingFee);
 
   // Order Placement
-  const placeOrder = (orderDetails) => {
+  const placeOrder = async (orderDetails) => {
     const deliveryDateObj = new Date();
     deliveryDateObj.setDate(deliveryDateObj.getDate() + 7);
     const estimatedDeliveryDate = deliveryDateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
     const newOrder = {
       id: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
+      userId: user.id || user.user_id || "",
       items: cart.map(i => ({
         id: i.product.id,
         name: i.product.name,
         price: i.product.price,
         quantity: i.quantity,
-        image: i.product.images[0],
+        size: i.selectedSize || i.size || 'Standard',
+        image: i.product.images ? i.product.images[0] : '',
         deliveryDays: 7
       })),
       customerName: orderDetails.shippingAddress?.fullName || user.name || "Sparkle Customer",
@@ -328,6 +330,23 @@ export const ShopProvider = ({ children }) => {
       estimatedDeliveryDate,
       createdAt: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
     };
+
+    // Live Sync Directly to MySQL Database via Backend API
+    try {
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      });
+    } catch (e) {
+      try {
+        await fetch('http://localhost:5000/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newOrder)
+        });
+      } catch (err) {}
+    }
 
     setOrders(prev => [newOrder, ...prev]);
     clearCart();

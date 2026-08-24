@@ -74,12 +74,12 @@ export const CheckoutModal = () => {
     setStep(2);
   };
 
-  const handleVerifyAndCompleteOrder = () => {
+  const handleVerifyAndCompleteOrder = async () => {
     setPaymentError('');
 
     // Authenticate customer if not already logged in
     if (!user || !user.isLoggedIn) {
-      loginUser(
+      await loginUser(
         shippingForm.fullName || "Sparkle Customer",
         shippingForm.phone || "+91 9876543210",
         "••••••••",
@@ -89,9 +89,9 @@ export const CheckoutModal = () => {
 
     const verifiedUtr = utrInput.trim() ? utrInput.trim() : `UTR-${Math.floor(100000000000 + Math.random() * 900000000000)}`;
 
-    const newOrder = placeOrder({
+    const newOrder = await placeOrder({
       shippingAddress: shippingForm,
-      paymentMethod,
+      paymentMethod: paymentMethod === 'PhonePe' ? 'PhonePe QR Scanner' : paymentMethod,
       paymentStatus: 'Paid',
       utrNumber: verifiedUtr,
       cartSubtotal,
