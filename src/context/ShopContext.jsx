@@ -3,6 +3,7 @@ import { PRODUCTS, CATEGORIES, COUPONS, BRAND_INFO } from '../data/mockData';
 import { sendCustomerSigninEmailToAdmin, sendOrderPaymentConfirmationEmail } from '../services/emailService';
 import { saveOrderToGlobalDatabase, fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
 import { logUserLoginToSQL, syncOrderToSQLDatabase } from '../services/sqlDatabaseService';
+import { apiFetch } from '../services/apiConfig';
 
 const ShopContext = createContext();
 
@@ -333,20 +334,12 @@ export const ShopProvider = ({ children }) => {
 
     // Live Sync Directly to MySQL Database via Backend API
     try {
-      await fetch('/api/orders', {
+      await apiFetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newOrder)
       });
-    } catch (e) {
-      try {
-        await fetch('http://localhost:5000/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newOrder)
-        });
-      } catch (err) {}
-    }
+    } catch (e) {}
 
     setOrders(prev => [newOrder, ...prev]);
     clearCart();

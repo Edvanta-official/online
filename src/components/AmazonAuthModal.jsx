@@ -7,6 +7,7 @@ import {
 import confetti from 'canvas-confetti';
 import { useShop } from '../context/ShopContext';
 import { sendOtpEmailViaFormSubmit } from '../services/emailService';
+import { apiFetch } from '../services/apiConfig';
 
 export const AmazonAuthModal = ({ isOpen, onClose }) => {
   const { loginUser, showToast } = useShop();
@@ -155,7 +156,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await apiFetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier: signInInput.trim(), password: signInPassword })
@@ -243,7 +244,7 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
 
     // Save user into MySQL Database via Backend API
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await apiFetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

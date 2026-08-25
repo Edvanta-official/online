@@ -1,4 +1,5 @@
 // SQL Database Connector & Logger Service for Sparkle @ KKV Store
+import { apiFetch } from './apiConfig';
 
 const SQL_USERS_STORAGE_KEY = 'SPARKLE_SQL_USERS_DB';
 const SQL_ORDERS_STORAGE_KEY = 'SPARKLE_SQL_ORDERS_DB';
@@ -143,7 +144,7 @@ export const syncOrderToSQLDatabase = async (order) => {
 
     // Send Order & Items directly to backend Express server to store in MySQL database
     try {
-      await fetch('/api/orders', {
+      await apiFetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order)
