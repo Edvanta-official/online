@@ -151,7 +151,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 12,
+    stock: 2,
     images: [
       "images/plumeria_flower_claw_clip_drive.jpg",
       "images/plumeria_flower_clip_drive.jpg"
@@ -183,7 +183,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 24,
+    stock: 2,
     images: [
       "images/claw_clips_drive.jpg"
     ],
@@ -214,7 +214,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 12,
+    stock: 2,
     images: [
       "images/cross_claw_clips_drive.jpg"
     ],
@@ -244,7 +244,7 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 12,
+    stock: 2,
     images: [
       "images/whale_tail_claw_clips_drive.jpg"
     ],
@@ -274,7 +274,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 12,
+    stock: 3,
     images: [
       "images/rectangle_claw_clips_drive.jpg"
     ],
@@ -304,7 +304,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 12,
+    stock: 1,
     images: [
       "images/pastel_flower_claw_clips_drive.jpg"
     ],
@@ -334,7 +334,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 12,
+    stock: 2,
     images: [
       "images/hawaiian_plumeria_claw_clips_drive.jpg"
     ],
@@ -364,7 +364,7 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 12,
+    stock: 2,
     images: [
       "images/flower_claw_clips_drive.jpg"
     ],
@@ -422,7 +422,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 2,
+    stock: 1,
     images: [
       "images/whatsapp_image_2026_08_10_at_5_53_26_pm_jpeg_drive.jpg"
     ],
@@ -506,7 +506,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 2,
+    stock: 1,
     images: [
       "images/whatsapp_image_2026_08_10_at_6_59_59_pm_jpeg_drive.jpg"
     ],
@@ -703,7 +703,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 0,
+    stock: 1,
     images: [
       "images/adjustable_floral_bolo_necklace_drive.jpg"
     ],
@@ -901,7 +901,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 4,
+    stock: 1,
     images: [
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
@@ -932,7 +932,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 5,
+    stock: 1,
     images: [
       "images/2_adjustable_gold_plated_kada_bracelet_1_jpg_drive.jpg",
       "images/2_adjustable_gold_plated_kada_bracelet_2_jpg_drive.jpg",
@@ -992,7 +992,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 9,
+    stock: 7,
     images: [
       "images/bracelet_drive_4.gold_plated_multicolour_square_stone_link_bracelet.jpg"
     ],
@@ -1020,7 +1020,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 8,
+    stock: 7,
     images: [
       "images/bracelet_drive_5.nazar_protection_bracelet.jpg"
     ],
@@ -1048,7 +1048,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: false,
-    stock: 6,
+    stock: 5,
     images: [
       "images/bracelet_drive_6.multicolour_beaded_station_chain_bracelet.jpg"
     ],
@@ -1076,7 +1076,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 5,
     images: [
       "images/bracelet_drive_7.sunflower_beaded_chain_multicolour.jpg"
     ],
@@ -1332,7 +1332,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: true,
-    stock: 1,
+    stock: 6,
     images: [
       "images/3_double_hoop_earings_for_a_single_piecering.jpg"
     ],
@@ -1362,7 +1362,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 2,
+    stock: 1,
     images: [
       "images/4_gold_hoop_1.jpg",
       "images/4_gold_hoop_2.jpg"
@@ -1423,7 +1423,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 1,
+    stock: 30,
     images: [
       "images/6_studs_1.jpg",
       "images/6_studs_2.jpg",
@@ -1518,7 +1518,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 16,
+    stock: 8,
     sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_1.png"
@@ -1549,7 +1549,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 40,
+    stock: 20,
     sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_2.png"
@@ -1580,7 +1580,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 30,
+    stock: 7,
     sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_3.png"
@@ -1611,7 +1611,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: false,
-    stock: 8,
+    stock: 4,
     sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_4.png"
@@ -1642,7 +1642,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 12,
+    stock: 6,
     sizes: ["2*4", "2*6", "2*8"],
     images: [
       "images/bangles_5.png"

@@ -341,6 +341,16 @@ export const ShopProvider = ({ children }) => {
       });
     } catch (e) {}
 
+    // Real-time stock decrement on order placement
+    setProducts(prevProducts => prevProducts.map(p => {
+      const cartItem = cart.find(ci => ci.product.id === p.id);
+      if (cartItem) {
+        const newStock = Math.max(0, p.stock - cartItem.quantity);
+        return { ...p, stock: newStock };
+      }
+      return p;
+    }));
+
     setOrders(prev => [newOrder, ...prev]);
     clearCart();
     setIsCheckoutOpen(false);
