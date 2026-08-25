@@ -1845,6 +1845,161 @@ export const PRODUCTS = [
     ]
   },
   {
+    id: "SPK-CV-007",
+    sku: "SPK-CV-007",
+    name: "Couple Hands Holding Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 175,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Couple hands-2.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Personalized Couple Hands holding romantic 4x4 inch canvas print frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Couple hands-2.png"
+    ]
+  },
+  {
+    id: "SPK-CV-008",
+    sku: "SPK-CV-008",
+    name: "Love Beyond Words Romance Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 198,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Love beyond words-2.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Romantic Love Beyond Words custom portrait 4x4 inch canvas frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Love beyond words-2.png"
+    ]
+  },
+  {
+    id: "SPK-CV-009",
+    sku: "SPK-CV-009",
+    name: "Love Couples Romantic Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 4.9,
+    reviewsCount: 220,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: false,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Love couples-2.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Cute Couple Love romantic gift 4x4 inch wooden canvas art frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Love couples-2.png"
+    ]
+  },
+  {
+    id: "SPK-CV-010",
+    sku: "SPK-CV-010",
+    name: "Love In Every Stroke Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 199,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 165,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Love in every stroke-2.png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Artistic Love in Every Stroke customized 4x4 inch canvas artwork.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹199",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Love in every stroke-2.png"
+    ]
+  },
+  {
+    id: "SPK-CV-011",
+    sku: "SPK-CV-011",
+    name: "Sun & Mountains Sunset Canvas Frame (6x8 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 299,
+    originalPrice: 599,
+    rating: 5,
+    reviewsCount: 140,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 10,
+    images: [
+      "images/Sun-Mountains-2(6x8).png",
+      "images/gift_set.jpg"
+    ],
+    colors: [
+      "6 x 8 Inch Landscape Frame"
+    ],
+    description: "Scenic Sun & Mountains Sunset landscape 6x8 inch canvas artwork frame.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹299",
+      "Frame Size: 6 × 8 Inches",
+      "Drive File: Sun-Mountains-2(6x8).png"
+    ]
+  },
+  {
     id: "SPK-FL-001",
     sku: "SPK-FL-001",
     name: "Crimson Blossom Bouquet",
