@@ -1675,8 +1675,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/couple.png",
-      "images/gift_set.jpg"
+      "images/couple.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1706,8 +1705,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Krishna.png",
-      "images/gift_set.jpg"
+      "images/Krishna.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1737,8 +1735,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Radhakrishna.png",
-      "images/gift_set.jpg"
+      "images/Radhakrishna.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1768,8 +1765,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Rohit.png",
-      "images/gift_set.jpg"
+      "images/Rohit.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1799,8 +1795,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Shiva.jpg",
-      "images/gift_set.jpg"
+      "images/Shiva.jpg"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1830,8 +1825,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Swan.jpg",
-      "images/gift_set.jpg"
+      "images/Swan.jpg"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1861,8 +1855,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/couple_hands_2.png",
-      "images/gift_set.jpg"
+      "images/couple_hands_2.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1892,8 +1885,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/love_beyond_words_2.png",
-      "images/gift_set.jpg"
+      "images/love_beyond_words_2.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1923,8 +1915,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/love_couples_2.png",
-      "images/gift_set.jpg"
+      "images/love_couples_2.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1954,8 +1945,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/love_in_every_stroke_2.png",
-      "images/gift_set.jpg"
+      "images/love_in_every_stroke_2.png"
     ],
     colors: [
       "4 x 4 Inch Custom Frame"
@@ -1985,8 +1975,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/sun_mountains_2.png",
-      "images/gift_set.jpg"
+      "images/sun_mountains_2.png"
     ],
     colors: [
       "6 x 8 Inch Landscape Frame"
@@ -2016,8 +2005,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/crimson_blossom.jpg",
-      "images/gift_set.jpg"
+      "images/crimson_blossom.jpg"
     ],
     colors: [
       "Crimson Red Velvet"
@@ -2046,8 +2034,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/golden_bloom.jpg",
-      "images/gift_set.jpg"
+      "images/golden_bloom.jpg"
     ],
     colors: [
       "Golden Yellow Bloom"
@@ -2076,8 +2063,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/pink_blossom.jpg",
-      "images/gift_set.jpg"
+      "images/pink_blossom.jpg"
     ],
     colors: [
       "Soft Pink Blossom"
