@@ -1861,7 +1861,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Couple hands-2.png",
+      "images/couple_hands_2.png",
       "images/gift_set.jpg"
     ],
     colors: [
@@ -1872,7 +1872,7 @@ export const PRODUCTS = [
       "Category: CANVAS",
       "Product Price: ₹199",
       "Frame Size: 4 × 4 Inches",
-      "Drive File: Couple hands-2.png"
+      "Drive File: couple_hands_2.png"
     ]
   },
   {
@@ -1892,7 +1892,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Love beyond words-2.png",
+      "images/love_beyond_words_2.png",
       "images/gift_set.jpg"
     ],
     colors: [
@@ -1903,7 +1903,7 @@ export const PRODUCTS = [
       "Category: CANVAS",
       "Product Price: ₹199",
       "Frame Size: 4 × 4 Inches",
-      "Drive File: Love beyond words-2.png"
+      "Drive File: love_beyond_words_2.png"
     ]
   },
   {
@@ -1923,7 +1923,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Love couples-2.png",
+      "images/love_couples_2.png",
       "images/gift_set.jpg"
     ],
     colors: [
@@ -1934,7 +1934,7 @@ export const PRODUCTS = [
       "Category: CANVAS",
       "Product Price: ₹199",
       "Frame Size: 4 × 4 Inches",
-      "Drive File: Love couples-2.png"
+      "Drive File: love_couples_2.png"
     ]
   },
   {
@@ -1954,7 +1954,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Love in every stroke-2.png",
+      "images/love_in_every_stroke_2.png",
       "images/gift_set.jpg"
     ],
     colors: [
@@ -1965,7 +1965,7 @@ export const PRODUCTS = [
       "Category: CANVAS",
       "Product Price: ₹199",
       "Frame Size: 4 × 4 Inches",
-      "Drive File: Love in every stroke-2.png"
+      "Drive File: love_in_every_stroke_2.png"
     ]
   },
   {
@@ -1985,7 +1985,7 @@ export const PRODUCTS = [
     isFlashSale: true,
     stock: 10,
     images: [
-      "images/Sun-Mountains-2(6x8).png",
+      "images/sun_mountains_2.png",
       "images/gift_set.jpg"
     ],
     colors: [
@@ -1996,7 +1996,7 @@ export const PRODUCTS = [
       "Category: CANVAS",
       "Product Price: ₹299",
       "Frame Size: 6 × 8 Inches",
-      "Drive File: Sun-Mountains-2(6x8).png"
+      "Drive File: sun_mountains_2.png"
     ]
   },
   {
