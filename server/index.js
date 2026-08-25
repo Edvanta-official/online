@@ -1303,8 +1303,106 @@ app.get('/api/orders/my-orders', requireAuth, async (req, res) => {
 });
 
 // ============================================================
-// START SERVER
+// GET CURRENT CUSTOMER PROFILE (GET /api/auth/me)
 // ============================================================
+
+app.get('/api/auth/me', requireAuth, async (req, res) => {
+  try {
+    const customerId = req.user.customer_id;
+    const [rows] = await db.execute(
+      `SELECT customer_id, full_name, email, phone, created_at FROM customers WHERE customer_id = ? LIMIT 1`,
+      [customerId]
+    );
+
+    if (rows.length === 0) {
+      const [uRows] = await db.execute(
+        `SELECT user_id AS customer_id, full_name, email, phone, created_at FROM users WHERE user_id = ? LIMIT 1`,
+        [customerId]
+      );
+      if (uRows.length === 0) {
+        return res.status(404).json({ success: false, message: 'Customer account not found.' });
+      }
+      return res.json({ success: true, customer: uRows[0] });
+    }
+
+    return res.json({ success: true, customer: rows[0] });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ============================================================
+// GET SINGLE ORDER DETAILS (GET /api/orders/:orderId)
+// ============================================================
+
+app.get('/api/orders/:orderId', requireAuth, async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const customerId = req.user.customer_id;
+
+    const [orders] = await db.execute(
+      `SELECT * FROM orders WHERE order_id = ? LIMIT 1`,
+      [orderId]
+    );
+
+    if (orders.length === 0) {
+      return res.status(404).json({ success: false, message: 'Order not found.' });
+    }
+
+    const order = orders[0];
+
+    // Authorization check: Customer can only view their own order
+    if (order.customer_id !== customerId && LOWER(order.email) !== (req.user.email || '').toLowerCase()) {
+      return res.status(403).json({ success: false, message: 'Unauthorized: You do not have permission to view this order.' });
+    }
+
+    const [items] = await db.execute(
+      `SELECT * FROM order_items WHERE order_id = ?`,
+      [orderId]
+    );
+
+    return res.json({ success: true, order: { ...order, items } });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ============================================================
+// VERIFY PAYMENT & UPDATE ORDER STATUS (POST /api/payment/verify)
+// ============================================================
+
+app.post('/api/payment/verify', requireAuth, async (req, res) => {
+  try {
+    const { orderId, utrNumber, paymentStatus } = req.body;
+    const customerId = req.user.customer_id;
+
+    if (!orderId) {
+      return res.status(400).json({ success: false, message: 'Order ID is required.' });
+    }
+
+    const status = paymentStatus || 'Paid';
+
+    await db.execute(
+      `UPDATE orders SET payment_status = ?, order_status = 'Order Received', utr_number = COALESCE(?, utr_number) WHERE order_id = ? AND customer_id = ?`,
+      [status, utrNumber, orderId, customerId]
+    );
+
+    await db.execute(
+      `UPDATE payments SET payment_status = ?, utr_number = COALESCE(?, utr_number) WHERE order_id = ?`,
+      [status, utrNumber, orderId]
+    );
+
+    return res.json({
+      success: true,
+      message: 'Payment Verified & Order Received!',
+      orderId,
+      paymentStatus: status,
+      orderStatus: 'Order Received'
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`
