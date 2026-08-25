@@ -40,7 +40,7 @@ export const getCategoryFallbackImage = (category) => {
     case 'necklaces':
       return 'images/traditional_south_indian_matte_gold_plated_antiavue_droplet_choker_neckalce_set_jpeg_drive.jpg';
     case 'gift-sets':
-      return 'images/gift_set.jpg';
+      return 'images/couple.png';
     default:
       return 'images/plumeria_flower_claw_clip_drive.jpg';
   }
