@@ -129,9 +129,9 @@ export const CATEGORIES = [
     id: "gift-sets",
     name: "Gift Sets & Combos",
     icon: "🎁",
-    count: 9,
-    description: "Custom 4x4 Canvas Art Frames (₹199) & Handcrafted Flower Hampers (₹399)",
-    image: "images/gift_set.jpg"
+    count: 14,
+    description: "Custom 4x4 & 6x8 Canvas Art Frames (₹199 - ₹299) & Handcrafted Flower Hampers",
+    image: "images/couple.png"
   }
 ];
 
