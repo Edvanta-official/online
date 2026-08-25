@@ -1,3 +1,5 @@
+import { authenticateToken, requireAuth, JWT_SECRET } from './middleware/auth.js';
+import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -1244,6 +1246,59 @@ app.get('/api/orders', async (req, res) => {
   } catch (err) {
     const orders = readJsonFile(ORDERS_FILE);
     res.json({ count: orders.length, orders });
+  }
+});
+
+// ============================================================
+// GET MY ORDERS - LOGGED IN CUSTOMER SCOPED (MYSQL)
+// ============================================================
+
+app.get('/api/orders/my-orders', requireAuth, async (req, res) => {
+  try {
+    const customerId = req.user.customer_id;
+    const customerEmail = req.user.email ? req.user.email.toLowerCase() : '';
+
+    const [orders] = await db.execute(`
+      SELECT 
+        o.order_id,
+        o.customer_id,
+        o.customer_name,
+        o.email,
+        o.phone,
+        o.street_address,
+        o.city,
+        o.pincode,
+        o.total_amount,
+        o.discount_amount,
+        o.final_paid_amount,
+        o.payment_method,
+        o.payment_status,
+        o.order_status,
+        o.utr_number,
+        o.created_at
+      FROM orders o
+      WHERE o.customer_id = ? OR LOWER(o.email) = ?
+      ORDER BY o.created_at DESC
+    `, [customerId, customerEmail]);
+
+    const [items] = await db.execute(`
+      SELECT id, order_id, product_id, product_name, selected_size, quantity, unit_price, subtotal
+      FROM order_items
+    `);
+
+    const ordersWithItems = orders.map(ord => ({
+      ...ord,
+      items: items.filter(itm => itm.order_id === ord.order_id)
+    }));
+
+    return res.json({
+      success: true,
+      count: ordersWithItems.length,
+      orders: ordersWithItems
+    });
+  } catch (err) {
+    console.error('❌ My Orders Fetch Error:', err.message);
+    return res.status(500).json({ error: 'Failed to fetch customer orders.' });
   }
 });
 

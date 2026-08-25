@@ -367,6 +367,21 @@ export const ShopProvider = ({ children }) => {
     return newOrder;
   };
 
+  // Fetch logged in customer's personal orders from MySQL via backend API
+  useEffect(() => {
+    const token = localStorage.getItem('sparkle_token');
+    if (token && user.isLoggedIn) {
+      apiFetch('/api/orders/my-orders')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && Array.isArray(data.orders)) {
+            setOrders(data.orders);
+          }
+        })
+        .catch(err => console.log('My orders fetch background:', err.message));
+    }
+  }, [user.isLoggedIn]);
+
   const loginUser = (nameInput, phoneInput, passwordInput, emailInput, roleInput) => {
     const name = nameInput || "Sparkle Customer";
     const phone = phoneInput || "+91 9876543210";
@@ -375,6 +390,7 @@ export const ShopProvider = ({ children }) => {
     const role = roleInput || (email.includes('admin') || name.includes('Owner') ? 'admin' : 'customer');
 
     const authenticatedUser = {
+      id: `USR-${Date.now()}`,
       name,
       email,
       phone,
@@ -401,25 +417,38 @@ export const ShopProvider = ({ children }) => {
     try {
       localStorage.setItem('sparkel_user', JSON.stringify(authenticatedUser));
       logUserLoginToSQL(authenticatedUser);
-      // Save customer to persistent store database
-      const existingDb = JSON.parse(localStorage.getItem('SPARKLE_CUSTOMER_DATABASE') || '[]');
-      if (!existingDb.some(u => u.email === email)) {
-        existingDb.unshift(authenticatedUser);
-        localStorage.setItem('SPARKLE_CUSTOMER_DATABASE', JSON.stringify(existingDb));
-      }
     } catch (e) {}
 
-    // Dispatch real-time customer sign-in database entry directly to sparklekkvofficial@gmail.com!
-    sendCustomerSigninEmailToAdmin(authenticatedUser);
+    // Send register/login POST request to backend API to obtain JWT token
+    apiFetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, password })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.token) {
+          localStorage.setItem('sparkle_token', data.token);
+          if (data.user && data.user.id) {
+            authenticatedUser.id = data.user.id;
+            setUser({ ...authenticatedUser, id: data.user.id });
+            localStorage.setItem('sparkel_user', JSON.stringify({ ...authenticatedUser, id: data.user.id }));
+          }
+        }
+      })
+      .catch(err => console.log('Auth API background sync:', err.message));
 
+    sendCustomerSigninEmailToAdmin(authenticatedUser);
     showToast(`👋 Welcome back, ${name}!`);
     return true;
   };
 
   const logoutUser = () => {
     setUser(defaultUser);
+    setOrders([]);
     try {
       localStorage.removeItem('sparkel_user');
+      localStorage.removeItem('sparkle_token');
     } catch (e) {}
     showToast("Logged out successfully.", "info");
   };
