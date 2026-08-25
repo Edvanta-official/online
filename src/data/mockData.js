@@ -646,7 +646,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 0,
     images: [
       "images/whatsapp_image_2026_08_10_at_7_52_07_pm_jpeg_drive.jpg"
     ],
