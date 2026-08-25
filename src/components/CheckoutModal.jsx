@@ -318,49 +318,25 @@ export const CheckoutModal = () => {
                         </div>
                       </div>
 
-                      {/* Instant App Payment Buttons Grid */}
-                      <div className="space-y-2 pt-1 max-w-md mx-auto">
-                        <p className="text-[11px] font-montserrat font-bold text-[#2C2C2C] uppercase tracking-wider">
-                          Instant App Payment Buttons
-                        </p>
-                        <div className="grid grid-cols-2 gap-2">
-                          <a
-                            href={phonepeLink}
-                            onClick={(e) => handleAppPaymentClick(e, phonepeLink)}
-                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>PhonePe</span>
-                          </a>
-
-                          <a
-                            href={gpayLink}
-                            onClick={(e) => handleAppPaymentClick(e, gpayLink)}
-                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>Google Pay</span>
-                          </a>
-
-                          <a
-                            href={paytmLink}
-                            onClick={(e) => handleAppPaymentClick(e, paytmLink)}
-                            className="bg-[#00baf2] hover:bg-[#0094c4] text-white font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>Paytm</span>
-                          </a>
-
-                          <a
-                            href={upiDeepLink}
-                            onClick={(e) => handleAppPaymentClick(e, upiDeepLink)}
-                            className="bg-[#2C2C2C] hover:bg-[#3A2D32] text-[#FCE4EC] font-montserrat font-bold py-2.5 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-sm transition-all"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>SuperMoney / UPI</span>
-                          </a>
+                      {/* WhatsApp Payment Screenshot Share Section */}
+                      <div className="bg-[#DCF8C6]/80 border-2 border-emerald-500 rounded-2xl p-4 text-center space-y-2.5 max-w-md mx-auto shadow-md">
+                        <div className="flex items-center justify-center gap-2 text-emerald-950 font-montserrat font-bold text-xs sm:text-sm">
+                          <MessageSquare className="w-5 h-5 text-emerald-600 shrink-0" />
+                          <span>Share Payment Screenshot on WhatsApp</span>
                         </div>
-                        <p className="text-[10px] text-gray-500 font-poppins">Click any app button to pay pre-filled ₹{cartTotal} directly</p>
+                        <p className="text-xs text-gray-700 font-poppins">
+                          After payment, please share your payment screenshot to WhatsApp number:
+                          <strong className="block text-sm text-emerald-800 font-bold mt-1">+91 9949157771</strong>
+                        </p>
+                        <a
+                          href="https://wa.me/919949157771?text=Hi%20Sparkle%20%40kkv%2C%20I%20have%20completed%20the%20payment.%20Here%20is%20my%20screenshot."
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-montserrat font-bold py-2.5 px-5 rounded-xl text-xs shadow-md transition-transform active:scale-95 w-full"
+                        >
+                          <MessageSquare className="w-4 h-4" />
+                          Send Payment Screenshot to 9949157771
+                        </a>
                       </div>
 
                       {/* Direct WhatsApp Payment Notification Box */}
