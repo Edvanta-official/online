@@ -14,13 +14,14 @@ async function showDatabaseData() {
     console.log('👤 1. SIGN-IN & REGISTERED CUSTOMER DETAILS');
     console.log('======================================================');
     
-    // Check columns in users table:
-    const [cols] = await conn.query('SHOW COLUMNS FROM users');
-    const hasFullName = cols.some(c => c.Field === 'full_name');
-    const nameCol = hasFullName ? 'full_name' : 'name';
+    // Check users / customers table
+    const [uCols] = await conn.query('SHOW COLUMNS FROM users');
+    const uFields = uCols.map(c => c.Field);
+    const userTable = uFields.includes('full_name') ? 'users' : 'users';
+    const nameCol = uFields.includes('full_name') ? 'full_name' : (uFields.includes('name') ? 'name' : 'email');
 
     const [users] = await conn.query(
-      `SELECT user_id, ${nameCol} AS name, email, phone, created_at FROM users ORDER BY created_at DESC`
+      `SELECT user_id, ${nameCol} AS name, email, phone, created_at FROM ${userTable} ORDER BY created_at DESC`
     );
 
     if (users.length === 0) {
@@ -32,16 +33,26 @@ async function showDatabaseData() {
     console.log('\n======================================================');
     console.log('📦 2. LIVE ORDERS, CUSTOMER ADDRESS & PAYMENT DETAILS');
     console.log('======================================================');
+
+    // Check orders table columns
+    const [oCols] = await conn.query('SHOW COLUMNS FROM orders');
+    const oFields = oCols.map(c => c.Field);
+    
+    const streetCol = oFields.includes('street_address') ? 'street_address' : (oFields.includes('shipping_street') ? 'shipping_street' : 'NULL');
+    const cityCol = oFields.includes('city') ? 'city' : (oFields.includes('shipping_city') ? 'shipping_city' : 'NULL');
+    const pincodeCol = oFields.includes('pincode') ? 'pincode' : (oFields.includes('shipping_pincode') ? 'shipping_pincode' : 'NULL');
+    const custIdCol = oFields.includes('customer_id') ? 'customer_id' : (oFields.includes('user_id') ? 'user_id' : 'order_id');
+
     const [orders] = await conn.query(`
       SELECT 
         o.order_id,
-        o.user_id,
+        o.${custIdCol} AS customer_id,
         o.customer_name,
         o.email,
         o.phone,
-        o.street_address,
-        o.city,
-        o.pincode,
+        o.${streetCol} AS street_address,
+        o.${cityCol} AS city,
+        o.${pincodeCol} AS pincode,
         o.final_paid_amount,
         o.payment_method,
         o.utr_number,
@@ -59,6 +70,12 @@ async function showDatabaseData() {
     console.log('\n======================================================');
     console.log('🛍️ 3. ORDERED PRODUCTS & ITEM DETAILS');
     console.log('======================================================');
+    
+    // Check order_items table columns
+    const [iCols] = await conn.query('SHOW COLUMNS FROM order_items');
+    const iFields = iCols.map(c => c.Field);
+    const subtotalCol = iFields.includes('subtotal') ? 'subtotal' : (iFields.includes('total_item_price') ? 'total_item_price' : 'unit_price');
+
     const [items] = await conn.query(`
       SELECT 
         order_id,
@@ -66,7 +83,7 @@ async function showDatabaseData() {
         selected_size,
         unit_price,
         quantity,
-        subtotal
+        ${subtotalCol} AS subtotal
       FROM order_items
       ORDER BY id DESC
     `);
