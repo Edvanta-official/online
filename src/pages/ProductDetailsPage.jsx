@@ -231,10 +231,10 @@ export const ProductDetailsPage = () => {
                 </span>
               </div>
 
-              {/* Auto 30% OFF Banner */}
+              {/* Auto 10% OFF Banner */}
               <div className="bg-gradient-to-r from-[#FFF9F5] to-[#FCE4EC]/50 p-3 rounded-2xl border border-[#D4AF7F]/40 flex items-center gap-2.5 text-xs font-poppins">
                 <Zap className="w-4 h-4 text-[#C89B3C] shrink-0" />
-                <span><strong>Special Offer:</strong> Add items over ₹999 to get <strong>AUTOMATIC 30% OFF</strong> + FREE Shipping at checkout!</span>
+                <span><strong>Special Offer:</strong> Add items over ₹999 to get <strong>AUTOMATIC 10% OFF</strong> + FREE Shipping at checkout!</span>
               </div>
 
               {/* Stock Availability Urgency Badge (Amazon Style) */}

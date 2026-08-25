@@ -489,7 +489,7 @@ export const CheckoutModal = () => {
                   <span>₹{placedOrderInfo.cartSubtotal}</span>
                 </div>
                 <div className="flex justify-between text-emerald-600 font-semibold">
-                  <span>30% Special Discount Saved</span>
+                  <span>10% Special Discount Saved</span>
                   <span>-₹{placedOrderInfo.discountAmount}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">

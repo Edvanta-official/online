@@ -138,7 +138,7 @@ export const ShopPage = () => {
                   : "Complete Boutique Catalog"}
               </h1>
               <p className="text-xs sm:text-sm text-gray-500 font-light mt-1">
-                Showing {filteredProducts.length} handcrafted luxury accessories with 30% OFF on ₹999+ orders.
+                Showing {filteredProducts.length} handcrafted luxury accessories with 10% OFF on ₹999+ orders.
               </p>
             </div>
 

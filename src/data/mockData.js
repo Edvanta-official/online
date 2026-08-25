@@ -1978,7 +1978,7 @@ export const REVIEWS = [
 export const TESTIMONIALS = REVIEWS;
 
 export const COUPONS = [
-  { code: "SPARKLE30", discountPercent: 30, minAmount: 999, description: "AUTOMATIC 30% OFF on orders over ₹999 + FREE Pan-India Shipping" },
+  { code: "SPARKLE10", discountPercent: 10, minAmount: 999, description: "AUTOMATIC 10% OFF on orders over ₹999 + FREE Pan-India Shipping" },
   { code: "LUXURY20", discountPercent: 20, minAmount: 799, description: "20% OFF on orders over ₹799" },
   { code: "SPARKLE10", discountPercent: 10, minAmount: 0, description: "10% OFF on your luxury order (Use Code: SPARKLE10)" }
 ];

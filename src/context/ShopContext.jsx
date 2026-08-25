@@ -286,10 +286,10 @@ export const ShopProvider = ({ children }) => {
     return sum + (item.product.price * (item.quantity || 1));
   }, 0) : 0;
 
-  const auto30PercentDiscount = cartSubtotal >= 999 ? 30 : 0;
+  const auto10PercentDiscount = cartSubtotal >= 999 ? 10 : 0;
   const effectiveDiscountPercent = appliedCoupon 
-    ? Math.max(appliedCoupon.discountPercent, auto30PercentDiscount) 
-    : auto30PercentDiscount;
+    ? Math.max(appliedCoupon.discountPercent, auto10PercentDiscount) 
+    : auto10PercentDiscount;
   const discountAmount = Math.round((cartSubtotal * effectiveDiscountPercent) / 100);
   const shippingFee = cartSubtotal >= 999 || cartSubtotal === 0 ? 0 : 70;
   const cartTotal = Math.max(0, cartSubtotal - discountAmount + shippingFee);
@@ -505,7 +505,8 @@ export const ShopProvider = ({ children }) => {
       appliedCoupon,
       couponError,
       cartSubtotal,
-      auto30PercentDiscount,
+      auto10PercentDiscount,
+      auto30PercentDiscount: auto10PercentDiscount,
       effectiveDiscountPercent,
       discountAmount,
       shippingFee,

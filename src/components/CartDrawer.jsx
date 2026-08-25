@@ -75,22 +75,22 @@ export const CartDrawer = () => {
             </div>
           </div>
 
-          {/* Free Shipping & 30% OFF Meter */}
+          {/* Free Shipping & 10% OFF Meter */}
           <div className="bg-[#FFF9F5] p-3.5 sm:p-4 border-b border-[#FCE4EC] shrink-0">
             {cartSubtotal >= freeShippingThreshold ? (
               <div className="flex flex-col gap-1 text-xs font-montserrat text-emerald-700 font-bold">
                 <div className="flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-[#C89B3C] animate-bounce" />
-                  <span>🎉 UNLOCKED: AUTOMATIC 30% OFF + FREE SHIPPING!</span>
+                  <span>🎉 UNLOCKED: AUTOMATIC 10% OFF + FREE SHIPPING!</span>
                 </div>
                 <p className="text-[11px] text-emerald-600 font-normal font-poppins">
-                  You save 30% on your entire cart + FREE Express Pan-India Delivery!
+                  You save 10% on your entire cart + FREE Express Pan-India Delivery!
                 </p>
               </div>
             ) : (
               <div className="space-y-1.5 font-poppins text-xs">
                 <div className="flex justify-between text-gray-600">
-                  <span>Add <strong className="text-[#C89B3C]">₹{freeShippingThreshold - cartSubtotal}</strong> more for <strong className="text-emerald-600">30% OFF + FREE Shipping</strong>!</span>
+                  <span>Add <strong className="text-[#C89B3C]">₹{freeShippingThreshold - cartSubtotal}</strong> more for <strong className="text-emerald-600">10% OFF + FREE Shipping</strong>!</span>
                   <span className="font-bold text-[#2C2C2C]">{progressPercent}%</span>
                 </div>
                 <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">

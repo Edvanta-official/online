@@ -86,7 +86,7 @@ export const Navbar = () => {
       {/* Top Announcement Bar */}
       <div className="bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] py-2 px-3 tracking-widest font-montserrat shadow-sm border-b border-[#D4AF7F]/30 overflow-hidden flex items-center relative z-[100]">
         <marquee behavior="scroll" direction="left" scrollamount="6" className="font-montserrat text-[11px] sm:text-xs tracking-widest uppercase flex items-center gap-4 py-0.5">
-          ✨ SPARKLE @ KKV LUXURY ACCESSORIES • SPECIAL OFFER: AUTOMATIC 30% OFF + FREE PAN-INDIA SHIPPING ON ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE10</span> FOR 10% OFF YOUR ORDER • 100% HANDCRAFTED ANTI-TARNISH FINISH ✨
+          ✨ SPARKLE @ KKV LUXURY ACCESSORIES • SPECIAL OFFER: AUTOMATIC 10% OFF + FREE PAN-INDIA SHIPPING ON ORDERS OVER ₹999 • USE PROMO CODE: <span className="bg-[#D4AF7F] text-[#2C2C2C] font-bold px-2 py-0.5 rounded text-[10px] mx-1 inline-block">CODE: SPARKLE10</span> FOR 10% OFF YOUR ORDER • 100% HANDCRAFTED ANTI-TARNISH FINISH ✨
         </marquee>
       </div>
 
