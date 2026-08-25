@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-async function run() {
+async function showAllData() {
   try {
     const conn = await mysql.createConnection({
       host: process.env.DB_HOST || '127.0.0.1',
@@ -10,31 +10,31 @@ async function run() {
       database: process.env.DB_NAME || 'sparkle_store'
     });
 
-    console.log('\n======================================================');
-    console.log('👤 1. SIGN-IN & REGISTERED CUSTOMER DETAILS');
-    console.log('======================================================');
-    
-    const [uCols] = await conn.query('SHOW COLUMNS FROM users');
-    const uFields = uCols.map(c => c.Field);
-    const nameCol = uFields.includes('full_name') ? 'full_name' : (uFields.includes('name') ? 'name' : 'email');
+    console.log('\n========================================================================================');
+    console.log('👤 1. ALL SIGNED-IN & REGISTERED CUSTOMERS (MySQL Database)');
+    console.log('========================================================================================');
 
-    const [users] = await conn.query(
-      `SELECT user_id, ${nameCol} AS name, email, phone, created_at FROM users ORDER BY created_at DESC`
-    );
+    // Combine users and customers tables if both exist
+    const [users] = await conn.query(`
+      SELECT user_id, full_name AS name, email, phone, role, created_at FROM users
+      UNION
+      SELECT customer_id AS user_id, full_name AS name, email, phone, 'customer' AS role, created_at FROM customers
+      ORDER BY created_at DESC
+    `);
 
     if (users.length === 0) {
-      console.log('No registered users found yet.');
+      console.log('No registered users found in MySQL.');
     } else {
       console.table(users);
     }
 
-    console.log('\n======================================================');
-    console.log('📦 2. LIVE ORDERS, CUSTOMER ADDRESS & PAYMENT DETAILS');
-    console.log('======================================================');
+    console.log('\n========================================================================================');
+    console.log('📦 2. ALL LIVE CUSTOMER ORDERS & PAYMENT DETAILS (MySQL Database)');
+    console.log('========================================================================================');
 
     const [oCols] = await conn.query('SHOW COLUMNS FROM orders');
     const oFields = oCols.map(c => c.Field);
-    
+
     const streetCol = oFields.includes('street_address') ? 'street_address' : (oFields.includes('shipping_street') ? 'shipping_street' : 'NULL');
     const cityCol = oFields.includes('city') ? 'city' : (oFields.includes('shipping_city') ? 'shipping_city' : 'NULL');
     const pincodeCol = oFields.includes('pincode') ? 'pincode' : (oFields.includes('shipping_pincode') ? 'shipping_pincode' : 'NULL');
@@ -47,11 +47,13 @@ async function run() {
         o.customer_name,
         o.email,
         o.phone,
-        o.${streetCol} AS street_address,
+        o.${streetCol} AS address,
         o.${cityCol} AS city,
         o.${pincodeCol} AS pincode,
-        o.final_paid_amount,
+        o.final_paid_amount AS total_paid,
         o.payment_method,
+        o.payment_status,
+        o.order_status,
         o.utr_number,
         o.created_at
       FROM orders o
@@ -64,10 +66,10 @@ async function run() {
       console.table(orders);
     }
 
-    console.log('\n======================================================');
-    console.log('🛍️ 3. ORDERED PRODUCTS & ITEM DETAILS');
-    console.log('======================================================');
-    
+    console.log('\n========================================================================================');
+    console.log('🛍️ 3. ALL ORDERED PRODUCTS & ITEM DETAILS (MySQL Database)');
+    console.log('========================================================================================');
+
     const [iCols] = await conn.query('SHOW COLUMNS FROM order_items');
     const iFields = iCols.map(c => c.Field);
     const subtotalCol = iFields.includes('subtotal') ? 'subtotal' : (iFields.includes('total_item_price') ? 'total_item_price' : 'unit_price');
@@ -81,6 +83,7 @@ async function run() {
         quantity,
         ${subtotalCol} AS total_price
       FROM order_items
+      ORDER BY id DESC
     `);
 
     if (items.length === 0) {
@@ -95,4 +98,4 @@ async function run() {
   }
 }
 
-run();
+showAllData();
