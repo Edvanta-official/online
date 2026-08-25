@@ -695,7 +695,7 @@ export const PRODUCTS = [
     category: "chains",
     subcategory: "daily-wear",
     categoryName: "Chains",
-    price: 199,
+    price: 139,
     originalPrice: 249,
     rating: 4.7,
     reviewsCount: 62,
