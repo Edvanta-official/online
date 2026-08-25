@@ -14,7 +14,9 @@ function copyFolderRecursiveSync(source, target) {
       if (fs.lstatSync(curSource).isDirectory()) {
         copyFolderRecursiveSync(curSource, curTarget);
       } else {
-        fs.copyFileSync(curSource, curTarget);
+        try {
+          fs.copyFileSync(curSource, curTarget);
+        } catch (copyErr) {}
       }
     });
   }
