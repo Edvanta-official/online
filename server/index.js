@@ -14,6 +14,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const ADMIN_EMAIL =
   process.env.ADMIN_EMAIL || 'sparklekkvofficial@gmail.com';
