@@ -490,11 +490,7 @@ export const ShopProvider = ({ children }) => {
     showToast(`Product deleted`, "info");
   };
 
-  const defaultSubscribers = [
-    { id: 'SUB-101', email: 'chenchukoushik@gmail.com', subscribedAt: '2026-08-18T22:45:00.000Z', couponCode: 'SPARKEL10', status: 'active' },
-    { id: 'SUB-102', email: 'ananya@example.com', subscribedAt: '2026-08-17T14:20:00.000Z', couponCode: 'SPARKEL10', status: 'active' },
-    { id: 'SUB-103', email: 'priya.sharma@gmail.com', subscribedAt: '2026-08-16T09:15:00.000Z', couponCode: 'SPARKEL10', status: 'active' }
-  ];
+  const defaultSubscribers = [];
 
   const [subscribers, setSubscribers] = useState(() => {
     try {

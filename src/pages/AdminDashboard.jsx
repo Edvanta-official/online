@@ -23,7 +23,9 @@ export const AdminDashboard = () => {
   const [adminEmail, setAdminEmail] = useState("admin@sparklekkv.com");
   const [adminPassword, setAdminPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [isAdminAuthed, setIsAdminAuthed] = useState(true);
+  const [isAdminAuthed, setIsAdminAuthed] = useState(() => {
+    return localStorage.getItem('sparkle_admin_authed') === 'true';
+  });
   const [liveOrders, setLiveOrders] = useState([]);
 
   const [adminTab, setAdminTab] = useState('orders');
@@ -133,10 +135,15 @@ export const AdminDashboard = () => {
 
   const handleAdminAuth = (e) => {
     e.preventDefault();
-    loginUser("Sparkle Owner @ KKV", adminEmail || "admin@sparklekkv.com", adminPassword || "admin123", "admin@sparklekkv.com", "admin");
-    setIsAdminAuthed(true);
-    localStorage.setItem('sparkle_admin_authed', 'true');
-    showToast("🛡️ Owner Admin Authenticated Successfully!", "success");
+    if (adminPassword === 'admin123' || adminPassword === 'sparkleadmin' || adminPassword === 'admin') {
+      loginUser("Sparkle Owner @ KKV", adminEmail || "admin@sparklekkv.com", adminPassword, "admin@sparklekkv.com", "admin");
+      setIsAdminAuthed(true);
+      localStorage.setItem('sparkle_admin_authed', 'true');
+      setLoginError('');
+      showToast("🛡️ Owner Admin Authenticated Successfully!", "success");
+    } else {
+      setLoginError("Invalid Admin Passcode! (Default: admin123)");
+    }
   };
 
   const handleUpdateOrderStatus = (orderId, newStatus) => {
