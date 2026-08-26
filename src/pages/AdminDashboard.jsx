@@ -146,11 +146,16 @@ export const AdminDashboard = () => {
     showToast(`Order ${orderId} status updated to "${newStatus}"!`, "success");
   };
 
-  const handleClearAllOrders = () => {
+  const handleClearAllOrders = async () => {
     if (window.confirm("Are you sure you want to clear all test orders from your admin portal?")) {
       localStorage.removeItem('sparkel_orders');
       localStorage.removeItem('SPARKLE_REMOTE_ORDERS_DATABASE');
+      localStorage.removeItem('SPARKLE_SQL_ORDERS_DB');
+      localStorage.removeItem('SPARKLE_SQL_ITEMS_DB');
       setLiveOrders([]);
+      try {
+        await apiFetch('/api/orders/clear-all', { method: 'DELETE' });
+      } catch (e) {}
       showToast("🗑️ All test orders cleared from Admin Portal!", "info");
     }
   };

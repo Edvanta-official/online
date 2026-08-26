@@ -636,6 +636,16 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
+app.delete('/api/orders/clear-all', async (req, res) => {
+  try {
+    await Order.deleteMany({});
+    writeJsonFile(ORDERS_FILE, []);
+    return res.json({ success: true, message: 'All orders cleared successfully.' });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // ============================================================
 // GET MY ORDERS - MONGODB ATLAS
 // ============================================================
