@@ -7,6 +7,7 @@ import {
 
 import { fetchGlobalDatabaseOrders } from '../services/remoteOrderSync';
 import { getSQLLoggedInUsers, getSQLOrders, getSQLOrderItems, getSQLProducts, generateSQLDumpScript } from '../services/sqlDatabaseService';
+import { apiFetch } from '../services/apiConfig';
 
 export const AdminDashboard = () => {
   const {
@@ -104,6 +105,19 @@ export const AdminDashboard = () => {
   const getOrderId = (o) => String(o?.id || o?.order_id || o?.orderId || '');
 
   const syncLiveCloudOrders = async () => {
+    // Direct MongoDB Atlas API fetch
+    try {
+      const res = await apiFetch('/api/orders');
+      if (res && res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.orders)) {
+          setLiveOrders(data.orders);
+          return;
+        }
+      }
+    } catch (e) {}
+
+    // Fallback: Local database store
     try {
       const globalOrders = await fetchGlobalDatabaseOrders();
       const map = new Map();
