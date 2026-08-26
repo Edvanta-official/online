@@ -99,6 +99,8 @@ export const AdminDashboard = () => {
 
   const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241', 'ORD-99585', 'ORD-22198', 'ORD-17788', 'ORD-37009', 'ORD-USER-LIVE-900', 'ORD-USERLINK-101', 'ORD-17317', 'ORD-SCANNER-888', 'ORD-KOUSHIK-102', 'ORD-AKASH-101', 'ORD-LIVE-777', 'ORD-TEST-999', 'ORD-54438'];
 
+  const getOrderId = (o) => String(o?.id || o?.order_id || o?.orderId || '');
+
   const syncLiveCloudOrders = async () => {
     try {
       const globalOrders = await fetchGlobalDatabaseOrders();
@@ -107,8 +109,9 @@ export const AdminDashboard = () => {
       const safeContextOrders = Array.isArray(orders) ? orders : [];
 
       [...safeGlobal, ...safeContextOrders].forEach(o => {
-        if (o && o.id && !TEST_ORDER_IDS.includes(o.id)) {
-          map.set(o.id, o);
+        const id = getOrderId(o);
+        if (id && !TEST_ORDER_IDS.includes(id)) {
+          map.set(id, { ...o, id });
         }
       });
       setLiveOrders(Array.from(map.values()));

@@ -68,8 +68,9 @@ export const fetchGlobalDatabaseOrders = () => {
 
     const mergedMap = new Map();
     [...sparkelOrders, ...localRemoteDb].forEach(order => {
-      if (order && order.id && !TEST_ORDER_IDS.includes(order.id)) {
-        mergedMap.set(order.id, order);
+      const id = String(order?.id || order?.order_id || order?.orderId || '');
+      if (id && !TEST_ORDER_IDS.includes(id)) {
+        mergedMap.set(id, { ...order, id });
       }
     });
 
