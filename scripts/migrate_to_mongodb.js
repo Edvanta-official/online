@@ -3,6 +3,12 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dns from 'dns';
+
+// Force public DNS resolution (8.8.8.8 / 1.1.1.1) to resolve SRV records on Windows
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {}
 
 import User from '../server/models/User.js';
 import Order from '../server/models/Order.js';
@@ -31,7 +37,7 @@ async function migrateData() {
 
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log(`✅ Connected to MongoDB Atlas!`);
+    console.log(`✅ Connected to MongoDB Atlas successfully!`);
 
     const localOrders = readJsonFile('orders.json');
     const localUsers = readJsonFile('users.json');

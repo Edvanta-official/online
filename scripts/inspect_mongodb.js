@@ -3,6 +3,11 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dns from 'dns';
+
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {}
 
 import User from '../server/models/User.js';
 import Order from '../server/models/Order.js';
@@ -30,17 +35,9 @@ async function inspectDatabase() {
   console.log(` 🔍 SPARKLE @ KKV - DATABASE INSPECTION TOOL`);
   console.log(`===========================================================`);
 
-  if (MONGODB_URI.includes('cluster0.mongodb.net')) {
-    console.log(`⚠️  NOTICE: Your .env file currently has a placeholder MongoDB Atlas URI:`);
-    console.log(`   ${MONGODB_URI}`);
-    console.log(`\n👉 To connect to live cloud MongoDB Atlas:`);
-    console.log(`   Replace MONGODB_URI in your .env file with your real connection string from cloud.mongodb.com`);
-    console.log(`\n📊 Displaying Local Data Backup Records below:\n`);
-  }
-
   try {
     console.log(`📡 Attempting MongoDB connection...`);
-    await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 3000 });
+    await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
     console.log('✅ Connected to MongoDB Atlas successfully!\n');
 
     // 1. Fetch Users / Login Records
