@@ -276,11 +276,6 @@ export const Navbar = () => {
                     </Link>
                   </div>
                 )}
-                      <User className="w-3.5 h-3.5 text-[#D4AF7F]" />
-                      <span>Sign In</span>
-                    </button>
-                  </div>
-                )}
               </div>
 
             </div>
