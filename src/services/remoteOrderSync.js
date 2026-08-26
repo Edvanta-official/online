@@ -56,7 +56,7 @@ export const saveOrderToGlobalDatabase = async (newOrder) => {
   }
 };
 
-const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241'];
+const TEST_ORDER_IDS = ['ORD-54561', 'ORD-11718', 'ORD-72852', 'ORD-55003', 'ORD-31965', 'ORD-57289', 'ORD-52031', 'ORD-23498', 'ORD-99999', 'ORD-98241', 'ORD-99585', 'ORD-22198', 'ORD-17788', 'ORD-37009', 'ORD-USER-LIVE-900', 'ORD-USERLINK-101', 'ORD-17317', 'ORD-SCANNER-888', 'ORD-KOUSHIK-102', 'ORD-AKASH-101', 'ORD-LIVE-777', 'ORD-TEST-999', 'ORD-54438'];
 
 /**
  * Retrieves all orders from global store database for Admin Portal
