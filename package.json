@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "server": "node server/index.js",
     "start": "node scripts/start-all.js",
-    "inspect:db": "node scripts/inspect_mongodb.js"
+    "inspect:db": "node scripts/inspect_mongodb.js",
+    "migrate:db": "node scripts/migrate_to_mongodb.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
