@@ -238,6 +238,13 @@ export const Navbar = () => {
                           >
                             <User className="w-4 h-4" /> My Account & Orders
                           </Link>
+                          <Link
+                            to="/admin"
+                            onClick={() => setIsUserMenuOpen(false)}
+                            className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#C89B3C] font-semibold border-t border-gray-100"
+                          >
+                            <ShieldCheck className="w-4 h-4 text-[#C89B3C]" /> Owner Admin Portal
+                          </Link>
                           <button
                             onClick={() => {
                               logoutUser();
@@ -258,6 +265,17 @@ export const Navbar = () => {
                       onClick={() => setIsLoginModalOpen(true)}
                       className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#D4AF7F]/40 hover:border-[#C89B3C] text-xs font-semibold font-montserrat hover:bg-[#2C2C2C] hover:text-[#FCE4EC] transition-all bg-[#FFF9F5] text-[#2C2C2C]"
                     >
+                      <User className="w-3.5 h-3.5" /> Sign In
+                    </button>
+                    <Link
+                      to="/admin"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#2C2C2C] text-[#D4AF7F] hover:bg-[#C89B3C] hover:text-black text-[11px] font-bold font-montserrat uppercase tracking-wider transition-all shadow-xs"
+                      title="Sparkle Owner Admin Portal"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF7F]" /> Admin
+                    </Link>
+                  </div>
+                )}
                       <User className="w-3.5 h-3.5 text-[#D4AF7F]" />
                       <span>Sign In</span>
                     </button>

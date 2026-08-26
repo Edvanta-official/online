@@ -101,6 +101,7 @@ export const Footer = () => {
               <li><a href="#exchange" className="hover:text-[#C89B3C] transition-colors">7 Days Exchange Policy</a></li>
               <li><a href="#care" className="hover:text-[#C89B3C] transition-colors">Jewelry Care Guide</a></li>
               <li><a href="#faqs" className="hover:text-[#C89B3C] transition-colors">Support Email: support@sparklekkv.com</a></li>
+              <li><Link to="/admin" className="text-[#D4AF7F] hover:text-[#C89B3C] font-semibold flex items-center gap-1 transition-colors pt-1">🔐 Owner Admin Portal</Link></li>
             </ul>
           </div>
 
