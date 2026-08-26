@@ -1989,6 +1989,36 @@ export const PRODUCTS = [
     ]
   },
   {
+    id: "SPK-CV-011",
+    sku: "SPK-CV-011",
+    name: "Cute Shin-Chan Heart Canvas Frame",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 299,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 245,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 20,
+    images: [
+      "images/shin-chan.png"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Cute Handcrafted Shin-Chan heart pose 4x4 inch canvas art frame gift.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹299",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: shin-chan.png"
+    ]
+  },
+  {
     id: "SPK-FL-001",
     sku: "SPK-FL-001",
     name: "Crimson Blossom Bouquet",
