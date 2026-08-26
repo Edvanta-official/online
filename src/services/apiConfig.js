@@ -23,10 +23,22 @@ export const apiFetch = async (endpoint, options = {}) => {
     headers
   };
 
+  // Helper to build normalized full URL without duplicate /api prefixes
+  const buildFullUrl = (baseUrl, ep) => {
+    const base = baseUrl.replace(/\/+$/, '');
+    if (base.endsWith('/api') && ep.startsWith('/api/')) {
+      return `${base}${ep.substring(4)}`;
+    }
+    if (!base.endsWith('/api') && !ep.startsWith('/api/')) {
+      return `${base}/api${ep}`;
+    }
+    return `${base}${ep}`;
+  };
+
   // 1. Try VITE_API_URL if configured
   if (import.meta.env.VITE_API_URL && !import.meta.env.VITE_API_URL.includes('loca.lt')) {
     try {
-      const liveUrl = `${import.meta.env.VITE_API_URL}${cleanEndpoint}`;
+      const liveUrl = buildFullUrl(import.meta.env.VITE_API_URL, cleanEndpoint);
       const res = await fetch(liveUrl, fetchOptions);
       if (res.ok || res.status === 400 || res.status === 401 || res.status === 409) {
         return res;
@@ -44,7 +56,7 @@ export const apiFetch = async (endpoint, options = {}) => {
 
   // 3. Try http://localhost:5000 backend
   try {
-    const localhostUrl = `http://localhost:5000${cleanEndpoint}`;
+    const localhostUrl = buildFullUrl('http://localhost:5000', cleanEndpoint);
     const res = await fetch(localhostUrl, fetchOptions);
     if (res.ok || res.status === 400 || res.status === 401 || res.status === 409) {
       return res;
