@@ -10,7 +10,8 @@
     "build": "vite build && node scripts/copy-to-root.cjs",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "start": "node scripts/start-all.js"
+    "start": "node scripts/start-all.js",
+    "inspect:db": "node scripts/inspect_mongodb.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -22,6 +23,7 @@
     "framer-motion": "^12.4.7",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.475.0",
+    "mongoose": "^9.9.4",
     "mysql2": "^3.24.2",
     "nodemailer": "^9.0.5",
     "react": "^19.0.0",

@@ -14,7 +14,7 @@ export const AboutSection = () => {
         {/* Section Header */}
         <div className="text-center space-y-2 mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-1.5 text-[#C89B3C] font-montserrat text-xs tracking-widest uppercase font-bold bg-[#FFF9F5] px-4 py-1.5 rounded-full border border-[#D4AF7F]/30">
-            <Sparkles className="w-3.5 h-3.5" /> Our Story & Leadership
+            <Sparkles className="w-3.5 h-3.5" /> Our Story & Founder
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-4xl font-bold text-[#2C2C2C]">
             About <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-[#2C2C2C] text-lg font-extrabold lowercase font-poppins">@kkv</span>
@@ -41,7 +41,7 @@ export const AboutSection = () => {
                     <UserCheck className="w-6 h-6 text-[#2C2C2C]" />
                   </div>
                   <span className="bg-[#D4AF7F] text-[#2C2C2C] text-[10px] font-bold font-montserrat px-3 py-1 rounded-full uppercase tracking-wider">
-                    Leadership
+                    FOUNDER
                   </span>
                 </div>
 
@@ -53,7 +53,7 @@ export const AboutSection = () => {
                     Koti Koushik
                   </h3>
                   <p className="text-xs text-gray-300 font-light">
-                    <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-white font-bold lowercase text-[10px]">@kkv</span>
+                    <span className="text-[#D4AF7F] font-semibold uppercase tracking-wider">Founder</span> — <strong className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</strong> <span className="text-white font-bold lowercase text-[10px]">@kkv</span>
                   </p>
                 </div>
 

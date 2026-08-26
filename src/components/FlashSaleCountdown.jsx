@@ -59,7 +59,7 @@ export const FlashSaleCountdown = () => {
               <Zap className="w-4 h-4 fill-current animate-bounce" /> Flash Sale — VIP Limited Time Offer
             </div>
             <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-bold text-[#FCE4EC] tracking-tight leading-tight">
-              <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-white text-base sm:text-xl font-extrabold lowercase font-poppins">@kkv</span> Flash Sale — Up To 40% OFF
+              <span className="text-[#C89B3C] font-extrabold uppercase">SPARKLE</span> <span className="text-white text-base sm:text-xl font-extrabold lowercase font-poppins">@kkv</span> Flash Sale — Up To 10% OFF
             </h2>
             <p className="text-xs sm:text-sm text-gray-300 font-poppins font-light max-w-xl mx-auto lg:mx-0 leading-relaxed">
               Grab bestselling Swarovski Hair Clips, Kundan Choker Sets, and Anti-Tarnish Chains before limited stock runs out!

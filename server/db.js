@@ -1,30 +1,20 @@
-import mysql from 'mysql2/promise';
+import mongoose from 'mongoose';
 import 'dotenv/config';
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT || 3306),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sparkle_store';
 
-async function testDatabase() {
+export async function connectDB() {
   try {
-    const connection = await pool.getConnection();
-
-    console.log('✅ MySQL connected successfully!');
-    
-    connection.release();
+    const conn = await mongoose.connect(MONGODB_URI);
+    console.log(`✅ MongoDB Atlas connected successfully! Host: ${conn.connection.host}`);
+    return conn;
   } catch (error) {
-    console.error('❌ MySQL connection failed:');
+    console.error('❌ MongoDB Atlas connection error:');
     console.error(error.message);
+    console.log('ℹ️ Tip: Check MONGODB_URI in your .env file to ensure valid credentials and network access.');
   }
 }
 
-testDatabase();
+connectDB();
 
-export default pool;
+export default mongoose;
