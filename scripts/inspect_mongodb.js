@@ -1,15 +1,47 @@
 import mongoose from 'mongoose';
 import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import User from '../server/models/User.js';
 import Order from '../server/models/Order.js';
+import Subscriber from '../server/models/Subscriber.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DATA_DIR = path.join(__dirname, '../server/data');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sparkle_store';
 
-async function inspectDatabase() {
+const readJsonFile = (filename, fallback = []) => {
   try {
-    console.log(`\n🔍 Connecting to MongoDB Atlas: ${MONGODB_URI}`);
-    await mongoose.connect(MONGODB_URI);
-    console.log('✅ Connected successfully!\n');
+    const filePath = path.join(DATA_DIR, filename);
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath, 'utf8');
+      if (data.trim()) return JSON.parse(data);
+    }
+  } catch (e) {}
+  return fallback;
+};
+
+async function inspectDatabase() {
+  console.log(`\n===========================================================`);
+  console.log(` 🔍 SPARKLE @ KKV - DATABASE INSPECTION TOOL`);
+  console.log(`===========================================================`);
+
+  if (MONGODB_URI.includes('cluster0.mongodb.net')) {
+    console.log(`⚠️  NOTICE: Your .env file currently has a placeholder MongoDB Atlas URI:`);
+    console.log(`   ${MONGODB_URI}`);
+    console.log(`\n👉 To connect to live cloud MongoDB Atlas:`);
+    console.log(`   Replace MONGODB_URI in your .env file with your real connection string from cloud.mongodb.com`);
+    console.log(`\n📊 Displaying Local Data Backup Records below:\n`);
+  }
+
+  try {
+    console.log(`📡 Attempting MongoDB connection...`);
+    await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 3000 });
+    console.log('✅ Connected to MongoDB Atlas successfully!\n');
 
     // 1. Fetch Users / Login Records
     const users = await User.find().sort({ createdAt: -1 }).lean();
@@ -50,35 +82,45 @@ async function inspectDatabase() {
         "Items Count": o.items ? o.items.length : 0,
         "Order Date": o.createdAt ? new Date(o.createdAt).toLocaleString() : 'N/A'
       })));
+    }
 
-      console.log(`\n-----------------------------------------------------------`);
-      console.log(` 📦 BREAKDOWN OF ORDERED ITEMS:`);
-      console.log(`-----------------------------------------------------------`);
-      orders.forEach(o => {
-        console.log(`\n▶ Order #${o.orderId} (${o.customerName}):`);
-        if (o.items && o.items.length > 0) {
-          console.table(o.items.map(item => ({
-            "Product ID": item.productId,
-            "Product Name": item.productName,
-            "Size": item.selectedSize,
-            "Qty": item.quantity,
-            "Unit Price": `₹${item.unitPrice}`,
-            "Subtotal": `₹${item.totalItemPrice}`
-          })));
-        } else {
-          console.log('  No items listed in order.');
-        }
-      });
+    await mongoose.disconnect();
+    process.exit(0);
+
+  } catch (error) {
+    console.log(`ℹ️ Cloud MongoDB connection offline/placeholder (${error.message}).`);
+    console.log(`\n===========================================================`);
+    console.log(` 📁 LOCAL DATA FILE RECORDS (orders.json & subscribers.json)`);
+    console.log(`===========================================================`);
+
+    const localOrders = readJsonFile('orders.json');
+    const localSubscribers = readJsonFile('subscribers.json');
+
+    console.log(`\n📦 Orders (${localOrders.length} records):`);
+    if (localOrders.length === 0) {
+      console.log(' (No local orders stored yet)');
+    } else {
+      console.table(localOrders.map(o => ({
+        "Order ID": o.id || o.order_id,
+        "Customer Name": o.customerName || o.customer_name,
+        "Email": o.email || 'N/A',
+        "Phone": o.phone || 'N/A',
+        "Total Paid": `₹${o.finalPaidAmount || o.totalAmount || 0}`,
+        "Payment": o.paymentMethod || 'PhonePe',
+        "Status": o.orderStatus || 'Order Received'
+      })));
+    }
+
+    console.log(`\n👥 Newsletter Subscribers (${localSubscribers.length} records):`);
+    if (localSubscribers.length === 0) {
+      console.log(' (No local subscribers stored yet)');
+    } else {
+      console.table(localSubscribers);
     }
 
     console.log('\n===========================================================');
-    console.log('✅ Inspection Complete!');
+    console.log('✅ Local Inspection Complete!');
     console.log('===========================================================\n');
-
-  } catch (error) {
-    console.error('❌ Error inspecting MongoDB database:', error.message);
-  } finally {
-    await mongoose.disconnect();
     process.exit(0);
   }
 }
