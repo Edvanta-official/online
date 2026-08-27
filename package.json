@@ -13,7 +13,7 @@
     "start": "node scripts/start-all.js",
     "inspect:db": "node scripts/inspect_mongodb.js",
     "migrate:db": "node scripts/migrate_to_mongodb.js",
-    "db:users": "node scripts/view_customer_logins.js"
+    "db:users": "node scripts/sync_mysql_users.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
