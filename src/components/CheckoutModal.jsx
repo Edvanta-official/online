@@ -246,38 +246,6 @@ export const CheckoutModal = () => {
           {/* STEP 2: Payment Options */}
           {step === 2 && (
             <div className="space-y-6">
-              
-              {/* AMAZON-GRADE 256-BIT SSL SECURITY AUTH BADGE */}
-              <div className="bg-gradient-to-r from-[#1A1A1A] via-[#2C2C2C] to-[#1A1A1A] border-2 border-[#C89B3C] rounded-2xl p-4 text-white shadow-xl space-y-3 font-poppins">
-                <div className="flex items-center justify-between border-b border-[#D4AF7F]/30 pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
-                    <div>
-                      <span className="font-montserrat font-bold text-xs text-[#FCE4EC] uppercase tracking-wider block">
-                        Amazon-Grade 256-Bit SSL Encrypted Payment Gate
-                      </span>
-                      <span className="text-[10px] text-emerald-400 font-mono">
-                        🔒 Active Verified Session • sparklekkv.com
-                      </span>
-                    </div>
-                  </div>
-                  <span className="bg-emerald-950 text-emerald-300 border border-emerald-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase font-montserrat flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400" /> SECURE AUTH
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px] text-gray-300 bg-[#0F0F0F] p-3 rounded-xl border border-gray-800 font-mono">
-                  <div>
-                    <span className="text-gray-500 block text-[9px] uppercase font-montserrat font-bold">Verified Customer:</span>
-                    <span className="text-[#D4AF7F] font-bold">{user?.name || shippingForm.fullName || 'Sparkle Member'}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-500 block text-[9px] uppercase font-montserrat font-bold">Contact / Phone:</span>
-                    <span className="text-gray-200">{shippingForm.phone || user?.phone || 'Verified Phone'}</span>
-                  </div>
-                </div>
-              </div>
-
               <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">2. Select Payment Method</h3>
               
               <div className="space-y-4">
