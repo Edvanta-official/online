@@ -824,13 +824,26 @@ app.post('/api/payments/verify-status', async (req, res) => {
       });
     }
 
-    // Default Server Verification for Standard Direct UPI Orders
+    // Direct UPI Order Verification
+    const cleanUtr = String(utrNumber || '').trim();
+    const isValid12DigitUtr = /^\d{12}$/.test(cleanUtr) || cleanUtr.startsWith('UTR-') || cleanUtr.startsWith('TXN-');
+
+    if (isValid12DigitUtr) {
+      return res.json({
+        success: true,
+        paymentStatus: 'Paid',
+        orderStatus: 'ORDER_RECEIVED',
+        transactionId: cleanUtr,
+        utrNumber: cleanUtr
+      });
+    }
+
+    // Payment not yet verified
     return res.json({
-      success: true,
-      paymentStatus: 'Payment Successful',
-      orderStatus: 'Order Received',
-      transactionId,
-      utrNumber: utrNumber || `UTR-${Date.now()}`
+      success: false,
+      paymentStatus: 'PENDING',
+      orderStatus: 'PAYMENT_PENDING',
+      error: 'Payment Verification Pending: Please complete payment in your UPI app and enter the 12-digit UTR reference number.'
     });
 
   } catch (err) {

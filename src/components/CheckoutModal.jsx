@@ -54,13 +54,14 @@ export const CheckoutModal = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   };
 
-  const handleAppPaymentClick = async (e, deepLink) => {
+  const handleAppPaymentClick = (e, deepLink) => {
     e.stopPropagation();
     if (isMobileDevice()) {
       window.location.href = deepLink;
+    } else {
+      copyUpiId();
     }
-    // Launch PhonePe payment completion & transition to Payment Done confirmation
-    await handleVerifyAndCompleteOrder();
+    showToast(`📱 PhonePe opened! After payment, enter your 12-digit UTR/Ref number below to complete verification.`);
   };
 
   const handleShippingSubmit = (e) => {
@@ -75,6 +76,13 @@ export const CheckoutModal = () => {
   const handleVerifyAndCompleteOrder = async () => {
     setPaymentError('');
 
+    const cleanUtr = utrInput.trim();
+    if (!cleanUtr) {
+      setPaymentError('⚠️ Payment Verification Required: Please complete your payment in PhonePe/GPay and enter the 12-digit UTR or Reference number from your payment receipt before submitting.');
+      showToast('Please enter your 12-digit Payment UTR / Ref Number', 'error');
+      return;
+    }
+
     // Authenticate customer if not already logged in
     if (!user || !user.isLoggedIn) {
       await loginUser(
@@ -85,15 +93,13 @@ export const CheckoutModal = () => {
       );
     }
 
-    const verifiedUtr = utrInput.trim() ? utrInput.trim() : `UTR-${Math.floor(100000000000 + Math.random() * 900000000000)}`;
-
     // Perform Server-to-Server Payment Status Verification
     try {
       const verifyRes = await apiFetch('/api/payments/verify-status', {
         method: 'POST',
         body: JSON.stringify({
           transactionId: `TXN-${Date.now()}`,
-          utrNumber: verifiedUtr
+          utrNumber: cleanUtr
         })
       });
       const verifyData = await verifyRes.json();
@@ -109,10 +115,10 @@ export const CheckoutModal = () => {
 
     const newOrder = await placeOrder({
       shippingAddress: shippingForm,
-      paymentMethod: paymentMethod === 'PhonePe' ? 'PhonePe QR Scanner' : paymentMethod,
+      paymentMethod: paymentMethod === 'PhonePe' ? 'PhonePe UPI Payment' : paymentMethod,
       paymentStatus: 'Paid',
       orderStatus: 'ORDER_RECEIVED',
-      utrNumber: verifiedUtr,
+      utrNumber: cleanUtr,
       cartSubtotal,
       discountAmount,
       shippingFee,
