@@ -238,13 +238,6 @@ export const Navbar = () => {
                           >
                             <User className="w-4 h-4" /> My Account & Orders
                           </Link>
-                          <Link
-                            to="/admin"
-                            onClick={() => setIsUserMenuOpen(false)}
-                            className="flex items-center gap-2 px-4 py-2 hover:bg-[#FFF9F5] text-[#C89B3C] font-semibold border-t border-gray-100"
-                          >
-                            <ShieldCheck className="w-4 h-4 text-[#C89B3C]" /> Owner Admin Portal
-                          </Link>
                           <button
                             onClick={() => {
                               logoutUser();
