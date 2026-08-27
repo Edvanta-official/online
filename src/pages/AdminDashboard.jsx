@@ -108,17 +108,23 @@ export const AdminDashboard = () => {
   const [liveUsers, setLiveUsers] = useState([]);
 
   const syncLiveCloudUsers = async () => {
+    const sqlUsers = getSQLLoggedInUsers();
     try {
       const res = await apiFetch('/api/auth/users');
       if (res && res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.users)) {
-          setLiveUsers(data.users);
+          const map = new Map();
+          [...data.users, ...sqlUsers].forEach(u => {
+            const key = String(u.email || u.user_id || u.id || '').toLowerCase();
+            if (key) map.set(key, u);
+          });
+          setLiveUsers(Array.from(map.values()));
           return;
         }
       }
     } catch (e) {}
-    setLiveUsers(getSQLLoggedInUsers());
+    setLiveUsers(sqlUsers);
   };
 
   useEffect(() => {
