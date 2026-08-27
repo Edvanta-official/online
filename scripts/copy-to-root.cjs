@@ -22,6 +22,16 @@ function copyFolderRecursiveSync(source, target) {
   }
 }
 
+// Clean old js bundle files in assets directory before copying new build
+if (fs.existsSync('assets')) {
+  const oldFiles = fs.readdirSync('assets');
+  oldFiles.forEach(f => {
+    if (f.endsWith('.js')) {
+      try { fs.unlinkSync(path.join('assets', f)); } catch (e) {}
+    }
+  });
+}
+
 // Sync compiled build to root directory for GitHub Pages direct branch deployment
 if (fs.existsSync('dist')) {
   if (fs.existsSync('dist/index.html')) fs.copyFileSync('dist/index.html', 'index.html');
@@ -31,5 +41,5 @@ if (fs.existsSync('dist')) {
   if (fs.existsSync('dist/assets')) copyFolderRecursiveSync('dist/assets', 'assets');
   if (fs.existsSync('dist/images')) copyFolderRecursiveSync('dist/images', 'images');
   if (fs.existsSync('public/images')) copyFolderRecursiveSync('public/images', 'images');
-  console.log('Successfully copied dist build assets for GitHub Pages!');
+  console.log('Successfully cleaned old bundles and copied dist build assets for GitHub Pages!');
 }
