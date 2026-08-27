@@ -35,6 +35,14 @@ export const CheckoutModal = () => {
   const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'
   const [utrInput, setUtrInput] = useState('');
 
+  const handleCloseModal = () => {
+    setIsCheckoutOpen(false);
+    setStep(1);
+    setPlacedOrderInfo(null);
+    setPaymentError('');
+    setUtrInput('');
+  };
+
   if (!isCheckoutOpen) return null;
 
   // Generate UPI Deep Link for PhonePe, GPay, Paytm & SuperMoney with exact order total pre-filled automatically
@@ -168,7 +176,7 @@ export const CheckoutModal = () => {
           </div>
 
           <button
-            onClick={() => setIsCheckoutOpen(false)}
+            onClick={handleCloseModal}
             className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-white/10"
           >
             <X className="w-6 h-6" />
@@ -575,17 +583,17 @@ export const CheckoutModal = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 font-montserrat">
                 <Link
                   to="/dashboard"
-                  onClick={() => setIsCheckoutOpen(false)}
+                  onClick={handleCloseModal}
                   className="bg-[#2C2C2C] text-[#FCE4EC] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider shadow-md hover:bg-[#3A2D32]"
                 >
                   Track Order in Dashboard
                 </Link>
 
                 <button
-                  onClick={() => setIsCheckoutOpen(false)}
-                  className="bg-white border border-[#D4AF7F] text-[#2C2C2C] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-[#FCE4EC]"
+                  onClick={handleCloseModal}
+                  className="bg-[#C89B3C] hover:bg-[#b08732] text-white font-bold px-6 py-3 rounded-full text-xs uppercase tracking-wider shadow-md transition-all"
                 >
-                  Continue Shopping
+                  🛍️ Place Another Order / Continue Shopping
                 </button>
               </div>
 
