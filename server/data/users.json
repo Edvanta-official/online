@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "_id": "6a8f008df9774916f44339a6",
+    "userId": "USR-1787410116881",
+    "fullName": "chenchukoushik",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "",
+    "role": "customer",
+    "authMethod": "Standard Auth",
+    "loginCount": 1,
+    "lastLoginAt": "2026-08-26T15:04:45.070Z",
+    "createdAt": "2026-08-26T15:04:45.071Z",
+    "__v": 0
+  }
+]
