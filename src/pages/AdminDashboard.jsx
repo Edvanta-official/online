@@ -105,10 +105,28 @@ export const AdminDashboard = () => {
     } catch (e) {}
   };
 
+  const [liveUsers, setLiveUsers] = useState([]);
+
+  const syncLiveCloudUsers = async () => {
+    try {
+      const res = await apiFetch('/api/auth/users');
+      if (res && res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.users)) {
+          setLiveUsers(data.users);
+          return;
+        }
+      }
+    } catch (e) {}
+    setLiveUsers(getSQLLoggedInUsers());
+  };
+
   useEffect(() => {
     syncLiveCloudOrders();
+    syncLiveCloudUsers();
     const interval = setInterval(() => {
       syncLiveCloudOrders();
+      syncLiveCloudUsers();
     }, 10000);
     return () => clearInterval(interval);
   }, [orders]);
@@ -423,6 +441,14 @@ export const AdminDashboard = () => {
           >
             <Users className="w-4 h-4" />
             <span>👑 VIP Subscribers ({subscribers ? subscribers.length : 0})</span>
+          </button>
+
+          <button
+            onClick={() => setAdminTab('logins')}
+            className={`px-6 py-3 rounded-2xl transition-all shrink-0 flex items-center gap-2 border ${adminTab === 'logins' ? 'bg-[#C89B3C] text-black border-[#C89B3C] shadow-lg' : 'bg-[#1A1A1A] text-gray-300 border-gray-800 hover:border-[#D4AF7F]/50'}`}
+          >
+            <Users className="w-4 h-4 text-emerald-400" />
+            <span>👥 Customer Logins ({liveUsers.length})</span>
           </button>
 
           <button
@@ -869,6 +895,61 @@ export const AdminDashboard = () => {
                     >
                       Remove
                     </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 4: LIVE CUSTOMER LOGINS */}
+        {adminTab === 'logins' && (
+          <div className="bg-[#1A1A1A] p-6 rounded-3xl border border-[#D4AF7F]/30 shadow-lg space-y-4 font-poppins">
+            <div className="flex items-center justify-between border-b border-gray-800 pb-3">
+              <div>
+                <h3 className="font-serif-luxury font-bold text-lg text-[#FCE4EC] flex items-center gap-2">
+                  <Users className="w-5 h-5 text-emerald-400" />
+                  <span>Live Customer Logins & Registered Accounts</span>
+                </h3>
+                <p className="text-xs text-gray-400 font-light mt-0.5">
+                  Real-time stream of all customer logins across all servers (OTP & Standard Auth)
+                </p>
+              </div>
+              <span className="text-xs font-montserrat font-bold text-[#C89B3C] bg-[#2C2C2C] px-3 py-1 rounded-full">
+                {liveUsers.length} Logged In Users
+              </span>
+            </div>
+
+            {(!liveUsers || liveUsers.length === 0) ? (
+              <p className="text-xs text-gray-400 py-6 text-center">No customer logins recorded yet.</p>
+            ) : (
+              <div className="space-y-3">
+                {liveUsers.map((u, idx) => (
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#0F0F0F] rounded-2xl border border-gray-800 text-xs gap-3">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-white text-sm">{u.full_name || u.name || 'Customer'}</span>
+                        <span className="text-[10px] uppercase font-montserrat font-bold px-2 py-0.5 rounded-full bg-[#2C2C2C] text-[#D4AF7F]">
+                          {u.role || 'customer'}
+                        </span>
+                      </div>
+                      <p className="text-gray-300 font-mono">✉️ {u.email || 'N/A'} {u.phone ? `• 📱 ${u.phone}` : ''}</p>
+                      <p className="text-[10px] text-gray-500">
+                        Auth Method: {u.auth_method || u.authMethod || 'Standard'} • Login Count: {u.login_count || u.loginCount || 1} • ID: {u.user_id || u.id || 'USR-001'}
+                      </p>
+                    </div>
+
+                    {u.phone && (
+                      <a
+                        href={`https://wa.me/91${String(u.phone).replace(/\D/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-emerald-950/80 border border-emerald-700 text-emerald-400 px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-1 shrink-0 self-start sm:self-auto hover:bg-emerald-900 transition-colors"
+                      >
+                        <span>💬 WhatsApp</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
