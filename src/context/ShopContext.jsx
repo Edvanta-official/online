@@ -434,11 +434,11 @@ export const ShopProvider = ({ children }) => {
       logUserLoginToSQL(authenticatedUser);
     } catch (e) {}
 
-    // Send register/login POST request to backend API to obtain JWT token
-    apiFetch('/api/auth/register', {
+    // Send login/register POST request to backend API to store in MongoDB Atlas
+    apiFetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, phone, password })
+      body: JSON.stringify({ identifier: email || name, password, role })
     })
       .then(res => res.json())
       .then(data => {
@@ -452,6 +452,12 @@ export const ShopProvider = ({ children }) => {
         }
       })
       .catch(err => console.log('Auth API background sync:', err.message));
+
+    apiFetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, password })
+    }).catch(() => {});
 
     sendCustomerSigninEmailToAdmin(authenticatedUser);
     showToast(`👋 Welcome back, ${name}!`);

@@ -254,24 +254,26 @@ app.post('/api/auth/login', async (req, res) => {
     }
 
     if (!user) {
-      return res.status(401).json({ error: 'Account not found. Please create an account first.' });
+      const userId = `USR-${Date.now()}`;
+      const nameFromEmail = cleanId.includes('@') ? cleanId.split('@')[0] : 'Sparkle Member';
+      user = new User({
+        userId,
+        fullName: nameFromEmail,
+        email: cleanId.includes('@') ? cleanId : '',
+        phone: !cleanId.includes('@') ? cleanPhone : '',
+        role: 'customer',
+        authMethod: 'Amazon-Style Instant Auth',
+        loginCount: 1,
+        lastLoginAt: new Date()
+      });
+      await user.save();
+      console.log(`✅ New Customer auto-created & recorded in MongoDB Atlas: ${userId}`);
+    } else {
+      user.lastLoginAt = new Date();
+      user.loginCount = (user.loginCount || 0) + 1;
+      await user.save();
+      console.log(`✅ Customer login recorded in MongoDB Atlas: ${user.userId} (Count: ${user.loginCount})`);
     }
-
-    if (!user.passwordHash) {
-      return res.status(401).json({ error: 'This account does not have a password configured.' });
-    }
-
-    const passwordValid = await bcrypt.compare(password, user.passwordHash);
-    if (!passwordValid) {
-      return res.status(401).json({ error: 'Incorrect password. Please try again.' });
-    }
-
-    // UPDATE LOGIN DETAILS IN MONGODB
-    user.lastLoginAt = new Date();
-    user.loginCount = (user.loginCount || 0) + 1;
-    await user.save();
-
-    console.log(`✅ Customer login recorded in MongoDB Atlas: ${user.userId} (Count: ${user.loginCount})`);
 
     const token = jwt.sign(
       { customer_id: user.userId, email: user.email, full_name: user.fullName, phone: user.phone, role: user.role },
