@@ -54,15 +54,13 @@ export const CheckoutModal = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   };
 
-  const handleAppPaymentClick = (e, deepLink) => {
+  const handleAppPaymentClick = async (e, deepLink) => {
     e.stopPropagation();
     if (isMobileDevice()) {
       window.location.href = deepLink;
-    } else {
-      e.preventDefault();
-      copyUpiId();
-      showToast(`✨ Copied UPI ID sparklekkv@ibl! Scan QR code or pay ₹${cartTotal} in your mobile app.`);
     }
+    // Launch PhonePe payment completion & transition to Payment Done confirmation
+    await handleVerifyAndCompleteOrder();
   };
 
   const handleShippingSubmit = (e) => {
@@ -309,24 +307,27 @@ export const CheckoutModal = () => {
                           Tap Your Preferred App To Pay ₹{cartTotal} Directly:
                         </span>
                         <div className="grid grid-cols-3 gap-2">
-                          <a
-                            href={phonepeLink}
-                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          <button
+                            type="button"
+                            onClick={(e) => handleAppPaymentClick(e, phonepeLink)}
+                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
                           >
                             <span>🟣 PhonePe</span>
-                          </a>
-                          <a
-                            href={gpayLink}
-                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => handleAppPaymentClick(e, gpayLink)}
+                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
                           >
                             <span>🔵 Google Pay</span>
-                          </a>
-                          <a
-                            href={paytmLink}
-                            className="bg-[#00BAF2] hover:bg-[#0095c4] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => handleAppPaymentClick(e, paytmLink)}
+                            className="bg-[#00BAF2] hover:bg-[#0095c4] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
                           >
                             <span>🟦 Paytm</span>
-                          </a>
+                          </button>
                         </div>
                       </div>
                       
