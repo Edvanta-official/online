@@ -791,7 +791,7 @@ app.post('/api/payments/verify-status', async (req, res) => {
 
     if (isProductionMerchantConfigured) {
       // Perform HTTP Server-to-Server Check Status API request to Bank Gateway
-      const crypto = await import('crypto');
+      const crypto = await import(/* @vite-ignore */ 'crypto');
       const checksumString = `/pg/v1/status/${merchantId}/${transactionId}` + saltKey;
       const sha256 = crypto.createHash('sha256').update(checksumString).digest('hex');
       const xVerifyHeader = `${sha256}###${saltIndex}`;

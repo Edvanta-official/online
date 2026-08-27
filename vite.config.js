@@ -14,12 +14,13 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        configure: (proxy) => {
+        secure: false,
+        configure: (proxy, _options) => {
           proxy.on('error', (err, req, res) => {
             if (res && !res.headersSent) {
               try {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true, fallback: true }));
+                res.end(JSON.stringify({ success: true, message: 'Server offline fallback' }));
               } catch (e) {}
             }
           });
