@@ -9,11 +9,16 @@ const SQL_ITEMS_STORAGE_KEY = 'SPARKLE_SQL_ITEMS_DB';
  * Logs a user login event into the SQL Users table
  */
 export const logUserLoginToSQL = (user) => {
-  if (!user || !user.email) return;
+  if (!user || (!user.email && !user.name && !user.phone)) return;
 
   try {
     const users = JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
-    const existingIndex = users.findIndex(u => u.email.toLowerCase() === user.email.toLowerCase());
+    const cleanId = String(user.email || user.phone || user.name || '').toLowerCase();
+    const existingIndex = users.findIndex(u => 
+      (u.email && u.email.toLowerCase() === cleanId) || 
+      (u.phone && u.phone === user.phone) ||
+      (u.user_id && u.user_id === user.id)
+    );
 
     const timestamp = new Date().toISOString();
 
@@ -25,9 +30,9 @@ export const logUserLoginToSQL = (user) => {
       users[existingIndex].role = user.role || users[existingIndex].role;
     } else {
       const newUser = {
-        user_id: `USR-${Math.floor(1000 + Math.random() * 9000)}`,
+        user_id: user.id || `USR-${Math.floor(1000 + Math.random() * 9000)}`,
         full_name: user.name || 'Sparkle Customer',
-        email: user.email,
+        email: user.email || 'N/A',
         phone: user.phone || 'N/A',
         role: user.role || 'customer',
         auth_method: user.authMethod || 'Standard Auth',
