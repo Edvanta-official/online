@@ -13,6 +13,7 @@ import db from './db.js';
 import User from './models/User.js';
 import Order from './models/Order.js';
 import Subscriber from './models/Subscriber.js';
+import Product from './models/Product.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -568,6 +569,24 @@ app.post('/api/orders', async (req, res) => {
         totalItemPrice: unitPrice * quantity
       };
     });
+
+    // Backend Server Stock & Inventory Security Lock Guard
+    for (const item of mappedItems) {
+      if (item.productId && item.productId !== 'SPK-PROD') {
+        try {
+          const dbProduct = await Product.findOne({ productId: item.productId });
+          if (dbProduct) {
+            if (dbProduct.stock < item.quantity) {
+              return res.status(400).json({
+                error: `Backend Stock Security Alert: "${dbProduct.name}" has ${dbProduct.stock} units available in stock. Order quantity (${item.quantity}) exceeds inventory.`
+              });
+            }
+            // Atomic Inventory Decrement
+            await Product.updateOne({ productId: item.productId }, { $inc: { stock: -item.quantity } });
+          }
+        } catch (stkErr) {}
+      }
+    }
 
     console.log(`📦 Saving Order to MongoDB Atlas: ${orderId} (Customer: ${customerName})`);
 

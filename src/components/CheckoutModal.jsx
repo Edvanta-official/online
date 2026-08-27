@@ -448,24 +448,6 @@ export const CheckoutModal = () => {
                   )}
                 </div>
 
-                {/* MEESHO-STYLE 100% SAFE & SECURE PAYMENT GUARD */}
-                <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-3 flex items-center justify-between text-xs font-poppins shadow-xs">
-                  <div className="flex items-center gap-2.5">
-                    <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
-                    <div>
-                      <span className="font-montserrat font-bold text-emerald-950 block text-[11px]">
-                        🔒 100% Safe & Secure Payment Protection
-                      </span>
-                      <span className="text-[10px] text-emerald-800">
-                        Your payment & personal details are 256-bit SSL encrypted & verified
-                      </span>
-                    </div>
-                  </div>
-                  <span className="bg-emerald-600 text-white font-bold text-[9px] px-2.5 py-1 rounded-full uppercase font-montserrat shrink-0">
-                    VERIFIED
-                  </span>
-                </div>
-
                 {/* Security Badges */}
                 <div className="bg-[#FFF9F5] border border-[#D4AF7F]/30 p-3 rounded-2xl flex items-center justify-around text-[10px] text-gray-600 font-montserrat font-bold">
                   <div className="flex items-center gap-1">
