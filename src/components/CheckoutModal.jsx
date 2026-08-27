@@ -42,7 +42,7 @@ export const CheckoutModal = () => {
       setPaymentError('');
       setUtrInput('');
     }
-  }, [isCheckoutOpen]);
+  }, [isCheckoutOpen, cart]);
 
   const handleCloseModal = () => {
     setIsCheckoutOpen(false);

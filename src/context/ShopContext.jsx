@@ -210,7 +210,10 @@ export const ShopProvider = ({ children }) => {
       return false;
     }
 
-    setIsCheckoutOpen(true);
+    setIsCheckoutOpen(false);
+    setTimeout(() => {
+      setIsCheckoutOpen(true);
+    }, 10);
     return true;
   };
 
