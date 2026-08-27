@@ -521,12 +521,14 @@ app.post('/api/orders', async (req, res) => {
   try {
     const orderData = req.body || {};
 
-    const orderId = String(orderData.id || orderData.order_id || `ORD-${Date.now()}`);
+    const rawId = String(orderData.id || orderData.order_id || orderData.orderId || '');
+    const orderId = rawId.startsWith('SKK-') ? rawId : `SKK-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    
     const customerName = String(orderData.customerName || orderData.shippingAddress?.fullName || 'Sparkle Customer');
     const email = String(orderData.email || orderData.shippingAddress?.email || '');
     const phone = String(orderData.phone || orderData.shippingAddress?.phone || '');
 
-    let userId = (orderData.userId || orderData.user_id || '').trim();
+    let userId = (orderData.userId || orderData.user_id || orderData.customerId || '').trim();
     if (!userId && (email || phone)) {
       try {
         const foundUser = await User.findOne({ $or: [{ email: email.toLowerCase() }, { phone }] });
@@ -536,23 +538,30 @@ app.post('/api/orders', async (req, res) => {
 
     const totalAmount = Number(orderData.cartSubtotal || orderData.totalAmount || orderData.total_amount || 0) || 0;
     const discountAmount = Number(orderData.discountAmount || orderData.discount || orderData.discount_amount || 0) || 0;
-    const finalPaidAmount = Number(orderData.finalAmount || orderData.cartTotal || orderData.final_paid_amount || totalAmount - discountAmount) || 0;
-    const paymentMethod = String(orderData.paymentMethod || orderData.payment_method || 'PhonePe');
-    const paymentStatus = String(orderData.paymentStatus || orderData.payment_status || 'Paid');
-    const orderStatus = String(orderData.orderStatus || orderData.order_status || 'Order Received');
-    const utrNumber = String(orderData.utrNumber || orderData.utr_number || `UPI-${Date.now()}`);
+    const shippingFee = Number(orderData.shippingFee || orderData.shipping_fee || 0) || 0;
+    const finalPaidAmount = Number(orderData.finalAmount || orderData.cartTotal || orderData.final_paid_amount || (totalAmount + shippingFee - discountAmount)) || 0;
+    
+    const paymentMethod = String(orderData.paymentMethod || orderData.payment_method || 'UPI');
+    const paymentStatus = String(orderData.paymentStatus || orderData.payment_status || 'SUCCESS');
+    const orderStatus = String(orderData.orderStatus || orderData.order_status || 'ORDER_RECEIVED');
+    const transactionId = String(orderData.transactionId || orderData.paymentRef || orderData.utrNumber || `TXN-${Date.now()}`);
+    const paymentRef = String(orderData.paymentRef || transactionId);
 
-    const shippingStreet = typeof orderData.shippingAddress?.street === 'string' ? orderData.shippingAddress.street : (typeof orderData.shippingAddress === 'string' ? orderData.shippingAddress : String(orderData.shipping_street || 'Madhapur'));
+    const addressLine1 = String(orderData.shippingAddress?.addressLine1 || orderData.shippingAddress?.street || orderData.addressLine1 || orderData.shipping_street || '');
+    const addressLine2 = String(orderData.shippingAddress?.addressLine2 || orderData.addressLine2 || '');
+    const shippingStreet = addressLine1;
     const shippingCity = String(orderData.shippingAddress?.city || orderData.shipping_city || 'Hyderabad');
+    const shippingState = String(orderData.shippingAddress?.state || orderData.shipping_state || 'Telangana');
     const shippingPincode = String(orderData.shippingAddress?.pincode || orderData.shipping_pincode || '500081');
+    const country = String(orderData.shippingAddress?.country || orderData.country || 'India');
 
     const itemsList = Array.isArray(orderData.items) ? orderData.items : (Array.isArray(orderData.order_items) ? orderData.order_items : []);
     const mappedItems = itemsList.map(item => {
-      const unitPrice = Number(item.price || item.unit_price || 0) || 0;
+      const unitPrice = Number(item.price || item.unit_price || item.unitPrice || 0) || 0;
       const quantity = Number(item.quantity || 1) || 1;
       return {
-        productId: String(item.id || item.product_id || 'SPK-PROD'),
-        productName: String(item.name || item.product_name || 'Sparkle Jewelry Item'),
+        productId: String(item.id || item.product_id || item.productId || 'SPK-PROD'),
+        productName: String(item.name || item.product_name || item.productName || 'Sparkle Jewelry Item'),
         selectedSize: String(item.size || item.selected_size || item.selectedSize || 'Standard'),
         quantity,
         unitPrice,
@@ -568,21 +577,28 @@ app.post('/api/orders', async (req, res) => {
       customerName,
       email,
       phone,
+      addressLine1,
+      addressLine2,
       shippingStreet,
       shippingCity,
+      shippingState,
       shippingPincode,
+      country,
       totalAmount,
       discountAmount,
+      shippingFee,
       finalPaidAmount,
       paymentMethod,
       paymentStatus,
       orderStatus,
-      utrNumber,
+      transactionId,
+      paymentRef,
+      utrNumber: transactionId,
       items: mappedItems
     });
 
     await newOrder.save();
-    console.log(`✅ Order & ${mappedItems.length} Ordered Items successfully saved to MongoDB Atlas! ID: ${orderId}`);
+    console.log(`✅ Order #${orderId} saved to database successfully!`);
 
     // Send Notification Email
     const mailOptions = {

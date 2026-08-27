@@ -15,10 +15,13 @@ const orderSchema = new mongoose.Schema({
   customerName: { type: String, required: true },
   email: { type: String },
   phone: { type: String },
-  shippingStreet: { type: String },
-  shippingCity: { type: String },
-  shippingState: { type: String, default: 'Telangana' },
-  shippingPincode: { type: String },
+  addressLine1: { type: String, default: '' },
+  addressLine2: { type: String, default: '' },
+  shippingStreet: { type: String, default: '' },
+  shippingCity: { type: String, default: '' },
+  shippingState: { type: String, default: '' },
+  shippingPincode: { type: String, default: '' },
+  country: { type: String, default: 'India' },
   totalAmount: { type: Number, required: true },
   discountAmount: { type: Number, default: 0 },
   shippingFee: { type: Number, default: 0 },
@@ -26,13 +29,13 @@ const orderSchema = new mongoose.Schema({
   paymentMethod: { type: String, default: 'UPI' },
   paymentStatus: { 
     type: String, 
-    enum: ['Pending Payment', 'Payment Processing', 'Payment Successful', 'Paid', 'Order Received', 'Payment Failed', 'Payment Cancelled'],
-    default: 'Pending Payment' 
+    enum: ['PENDING', 'PROCESSING', 'SUCCESS', 'FAILED', 'CANCELLED', 'REFUNDED', 'Pending Payment', 'Payment Processing', 'Payment Successful', 'Paid', 'Payment Failed', 'Payment Cancelled'],
+    default: 'PENDING' 
   },
   orderStatus: { 
     type: String, 
-    enum: ['Order Received', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled', 'Payment Failed', 'Refunded'],
-    default: 'Order Received' 
+    enum: ['PAYMENT_PENDING', 'ORDER_RECEIVED', 'PROCESSING', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED', 'REFUNDED', 'Order Received', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered', 'Payment Failed'],
+    default: 'ORDER_RECEIVED' 
   },
   transactionId: { type: String, default: '' },
   paymentRef: { type: String, default: '' },
