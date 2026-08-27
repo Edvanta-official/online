@@ -424,6 +424,14 @@ export const AdminDashboard = () => {
             <Users className="w-4 h-4" />
             <span>👑 VIP Subscribers ({subscribers ? subscribers.length : 0})</span>
           </button>
+
+          <button
+            onClick={() => setAdminTab('sqldb')}
+            className={`px-6 py-3 rounded-2xl transition-all shrink-0 flex items-center gap-2 border ${adminTab === 'sqldb' ? 'bg-[#C89B3C] text-black border-[#C89B3C] shadow-lg' : 'bg-[#1A1A1A] text-gray-300 border-gray-800 hover:border-[#D4AF7F]/50'}`}
+          >
+            <Database className="w-4 h-4 text-emerald-400" />
+            <span>🗄️ SQL Database</span>
+          </button>
         </div>
 
         {/* TAB 1: ORDER MANAGER */}
@@ -865,6 +873,111 @@ export const AdminDashboard = () => {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* TAB 5: SQL DATABASE & DUMP EXPORTER */}
+        {adminTab === 'sqldb' && (
+          <div className="space-y-6 font-poppins">
+            <div className="bg-[#1A1A1A] p-6 rounded-3xl border border-[#D4AF7F]/30 shadow-lg space-y-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-800 pb-4">
+                <div>
+                  <h3 className="font-serif-luxury font-bold text-lg text-[#FCE4EC] flex items-center gap-2">
+                    <Database className="w-5 h-5 text-emerald-400" />
+                    <span>SQL Database Tables & Export Dump</span>
+                  </h3>
+                  <p className="text-xs text-gray-400 font-light mt-0.5">
+                    View relational database tables (Users, Orders, Items, Products) & download executable .SQL scripts
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const sqlScript = generateSQLDumpScript();
+                    const blob = new Blob([sqlScript], { type: 'text/sql' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `sparkle_store_database_${new Date().toISOString().split('T')[0]}.sql`;
+                    a.click();
+                    showToast("📥 Executable .SQL Backup Script Downloaded!", "success");
+                  }}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs px-5 py-3 rounded-xl uppercase tracking-wider flex items-center gap-2 shadow-lg shrink-0"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download .SQL Backup</span>
+                </button>
+              </div>
+
+              {/* SQL TABLES PREVIEW */}
+              <div className="space-y-6 text-xs">
+                {/* 1. USERS TABLE */}
+                <div className="space-y-2">
+                  <span className="text-xs font-bold uppercase tracking-wider font-montserrat text-[#D4AF7F] block">
+                    1. SQL `users` Table ({getSQLLoggedInUsers().length} Records)
+                  </span>
+                  <div className="overflow-x-auto bg-[#0F0F0F] rounded-2xl border border-gray-800 p-3">
+                    <table className="w-full text-left font-mono">
+                      <thead>
+                        <tr className="text-gray-400 border-b border-gray-800 text-[11px]">
+                          <th className="p-2">user_id</th>
+                          <th className="p-2">full_name</th>
+                          <th className="p-2">email</th>
+                          <th className="p-2">phone</th>
+                          <th className="p-2">role</th>
+                          <th className="p-2">login_count</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {getSQLLoggedInUsers().map(u => (
+                          <tr key={u.user_id} className="border-b border-gray-800/50 hover:bg-[#1A1A1A] text-gray-200">
+                            <td className="p-2 text-[#C89B3C] font-bold">{u.user_id}</td>
+                            <td className="p-2">{u.full_name}</td>
+                            <td className="p-2 text-gray-300">{u.email}</td>
+                            <td className="p-2">{u.phone}</td>
+                            <td className="p-2 text-emerald-400 uppercase font-bold text-[10px]">{u.role}</td>
+                            <td className="p-2">{u.login_count || 1}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* 2. CATALOG PRODUCTS TABLE */}
+                <div className="space-y-2">
+                  <span className="text-xs font-bold uppercase tracking-wider font-montserrat text-[#D4AF7F] block">
+                    2. SQL `products` Table ({getSQLProducts().length} Featured Items)
+                  </span>
+                  <div className="overflow-x-auto bg-[#0F0F0F] rounded-2xl border border-gray-800 p-3">
+                    <table className="w-full text-left font-mono">
+                      <thead>
+                        <tr className="text-gray-400 border-b border-gray-800 text-[11px]">
+                          <th className="p-2">product_id</th>
+                          <th className="p-2">product_name</th>
+                          <th className="p-2">category</th>
+                          <th className="p-2">price</th>
+                          <th className="p-2">stock</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {getSQLProducts().map(p => (
+                          <tr key={p.product_id} className="border-b border-gray-800/50 hover:bg-[#1A1A1A] text-gray-200">
+                            <td className="p-2 text-[#C89B3C] font-bold">{p.product_id}</td>
+                            <td className="p-2">{p.product_name}</td>
+                            <td className="p-2 text-gray-400">{p.category}</td>
+                            <td className="p-2 text-[#FCE4EC]">₹{p.price}</td>
+                            <td className="p-2">{p.stock}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
         )}
 
