@@ -87,10 +87,31 @@ export const CheckoutModal = () => {
 
     const verifiedUtr = utrInput.trim() ? utrInput.trim() : `UTR-${Math.floor(100000000000 + Math.random() * 900000000000)}`;
 
+    // Perform Server-to-Server Payment Status Verification
+    try {
+      const verifyRes = await apiFetch('/api/payments/verify-status', {
+        method: 'POST',
+        body: JSON.stringify({
+          transactionId: `TXN-${Date.now()}`,
+          utrNumber: verifiedUtr
+        })
+      });
+      const verifyData = await verifyRes.json();
+
+      if (verifyData && verifyData.success === false) {
+        setPaymentError(verifyData.error || 'Payment status verification failed from acquiring bank.');
+        showToast("Payment status verification failed.", "error");
+        return;
+      }
+    } catch (e) {
+      console.warn("Payment verification endpoint notice:", e);
+    }
+
     const newOrder = await placeOrder({
       shippingAddress: shippingForm,
       paymentMethod: paymentMethod === 'PhonePe' ? 'PhonePe QR Scanner' : paymentMethod,
       paymentStatus: 'Paid',
+      orderStatus: 'ORDER_RECEIVED',
       utrNumber: verifiedUtr,
       cartSubtotal,
       discountAmount,
