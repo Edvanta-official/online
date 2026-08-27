@@ -17,13 +17,25 @@ const orderSchema = new mongoose.Schema({
   phone: { type: String },
   shippingStreet: { type: String },
   shippingCity: { type: String },
+  shippingState: { type: String, default: 'Telangana' },
   shippingPincode: { type: String },
   totalAmount: { type: Number, required: true },
   discountAmount: { type: Number, default: 0 },
+  shippingFee: { type: Number, default: 0 },
   finalPaidAmount: { type: Number, required: true },
-  paymentMethod: { type: String, default: 'PhonePe' },
-  paymentStatus: { type: String, default: 'Paid' },
-  orderStatus: { type: String, default: 'Order Received' },
+  paymentMethod: { type: String, default: 'UPI' },
+  paymentStatus: { 
+    type: String, 
+    enum: ['Pending Payment', 'Payment Processing', 'Payment Successful', 'Paid', 'Order Received', 'Payment Failed', 'Payment Cancelled'],
+    default: 'Pending Payment' 
+  },
+  orderStatus: { 
+    type: String, 
+    enum: ['Order Received', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled', 'Payment Failed', 'Refunded'],
+    default: 'Order Received' 
+  },
+  transactionId: { type: String, default: '' },
+  paymentRef: { type: String, default: '' },
   utrNumber: { type: String, default: '' },
   items: [orderItemSchema],
   createdAt: { type: Date, default: Date.now }
