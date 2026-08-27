@@ -303,6 +303,33 @@ export const CheckoutModal = () => {
                   {paymentMethod === 'PhonePe' && (
                     <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-4 text-center">
                       
+                      {/* 1-Click UPI Apps Launcher Bar */}
+                      <div className="space-y-2">
+                        <span className="text-[10px] uppercase font-montserrat font-bold text-gray-500 block">
+                          Tap Your Preferred App To Pay ₹{cartTotal} Directly:
+                        </span>
+                        <div className="grid grid-cols-3 gap-2">
+                          <a
+                            href={phonepeLink}
+                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          >
+                            <span>🟣 PhonePe</span>
+                          </a>
+                          <a
+                            href={gpayLink}
+                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          >
+                            <span>🔵 Google Pay</span>
+                          </a>
+                          <a
+                            href={paytmLink}
+                            className="bg-[#00BAF2] hover:bg-[#0095c4] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95"
+                          >
+                            <span>🟦 Paytm</span>
+                          </a>
+                        </div>
+                      </div>
+                      
                       {/* Dynamic QR Code */}
                       <div className="max-w-[260px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
                         <div className="flex items-center justify-between border-b border-gray-100 pb-2">
