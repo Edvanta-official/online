@@ -1,15 +1,56 @@
 [
   {
-    "_id": "6a8f008df9774916f44339a6",
-    "userId": "USR-1787410116881",
-    "fullName": "chenchukoushik",
+    "user_id": "USR-1787586430508",
+    "full_name": "Security Test User",
+    "email": "sectest@sparkle.com",
+    "phone": "9876543210",
+    "role": "customer",
+    "login_count": 1,
+    "last_login_at": "2026-08-24T15:47:12.000Z"
+  },
+  {
+    "user_id": "USR-1787586570096",
+    "full_name": "chenchukoushik",
     "email": "chenchukoushik@gmail.com",
     "phone": "",
     "role": "customer",
-    "authMethod": "Standard Auth",
-    "loginCount": 1,
-    "lastLoginAt": "2026-08-26T15:04:45.070Z",
-    "createdAt": "2026-08-26T15:04:45.071Z",
-    "__v": 0
+    "login_count": 1,
+    "last_login_at": "2026-08-27T11:57:03.000Z"
+  },
+  {
+    "user_id": "USR-1787586888888",
+    "full_name": "Priya Sharma",
+    "email": "priya.sharma@gmail.com",
+    "phone": "9876543212",
+    "role": "customer",
+    "login_count": 1,
+    "last_login_at": "2026-08-25T18:44:19.000Z"
+  },
+  {
+    "user_id": "USR-1787586999999",
+    "full_name": "Ananya Sharma",
+    "email": "ananya@example.com",
+    "phone": "9876543211",
+    "role": "customer",
+    "login_count": 1,
+    "last_login_at": "2026-08-25T18:44:19.000Z"
+  },
+  {
+    "user_id": "USR-1787587472903",
+    "full_name": "AKASH GARRE",
+    "email": "akashgarre9515@gmail.com",
+    "phone": "9515086714",
+    "role": "customer",
+    "login_count": 0,
+    "last_login_at": "2026-08-24T16:04:32.000Z"
+  },
+  {
+    "user_id": "USR-1787681544213",
+    "full_name": "nani",
+    "email": "nani123@gmail.com",
+    "phone": "9845593984",
+    "role": "customer",
+    "login_count": 0,
+    "last_login_at": "2026-08-25T18:12:24.000Z"
   }
 ]

@@ -286,14 +286,17 @@ export const CartDrawer = () => {
                 onClick={() => {
                   if (!user || !user.isLoggedIn) {
                     setIsCartOpen(false);
-                    showToast("⚠️ Please sign in to purchase items!", "error");
+                    if (typeof setPendingCheckoutAfterLogin === 'function') {
+                      setPendingCheckoutAfterLogin(true);
+                    }
+                    showToast("🔒 Please Sign In or Create an Account to continue to Secure Checkout!", "warning");
                     setIsLoginModalOpen(true);
                     return;
                   }
                   setIsCartOpen(false);
                   setIsCheckoutOpen(true);
                 }}
-                className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-white py-3 sm:py-3.5 rounded-2xl font-montserrat text-xs font-bold tracking-widest uppercase shadow-xl transition-transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#3A2D32] to-[#2C2C2C] text-[#FCE4EC] hover:text-[#D4AF7F] py-3 sm:py-3.5 rounded-2xl font-montserrat text-xs font-bold tracking-widest uppercase shadow-xl transition-transform hover:scale-[1.02] flex items-center justify-center gap-2"
               >
                 <span>Proceed To Secure Checkout</span>
                 <ArrowRight className="w-4 h-4 text-[#D4AF7F]" />

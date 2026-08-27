@@ -92,6 +92,7 @@ export const ShopProvider = ({ children }) => {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [pendingCheckoutAfterLogin, setPendingCheckoutAfterLogin] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [toast, setToast] = useState(null);
 
@@ -200,6 +201,14 @@ export const ShopProvider = ({ children }) => {
     try {
       localStorage.setItem('sparkel_cart', JSON.stringify(singleItemCart));
     } catch (e) {}
+
+    // SECURITY GUARD: Require customer login BEFORE opening payment / checkout screen
+    if (!user || !user.isLoggedIn) {
+      setPendingCheckoutAfterLogin(true);
+      setIsLoginModalOpen(true);
+      showToast("🔒 Please Sign In or Register to continue to Secure Checkout!", "warning");
+      return false;
+    }
 
     setIsCheckoutOpen(true);
     return true;
@@ -460,7 +469,16 @@ export const ShopProvider = ({ children }) => {
     }).catch(() => {});
 
     sendCustomerSigninEmailToAdmin(authenticatedUser);
-    showToast(`👋 Welcome back, ${name}!`);
+
+    if (pendingCheckoutAfterLogin) {
+      setPendingCheckoutAfterLogin(false);
+      setIsLoginModalOpen(false);
+      setIsCheckoutOpen(true);
+      showToast(`⚡ Welcome ${name}! Resuming your secure payment checkout...`, "success");
+    } else {
+      showToast(`👋 Welcome back, ${name}!`);
+    }
+
     return true;
   };
 
@@ -565,6 +583,8 @@ export const ShopProvider = ({ children }) => {
       setIsCheckoutOpen,
       isLoginModalOpen,
       setIsLoginModalOpen,
+      pendingCheckoutAfterLogin,
+      setPendingCheckoutAfterLogin,
       quickViewProduct,
       setQuickViewProduct,
       toast,

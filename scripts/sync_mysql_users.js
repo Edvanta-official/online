@@ -77,6 +77,14 @@ async function syncAndQueryUsers() {
     console.log(`\n📊 MySQL 'users' Table Records (Count: ${rows.length}):\n`);
     console.table(rows);
 
+    const fs = await import('fs');
+    const path = await import('path');
+    const dataDir = path.join(process.cwd(), 'server', 'data');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+    const usersFile = path.join(dataDir, 'users.json');
+    fs.writeFileSync(usersFile, JSON.stringify(rows, null, 2), 'utf8');
+    console.log(`📄 Saved live customer login records to VS Code file:\n   server/data/users.json\n`);
+
     await conn.end();
   } catch (err) {
     console.warn('⚠️ Local MySQL Server Notice:', err.message);
