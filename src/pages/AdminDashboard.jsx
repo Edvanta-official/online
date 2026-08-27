@@ -67,12 +67,23 @@ export const AdminDashboard = () => {
   const getOrderId = (o) => String(o?.id || o?.order_id || o?.orderId || '');
 
   const syncLiveCloudOrders = async () => {
+    // Clear old test orders stored in browser localStorage
+    try {
+      localStorage.removeItem('sparkel_orders');
+      localStorage.removeItem('SPARKLE_REMOTE_ORDERS_DATABASE');
+      localStorage.removeItem('SPARKLE_SQL_ORDERS_DB');
+    } catch (e) {}
+
     try {
       const res = await apiFetch('/api/orders');
       if (res && res.ok) {
         const data = await res.json();
         if (data && Array.isArray(data.orders)) {
-          setLiveOrders(data.orders);
+          const cleanOrders = data.orders.filter(o => {
+            const id = getOrderId(o);
+            return id && !TEST_ORDER_IDS.includes(id);
+          });
+          setLiveOrders(cleanOrders);
           return;
         }
       }
