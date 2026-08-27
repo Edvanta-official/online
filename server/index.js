@@ -824,9 +824,9 @@ app.post('/api/payments/verify-status', async (req, res) => {
       });
     }
 
-    // Direct UPI Order Verification
+    // Direct UPI Order Verification - Strictly requires real 12-digit numeric UTR from payment receipt
     const cleanUtr = String(utrNumber || '').trim();
-    const isValid12DigitUtr = /^\d{12}$/.test(cleanUtr) || cleanUtr.startsWith('UTR-') || cleanUtr.startsWith('TXN-');
+    const isValid12DigitUtr = /^\d{12}$/.test(cleanUtr);
 
     if (isValid12DigitUtr) {
       return res.json({
@@ -838,12 +838,12 @@ app.post('/api/payments/verify-status', async (req, res) => {
       });
     }
 
-    // Payment not yet verified
-    return res.json({
+    // Payment not verified
+    return res.status(400).json({
       success: false,
-      paymentStatus: 'PENDING',
+      paymentStatus: 'FAILED',
       orderStatus: 'PAYMENT_PENDING',
-      error: 'Payment Verification Pending: Please complete payment in your UPI app and enter the 12-digit UTR reference number.'
+      error: '❌ Payment Verification Failed: Please enter your valid 12-digit numeric Payment UTR / Ref Number from your UPI app receipt (e.g. 429182749102).'
     });
 
   } catch (err) {

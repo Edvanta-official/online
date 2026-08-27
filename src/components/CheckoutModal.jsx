@@ -77,9 +77,49 @@ export const CheckoutModal = () => {
     setPaymentError('');
 
     const cleanUtr = utrInput.trim();
-    if (!cleanUtr) {
-      setPaymentError('⚠️ Payment Verification Required: Please complete your payment in PhonePe/GPay and enter the 12-digit UTR or Reference number from your payment receipt before submitting.');
-      showToast('Please enter your 12-digit Payment UTR / Ref Number', 'error');
+    if (!cleanUtr || !/^\d{12}$/.test(cleanUtr)) {
+      setPaymentError('⚠️ Payment Verification Required: Please complete your payment in PhonePe / GPay and enter your valid 12-digit numeric Payment UTR / Ref Number (e.g. 429182749102) from your receipt before submitting.');
+      showToast('Please enter your 12-digit Payment UTR Number', 'error');
+      return;
+    }
+
+    // Perform Server-to-Server Payment Status Verification
+    let isVerified = false;
+    let verifiedUtrNumber = cleanUtr;
+
+    try {
+      const verifyRes = await apiFetch('/api/payments/verify-status', {
+        method: 'POST',
+        body: JSON.stringify({
+          transactionId: cleanUtr,
+          utrNumber: cleanUtr
+        })
+      });
+
+      if (verifyRes && verifyRes.ok) {
+        const verifyData = await verifyRes.json();
+        if (verifyData && verifyData.success === true) {
+          isVerified = true;
+          verifiedUtrNumber = verifyData.utrNumber || cleanUtr;
+        } else {
+          setPaymentError(verifyData?.error || '❌ Payment Verification Failed: No verified payment found for this UTR.');
+          showToast('Payment verification failed.', 'error');
+          return;
+        }
+      } else {
+        const errData = await verifyRes.json().catch(() => ({}));
+        setPaymentError(errData?.error || '❌ Payment Verification Failed: Invalid 12-digit UTR number.');
+        showToast('Payment verification failed.', 'error');
+        return;
+      }
+    } catch (e) {
+      setPaymentError('❌ Server verification connection error. Your order was NOT placed.');
+      showToast('Payment verification connection error.', 'error');
+      return;
+    }
+
+    if (!isVerified) {
+      setPaymentError('❌ Payment not verified by server. Your order was NOT placed.');
       return;
     }
 
@@ -93,32 +133,12 @@ export const CheckoutModal = () => {
       );
     }
 
-    // Perform Server-to-Server Payment Status Verification
-    try {
-      const verifyRes = await apiFetch('/api/payments/verify-status', {
-        method: 'POST',
-        body: JSON.stringify({
-          transactionId: `TXN-${Date.now()}`,
-          utrNumber: cleanUtr
-        })
-      });
-      const verifyData = await verifyRes.json();
-
-      if (verifyData && verifyData.success === false) {
-        setPaymentError(verifyData.error || 'Payment status verification failed from acquiring bank.');
-        showToast("Payment status verification failed.", "error");
-        return;
-      }
-    } catch (e) {
-      console.warn("Payment verification endpoint notice:", e);
-    }
-
     const newOrder = await placeOrder({
       shippingAddress: shippingForm,
       paymentMethod: paymentMethod === 'PhonePe' ? 'PhonePe UPI Payment' : paymentMethod,
       paymentStatus: 'Paid',
       orderStatus: 'ORDER_RECEIVED',
-      utrNumber: cleanUtr,
+      utrNumber: verifiedUtrNumber,
       cartSubtotal,
       discountAmount,
       shippingFee,
@@ -359,15 +379,17 @@ export const CheckoutModal = () => {
                           </div>
 
                           <div className="pt-2 text-left space-y-1">
-                            <label className="block text-[10px] font-bold text-gray-700 font-montserrat uppercase">
-                              Payment UTR / Ref No. (Optional)
+                            <label className="block text-[10px] font-bold text-[#5f259f] font-montserrat uppercase flex items-center justify-between">
+                              <span>Payment UTR / Ref No. <strong className="text-red-600 font-extrabold">*REQUIRED</strong></span>
+                              <span className="text-[9px] text-gray-400 font-normal">12-Digit Ref from PhonePe/GPay</span>
                             </label>
                             <input
                               type="text"
-                              placeholder="e.g. 429182749102 (12-Digit Ref)"
+                              maxLength={12}
+                              placeholder="Enter 12-Digit Ref (e.g. 429182749102)"
                               value={utrInput}
-                              onChange={(e) => setUtrInput(e.target.value)}
-                              className="w-full bg-white border border-[#5f259f] rounded-xl p-2 text-xs font-mono focus:outline-none text-center"
+                              onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
+                              className="w-full bg-white border-2 border-[#5f259f] rounded-xl p-2.5 text-xs font-mono focus:outline-none text-center font-bold tracking-widest text-[#2C2C2C] shadow-inner"
                             />
                           </div>
                         </div>
