@@ -35,6 +35,15 @@ export const CheckoutModal = () => {
   const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'
   const [utrInput, setUtrInput] = useState('');
 
+  React.useEffect(() => {
+    if (isCheckoutOpen) {
+      setStep(1);
+      setPlacedOrderInfo(null);
+      setPaymentError('');
+      setUtrInput('');
+    }
+  }, [isCheckoutOpen]);
+
   const handleCloseModal = () => {
     setIsCheckoutOpen(false);
     setStep(1);
