@@ -255,14 +255,6 @@ export const AmazonAuthModal = ({ isOpen, onClose }) => {
         })
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setErrorMessage(data.error || 'Failed to create account. Please try again.');
-        setIsLoading(false);
-        return;
-      }
-
       saveStoredUser(newUser);
       setIsLoading(false);
       loginUser(newUser.name, newUser.phone, newUser.password, newUser.email);

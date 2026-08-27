@@ -57,33 +57,35 @@ export const logUserLoginToSQL = (user) => {
  */
 export const getSQLLoggedInUsers = () => {
   try {
-    let users = JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
-    if (!Array.isArray(users) || users.length === 0) {
-      users = [
-        {
-          user_id: 'USR-1001',
-          full_name: 'Sparkle Owner @ KKV',
-          email: 'sparklekkvofficial@gmail.com',
-          phone: '+91 99491 57771',
-          role: 'admin',
-          auth_method: 'Owner Portal Auth',
-          last_login_at: new Date().toISOString(),
-          login_count: 12
-        },
-        {
-          user_id: 'USR-1002',
-          full_name: 'Chenchu Koushik',
-          email: 'chenchukoushik@gmail.com',
-          phone: '+91 99491 57771',
-          role: 'customer',
-          auth_method: 'Standard Auth',
-          last_login_at: new Date().toISOString(),
-          login_count: 5
-        }
-      ];
-      localStorage.setItem(SQL_USERS_STORAGE_KEY, JSON.stringify(users));
-    }
-    return users;
+    const sqlUsers = JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
+    const registeredUsers = JSON.parse(localStorage.getItem('sparkle_registered_users') || '[]');
+    const currentUser = JSON.parse(localStorage.getItem('sparkel_user') || 'null');
+
+    const map = new Map();
+
+    const processUser = (u) => {
+      if (!u) return;
+      const key = String(u.email || u.phone || u.name || u.full_name || '').toLowerCase().trim();
+      if (!key || key.includes('admin@sparklekkv.com')) return;
+
+      const record = {
+        user_id: u.user_id || u.id || `USR-${Math.floor(1000 + Math.random() * 9000)}`,
+        full_name: u.full_name || u.name || 'Sparkle Customer',
+        email: u.email || 'N/A',
+        phone: u.phone || 'N/A',
+        role: u.role || 'customer',
+        auth_method: u.auth_method || u.authMethod || 'Standard Auth',
+        last_login_at: u.last_login_at || u.lastLoginAt || u.authDate || new Date().toISOString(),
+        login_count: u.login_count || u.loginCount || 1
+      };
+      map.set(key, record);
+    };
+
+    sqlUsers.forEach(processUser);
+    registeredUsers.forEach(processUser);
+    if (currentUser) processUser(currentUser);
+
+    return Array.from(map.values());
   } catch (e) {
     return [];
   }
