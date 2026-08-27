@@ -1989,6 +1989,96 @@ export const PRODUCTS = [
     ]
   },
   {
+    id: "SPK-CV-012",
+    sku: "SPK-CV-012",
+    name: "Cute Shin-Chan Heart Canvas Frame",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 299,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 245,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 20,
+    images: [
+      "images/shin-chan.png"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Cute Handcrafted Shin-Chan heart pose 4x4 inch canvas art frame gift.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹299",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: shin-chan.png"
+    ]
+  },
+  {
+    id: "SPK-CV-004",
+    sku: "SPK-CV-004",
+    name: "Rohit Sharma Champions Canvas Frame (4x4 Inch)",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 299,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 310,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 15,
+    images: [
+      "images/rohit_aesthetic.png"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "Rohit Sharma Champions 2024 World Cup trophy celebration 4x4 inch canvas art frame on wooden easel.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹299",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Rohit aesthetic.png"
+    ]
+  },
+  {
+    id: "SPK-CV-013",
+    sku: "SPK-CV-013",
+    name: "MS Dhoni #7 Iconic Wicket Canvas Frame",
+    category: "gift-sets",
+    subcategory: "canvas",
+    categoryName: "Gift Sets & Combos",
+    price: 299,
+    originalPrice: 399,
+    rating: 5,
+    reviewsCount: 280,
+    isNew: true,
+    isTrending: true,
+    isBestSeller: true,
+    isFlashSale: true,
+    stock: 15,
+    images: [
+      "images/dhoni.png"
+    ],
+    colors: [
+      "4 x 4 Inch Custom Frame"
+    ],
+    description: "MS Dhoni #7 CSK yellow jersey iconic wicket stance 4x4 inch canvas art frame on wooden easel.",
+    details: [
+      "Category: CANVAS",
+      "Product Price: ₹299",
+      "Frame Size: 4 × 4 Inches",
+      "Drive File: Dhoni.png"
+    ]
+  },
+  {
     id: "SPK-FL-001",
     sku: "SPK-FL-001",
     name: "Crimson Blossom Bouquet",
