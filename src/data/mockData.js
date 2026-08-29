@@ -151,7 +151,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 2,
+    stock: 0,
     images: [
       "images/plumeria_flower_claw_clip_drive.jpg",
       "images/plumeria_flower_clip_drive.jpg"
