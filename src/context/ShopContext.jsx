@@ -8,18 +8,27 @@ import { apiFetch } from '../services/apiConfig';
 const ShopContext = createContext();
 
 export const ShopProvider = ({ children }) => {
+  const [stockDeductions, setStockDeductions] = useState(() => {
+    try {
+      // Clear legacy stock overrides if present
+      localStorage.removeItem('sparkel_product_stocks');
+      const saved = localStorage.getItem('sparkel_stock_deductions');
+      if (!saved) return {};
+      const parsed = JSON.parse(saved);
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  });
+
   const [products, setProducts] = useState(() => {
     try {
-      const savedStocks = localStorage.getItem('sparkel_product_stocks');
-      if (!savedStocks) return PRODUCTS;
-      const stockMap = JSON.parse(savedStocks);
-      if (!stockMap || typeof stockMap !== 'object') return PRODUCTS;
+      const savedDeductions = localStorage.getItem('sparkel_stock_deductions');
+      const deductions = savedDeductions ? JSON.parse(savedDeductions) : {};
       return PRODUCTS.map(p => {
-        if (typeof stockMap[p.id] === 'number') {
-          const clamped = Math.max(0, stockMap[p.id]);
-          return { ...p, stock: Math.min(p.stock, clamped) };
-        }
-        return p;
+        const deducted = typeof deductions[p.id] === 'number' ? deductions[p.id] : 0;
+        const currentStock = Math.max(0, (typeof p.stock === 'number' ? p.stock : 0) - deducted);
+        return { ...p, stock: currentStock };
       });
     } catch (e) {
       return PRODUCTS;
@@ -136,18 +145,6 @@ export const ShopProvider = ({ children }) => {
       localStorage.setItem('sparkel_orders', JSON.stringify(orders));
     } catch (e) {}
   }, [orders]);
-
-  useEffect(() => {
-    try {
-      const stockMap = {};
-      products.forEach(p => {
-        if (p && p.id && typeof p.stock === 'number') {
-          stockMap[p.id] = p.stock;
-        }
-      });
-      localStorage.setItem('sparkel_product_stocks', JSON.stringify(stockMap));
-    } catch (e) {}
-  }, [products]);
 
   const showToast = (message, type = "success") => {
     setToast({ message, type, id: Date.now() });
@@ -387,6 +384,19 @@ export const ShopProvider = ({ children }) => {
     } catch (e) {}
 
     // Real-time stock decrement on order placement
+    setStockDeductions(prev => {
+      const updated = { ...prev };
+      cart.forEach(ci => {
+        if (ci && ci.product && ci.product.id) {
+          updated[ci.product.id] = (updated[ci.product.id] || 0) + (ci.quantity || 1);
+        }
+      });
+      try {
+        localStorage.setItem('sparkel_stock_deductions', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+
     setProducts(prevProducts => prevProducts.map(p => {
       const cartItem = cart.find(ci => ci.product.id === p.id);
       if (cartItem) {
