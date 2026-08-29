@@ -8,10 +8,10 @@ const stockMapping = {
   // Chains
   'SPK-CN-201': { stock: 2 },
   'SPK-CN-202': { stock: 1 },
-  'SPK-CN-203': { stock: 1 },
+  'SPK-CN-203': { stock: 0 },
   'SPK-CN-204': { stock: 1 },
-  'SPK-CN-205': { stock: 1 },
-  'SPK-CN-206': { stock: 1 },
+  'SPK-CN-205': { stock: 0 },
+  'SPK-CN-206': { stock: 0 },
   'SPK-CN-207': { stock: 1 },
   'SPK-CN-208': { stock: 1 },
 
@@ -28,9 +28,9 @@ const stockMapping = {
   // Bracelets
   'SPK-BR-301': { stock: 1 },
   'SPK-BR-302': { stock: 1 },
-  'SPK-BR-303': { stock: 5 },
-  'SPK-BR-304': { stock: 7 },
-  'SPK-BR-305': { stock: 7 },
+  'SPK-BR-303': { stock: 3 },
+  'SPK-BR-304': { stock: 4 },
+  'SPK-BR-305': { stock: 5 },
   'SPK-BR-306': { stock: 5 },
   'SPK-BR-307': { stock: 5 },
   'SPK-BR-308': { stock: 1 },
@@ -60,7 +60,7 @@ const stockMapping = {
   'SPK-NK-110': { stock: 0 },
 
   // Clips (Sets)
-  'SPK-HC-001': { stock: 2 },
+  'SPK-HC-001': { stock: 0 },
   'SPK-HC-002': { stock: 2 },
   'SPK-HC-003': { stock: 2 },
   'SPK-HC-004': { stock: 2 },

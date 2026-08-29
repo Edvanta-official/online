@@ -8,7 +8,22 @@ import { apiFetch } from '../services/apiConfig';
 const ShopContext = createContext();
 
 export const ShopProvider = ({ children }) => {
-  const [products, setProducts] = useState(PRODUCTS);
+  const [products, setProducts] = useState(() => {
+    try {
+      const savedStocks = localStorage.getItem('sparkel_product_stocks');
+      if (!savedStocks) return PRODUCTS;
+      const stockMap = JSON.parse(savedStocks);
+      if (!stockMap || typeof stockMap !== 'object') return PRODUCTS;
+      return PRODUCTS.map(p => {
+        if (typeof stockMap[p.id] === 'number') {
+          return { ...p, stock: Math.max(0, stockMap[p.id]) };
+        }
+        return p;
+      });
+    } catch (e) {
+      return PRODUCTS;
+    }
+  });
   const [categories, setCategories] = useState(CATEGORIES);
   const [cart, setCart] = useState(() => {
     try {
@@ -120,6 +135,18 @@ export const ShopProvider = ({ children }) => {
       localStorage.setItem('sparkel_orders', JSON.stringify(orders));
     } catch (e) {}
   }, [orders]);
+
+  useEffect(() => {
+    try {
+      const stockMap = {};
+      products.forEach(p => {
+        if (p && p.id && typeof p.stock === 'number') {
+          stockMap[p.id] = p.stock;
+        }
+      });
+      localStorage.setItem('sparkel_product_stocks', JSON.stringify(stockMap));
+    } catch (e) {}
+  }, [products]);
 
   const showToast = (message, type = "success") => {
     setToast({ message, type, id: Date.now() });

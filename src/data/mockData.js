@@ -732,7 +732,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 0,
     images: [
       "images/green_oval_stone_chain_drive.jpg"
     ],
@@ -790,7 +790,7 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 0,
     images: [
       "images/satellite_chain_drive.jpg"
     ],
@@ -819,7 +819,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 1,
+    stock: 0,
     images: [
       "images/crystal_heart_pendant_drive.jpg"
     ],
@@ -902,6 +902,7 @@ export const PRODUCTS = [
     isBestSeller: true,
     isFlashSale: true,
     stock: 1,
+    sizes: ["2.1", "2.3"],
     images: [
       "images/1_beaded_charm_bracelet_1_jpg_drive.jpg",
       "images/1_beaded_charm_bracelet_2_jpg_drive.jpg",
@@ -964,7 +965,7 @@ export const PRODUCTS = [
     isTrending: false,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 5,
+    stock: 3,
     images: [
       "images/bracelet_drive_3.sunflower_beaded_chain_bracelet.jpg"
     ],
@@ -992,7 +993,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 7,
+    stock: 4,
     images: [
       "images/bracelet_drive_4.gold_plated_multicolour_square_stone_link_bracelet.jpg"
     ],
@@ -1020,7 +1021,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: true,
     isFlashSale: true,
-    stock: 7,
+    stock: 5,
     images: [
       "images/bracelet_drive_5.nazar_protection_bracelet.jpg"
     ],
