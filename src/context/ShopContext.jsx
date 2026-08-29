@@ -16,7 +16,8 @@ export const ShopProvider = ({ children }) => {
       if (!stockMap || typeof stockMap !== 'object') return PRODUCTS;
       return PRODUCTS.map(p => {
         if (typeof stockMap[p.id] === 'number') {
-          return { ...p, stock: Math.max(0, stockMap[p.id]) };
+          const clamped = Math.max(0, stockMap[p.id]);
+          return { ...p, stock: Math.min(p.stock, clamped) };
         }
         return p;
       });
