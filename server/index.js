@@ -893,6 +893,26 @@ app.post('/api/payments/verify-status', async (req, res) => {
 // PAYU HOSTED CHECKOUT INTEGRATION (_payment Standard Formula)
 // ============================================================
 
+// Exact PayU Official Hash Generator Function (User Provided Spec)
+const crypto = await import('crypto');
+
+function generatePayUHash(params, salt) {
+  const key = params.key;
+  const txnid = params.txnid;
+  const amount = params.amount;
+  const productinfo = params.productinfo;
+  const firstname = params.firstname;
+  const email = params.email;
+  const udf1 = params.udf1 || '';
+  const udf2 = params.udf2 || '';
+  const udf3 = params.udf3 || '';
+  const udf4 = params.udf4 || '';
+  const udf5 = params.udf5 || '';
+  
+  const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
+  return crypto.createHash('sha512').update(hashString).digest('hex');
+}
+
 // 1. Generate Backend PayU SHA-512 Request Hash & Order Session
 app.post('/api/payments/payu/hash', async (req, res) => {
   try {
@@ -916,19 +936,16 @@ app.post('/api/payments/payu/hash', async (req, res) => {
     const cleanFirstName = (firstname || shippingAddress?.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
     const cleanEmail = (email || shippingAddress?.email || 'sparklekkvofficial@gmail.com').trim();
     const cleanPhone = (phone || shippingAddress?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
-    
-    const udf1 = '';
-    const udf2 = '';
-    const udf3 = '';
-    const udf4 = '';
-    const udf5 = '';
 
-    // Official PayU Hosted _payment Hash Formula:
-    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
-    const hashString = `${key}|${txnId}|${canonicalAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
-    
-    const cryptoModule = await import('crypto');
-    const hash = cryptoModule.createHash('sha512').update(hashString, 'utf8').digest('hex');
+    // Generate SHA-512 Hash using exact user function:
+    const hash = generatePayUHash({
+      key,
+      txnid: txnId,
+      amount: canonicalAmount,
+      productinfo: cleanProductInfo,
+      firstname: cleanFirstName,
+      email: cleanEmail
+    }, salt);
 
     // Safe Backend Logging (DO NOT LOG SALT or hashString containing salt)
     console.log('🔒 PayU Request Hash Created (Safe Debug):', {
