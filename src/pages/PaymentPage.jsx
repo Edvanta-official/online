@@ -26,23 +26,10 @@ export const PaymentPage = () => {
   const [paymentError, setPaymentError] = useState('');
 
   useEffect(() => {
-    try {
-      const savedAmount = sessionStorage.getItem('sparkle_pay_amount');
-      const savedName = sessionStorage.getItem('sparkle_pay_name');
-      const savedEmail = sessionStorage.getItem('sparkle_pay_email');
-      const savedPhone = sessionStorage.getItem('sparkle_pay_phone');
-
-      if (savedAmount) setAmount(savedAmount);
-      else if (cartTotal > 0) setAmount(String(cartTotal));
-
-      if (savedName) {
-        setFullName(savedName);
-        setCardName(savedName);
-      }
-      if (savedEmail) setEmail(savedEmail);
-      if (savedPhone) setPhone(savedPhone);
-    } catch (e) {}
-  }, [cartTotal]);
+    // Instant redirect to Official PayU Payment Gateway Link
+    showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
+    window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
+  }, []);
 
   const cleanAmount = Number(parseFloat(amount || 569)).toFixed(2);
 
