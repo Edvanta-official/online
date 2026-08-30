@@ -26,10 +26,24 @@ export const PaymentPage = () => {
   const [paymentError, setPaymentError] = useState('');
 
   useEffect(() => {
-    // Instant redirect to Official PayU Live Payment Options Gateway Link
-    showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
-    window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
-  }, []);
+    // Read pre-filled checkout details from session storage
+    try {
+      const savedAmount = sessionStorage.getItem('sparkle_pay_amount');
+      const savedName = sessionStorage.getItem('sparkle_pay_name');
+      const savedEmail = sessionStorage.getItem('sparkle_pay_email');
+      const savedPhone = sessionStorage.getItem('sparkle_pay_phone');
+
+      if (savedAmount) setAmount(savedAmount);
+      else if (cartTotal > 0) setAmount(String(cartTotal));
+
+      if (savedName) {
+        setFullName(savedName);
+        setCardName(savedName);
+      }
+      if (savedEmail) setEmail(savedEmail);
+      if (savedPhone) setPhone(savedPhone);
+    } catch (e) {}
+  }, [cartTotal]);
 
   const cleanAmount = Number(parseFloat(amount || 569)).toFixed(2);
 
