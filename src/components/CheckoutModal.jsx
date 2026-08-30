@@ -85,24 +85,19 @@ export const CheckoutModal = () => {
     showToast(`📱 ${appName} opened! After payment, enter your 12-digit UTR/Ref number below.`);
   };
 
-  // Redirect to Credit Card / Debit Card Payment Page (/#/pay) and close modal
+  // Direct Redirect to Official PayU Hosted Pre-Payment Gateway Link
   const handlePayUPayment = async () => {
     try {
-      sessionStorage.setItem('sparkle_pay_amount', String(cartTotal));
-      sessionStorage.setItem('sparkle_pay_name', shippingForm.fullName || '');
-      sessionStorage.setItem('sparkle_pay_email', shippingForm.email || '');
-      sessionStorage.setItem('sparkle_pay_phone', shippingForm.phone || '');
-      
-      showToast('🔒 Opening Credit & Debit Card Payment Page...');
+      showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
       if (typeof setIsCheckoutOpen === 'function') {
         setIsCheckoutOpen(false);
       }
-      window.location.hash = '#/pay';
+      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
     } catch (err) {
       if (typeof setIsCheckoutOpen === 'function') {
         setIsCheckoutOpen(false);
       }
-      window.location.hash = '#/pay';
+      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
     }
   };
 

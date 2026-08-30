@@ -88,78 +88,10 @@ export const PaymentPage = () => {
     setIsPayULoading(true);
 
     try {
-      let params = null;
-      let payuUrl = 'https://secure.payu.in/_payment';
-
-      // 1. Try Backend API Hash Generator
-      try {
-        const response = await apiFetch('/payments/payu/hash', {
-          method: 'POST',
-          body: JSON.stringify({
-            amount: cleanAmount,
-            firstname: fullName.trim().split(' ')[0] || 'Customer',
-            email: email,
-            phone: phone,
-            productinfo: 'SparkleAccessories',
-            txnid: `SPK-${Date.now()}`
-          })
-        });
-
-        const data = await response.json();
-        if (data && data.success && data.params) {
-          params = data.params;
-          if (data.payuUrl) payuUrl = data.payuUrl;
-        }
-      } catch (err) {}
-
-      // 2. Pure JS SHA-512 Fallback (Works 100% on HTTP, HTTPS, GoDaddy, GitHub Pages, Mobile & All Browsers)
-      if (!params) {
-        const key = '8izKVp';
-        const salt = 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
-        const txnid = `SPK-${Date.now()}`;
-        const cleanProductInfo = 'SparkleAccessories';
-        const cleanFirstName = (fullName.trim().split(' ')[0] || 'Customer').replace(/[^a-zA-Z0-9]/g, '');
-        const cleanEmail = email.trim() || 'customer@sparklekkv.com';
-        const cleanPhone = phone.trim().replace(/[^0-9]/g, '') || '9949157771';
-
-        const hashString = `${key}|${txnid}|${cleanAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|||||||||||${salt}`;
-        const hash = sha512(hashString);
-
-        params = {
-          key,
-          txnid,
-          amount: cleanAmount,
-          productinfo: cleanProductInfo,
-          firstname: cleanFirstName,
-          email: cleanEmail,
-          phone: cleanPhone,
-          surl: 'https://sparkle-backend.onrender.com/api/payments/payu/success',
-          furl: 'https://sparkle-backend.onrender.com/api/payments/payu/failure',
-          hash,
-          service_provider: 'payu_paisa',
-          udf1: '', udf2: '', udf3: '', udf4: '', udf5: ''
-        };
-      }
-
-      showToast('🔒 Redirecting to PayU Secure Gateway...');
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = payuUrl;
-
-      Object.keys(params).forEach((key) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = params[key];
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
+      showToast('🔒 Redirecting to Official PayU Secure Payment Page...');
+      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
     } catch (err) {
-      console.error('PayU Submit Error:', err);
-      setPaymentError('❌ Connection error with PayU Gateway.');
-      setIsPayULoading(false);
+      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
     }
   };
 
