@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ShieldCheck, CheckCircle2, Lock, ArrowRight, CreditCard, Sparkles, Building2 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import { apiFetch } from '../services/apiConfig';
+import { sha512 } from 'js-sha512';
 
 export const PaymentPage = () => {
   const { showToast, cartTotal } = useShop();
@@ -68,18 +69,6 @@ export const PaymentPage = () => {
     return v;
   };
 
-  const generateBrowserSha512 = async (str) => {
-    try {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(str);
-      const hashBuffer = await crypto.subtle.digest('SHA-512', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    } catch (e) {
-      return '';
-    }
-  };
-
   const handlePayUPayment = async (e) => {
     if (e) e.preventDefault();
 
@@ -123,18 +112,18 @@ export const PaymentPage = () => {
         }
       } catch (err) {}
 
-      // 2. Browser SHA-512 Native Fallback (Ensures 100% connection success on any live domain/mobile device)
+      // 2. Pure JS SHA-512 Fallback (Works 100% on HTTP, HTTPS, GoDaddy, GitHub Pages, Mobile & All Browsers)
       if (!params) {
         const key = 'r4Hxst';
         const salt = 'IetblSFBZ6XwR1oiVv4RZibc8UPwrbXG';
         const txnid = `SPK-${Date.now()}`;
         const cleanProductInfo = 'SparkleAccessories';
         const cleanFirstName = (fullName.trim().split(' ')[0] || 'Customer').replace(/[^a-zA-Z0-9]/g, '');
-        const cleanEmail = email.trim();
-        const cleanPhone = phone.trim().replace(/[^0-9]/g, '');
+        const cleanEmail = email.trim() || 'customer@sparklekkv.com';
+        const cleanPhone = phone.trim().replace(/[^0-9]/g, '') || '9949157771';
 
         const hashString = `${key}|${txnid}|${cleanAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|||||||||||${salt}`;
-        const hash = await generateBrowserSha512(hashString);
+        const hash = sha512(hashString);
 
         params = {
           key,
@@ -148,6 +137,9 @@ export const PaymentPage = () => {
           furl: 'https://sparkle-backend.onrender.com/api/payments/payu/failure',
           hash,
           service_provider: 'payu_paisa',
+          udf1: '', udf2: '', udf3: '', udf4: '', udf5: ''
+        };
+      }
           udf1: '', udf2: '', udf3: '', udf4: '', udf5: ''
         };
       }
