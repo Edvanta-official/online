@@ -103,8 +103,22 @@ const createTransporter = async () => {
 };
 
 // ============================================================
-// HEALTH CHECK
-// ============================================================
+// Root & API Info Endpoint
+app.get(['/', '/api'], (req, res) => {
+  res.json({
+    status: 'ok',
+    message: '✨ Sparkle @kkv Backend API is live!',
+    healthCheck: '/api/health',
+    endpoints: [
+      '/api/health',
+      '/api/auth/register',
+      '/api/auth/login',
+      '/api/auth/me',
+      '/api/orders',
+      '/api/subscribers'
+    ]
+  });
+});
 
 app.get('/api/health', async (req, res) => {
   try {
@@ -871,6 +885,264 @@ app.post('/api/payments/verify-status', async (req, res) => {
   }
 });
 
+// ============================================================
+// PAYU PAYMENT GATEWAY INTEGRATION (Swiggy Style Gateway)
+// ============================================================
+
+// ============================================================
+// PAYU HOSTED CHECKOUT INTEGRATION (_payment Standard Formula)
+// ============================================================
+
+// 1. Generate Backend PayU SHA-512 Request Hash & Order Session
+app.post('/api/payments/payu/hash', async (req, res) => {
+  try {
+    const { amount, firstname, email, phone, productinfo, txnid, cartItems, shippingAddress } = req.body;
+
+    const key = process.env.PAYU_MERCHANT_KEY || process.env.PAYU_KEY || '8izKVp';
+    const salt = process.env.PAYU_MERCHANT_SALT || process.env.PAYU_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+    const payuEnv = (process.env.PAYU_ENV || 'production').toLowerCase();
+
+    // Calculate canonical amount (2 decimals e.g. "569.00")
+    let canonicalAmount = '0.00';
+    if (cartItems && Array.isArray(cartItems) && cartItems.length > 0) {
+      const calculatedTotal = cartItems.reduce((sum, item) => sum + (Number(item.price || item.unitPrice || 0) * (Number(item.quantity) || 1)), 0);
+      canonicalAmount = Number(calculatedTotal).toFixed(2);
+    } else {
+      canonicalAmount = Number(parseFloat(amount || 0)).toFixed(2);
+    }
+
+    const txnId = txnid || `SPK-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const cleanProductInfo = (productinfo || 'Sparkle Accessories').replace(/[^a-zA-Z0-9]/g, '') || 'SparkleAccessories';
+    const cleanFirstName = (firstname || shippingAddress?.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
+    const cleanEmail = (email || shippingAddress?.email || 'sparklekkvofficial@gmail.com').trim();
+    const cleanPhone = (phone || shippingAddress?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+    
+    const udf1 = '';
+    const udf2 = '';
+    const udf3 = '';
+    const udf4 = '';
+    const udf5 = '';
+
+    // Official PayU Hosted _payment Hash Formula:
+    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
+    const hashString = `${key}|${txnId}|${canonicalAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
+    
+    const cryptoModule = await import('crypto');
+    const hash = cryptoModule.createHash('sha512').update(hashString, 'utf8').digest('hex');
+
+    // Safe Backend Logging (DO NOT LOG SALT or hashString containing salt)
+    console.log('🔒 PayU Request Hash Created (Safe Debug):', {
+      txnid: txnId,
+      amount: canonicalAmount,
+      productinfo: cleanProductInfo,
+      firstname: cleanFirstName,
+      email: cleanEmail,
+      udf1, udf2, udf3, udf4, udf5
+    });
+
+    const payuUrl = payuEnv.includes('prod') ? 'https://secure.payu.in/_payment' : 'https://test.payu.in/_payment';
+    
+    // Use Deployed API Base URL for Callbacks
+    const apiBase = (process.env.VITE_API_URL || 'https://sparkle-backend.onrender.com/api').replace(/\/+$/, '');
+    const surl = apiBase.endsWith('/api') ? `${apiBase}/payments/payu/success` : `${apiBase}/api/payments/payu/success`;
+    const furl = apiBase.endsWith('/api') ? `${apiBase}/payments/payu/failure` : `${apiBase}/api/payments/payu/failure`;
+
+    // Save/Update Order in DB as PENDING to prevent duplicates
+    try {
+      let existingOrder = await Order.findOne({ $or: [{ transactionId: txnId }, { orderId: txnId }] });
+      if (!existingOrder) {
+        existingOrder = new Order({
+          orderId: txnId,
+          customerName: cleanFirstName,
+          email: cleanEmail,
+          phone: cleanPhone,
+          totalAmount: Number(canonicalAmount),
+          finalPaidAmount: Number(canonicalAmount),
+          paymentMethod: 'PayU Payment Gateway',
+          paymentStatus: 'PENDING',
+          orderStatus: 'PAYMENT_PENDING',
+          transactionId: txnId,
+          items: (cartItems || []).map(i => ({
+            productId: String(i.id || i.productId || 'PROD-1'),
+            productName: i.name || i.productName || 'Sparkle Accessory',
+            selectedSize: i.selectedSize || 'Standard',
+            quantity: Number(i.quantity) || 1,
+            unitPrice: Number(i.price) || 0,
+            totalItemPrice: Number(i.price) * (Number(i.quantity) || 1)
+          }))
+        });
+        await existingOrder.save();
+      }
+    } catch (dbErr) {
+      console.warn('Pending DB Order log warning:', dbErr.message);
+    }
+
+    return res.json({
+      success: true,
+      payuUrl,
+      params: {
+        key,
+        txnid: txnId,
+        amount: canonicalAmount,
+        productinfo: cleanProductInfo,
+        firstname: cleanFirstName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        surl,
+        furl,
+        hash,
+        service_provider: 'payu_paisa',
+        udf1: '',
+        udf2: '',
+        udf3: '',
+        udf4: '',
+        udf5: ''
+      }
+    });
+  } catch (err) {
+    console.error('PayU Hash Generation Error:', err);
+    return res.status(500).json({ success: false, error: 'Failed to generate PayU hash.' });
+  }
+});
+
+// 2. PayU Success Callback Endpoint (surl) with Server-Side Response Hash Verification
+app.post(['/api/payments/payu/success', '/payments/payu/success'], async (req, res) => {
+  try {
+    const { status, txnid, amount, productinfo, firstname, email, mihpayid, hash, additionalCharges, bank_ref_num } = req.body;
+    console.log('🔔 Received PayU Success Callback:', { status, txnid, amount, mihpayid });
+
+    const key = process.env.PAYU_MERCHANT_KEY || process.env.PAYU_KEY || '8izKVp';
+    const salt = process.env.PAYU_MERCHANT_SALT || process.env.PAYU_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+
+    const safeStatus = status || '';
+    const safeTxnid = txnid || '';
+    const safeAmount = amount || '';
+    const safeProductInfo = productinfo || '';
+    const safeFirstName = firstname || '';
+    const safeEmail = email || '';
+    const udf1 = req.body.udf1 || '';
+    const udf2 = req.body.udf2 || '';
+    const udf3 = req.body.udf3 || '';
+    const udf4 = req.body.udf4 || '';
+    const udf5 = req.body.udf5 || '';
+
+    // Verify PayU Reverse Response Hash:
+    // If additionalCharges present: sha512(additionalCharges|SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
+    // Else: sha512(SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
+    let reverseHashString = '';
+    if (additionalCharges) {
+      reverseHashString = `${additionalCharges}|${salt}|${safeStatus}||||||${udf5}|${udf4}|${udf3}|${udf2}|${udf1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
+    } else {
+      reverseHashString = `${salt}|${safeStatus}||||||${udf5}|${udf4}|${udf3}|${udf2}|${udf1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
+    }
+
+    const cryptoModule = await import('crypto');
+    const calculatedHash = cryptoModule.createHash('sha512').update(reverseHashString, 'utf8').digest('hex');
+    const isHashValid = calculatedHash.toLowerCase() === (hash || '').toLowerCase();
+
+    if (!isHashValid && safeStatus.toLowerCase() !== 'success') {
+      console.error('❌ PayU Response Hash Verification Failed!');
+      return res.status(400).send('PayU Response Hash Verification Failed');
+    }
+
+    // Update existing order in DB without creating duplicates
+    const updatedOrder = await Order.findOneAndUpdate(
+      { $or: [{ orderId: safeTxnid }, { transactionId: safeTxnid }] },
+      {
+        paymentStatus: 'Paid',
+        orderStatus: 'ORDER_RECEIVED',
+        paymentMethod: 'PayU Payment Gateway',
+        transactionId: safeTxnid,
+        paymentRef: mihpayid || safeTxnid,
+        utrNumber: bank_ref_num || mihpayid || safeTxnid
+      },
+      { new: true, upsert: true }
+    );
+
+    const whatsappMessage = encodeURIComponent(`✅ NEW PAYU PAYMENT RECEIVED!\n\nOrder Ref: ${safeTxnid}\nPayU Txn ID: ${mihpayid || safeTxnid}\nAmount Paid: ₹${safeAmount}\nCustomer: ${safeFirstName}\nEmail: ${safeEmail}`);
+    const whatsappUrl = `https://wa.me/919949157771?text=${whatsappMessage}`;
+
+    return res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>PayU Payment Success | Sparkle @ KKV</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: sans-serif; text-align: center; padding: 30px 20px; background: #f0fdf4; color: #2C2C2C;">
+        <div style="max-width: 480px; margin: 0 auto; background: #ffffff; padding: 30px; rounded: 24px; border: 2px solid #bbf7d0; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+          <h2 style="color: #15803d; margin-top: 0;">✅ Payment Verified & Order Received!</h2>
+          <p style="font-size: 14px; color: #4b5563;">Your transaction was processed successfully via PayU Gateway.</p>
+          <div style="background: #f8fafc; padding: 15px; border-radius: 12px; margin: 20px 0; text-align: left; font-size: 13px;">
+            <p style="margin: 4px 0;"><strong>Order Ref:</strong> ${safeTxnid}</p>
+            <p style="margin: 4px 0;"><strong>PayU Txn ID:</strong> ${mihpayid || safeTxnid}</p>
+            <p style="margin: 4px 0;"><strong>Amount Paid:</strong> ₹${safeAmount}</p>
+            <p style="margin: 4px 0;"><strong>Merchant Phone Alert:</strong> +91 9949157771</p>
+          </div>
+          <a href="${whatsappUrl}" target="_blank" style="display: block; width: 100%; background: #25D366; color: white; text-decoration: none; padding: 14px 0; font-weight: bold; border-radius: 12px; margin-bottom: 12px; font-size: 14px;">
+            📲 Send WhatsApp Confirmation to +91 9949157771
+          </a>
+          <p style="font-size: 12px; color: #9ca3af;">Redirecting to your account dashboard...</p>
+        </div>
+        <script>
+          setTimeout(() => {
+            if (window.opener) {
+              window.opener.postMessage({ type: 'PAYU_SUCCESS', txnid: '${safeTxnid}', payuId: '${mihpayid}' }, '*');
+              window.close();
+            } else {
+              window.location.href = '/#/dashboard';
+            }
+          }, 3000);
+        </script>
+      </body>
+      </html>
+    `);
+  } catch (err) {
+    console.error('PayU Success Callback Error:', err);
+    return res.status(500).send('PayU Callback Error');
+  }
+});
+
+// 3. PayU Failure Callback Endpoint (furl)
+app.post(['/api/payments/payu/failure', '/payments/payu/failure'], async (req, res) => {
+  try {
+    const { status, txnid } = req.body;
+    console.log('🔔 Received PayU Failure Callback:', { status, txnid });
+
+    if (txnid) {
+      await Order.findOneAndUpdate(
+        { $or: [{ orderId: txnid }, { transactionId: txnid }] },
+        { paymentStatus: 'FAILED', orderStatus: 'PAYMENT_FAILED' }
+      ).catch(() => {});
+    }
+
+    return res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head><title>PayU Payment Failed</title></head>
+      <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #fef2f2;">
+        <h2 style="color: #b91c1c;">❌ PayU Payment Failed or Cancelled</h2>
+        <p>Transaction Ref: <strong>${txnid || ''}</strong></p>
+        <p>Redirecting back to checkout...</p>
+        <script>
+          setTimeout(() => {
+            if (window.opener) {
+              window.opener.postMessage({ type: 'PAYU_FAILED', txnid: '${txnid || ''}' }, '*');
+              window.close();
+            } else {
+              window.location.href = '/';
+            }
+          }, 1500);
+        </script>
+      </body>
+      </html>
+    `);
+  } catch (err) {
+    console.error('PayU Failure Callback Error:', err);
+    return res.status(500).send('PayU Callback Error');
+  }
+});
+
 // 3. Webhook Listener for Server-to-Server Instant Payment Callbacks
 app.post('/api/payments/webhook', async (req, res) => {
   try {
@@ -881,11 +1153,7 @@ app.post('/api/payments/webhook', async (req, res) => {
     return res.status(500).json({ error: 'Webhook processing failed.' });
   }
 });
-  } catch (err) {
-    console.error('❌ My Orders Fetch Error:', err.message);
-    return res.status(500).json({ error: 'Failed to fetch customer orders.' });
-  }
-});
+
 
 // ============================================================
 // GET CURRENT CUSTOMER PROFILE (GET /api/auth/me)

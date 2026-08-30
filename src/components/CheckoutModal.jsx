@@ -32,8 +32,9 @@ export const CheckoutModal = () => {
     pincode: user?.savedAddresses?.[0]?.pincode || ''
   });
 
-  const [paymentMethod, setPaymentMethod] = useState('PhonePe'); // 'PhonePe', 'UPI', 'Razorpay', 'COD'
+  const [paymentMethod, setPaymentMethod] = useState('GPay'); // 'GPay', 'Paytm', 'PhonePe', 'Supermoney', 'PayU'
   const [utrInput, setUtrInput] = useState('');
+  const [isPayULoading, setIsPayULoading] = useState(false);
 
   React.useLayoutEffect(() => {
     if (isCheckoutOpen) {
@@ -41,6 +42,7 @@ export const CheckoutModal = () => {
       setPlacedOrderInfo(null);
       setPaymentError('');
       setUtrInput('');
+      setIsPayULoading(false);
     }
   }, [isCheckoutOpen, cart]);
 
@@ -50,15 +52,17 @@ export const CheckoutModal = () => {
     setPlacedOrderInfo(null);
     setPaymentError('');
     setUtrInput('');
+    setIsPayULoading(false);
   };
 
   if (!isCheckoutOpen) return null;
 
-  // Generate UPI Deep Link for PhonePe, GPay, Paytm & SuperMoney with exact order total pre-filled automatically
+  // Generate UPI Deep Links for GPay, Paytm, PhonePe & SuperMoney with exact order total
   const upiDeepLink = `upi://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
-  const phonepeLink = `phonepe://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
   const gpayLink = `gpay://upi/pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
   const paytmLink = `paytmmp://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+  const phonepeLink = `phonepe://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
+  const supermoneyLink = `supermoney://pay?pa=sparklekkv@ibl&pn=Sparkle%20@kkv&am=${cartTotal}&cu=INR&tn=Sparkle%20Order%20Payment`;
 
   const copyUpiId = () => {
     if (navigator.clipboard) {
@@ -71,14 +75,35 @@ export const CheckoutModal = () => {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   };
 
-  const handleAppPaymentClick = (e, deepLink) => {
+  const handleAppPaymentClick = (e, appName, deepLink) => {
     e.stopPropagation();
     if (isMobileDevice()) {
       window.location.href = deepLink;
     } else {
       copyUpiId();
     }
-    showToast(`📱 PhonePe opened! After payment, enter your 12-digit UTR/Ref number below to complete verification.`);
+    showToast(`📱 ${appName} opened! After payment, enter your 12-digit UTR/Ref number below.`);
+  };
+
+  // Redirect to Credit Card / Debit Card Payment Page (/#/pay) and close modal
+  const handlePayUPayment = async () => {
+    try {
+      sessionStorage.setItem('sparkle_pay_amount', String(cartTotal));
+      sessionStorage.setItem('sparkle_pay_name', shippingForm.fullName || '');
+      sessionStorage.setItem('sparkle_pay_email', shippingForm.email || '');
+      sessionStorage.setItem('sparkle_pay_phone', shippingForm.phone || '');
+      
+      showToast('🔒 Opening Credit & Debit Card Payment Page...');
+      if (typeof setIsCheckoutOpen === 'function') {
+        setIsCheckoutOpen(false);
+      }
+      window.location.hash = '#/pay';
+    } catch (err) {
+      if (typeof setIsCheckoutOpen === 'function') {
+        setIsCheckoutOpen(false);
+      }
+      window.location.hash = '#/pay';
+    }
   };
 
   const handleShippingSubmit = (e) => {
@@ -307,168 +332,331 @@ export const CheckoutModal = () => {
             </div>
           )}
 
-          {/* STEP 2: Payment Options */}
+          {/* STEP 2: Swiggy-Style Payment Options */}
           {step === 2 && (
-            <div className="space-y-6">
-              <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">2. Select Payment Method</h3>
-              
-              <div className="space-y-4">
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-serif-luxury text-lg font-bold text-[#2C2C2C]">2. Select Payment Method</h3>
+                  <p className="text-[11px] text-gray-500 font-poppins">Choose your preferred payment option (Total: <strong className="text-[#C89B3C]">₹{cartTotal}</strong>)</p>
+                </div>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full uppercase tracking-wider font-montserrat flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> 100% SECURE
+                </span>
+              </div>
+
+              {paymentError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-2xl text-xs font-poppins font-medium animate-bounce">
+                  {paymentError}
+                </div>
+              )}
+
+              <div className="space-y-3 font-poppins">
                 
-                {/* PhonePe / Scanner Option */}
+                {/* OPTION 1: Google Pay (GPay) */}
                 <div
-                  onClick={() => setPaymentMethod('PhonePe')}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'PhonePe' ? 'border-[#C89B3C] bg-[#FFF9F5] shadow-md' : 'border-gray-200'}`}
+                  onClick={() => setPaymentMethod('GPay')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'GPay' ? 'border-[#4285F4] bg-[#F4F8FF] shadow-md ring-2 ring-[#4285F4]/30' : 'border-gray-200 bg-white hover:border-[#4285F4]/50'}`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <Smartphone className="w-5 h-5 text-[#5f259f]" />
+                      <div className="w-9 h-9 rounded-xl bg-[#4285F4]/10 text-[#4285F4] flex items-center justify-center font-bold text-sm">
+                        🔵
+                      </div>
                       <div>
-                        <span className="text-xs font-bold text-[#2C2C2C]">PhonePe, GPay, Paytm & Scanner UPI Payment</span>
-                        <p className="text-[10px] text-gray-500 font-poppins">sparklekkv@ibl • Auto-Fills ₹{cartTotal}</p>
+                        <span className="text-xs font-bold text-[#2C2C2C] flex items-center gap-1.5">
+                          Google Pay (GPay)
+                          <span className="text-[9px] bg-[#4285F4] text-white font-bold px-2 py-0.5 rounded-full">POPULAR</span>
+                        </span>
+                        <p className="text-[10px] text-gray-500">1-Tap Instant UPI Payment • Auto-fills ₹{cartTotal}</p>
                       </div>
                     </div>
-                    <span className="text-[10px] bg-[#5f259f] text-white font-bold px-2.5 py-1 rounded-full">RECOMMENDED</span>
+                    <input type="radio" checked={paymentMethod === 'GPay'} onChange={() => {}} className="accent-[#4285F4] w-4 h-4" />
                   </div>
 
-                  {paymentMethod === 'PhonePe' && (
-                    <div className="mt-4 pt-4 border-t border-[#D4AF7F]/30 font-poppins text-xs space-y-4 text-center">
-                      
-                      {/* 1-Click UPI Apps Launcher Bar */}
-                      <div className="space-y-2">
-                        <span className="text-[10px] uppercase font-montserrat font-bold text-gray-500 block">
-                          Tap Your Preferred App To Pay ₹{cartTotal} Directly:
-                        </span>
-                        <div className="grid grid-cols-3 gap-2">
-                          <button
-                            type="button"
-                            onClick={(e) => handleAppPaymentClick(e, phonepeLink)}
-                            className="bg-[#5f259f] hover:bg-[#4a1c7d] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
-                          >
-                            <span>🟣 PhonePe</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => handleAppPaymentClick(e, gpayLink)}
-                            className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
-                          >
-                            <span>🔵 Google Pay</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => handleAppPaymentClick(e, paytmLink)}
-                            className="bg-[#00BAF2] hover:bg-[#0095c4] text-white p-2.5 rounded-xl text-[11px] font-bold font-montserrat flex flex-col items-center justify-center gap-1 shadow-md transition-transform active:scale-95 cursor-pointer"
-                          >
-                            <span>🟦 Paytm</span>
-                          </button>
-                        </div>
-                      </div>
-                      
-                      {/* Dynamic QR Code */}
-                      <div className="max-w-[260px] mx-auto rounded-3xl p-4 bg-white border-2 border-[#5f259f] shadow-lg text-center space-y-2">
-                        <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                          <span className="text-[10px] text-gray-400 font-montserrat font-bold uppercase tracking-wider">Dynamic QR</span>
-                          <span className="text-xs font-bold text-[#5f259f] font-montserrat">Sparkle @kkv</span>
-                        </div>
-                        <div className="aspect-square w-full rounded-2xl overflow-hidden bg-white p-2 border border-gray-100 flex items-center justify-center">
-                          <img
-                            src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=10&data=${encodeURIComponent(upiDeepLink)}`}
-                            alt="Scan to Pay Sparkle @kkv"
-                            className="w-full h-full object-contain"
+                  {paymentMethod === 'GPay' && (
+                    <div className="mt-4 pt-4 border-t border-[#4285F4]/20 space-y-4 text-center">
+                      <button
+                        type="button"
+                        onClick={(e) => handleAppPaymentClick(e, 'Google Pay', gpayLink)}
+                        className="w-full bg-[#4285F4] hover:bg-[#3367D6] text-white py-3 px-4 rounded-xl text-xs font-bold font-montserrat shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2"
+                      >
+                        <span>🔵 Pay ₹{cartTotal} directly using Google Pay App</span>
+                      </button>
+
+                      {/* Dynamic QR & UTR Section */}
+                      <div className="max-w-[260px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#4285F4] shadow-sm space-y-2">
+                        <span className="text-[10px] text-gray-500 font-bold uppercase block">Or Scan GPay QR Code</span>
+                        <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(gpayLink)}`}
+                          alt="GPay QR Code"
+                          className="w-40 h-40 mx-auto object-contain"
+                        />
+                        <p className="text-[11px] text-gray-700 font-medium">UPI ID: <strong className="text-[#4285F4]">sparklekkv@ibl</strong></p>
+                        <div className="text-left space-y-1 pt-1">
+                          <label className="block text-[10px] font-bold text-[#4285F4] uppercase">Enter 12-Digit GPay Payment Ref/UTR *</label>
+                          <input
+                            type="text"
+                            maxLength={12}
+                            placeholder="e.g. 429182749102"
+                            value={utrInput}
+                            onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
+                            className="w-full bg-white border border-[#4285F4] rounded-lg p-2 text-xs font-mono text-center font-bold tracking-widest focus:outline-none"
                           />
                         </div>
-                        <div className="pt-1">
-                          <p className="text-[11px] text-[#2C2C2C] font-semibold">
-                            Scan with PhonePe, GPay, Paytm or Any UPI App
-                          </p>
-                          <p className="text-xs font-extrabold text-[#5f259f] mt-0.5">
-                            Auto-fills exact amount ₹{cartTotal}
-                          </p>
-                          <div className="flex items-center justify-center gap-1.5 mt-2 bg-[#FFF9F5] py-1 px-2.5 rounded-lg border border-[#D4AF7F]/30 w-fit mx-auto">
-                            <span className="text-[10px] text-gray-700 font-mono font-semibold">sparklekkv@ibl</span>
-                            <button
-                              type="button"
-                              onClick={(e) => { e.stopPropagation(); copyUpiId(); }}
-                              className="text-gray-400 hover:text-[#C89B3C] p-0.5"
-                              title="Copy UPI ID"
-                            >
-                              <Copy className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-
-                          <div className="pt-2 text-left space-y-1">
-                            <label className="block text-[10px] font-bold text-[#5f259f] font-montserrat uppercase flex items-center justify-between">
-                              <span>Payment UTR / Ref No. <strong className="text-red-600 font-extrabold">*REQUIRED</strong></span>
-                              <span className="text-[9px] text-gray-400 font-normal">12-Digit Ref from PhonePe/GPay</span>
-                            </label>
-                            <input
-                              type="text"
-                              maxLength={12}
-                              placeholder="Enter 12-Digit Ref (e.g. 429182749102)"
-                              value={utrInput}
-                              onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
-                              className="w-full bg-white border-2 border-[#5f259f] rounded-xl p-2.5 text-xs font-mono focus:outline-none text-center font-bold tracking-widest text-[#2C2C2C] shadow-inner"
-                            />
-                          </div>
-                        </div>
                       </div>
-
-                      {/* WhatsApp Payment Screenshot Share Section */}
-                      <div className="bg-[#DCF8C6]/80 border-2 border-emerald-500 rounded-2xl p-4 text-center space-y-2.5 max-w-md mx-auto shadow-md">
-                        <div className="flex items-center justify-center gap-2 text-emerald-950 font-montserrat font-bold text-xs sm:text-sm">
-                          <MessageSquare className="w-5 h-5 text-emerald-600 shrink-0" />
-                          <span>Share Payment Screenshot on WhatsApp</span>
-                        </div>
-                        <p className="text-xs text-gray-700 font-poppins">
-                          After payment, please share your payment screenshot to WhatsApp number:
-                          <strong className="block text-sm text-emerald-800 font-bold mt-1">+91 9949157771</strong>
-                        </p>
-                        <a
-                          href="https://wa.me/919949157771?text=Hi%20Sparkle%20%40kkv%2C%20I%20have%20completed%20the%20payment.%20Here%20is%20my%20screenshot."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-montserrat font-bold py-2.5 px-5 rounded-xl text-xs shadow-md transition-transform active:scale-95 w-full"
-                        >
-                          <MessageSquare className="w-4 h-4" />
-                          Send Payment Screenshot to 9949157771
-                        </a>
-                      </div>
-
-                      {/* Direct WhatsApp Payment Notification Box */}
-                      <div className="bg-emerald-50/90 border border-emerald-300 rounded-2xl p-4 text-left space-y-2 font-poppins mt-3 shadow-xs">
-                        <div className="flex items-center gap-2 text-emerald-950 font-montserrat font-bold text-xs">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                          <span>Direct Instant WhatsApp Order Alert (+91 9949157771)</span>
-                        </div>
-                        <p className="text-[11px] text-emerald-900 font-light leading-relaxed">
-                          Once your payment is done, your order details & payment confirmation will notify the store owner directly at <strong>+91 9949157771</strong>.
-                        </p>
-                      </div>
-
                     </div>
                   )}
                 </div>
 
-                {/* Security Badges */}
-                <div className="bg-[#FFF9F5] border border-[#D4AF7F]/30 p-3 rounded-2xl flex items-center justify-around text-[10px] text-gray-600 font-montserrat font-bold">
-                  <div className="flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Secure Encrypted Payment</span>
+                {/* OPTION 2: Paytm */}
+                <div
+                  onClick={() => setPaymentMethod('Paytm')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'Paytm' ? 'border-[#00BAF2] bg-[#F0FCFF] shadow-md ring-2 ring-[#00BAF2]/30' : 'border-gray-200 bg-white hover:border-[#00BAF2]/50'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-[#00BAF2]/10 text-[#00BAF2] flex items-center justify-center font-bold text-sm">
+                        🟦
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C] flex items-center gap-1.5">
+                          Paytm UPI & Wallet
+                          <span className="text-[9px] bg-[#00BAF2] text-white font-bold px-2 py-0.5 rounded-full">INSTANT</span>
+                        </span>
+                        <p className="text-[10px] text-gray-500">Paytm Wallet & Direct UPI • Auto-fills ₹{cartTotal}</p>
+                      </div>
+                    </div>
+                    <input type="radio" checked={paymentMethod === 'Paytm'} onChange={() => {}} className="accent-[#00BAF2] w-4 h-4" />
                   </div>
-                  <span>•</span>
-                  <div className="flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-[#C89B3C]" />
-                    <span>100% Original Products</span>
+
+                  {paymentMethod === 'Paytm' && (
+                    <div className="mt-4 pt-4 border-t border-[#00BAF2]/20 space-y-4 text-center">
+                      <button
+                        type="button"
+                        onClick={(e) => handleAppPaymentClick(e, 'Paytm', paytmLink)}
+                        className="w-full bg-[#00BAF2] hover:bg-[#0095c4] text-white py-3 px-4 rounded-xl text-xs font-bold font-montserrat shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2"
+                      >
+                        <span>🟦 Pay ₹{cartTotal} directly using Paytm App</span>
+                      </button>
+
+                      {/* Dynamic QR & UTR Section */}
+                      <div className="max-w-[260px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#00BAF2] shadow-sm space-y-2">
+                        <span className="text-[10px] text-gray-500 font-bold uppercase block">Or Scan Paytm QR Code</span>
+                        <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(paytmLink)}`}
+                          alt="Paytm QR Code"
+                          className="w-40 h-40 mx-auto object-contain"
+                        />
+                        <p className="text-[11px] text-gray-700 font-medium">UPI ID: <strong className="text-[#00BAF2]">sparklekkv@ibl</strong></p>
+                        <div className="text-left space-y-1 pt-1">
+                          <label className="block text-[10px] font-bold text-[#00BAF2] uppercase">Enter 12-Digit Paytm Payment Ref/UTR *</label>
+                          <input
+                            type="text"
+                            maxLength={12}
+                            placeholder="e.g. 429182749102"
+                            value={utrInput}
+                            onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
+                            className="w-full bg-white border border-[#00BAF2] rounded-lg p-2 text-xs font-mono text-center font-bold tracking-widest focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* OPTION 3: PhonePe */}
+                <div
+                  onClick={() => setPaymentMethod('PhonePe')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'PhonePe' ? 'border-[#5f259f] bg-[#F7F2FC] shadow-md ring-2 ring-[#5f259f]/30' : 'border-gray-200 bg-white hover:border-[#5f259f]/50'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-[#5f259f]/10 text-[#5f259f] flex items-center justify-center font-bold text-sm">
+                        🟣
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C] flex items-center gap-1.5">
+                          PhonePe UPI & QR
+                          <span className="text-[9px] bg-[#5f259f] text-white font-bold px-2 py-0.5 rounded-full">RECOMMENDED</span>
+                        </span>
+                        <p className="text-[10px] text-gray-500">PhonePe App Direct UPI • Auto-fills ₹{cartTotal}</p>
+                      </div>
+                    </div>
+                    <input type="radio" checked={paymentMethod === 'PhonePe'} onChange={() => {}} className="accent-[#5f259f] w-4 h-4" />
                   </div>
-                  <span>•</span>
-                  <div className="flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C89B3C]" />
-                    <span>Easy Exchange</span>
+
+                  {paymentMethod === 'PhonePe' && (
+                    <div className="mt-4 pt-4 border-t border-[#5f259f]/20 space-y-4 text-center">
+                      <button
+                        type="button"
+                        onClick={(e) => handleAppPaymentClick(e, 'PhonePe', phonepeLink)}
+                        className="w-full bg-[#5f259f] hover:bg-[#4a1c7d] text-white py-3 px-4 rounded-xl text-xs font-bold font-montserrat shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2"
+                      >
+                        <span>🟣 Pay ₹{cartTotal} directly using PhonePe App</span>
+                      </button>
+
+                      {/* Dynamic QR & UTR Section */}
+                      <div className="max-w-[260px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#5f259f] shadow-sm space-y-2">
+                        <span className="text-[10px] text-gray-500 font-bold uppercase block">Or Scan PhonePe QR Code</span>
+                        <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(phonepeLink)}`}
+                          alt="PhonePe QR Code"
+                          className="w-40 h-40 mx-auto object-contain"
+                        />
+                        <p className="text-[11px] text-gray-700 font-medium">UPI ID: <strong className="text-[#5f259f]">sparklekkv@ibl</strong></p>
+                        <div className="text-left space-y-1 pt-1">
+                          <label className="block text-[10px] font-bold text-[#5f259f] uppercase">Enter 12-Digit PhonePe Payment Ref/UTR *</label>
+                          <input
+                            type="text"
+                            maxLength={12}
+                            placeholder="e.g. 429182749102"
+                            value={utrInput}
+                            onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
+                            className="w-full bg-white border border-[#5f259f] rounded-lg p-2 text-xs font-mono text-center font-bold tracking-widest focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* OPTION 4: Supermoney */}
+                <div
+                  onClick={() => setPaymentMethod('Supermoney')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'Supermoney' ? 'border-[#F59E0B] bg-[#FFFBF0] shadow-md ring-2 ring-[#F59E0B]/30' : 'border-gray-200 bg-white hover:border-[#F59E0B]/50'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/10 text-[#F59E0B] flex items-center justify-center font-bold text-sm">
+                        🟡
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C] flex items-center gap-1.5">
+                          Supermoney UPI
+                          <span className="text-[9px] bg-[#F59E0B] text-white font-bold px-2 py-0.5 rounded-full">CASHBACK</span>
+                        </span>
+                        <p className="text-[10px] text-gray-500">Supermoney UPI Instant Pay & Rewards • Auto-fills ₹{cartTotal}</p>
+                      </div>
+                    </div>
+                    <input type="radio" checked={paymentMethod === 'Supermoney'} onChange={() => {}} className="accent-[#F59E0B] w-4 h-4" />
                   </div>
+
+                  {paymentMethod === 'Supermoney' && (
+                    <div className="mt-4 pt-4 border-t border-[#F59E0B]/20 space-y-4 text-center">
+                      <button
+                        type="button"
+                        onClick={(e) => handleAppPaymentClick(e, 'Supermoney', supermoneyLink)}
+                        className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white py-3 px-4 rounded-xl text-xs font-bold font-montserrat shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2"
+                      >
+                        <span>🟡 Pay ₹{cartTotal} directly using Supermoney App</span>
+                      </button>
+
+                      {/* Dynamic QR & UTR Section */}
+                      <div className="max-w-[260px] mx-auto rounded-2xl p-3 bg-white border-2 border-[#F59E0B] shadow-sm space-y-2">
+                        <span className="text-[10px] text-gray-500 font-bold uppercase block">Or Scan Supermoney QR Code</span>
+                        <img
+                          src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(supermoneyLink)}`}
+                          alt="Supermoney QR Code"
+                          className="w-40 h-40 mx-auto object-contain"
+                        />
+                        <p className="text-[11px] text-gray-700 font-medium">UPI ID: <strong className="text-[#F59E0B]">sparklekkv@ibl</strong></p>
+                        <div className="text-left space-y-1 pt-1">
+                          <label className="block text-[10px] font-bold text-[#F59E0B] uppercase">Enter 12-Digit Supermoney Ref/UTR *</label>
+                          <input
+                            type="text"
+                            maxLength={12}
+                            placeholder="e.g. 429182749102"
+                            value={utrInput}
+                            onChange={(e) => setUtrInput(e.target.value.replace(/\D/g, ''))}
+                            className="w-full bg-white border border-[#F59E0B] rounded-lg p-2 text-xs font-mono text-center font-bold tracking-widest focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* OPTION 5 (LAST): PayU Payment Gateway Integration (Swiggy Style) */}
+                <div
+                  onClick={() => setPaymentMethod('PayU')}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all ${paymentMethod === 'PayU' ? 'border-[#C89B3C] bg-gradient-to-r from-[#FFF9F5] via-white to-[#FFF9F5] shadow-lg ring-2 ring-[#C89B3C]/40' : 'border-gray-200 bg-white hover:border-[#C89B3C]/50'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#2C2C2C] to-[#C89B3C] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                        💳
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-[#2C2C2C] flex items-center gap-1.5">
+                          PayU Payment Gateway (Credit Card / Debit Card / NetBanking)
+                          <span className="text-[9px] bg-gradient-to-r from-[#C89B3C] to-[#2C2C2C] text-white font-bold px-2.5 py-0.5 rounded-full">RECOMMENDED</span>
+                        </span>
+                        <p className="text-[10px] text-gray-500 font-medium">💳 Credit Card, Debit Card, NetBanking & All UPI Apps</p>
+                      </div>
+                    </div>
+                    <input type="radio" checked={paymentMethod === 'PayU'} onChange={() => {}} className="accent-[#C89B3C] w-4 h-4" />
+                  </div>
+
+                  {paymentMethod === 'PayU' && (
+                    <div className="mt-4 pt-4 border-t border-[#C89B3C]/30 space-y-4 font-poppins text-xs">
+                      
+                      {/* Supported Gateways & Credit/Debit Cards */}
+                      <div className="bg-white p-3.5 rounded-2xl border border-[#D4AF7F]/30 shadow-xs space-y-2.5">
+                        <span className="text-[10px] font-bold text-[#C89B3C] uppercase tracking-wider block">Accepted Cards & Payment Methods:</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-gray-700 font-semibold">
+                          <div className="bg-[#FFF9F5] p-2 rounded-xl border border-[#D4AF7F]/20 flex items-center gap-2">
+                            <span>💳</span>
+                            <span>Credit Card & Debit Card</span>
+                          </div>
+                          <div className="bg-[#FFF9F5] p-2 rounded-xl border border-[#D4AF7F]/20 flex items-center gap-2">
+                            <span>🏧</span>
+                            <span>Visa, Mastercard, RuPay</span>
+                          </div>
+                          <div className="bg-[#FFF9F5] p-2 rounded-xl border border-[#D4AF7F]/20 flex items-center gap-2">
+                            <span>🏦</span>
+                            <span>Net Banking (All Banks)</span>
+                          </div>
+                          <div className="bg-[#FFF9F5] p-2 rounded-xl border border-[#D4AF7F]/20 flex items-center gap-2">
+                            <span>📱</span>
+                            <span>UPI & Digital Wallets</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        disabled={isPayULoading}
+                        onClick={handlePayUPayment}
+                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        <span>{isPayULoading ? 'Connecting to PayU Gateway...' : `Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* WhatsApp Payment Screenshot Share Box */}
+                <div className="bg-[#DCF8C6]/80 border-2 border-emerald-500 rounded-2xl p-3.5 text-center space-y-2 mt-4 shadow-sm">
+                  <div className="flex items-center justify-center gap-2 text-emerald-950 font-montserrat font-bold text-xs">
+                    <MessageSquare className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Instant WhatsApp Order Support (+91 9949157771)</span>
+                  </div>
+                  <a
+                    href={`https://wa.me/919949157771?text=${encodeURIComponent(`Hi Sparkle @kkv, I am completing my payment of ₹${cartTotal} via ${paymentMethod}.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd59] text-white font-montserrat font-bold py-2 px-4 rounded-xl text-xs shadow-sm transition-transform active:scale-95 w-full"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    Share Payment Confirmation on WhatsApp
+                  </a>
                 </div>
 
               </div>
 
-              <div className="pt-2 flex justify-between items-center font-montserrat">
+              <div className="pt-3 flex justify-between items-center font-montserrat border-t border-gray-100">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
@@ -477,13 +665,16 @@ export const CheckoutModal = () => {
                   ← Back to Address
                 </button>
 
-                <button
-                  onClick={handleVerifyAndCompleteOrder}
-                  className="shimmer-btn bg-gradient-to-r from-emerald-700 via-emerald-800 to-[#2C2C2C] text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-xl flex items-center gap-2"
-                >
-                  <span>Confirm Payment & Submit Order (₹{cartTotal})</span>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                </button>
+                {paymentMethod !== 'PayU' && (
+                  <button
+                    type="button"
+                    onClick={handleVerifyAndCompleteOrder}
+                    className="shimmer-btn bg-gradient-to-r from-emerald-700 via-emerald-800 to-[#2C2C2C] text-white px-7 py-3 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-2"
+                  >
+                    <span>Confirm Order (₹{cartTotal})</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                  </button>
+                )}
               </div>
             </div>
           )}
