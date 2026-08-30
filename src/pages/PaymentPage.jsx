@@ -61,7 +61,47 @@ export const PaymentPage = () => {
     setPaymentError('');
     setIsPayULoading(true);
     showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
-    window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
+    
+    const key = '8izKVp';
+    const salt = 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+    const txnid = `SPK-${Date.now()}`;
+    const cleanProductInfo = 'SparkleAccessories';
+    const cleanFirstName = (fullName.trim().split(' ')[0] || 'Customer').replace(/[^a-zA-Z0-9]/g, '') || 'Customer';
+    const cleanEmail = email.trim() || 'customer@sparklekkv.com';
+    const cleanPhone = phone.trim().replace(/[^0-9]/g, '') || '9949157771';
+
+    const hashString = `${key}|${txnid}|${cleanAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|||||||||||${salt}`;
+    const hash = sha512(hashString);
+
+    const params = {
+      key,
+      txnid,
+      amount: cleanAmount,
+      productinfo: cleanProductInfo,
+      firstname: cleanFirstName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      surl: 'https://sparkle-backend.onrender.com/api/payments/payu/success',
+      furl: 'https://sparkle-backend.onrender.com/api/payments/payu/failure',
+      hash,
+      service_provider: 'payu_paisa',
+      udf1: '', udf2: '', udf3: '', udf4: '', udf5: ''
+    };
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://secure.payu.in/_payment';
+
+    Object.keys(params).forEach((k) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = params[k];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
   };
 
   return (
