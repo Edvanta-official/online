@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, CheckCircle2, Lock, ArrowRight, CreditCard, Sparkles, Building2 } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
+import { apiFetch } from '../services/apiConfig';
 
 export const PaymentPage = () => {
   const { showToast, cartTotal } = useShop();
@@ -86,9 +87,8 @@ export const PaymentPage = () => {
     setIsPayULoading(true);
 
     try {
-      const response = await fetch('/api/payments/payu/hash', {
+      const response = await apiFetch('/payments/payu/hash', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: cleanAmount,
           firstname: fullName.trim().split(' ')[0] || 'Customer',

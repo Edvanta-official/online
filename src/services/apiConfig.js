@@ -54,7 +54,16 @@ export const apiFetch = async (endpoint, options = {}) => {
     }
   } catch (err) {}
 
-  // 3. Try http://localhost:5000 backend
+  // 3. Try Render live production backend
+  try {
+    const renderUrl = buildFullUrl('https://sparkle-backend.onrender.com/api', cleanEndpoint);
+    const res = await fetch(renderUrl, fetchOptions);
+    if (res.ok || res.status === 400 || res.status === 401 || res.status === 409) {
+      return res;
+    }
+  } catch (err) {}
+
+  // 4. Try http://localhost:5000 backend
   try {
     const localhostUrl = buildFullUrl('http://localhost:5000', cleanEndpoint);
     const res = await fetch(localhostUrl, fetchOptions);
