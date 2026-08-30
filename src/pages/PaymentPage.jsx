@@ -69,30 +69,12 @@ export const PaymentPage = () => {
     return v;
   };
 
-  const handlePayUPayment = async (e) => {
+  const handlePayUPayment = (e) => {
     if (e) e.preventDefault();
-
-    if (!fullName || !email || !phone) {
-      showToast('Please complete your Contact Details', 'error');
-      setPaymentError('Please fill in your Full Name, Email, and Phone number.');
-      return;
-    }
-
-    if (cardNumber.replace(/\s/g, '').length < 15) {
-      showToast('Please enter a valid 16-digit Card Number', 'error');
-      setPaymentError('Please enter a valid Credit/Debit Card Number.');
-      return;
-    }
-
     setPaymentError('');
     setIsPayULoading(true);
-
-    try {
-      showToast('🔒 Redirecting to Official PayU Secure Payment Page...');
-      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
-    } catch (err) {
-      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
-    }
+    showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
+    window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
   };
 
   return (
