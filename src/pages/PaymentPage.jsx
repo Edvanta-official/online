@@ -26,9 +26,9 @@ export const PaymentPage = () => {
   const [paymentError, setPaymentError] = useState('');
 
   useEffect(() => {
-    // Instant redirect to Official PayU Payment Gateway Link
+    // Instant redirect to Official PayU Live Payment Options Gateway Link
     showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
-    window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
+    window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
   }, []);
 
   const cleanAmount = Number(parseFloat(amount || 569)).toFixed(2);
@@ -61,7 +61,7 @@ export const PaymentPage = () => {
     setPaymentError('');
     setIsPayULoading(true);
     showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
-    window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
+    window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
   };
 
   return (

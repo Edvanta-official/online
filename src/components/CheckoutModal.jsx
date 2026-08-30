@@ -85,19 +85,19 @@ export const CheckoutModal = () => {
     showToast(`📱 ${appName} opened! After payment, enter your 12-digit UTR/Ref number below.`);
   };
 
-  // Direct Redirect to Official PayU Hosted Pre-Payment Gateway Link
+  // Direct Redirect to Official PayU Live Payment Options Gateway Link
   const handlePayUPayment = async () => {
     try {
       showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
       if (typeof setIsCheckoutOpen === 'function') {
         setIsCheckoutOpen(false);
       }
-      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
+      window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
     } catch (err) {
       if (typeof setIsCheckoutOpen === 'function') {
         setIsCheckoutOpen(false);
       }
-      window.location.href = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
+      window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
     }
   };
 
