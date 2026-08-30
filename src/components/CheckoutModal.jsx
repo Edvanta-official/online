@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, ShieldCheck, ArrowRight, CreditCard, Banknote, QrCode, Sparkles, Copy, Smartphone, Video, Truck, MessageSquare } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
-import { Link } from 'react-router-dom';
+import { apiFetch } from '../services/apiConfig';
+import { sha512 } from 'js-sha512';
 import exactScannerImg from '../assets/phonepe_scanner_exact.png';
 
 export const CheckoutModal = () => {
@@ -85,19 +86,89 @@ export const CheckoutModal = () => {
     showToast(`📱 ${appName} opened! After payment, enter your 12-digit UTR/Ref number below.`);
   };
 
-  // Direct Redirect to Official PayU Live Payment Options Gateway Link
+  // Official Dynamic PayU Hosted Checkout Submit Handler
   const handlePayUPayment = async () => {
+    setPaymentError('');
+    setIsPayULoading(true);
     try {
-      showToast('🔒 Connecting to PayU Official Secure Payment Gateway...');
+      let params = null;
+      let payuUrl = 'https://secure.payu.in/_payment';
+      const cleanAmount = Number(cartTotal || 0).toFixed(2);
+      const cleanFirstName = (shippingForm.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
+      const cleanEmail = (shippingForm.email || 'customer@sparklekkv.com').trim();
+      const cleanPhone = (shippingForm.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+      const cleanProductInfo = `SparkleAccessories${cart.length}items`;
+      const txnId = `SPK-${Date.now()}`;
+
+      // 1. Try Backend API Hash Generator
+      try {
+        const response = await apiFetch('/payments/payu/hash', {
+          method: 'POST',
+          body: JSON.stringify({
+            amount: cleanAmount,
+            firstname: cleanFirstName,
+            email: cleanEmail,
+            phone: cleanPhone,
+            productinfo: cleanProductInfo,
+            txnid: txnId,
+            cartItems: cart,
+            shippingAddress: shippingForm
+          })
+        });
+
+        const data = await response.json();
+        if (data && data.success && data.params) {
+          params = data.params;
+          if (data.payuUrl) payuUrl = data.payuUrl;
+        }
+      } catch (err) {}
+
+      // 2. Pure JS SHA-512 Fallback with Exact User Spec Formula
+      if (!params) {
+        const key = '8izKVp';
+        const salt = 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+        const hashString = `${key}|${txnId}|${cleanAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|||||||||||${salt}`;
+        const hash = sha512(hashString);
+
+        params = {
+          key,
+          txnid: txnId,
+          amount: cleanAmount,
+          productinfo: cleanProductInfo,
+          firstname: cleanFirstName,
+          email: cleanEmail,
+          phone: cleanPhone,
+          surl: 'https://sparkle-backend.onrender.com/api/payments/payu/success',
+          furl: 'https://sparkle-backend.onrender.com/api/payments/payu/failure',
+          hash,
+          service_provider: 'payu_paisa',
+          udf1: '', udf2: '', udf3: '', udf4: '', udf5: ''
+        };
+      }
+
+      showToast('🔒 Redirecting to PayU Secure Gateway...');
       if (typeof setIsCheckoutOpen === 'function') {
         setIsCheckoutOpen(false);
       }
-      window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = payuUrl;
+
+      Object.keys(params).forEach((k) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = k;
+        input.value = params[k];
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
     } catch (err) {
-      if (typeof setIsCheckoutOpen === 'function') {
-        setIsCheckoutOpen(false);
-      }
-      window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
+      console.error('PayU Submit Error:', err);
+      setPaymentError('❌ Connection error with PayU Gateway.');
+      setIsPayULoading(false);
     }
   };
 
@@ -621,17 +692,11 @@ export const CheckoutModal = () => {
 
                       <button
                         type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (typeof setIsCheckoutOpen === 'function') {
-                            setIsCheckoutOpen(false);
-                          }
-                          window.location.href = 'https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions';
-                        }}
-                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-center"
+                        disabled={isPayULoading}
+                        onClick={handlePayUPayment}
+                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                       >
-                        <span>{`Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
+                        <span>{isPayULoading ? 'Connecting to PayU Gateway...' : `Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
