@@ -619,15 +619,18 @@ export const CheckoutModal = () => {
                         </div>
                       </div>
 
-                      <button
-                        type="button"
-                        disabled={isPayULoading}
-                        onClick={handlePayUPayment}
-                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      <a
+                        href="https://api.payu.in/public/#/f6d2f6cb14024877660918af9369f2a3/paymentoptions"
+                        onClick={() => {
+                          if (typeof setIsCheckoutOpen === 'function') {
+                            setIsCheckoutOpen(false);
+                          }
+                        }}
+                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer text-center"
                       >
-                        <span>{isPayULoading ? 'Connecting to PayU Gateway...' : `Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
+                        <span>{`Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
                         <ArrowRight className="w-4 h-4" />
-                      </button>
+                      </a>
                     </div>
                   )}
                 </div>
