@@ -953,8 +953,7 @@ app.post('/api/payments/payu/hash', async (req, res) => {
       amount: canonicalAmount,
       productinfo: cleanProductInfo,
       firstname: cleanFirstName,
-      email: cleanEmail,
-      udf1, udf2, udf3, udf4, udf5
+      email: cleanEmail
     });
 
     const payuUrl = payuEnv.includes('prod') ? 'https://secure.payu.in/_payment' : 'https://test.payu.in/_payment';
