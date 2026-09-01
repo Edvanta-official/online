@@ -161,10 +161,10 @@ export const PRODUCTS = [
       "Peach",
       "White"
     ],
-    description: "Plumeria flower claw clip from Drive. Handcrafted flower claw clip with durable spring grip.",
+    description: "Plumeria flower claw clip set (6 Pieces included per Set). Handcrafted flower claw clip with durable spring grip.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹86/Set (₹7.1/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Flower Clips",
       "Drive File: 1.Plumeria flower claw clip.jpg"
     ]
   },
@@ -192,10 +192,10 @@ export const PRODUCTS = [
       "Dusty Pink",
       "Sage Green"
     ],
-    description: "Claw Clips from Drive. Premium pastel claw clips set for daily hair updos.",
+    description: "Claw Clips set (6 Pieces included per Set). Premium pastel claw clips set for daily hair updos.",
     details: [
-      "Quantity: 2 Sets (24 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Pastel Claw Clips",
       "Drive File: 2.Claw Clips.jpg"
     ]
   },
@@ -222,10 +222,10 @@ export const PRODUCTS = [
       "Rose Gold",
       "Glossy Black"
     ],
-    description: "Cross Claw Clips from Drive. Criss-cross metal claw clip with high tension spring.",
+    description: "Cross Claw Clips set (6 Pieces included per Set). Criss-cross metal claw clip with high tension spring.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Cross Claw Clips",
       "Drive File: 3.Cross Claw Clips.JPG"
     ]
   },
@@ -252,10 +252,10 @@ export const PRODUCTS = [
       "Metallic Gold",
       "Silver"
     ],
-    description: "Whale tail hair claw clips from Drive. Metallic whale tail claw clip for French twist updos.",
+    description: "Whale tail hair claw clips set (6 Pieces included per Set). Metallic whale tail claw clip for French twist updos.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹125/Set (₹10.4/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Whale Tail Clips",
       "Drive File: 4.Whale tail hair claw clips.JPG"
     ]
   },
@@ -282,10 +282,10 @@ export const PRODUCTS = [
       "Amber Tortoise",
       "Matte Nude"
     ],
-    description: "Rectangle hair claw clips from Drive. Rectangular hollow claw clip for medium hair.",
+    description: "Rectangle hair claw clips set (6 Pieces included per Set). Rectangular hollow claw clip for medium hair.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹148/Set (₹12.3/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Rectangle Clips",
       "Drive File: 5.Rectangle hair claw clips.jpg"
     ]
   },
@@ -312,10 +312,10 @@ export const PRODUCTS = [
       "Pastel Blossom Pink",
       "Lilac"
     ],
-    description: "Pastel flower design hair claw clips from Drive. Handcrafted pastel floral clip.",
+    description: "Pastel flower design hair claw clips set (6 Pieces included per Set). Handcrafted pastel floral clip.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹702/Set (₹58.5/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Premium Floral Clips",
       "Drive File: 6.Pastel flower design hair claw clips.jpg"
     ]
   },
@@ -342,10 +342,10 @@ export const PRODUCTS = [
       "White & Yellow",
       "Coral"
     ],
-    description: "Hawaian Plumeria flower claw clips from Drive. Tropical Frangipani hair claws.",
+    description: "Hawaian Plumeria flower claw clips set (6 Pieces included per Set). Tropical Frangipani hair claws.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹129/Set (₹10.7/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Hawaiian Plumeria Clips",
       "Drive File: 7.Hawaian Plumeria flower claw clips.jpg"
     ]
   },
@@ -371,10 +371,10 @@ export const PRODUCTS = [
     colors: [
       "Multicolor Floral"
     ],
-    description: "Flower claw clips from Drive. 5-petal floral claw clip set featuring anti-slip grip.",
+    description: "Flower claw clips set (6 Pieces included per Set). 5-petal floral claw clip set featuring anti-slip grip.",
     details: [
-      "Quantity: 1 Set (12 Pieces)",
-      "Purchase Rate: ₹137/Set (₹11.4/Piece)",
+      "Quantity: 1 Set (6 Pieces)",
+      "Package Includes: 6 Floral Claw Clips",
       "Drive File: 8.Flower claw clips.jpg"
     ]
   },
