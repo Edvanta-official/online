@@ -312,10 +312,11 @@ export const PRODUCTS = [
       "Pastel Blossom Pink",
       "Lilac"
     ],
-    description: "Pastel flower design hair claw clips from Drive. Handcrafted pastel floral clip.",
+    description: "Pastel flower design hair claw clips from Drive. Handcrafted pastel floral clip (Sold Individually).",
+    isIndividual: true,
     details: [
-      "Quantity: 1 Set (6 Pieces)",
-      "Purchase Rate: ₹351/Set (₹58.5/Piece)",
+      "Quantity: 1 Piece (Sold Individually)",
+      "Purchase Rate: ₹58.5/Piece",
       "Drive File: 6.Pastel flower design hair claw clips.jpg"
     ]
   },

@@ -194,7 +194,7 @@ export const ProductQuickViewModal = () => {
                   {(quickViewProduct.category === 'hair-accessories' || quickViewProduct.categoryName === 'Clips' || quickViewProduct.id?.startsWith('SPK-HC')) && (
                     <div className="bg-[#FFF9F5] border border-[#C89B3C]/50 text-[#2C2C2C] px-3 py-1.5 rounded-xl text-[11px] font-bold font-montserrat flex items-center gap-1">
                       <span className="text-[#C89B3C]">📦</span>
-                      <span>{quantity} Set ({quantity * 6} Pieces)</span>
+                      <span>{quickViewProduct.id === 'SPK-HC-006' || quickViewProduct.isIndividual ? `${quantity} Piece (Sold Individually)` : `${quantity} Set (${quantity * 6} Pieces)`}</span>
                     </div>
                   )}
                 </div>

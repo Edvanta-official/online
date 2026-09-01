@@ -337,7 +337,7 @@ export const ProductDetailsPage = () => {
                   {(product.category === 'hair-accessories' || product.categoryName === 'Clips' || product.id?.startsWith('SPK-HC')) && (
                     <div className="bg-[#FFF9F5] border border-[#C89B3C]/50 text-[#2C2C2C] px-3.5 py-2 rounded-2xl text-xs font-bold font-montserrat flex items-center gap-1.5 shadow-xs">
                       <span className="text-[#C89B3C]">📦</span>
-                      <span>{quantity} Set ({quantity * 6} Pieces Included)</span>
+                      <span>{product.id === 'SPK-HC-006' || product.isIndividual ? `${quantity} Piece${quantity > 1 ? 's' : ''} (Sold Individually)` : `${quantity} Set (${quantity * 6} Pieces Included)`}</span>
                     </div>
                   )}
 
