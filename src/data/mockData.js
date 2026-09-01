@@ -849,7 +849,7 @@ export const PRODUCTS = [
     isTrending: true,
     isBestSeller: false,
     isFlashSale: false,
-    stock: 1,
+    stock: 0,
     images: [
       "images/north_star_pendant_drive.jpg"
     ],
