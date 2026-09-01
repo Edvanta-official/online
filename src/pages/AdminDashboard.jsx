@@ -127,6 +127,34 @@ export const AdminDashboard = () => {
     setLiveUsers(sqlUsers);
   };
 
+  const handleExportCustomersCSV = () => {
+    if (!liveUsers || liveUsers.length === 0) {
+      showToast('⚠️ No customer records available to export.');
+      return;
+    }
+    const headers = ['User ID', 'Full Name', 'Email', 'Phone', 'Role', 'Auth Method', 'Login Count', 'Created At'];
+    const rows = liveUsers.map(u => [
+      `"${u.user_id || u.id || ''}"`,
+      `"${u.full_name || u.name || ''}"`,
+      `"${u.email || ''}"`,
+      `"${u.phone || ''}"`,
+      `"${u.role || 'customer'}"`,
+      `"${u.auth_method || u.authMethod || 'Standard'}"`,
+      `"${u.login_count || u.loginCount || 1}"`,
+      `"${u.created_at || u.createdAt || new Date().toISOString()}"`
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `sparkle_customers_database_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('📥 Customer Database CSV Downloaded!');
+  };
+
   useEffect(() => {
     syncLiveCloudOrders();
     syncLiveCloudUsers();
@@ -921,9 +949,19 @@ export const AdminDashboard = () => {
                   Real-time stream of all customer logins across all servers (OTP & Standard Auth)
                 </p>
               </div>
-              <span className="text-xs font-montserrat font-bold text-[#C89B3C] bg-[#2C2C2C] px-3 py-1 rounded-full">
-                {liveUsers.length} Logged In Users
-              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleExportCustomersCSV}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-montserrat px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 transition-colors shadow-md"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Export CSV</span>
+                </button>
+                <span className="text-xs font-montserrat font-bold text-[#C89B3C] bg-[#2C2C2C] px-3 py-1.5 rounded-xl">
+                  {liveUsers.length} Logged In Users
+                </span>
+              </div>
             </div>
 
             {(!liveUsers || liveUsers.length === 0) ? (
