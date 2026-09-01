@@ -170,24 +170,33 @@ export const ProductQuickViewModal = () => {
               )}
 
               {/* Quantity Manager */}
-              <div className="pt-2">
-                <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block mb-2">Quantity</label>
-                <div className="flex items-center w-32 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
-                  <button
-                    disabled={quantity <= 1 || quickViewProduct.stock <= 0}
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
-                  >
-                    -
-                  </button>
-                  <span className="flex-1 text-center font-bold text-xs">{quickViewProduct.stock <= 0 ? 0 : quantity}</span>
-                  <button
-                    disabled={quantity >= quickViewProduct.stock || quickViewProduct.stock <= 0}
-                    onClick={() => setQuantity(Math.min(quickViewProduct.stock, quantity + 1))}
-                    className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
-                  >
-                    +
-                  </button>
+              <div className="pt-2 space-y-2">
+                <label className="text-xs font-montserrat uppercase font-semibold text-[#2C2C2C] block">Quantity</label>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center w-32 border border-[#D4AF7F]/40 rounded-full overflow-hidden bg-[#FFF9F5]">
+                    <button
+                      disabled={quantity <= 1 || quickViewProduct.stock <= 0}
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
+                    >
+                      -
+                    </button>
+                    <span className="flex-1 text-center font-bold text-xs">{quickViewProduct.stock <= 0 ? 0 : quantity}</span>
+                    <button
+                      disabled={quantity >= quickViewProduct.stock || quickViewProduct.stock <= 0}
+                      onClick={() => setQuantity(Math.min(quickViewProduct.stock, quantity + 1))}
+                      className="w-10 py-1.5 text-gray-600 hover:bg-[#FCE4EC] font-bold text-sm disabled:opacity-30"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  {(quickViewProduct.category === 'hair-accessories' || quickViewProduct.categoryName === 'Clips' || quickViewProduct.id?.startsWith('SPK-HC')) && (
+                    <div className="bg-[#FFF9F5] border border-[#C89B3C]/50 text-[#2C2C2C] px-3 py-1.5 rounded-xl text-[11px] font-bold font-montserrat flex items-center gap-1">
+                      <span className="text-[#C89B3C]">📦</span>
+                      <span>{quantity} Set ({quantity * 6} Pieces)</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

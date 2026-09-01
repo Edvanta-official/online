@@ -334,6 +334,13 @@ export const ProductDetailsPage = () => {
                     </button>
                   </div>
 
+                  {(product.category === 'hair-accessories' || product.categoryName === 'Clips' || product.id?.startsWith('SPK-HC')) && (
+                    <div className="bg-[#FFF9F5] border border-[#C89B3C]/50 text-[#2C2C2C] px-3.5 py-2 rounded-2xl text-xs font-bold font-montserrat flex items-center gap-1.5 shadow-xs">
+                      <span className="text-[#C89B3C]">📦</span>
+                      <span>{quantity} Set ({quantity * 6} Pieces Included)</span>
+                    </div>
+                  )}
+
                   {quantity >= product.stock && product.stock > 0 && (
                     <span className="text-[11px] text-amber-800 bg-amber-50 px-3 py-1 rounded-full font-medium border border-amber-200 flex items-center gap-1 animate-pulse">
                       <ShieldAlert className="w-3.5 h-3.5 text-amber-600" /> Stock limit reached ({product.stock} Max)
