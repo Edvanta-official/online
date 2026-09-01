@@ -484,7 +484,11 @@ app.get('/api/auth/users', async (req, res) => {
     });
   } catch (err) {
     console.error('❌ Get Users Error:', err);
-    return res.status(500).json({ error: 'Failed to retrieve users.' });
+    const localUsers = readJsonFile(USERS_FILE, []);
+    return res.json({
+      count: localUsers.length,
+      users: localUsers
+    });
   }
 });
 
