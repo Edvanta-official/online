@@ -464,7 +464,7 @@ export const ProductDetailsPage = () => {
                     <li>Package Includes: 6 Premium Pieces per Set</li>
                   </>
                 ) : null}
-                {product.details?.filter(d => !d.toLowerCase().includes('quantity:')).map((d, i) => <li key={i}>{d}</li>) || <li>100% Quality Inspected before velvet packaging.</li>}
+                {product.details?.filter(d => !d.toLowerCase().includes('quantity:') && !d.toLowerCase().includes('purchase rate:') && !d.toLowerCase().includes('pieces')).map((d, i) => <li key={i}>{d}</li>) || <li>100% Quality Inspected before velvet packaging.</li>}
                 <li>Dispatched directly from Sparkle Boutique Hyderabad Workshop.</li>
                 <li>Hassle-free 7-day exchange or replacement policy.</li>
               </ul>
