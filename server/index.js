@@ -498,6 +498,25 @@ app.post(['/api/auth/record-login', '/auth/record-login'], async (req, res) => {
       await user.save();
     }
 
+    try {
+      const localUsers = readJsonFile(USERS_FILE, []);
+      const key = (cleanEmail || cleanPhone || name).toLowerCase();
+      const idx = localUsers.findIndex(u => (u.email || u.phone || u.user_id || '').toLowerCase() === key);
+      const userRecord = {
+        user_id: user.userId || `USR-${Date.now()}`,
+        full_name: user.fullName || name || 'Customer',
+        email: cleanEmail || user.email || 'N/A',
+        phone: cleanPhone || user.phone || 'N/A',
+        role: user.role || 'customer',
+        auth_method: authMethod || 'Standard Auth',
+        last_login_at: user.lastLoginAt || new Date().toISOString(),
+        login_count: user.loginCount || 1
+      };
+      if (idx >= 0) localUsers[idx] = userRecord;
+      else localUsers.unshift(userRecord);
+      writeJsonFile(USERS_FILE, localUsers);
+    } catch (fErr) {}
+
     return res.json({ success: true, user });
   } catch (err) {
     console.error('❌ Record Login Error:', err);
@@ -695,6 +714,12 @@ app.post('/api/orders', async (req, res) => {
 
     await newOrder.save();
     console.log(`✅ Order #${orderId} saved to database successfully!`);
+
+    try {
+      const localOrders = readJsonFile(ORDERS_FILE, []);
+      localOrders.unshift(newOrder.toObject ? newOrder.toObject() : newOrder);
+      writeJsonFile(ORDERS_FILE, localOrders);
+    } catch (fErr) {}
 
     // Send Notification Email
     const mailOptions = {
