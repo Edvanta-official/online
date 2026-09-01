@@ -458,7 +458,13 @@ export const ProductDetailsPage = () => {
             <div className="space-y-4 text-xs font-poppins text-gray-600 leading-relaxed">
               <p>{product.description}</p>
               <ul className="list-disc pl-5 space-y-1.5 text-gray-700 font-medium">
-                {product.details?.map((d, i) => <li key={i}>{d}</li>) || <li>100% Quality Inspected before velvet packaging.</li>}
+                {(product.category === 'hair-accessories' || product.categoryName === 'Clips' || product.id?.startsWith('SPK-HC')) ? (
+                  <>
+                    <li className="font-bold text-[#C89B3C]">Quantity: 1 Set (6 Pieces)</li>
+                    <li>Package Includes: 6 Premium Pieces per Set</li>
+                  </>
+                ) : null}
+                {product.details?.filter(d => !d.toLowerCase().includes('quantity:')).map((d, i) => <li key={i}>{d}</li>) || <li>100% Quality Inspected before velvet packaging.</li>}
                 <li>Dispatched directly from Sparkle Boutique Hyderabad Workshop.</li>
                 <li>Hassle-free 7-day exchange or replacement policy.</li>
               </ul>
