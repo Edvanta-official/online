@@ -488,6 +488,21 @@ app.get('/api/auth/users', async (req, res) => {
   }
 });
 
+// ADMIN - GET ALL ORDERS FROM MONGODB ATLAS
+app.get(['/api/orders', '/orders'], async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 }).lean();
+    return res.json({
+      success: true,
+      count: orders.length,
+      orders
+    });
+  } catch (err) {
+    console.error('❌ Get Orders Error:', err);
+    return res.status(500).json({ error: 'Failed to retrieve orders.' });
+  }
+});
+
 // ============================================================
 // NEWSLETTER SUBSCRIPTION
 // ============================================================
