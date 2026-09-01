@@ -11,6 +11,18 @@ const SQL_ITEMS_STORAGE_KEY = 'SPARKLE_SQL_ITEMS_DB';
 export const logUserLoginToSQL = (user) => {
   if (!user || (!user.email && !user.name && !user.phone)) return;
 
+  // Post live login event to backend server so all devices see the customer on Admin Dashboard
+  apiFetch('/api/auth/record-login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: user.name || user.full_name || 'Sparkle Customer',
+      email: user.email,
+      phone: user.phone,
+      authMethod: user.authMethod || 'Cross-Device Login'
+    })
+  }).catch(() => {});
+
   try {
     const users = JSON.parse(localStorage.getItem(SQL_USERS_STORAGE_KEY) || '[]');
     const cleanId = String(user.email || user.phone || user.name || '').toLowerCase();

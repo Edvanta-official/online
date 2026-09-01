@@ -461,6 +461,50 @@ app.post('/api/auth/verify-otp', async (req, res) => {
   }
 });
 
+// RECORD ANY DEVICE LOGIN TO MONGODB ATLAS DATABASE
+app.post(['/api/auth/record-login', '/auth/record-login'], async (req, res) => {
+  try {
+    const { name, email, phone, authMethod } = req.body;
+    if (!email && !phone && !name) {
+      return res.status(400).json({ error: 'User details required.' });
+    }
+
+    const cleanEmail = (email || '').toLowerCase().trim();
+    const cleanPhone = (phone || '').replace(/\D/g, '');
+
+    let user = null;
+    if (cleanEmail && !cleanEmail.includes('@sparklekkv.com')) {
+      user = await User.findOne({ email: cleanEmail });
+    } else if (cleanPhone) {
+      user = await User.findOne({ phone: cleanPhone });
+    }
+
+    if (!user) {
+      user = new User({
+        userId: `USR-${Date.now()}`,
+        fullName: name || 'Sparkle Customer',
+        email: cleanEmail || '',
+        phone: cleanPhone || '',
+        role: 'customer',
+        authMethod: authMethod || 'Standard Auth',
+        loginCount: 1,
+        lastLoginAt: new Date()
+      });
+      await user.save();
+    } else {
+      user.fullName = name || user.fullName;
+      user.lastLoginAt = new Date();
+      user.loginCount = (user.loginCount || 1) + 1;
+      await user.save();
+    }
+
+    return res.json({ success: true, user });
+  } catch (err) {
+    console.error('❌ Record Login Error:', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 // ============================================================
 // ADMIN - GET ALL USERS FROM MONGODB ATLAS
 // ============================================================
