@@ -51,6 +51,8 @@
     "phone": "9845593984",
     "role": "customer",
     "login_count": 0,
-    "last_login_at": "2026-08-25T18:12:24.000Z"
+    "last_login_at": "2026-08-25T18:12:24.000Z",
+    "lastLoginAt": "2026-09-02T10:41:28.052Z",
+    "loginCount": 1
   }
 ]

@@ -178,25 +178,23 @@ export const CheckoutModal = () => {
 
   const PAYU_PREPAYMENT_LINK = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
 
-  const handleShippingSubmit = async (e) => {
+  const handleShippingSubmit = (e) => {
     e.preventDefault();
     if (!shippingForm.fullName || !shippingForm.phone || !shippingForm.street || !shippingForm.pincode) {
       showToast("Please fill in all address details", "error");
       return;
     }
 
-    setPaymentError('');
-    setIsPayULoading(true);
-    showToast("🔒 Saving order to MySQL database & opening PayU Pre-Payment page...");
+    showToast("🔒 Opening PayU Payment Page...");
 
     const cleanFirstName = (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
     const cleanEmail = (shippingForm.email || user?.email || 'customer@sparklekkv.com').trim();
     const cleanPhone = (shippingForm.phone || user?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
     const cleanProductInfo = `SparkleAccessories${cart.length}items`;
 
-    // 1. Save Pending Order to MySQL Database & VS Code local file
+    // 1. Asynchronously Save Pending Order to MySQL Database & VS Code local engine (non-blocking)
     try {
-      await apiFetch('/payment/payu/create', {
+      apiFetch('/payment/payu/create', {
         method: 'POST',
         body: JSON.stringify({
           amount: cartTotal,
@@ -208,15 +206,12 @@ export const CheckoutModal = () => {
           shippingAddress: shippingForm,
           customerId: user?.id || user?.user_id
         })
-      });
-    } catch (err) {
-      console.warn('Backend order save warning:', err.message);
-    }
+      }).catch(() => {});
+    } catch (err) {}
 
-    setIsPayULoading(false);
     setIsCheckoutOpen(false);
 
-    // 2. Open official PayU Pre-Payment Page Link directly with exact cart total amount
+    // 2. Instantly open official PayU Pre-Payment Page Link with exact cart total amount
     const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
     window.location.href = targetUrl;
   };
