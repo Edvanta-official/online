@@ -191,29 +191,23 @@ export const CheckoutModal = () => {
     const cleanFirstName = (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
     const cleanEmail = (shippingForm.email || user?.email || 'customer@sparklekkv.com').trim();
     const cleanPhone = (shippingForm.phone || user?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
-    const cleanProductInfo = `SparkleAccessories${cart.length}items`;
 
-    // 1. Asynchronously Save Pending Order to MySQL Database & VS Code local engine (non-blocking)
+    // 1. Store pending checkout details in sessionStorage (Order placed ONLY after payment completion)
     try {
-      apiFetch('/payment/payu/create', {
-        method: 'POST',
-        body: JSON.stringify({
-          amount: cartTotal,
-          firstname: cleanFirstName,
-          email: cleanEmail,
-          phone: cleanPhone,
-          productinfo: cleanProductInfo,
-          cartItems: cart,
-          shippingAddress: shippingForm,
-          customerId: user?.id || user?.user_id
-        })
-      }).catch(() => {});
+      sessionStorage.setItem('sparkle_pending_checkout', JSON.stringify({
+        cartItems: cart,
+        shippingAddress: shippingForm,
+        cartTotal,
+        customerName: shippingForm.fullName,
+        phone: cleanPhone,
+        email: cleanEmail,
+        customerId: user?.id || user?.user_id
+      }));
     } catch (err) {}
 
-    if (clearCart) clearCart();
     setIsCheckoutOpen(false);
 
-    // 2. Instantly open official PayU Pre-Payment Page Link with exact cart total amount
+    // 2. Open official PayU Payment Link (Cart & Order placed after payment is DONE)
     const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
     window.location.href = targetUrl;
   };

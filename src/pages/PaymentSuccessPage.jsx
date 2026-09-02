@@ -2,20 +2,59 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle2, ShieldCheck, ArrowRight, MessageSquare, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useShop } from '../context/ShopContext';
+import { apiFetch } from '../services/apiConfig';
 
 export const PaymentSuccessPage = () => {
-  const { clearCart } = useShop();
+  const { clearCart, placeOrder, user } = useShop();
   const [txnid, setTxnid] = useState('');
   const [amount, setAmount] = useState('');
 
   useEffect(() => {
     try {
-      if (clearCart) clearCart();
       const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '');
       const t = params.get('txnid') || params.get('mihpayid') || `SPK-${Date.now()}`;
       const a = params.get('amount') || '569.00';
       setTxnid(t);
       setAmount(a);
+
+      // Save confirmed order to MySQL & local engine ONLY AFTER payment is completed
+      const pendingStr = sessionStorage.getItem('sparkle_pending_checkout');
+      if (pendingStr) {
+        const pending = JSON.parse(pendingStr);
+        
+        apiFetch('/payment/payu/create', {
+          method: 'POST',
+          body: JSON.stringify({
+            amount: pending.cartTotal || a,
+            firstname: (pending.customerName || 'Customer').split(' ')[0],
+            email: pending.email || 'customer@sparklekkv.com',
+            phone: pending.phone || '9949157771',
+            productinfo: 'SparkleAccessoriesPaid',
+            cartItems: pending.cartItems || [],
+            shippingAddress: pending.shippingAddress,
+            customerId: pending.customerId || user?.id,
+            paymentStatus: 'paid',
+            orderStatus: 'Order Received',
+            payuTxnid: t
+          })
+        }).catch(() => {});
+
+        if (placeOrder) {
+          placeOrder({
+            shippingAddress: pending.shippingAddress,
+            paymentMethod: 'PayU Hosted Gateway',
+            payuTxnid: t,
+            items: pending.cartItems,
+            cartTotal: pending.cartTotal || a
+          });
+        }
+
+        // Clear cart NOW that payment is completed!
+        if (clearCart) clearCart();
+        sessionStorage.removeItem('sparkle_pending_checkout');
+      } else {
+        if (clearCart) clearCart();
+      }
     } catch (e) {}
   }, []);
 
