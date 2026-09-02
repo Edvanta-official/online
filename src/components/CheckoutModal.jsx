@@ -178,39 +178,6 @@ export const CheckoutModal = () => {
 
   const PAYU_PREPAYMENT_LINK = 'https://payu.in/pay/285702A153E4F3C350185F77B97F6B6C';
 
-  const handleOpenPayUPrepaymentLink = async (e) => {
-    if (e) e.preventDefault();
-    if (!shippingForm.fullName || !shippingForm.phone || !shippingForm.street || !shippingForm.pincode) {
-      showToast("Please fill in all address details", "error");
-      return;
-    }
-
-    setIsPayULoading(true);
-    showToast("🔒 Registering order in MySQL database & connecting to PayU...");
-
-    try {
-      await apiFetch('/payment/payu/create', {
-        method: 'POST',
-        body: JSON.stringify({
-          amount: cartTotal,
-          firstname: (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0],
-          email: shippingForm.email || user?.email,
-          phone: shippingForm.phone || user?.phone,
-          productinfo: `SparkleAccessories${cart.length}items`,
-          cartItems: cart,
-          shippingAddress: shippingForm,
-          customerId: user?.id || user?.user_id
-        })
-      });
-    } catch (err) {}
-
-    setIsPayULoading(false);
-    setIsCheckoutOpen(false);
-
-    const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
-    window.location.href = targetUrl;
-  };
-
   const handleShippingSubmit = async (e) => {
     e.preventDefault();
     if (!shippingForm.fullName || !shippingForm.phone || !shippingForm.street || !shippingForm.pincode) {
@@ -218,24 +185,68 @@ export const CheckoutModal = () => {
       return;
     }
 
-    // Automatically record pending order in MySQL & VS Code file engine
+    setPaymentError('');
+    setIsPayULoading(true);
+    showToast("🔒 Saving order to MySQL database & connecting to PayU Gateway...");
+
+    let params = null;
+    let payuUrl = 'https://secure.payu.in/_payment';
+    const cleanFirstName = (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
+    const cleanEmail = (shippingForm.email || user?.email || 'customer@sparklekkv.com').trim();
+    const cleanPhone = (shippingForm.phone || user?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+    const cleanProductInfo = `SparkleAccessories${cart.length}items`;
+
+    // 1. Save Pending Order to MySQL Database & VS Code local file & Generate PayU Hash
     try {
-      await apiFetch('/payment/payu/create', {
+      const response = await apiFetch('/payment/payu/create', {
         method: 'POST',
         body: JSON.stringify({
           amount: cartTotal,
-          firstname: (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0],
-          email: shippingForm.email || user?.email,
-          phone: shippingForm.phone || user?.phone,
-          productinfo: `SparkleAccessories${cart.length}items`,
+          firstname: cleanFirstName,
+          email: cleanEmail,
+          phone: cleanPhone,
+          productinfo: cleanProductInfo,
           cartItems: cart,
           shippingAddress: shippingForm,
           customerId: user?.id || user?.user_id
         })
       });
-    } catch (err) {}
 
-    setStep(2);
+      const data = await response.json();
+      if (data && data.success && data.params) {
+        params = data.params;
+        if (data.payuUrl) payuUrl = data.payuUrl;
+      }
+    } catch (err) {
+      console.warn('Backend payu/create fetch warning:', err.message);
+    }
+
+    // 2. Redirect to PayU Official Link if Hosted Gateway Params Not Returned
+    if (!params) {
+      setIsPayULoading(false);
+      setIsCheckoutOpen(false);
+      const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
+      window.location.href = targetUrl;
+      return;
+    }
+
+    showToast('🔒 Redirecting to PayU Official Payment Gateway...');
+    setIsCheckoutOpen(false);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = payuUrl;
+
+    Object.keys(params).forEach((k) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = params[k];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
   };
 
   const handleVerifyAndCompleteOrder = async () => {
@@ -442,21 +453,13 @@ export const CheckoutModal = () => {
                   </div>
                 </div>
 
-                <div className="pt-4 flex flex-col sm:flex-row items-center justify-end gap-3">
-                  <button
-                    type="button"
-                    onClick={handleOpenPayUPrepaymentLink}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#C89B3C] via-[#E5C158] to-[#C89B3C] text-[#2C2C2C] hover:text-black font-montserrat font-bold text-xs px-6 py-3.5 rounded-full uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
-                  >
-                    <span>🔗 Pay ₹{cartTotal} via PayU Link</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-
+                <div className="pt-4 flex justify-end">
                   <button
                     type="submit"
-                    className="w-full sm:w-auto bg-[#2C2C2C] hover:bg-[#C89B3C] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                    disabled={isPayULoading}
+                    className="w-full sm:w-auto bg-[#2C2C2C] hover:bg-[#C89B3C] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                   >
-                    <span>Proceed to Payment</span>
+                    <span>{isPayULoading ? 'Connecting to PayU...' : 'Proceed to Payment'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -756,26 +759,15 @@ export const CheckoutModal = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <button
-                          type="button"
-                          disabled={isPayULoading}
-                          onClick={handlePayUPayment}
-                          className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                        >
-                          <span>{isPayULoading ? 'Connecting to PayU Gateway...' : `Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={handleOpenPayUPrepaymentLink}
-                          className="w-full bg-[#FFF9F5] hover:bg-[#FFF3E0] text-[#2C2C2C] border border-[#D4AF7F] py-3 px-4 rounded-xl text-xs font-bold font-montserrat shadow-xs transition-all flex items-center justify-center gap-2"
-                        >
-                          <span>🔗 Or Pay via PayU Link (payu.in/pay/2857...)</span>
-                          <ArrowRight className="w-4 h-4 text-[#C89B3C]" />
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        disabled={isPayULoading}
+                        onClick={handlePayUPayment}
+                        className="w-full shimmer-btn bg-gradient-to-r from-[#2C2C2C] via-[#C89B3C] to-[#2C2C2C] text-white py-3.5 px-4 rounded-xl text-xs font-bold font-montserrat uppercase tracking-wider shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        <span>{isPayULoading ? 'Connecting to PayU Gateway...' : `Proceed to Pay via PayU Gateway (₹${cartTotal})`}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
                     </div>
                   )}
                 </div>
