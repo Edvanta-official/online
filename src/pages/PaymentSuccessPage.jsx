@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, ShieldCheck, ArrowRight, MessageSquare, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 
 export const PaymentSuccessPage = () => {
+  const { clearCart } = useShop();
   const [txnid, setTxnid] = useState('');
   const [amount, setAmount] = useState('');
 
   useEffect(() => {
     try {
+      if (clearCart) clearCart();
       const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1] || '');
       const t = params.get('txnid') || params.get('mihpayid') || `SPK-${Date.now()}`;
       const a = params.get('amount') || '569.00';

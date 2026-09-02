@@ -16,6 +16,7 @@ export const CheckoutModal = () => {
     cartTotal,
     user,
     placeOrder,
+    clearCart,
     showToast
   } = useShop();
 
@@ -209,6 +210,7 @@ export const CheckoutModal = () => {
       }).catch(() => {});
     } catch (err) {}
 
+    if (clearCart) clearCart();
     setIsCheckoutOpen(false);
 
     // 2. Instantly open official PayU Pre-Payment Page Link with exact cart total amount
