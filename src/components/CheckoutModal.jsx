@@ -187,18 +187,16 @@ export const CheckoutModal = () => {
 
     setPaymentError('');
     setIsPayULoading(true);
-    showToast("🔒 Saving order to MySQL database & connecting to PayU Gateway...");
+    showToast("🔒 Saving order to MySQL database & opening PayU Pre-Payment page...");
 
-    let params = null;
-    let payuUrl = 'https://secure.payu.in/_payment';
     const cleanFirstName = (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
     const cleanEmail = (shippingForm.email || user?.email || 'customer@sparklekkv.com').trim();
     const cleanPhone = (shippingForm.phone || user?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
     const cleanProductInfo = `SparkleAccessories${cart.length}items`;
 
-    // 1. Save Pending Order to MySQL Database & VS Code local file & Generate PayU Hash
+    // 1. Save Pending Order to MySQL Database & VS Code local file
     try {
-      const response = await apiFetch('/payment/payu/create', {
+      await apiFetch('/payment/payu/create', {
         method: 'POST',
         body: JSON.stringify({
           amount: cartTotal,
@@ -211,42 +209,16 @@ export const CheckoutModal = () => {
           customerId: user?.id || user?.user_id
         })
       });
-
-      const data = await response.json();
-      if (data && data.success && data.params) {
-        params = data.params;
-        if (data.payuUrl) payuUrl = data.payuUrl;
-      }
     } catch (err) {
-      console.warn('Backend payu/create fetch warning:', err.message);
+      console.warn('Backend order save warning:', err.message);
     }
 
-    // 2. Redirect to PayU Official Link if Hosted Gateway Params Not Returned
-    if (!params) {
-      setIsPayULoading(false);
-      setIsCheckoutOpen(false);
-      const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
-      window.location.href = targetUrl;
-      return;
-    }
-
-    showToast('🔒 Redirecting to PayU Official Payment Gateway...');
+    setIsPayULoading(false);
     setIsCheckoutOpen(false);
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = payuUrl;
-
-    Object.keys(params).forEach((k) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = k;
-      input.value = params[k];
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
+    // 2. Open official PayU Pre-Payment Page Link directly with exact cart total amount
+    const targetUrl = `${PAYU_PREPAYMENT_LINK}?amount=${encodeURIComponent(cartTotal)}`;
+    window.location.href = targetUrl;
   };
 
   const handleVerifyAndCompleteOrder = async () => {

@@ -1,5 +1,47 @@
 [
   {
+    "orderId": "ORD-1788345386003",
+    "id": "ORD-1788345386003",
+    "customerId": "USR-1788088220734",
+    "customer_id": "USR-1788088220734",
+    "customerName": "Chenchu Koushik Pendela",
+    "customer_name": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "shippingAddress": {
+      "street": "Flat 402, Rosewood Heights, Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081"
+    },
+    "items": [
+      {
+        "id": "SPK-HC-006",
+        "name": "Pastel flower design hair claw clips",
+        "selectedSize": "Standard",
+        "selectedColor": "Pastel Blossom Pink",
+        "quantity": 1,
+        "price": 79,
+        "subtotal": 79
+      }
+    ],
+    "subtotal": 79,
+    "discountAmount": 0,
+    "shippingFee": 49,
+    "finalPaidAmount": 128,
+    "totalAmount": 128,
+    "paymentMethod": "PayU Hosted Gateway",
+    "paymentStatus": "pending",
+    "payment_status": "pending",
+    "orderStatus": "payment_pending",
+    "order_status": "payment_pending",
+    "payuTxnid": "SPK-20260902-751791",
+    "payu_txnid": "SPK-20260902-751791",
+    "mihpayid": "",
+    "paymentHash": "dc9c310d68fc434571595af6aa0952fe2d4ce11a47730acf7b88b6a45101472d308f83501aed63578f69ee9c89fdd40b559338d7794c0e6e4a8ef3c9838e6dc0",
+    "createdAt": "2026-09-02T10:36:26.055Z"
+  },
+  {
     "orderId": "ORD-1788345207957",
     "id": "ORD-1788345207957",
     "customerId": "USR-1788088220734",
