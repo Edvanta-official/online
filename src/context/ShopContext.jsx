@@ -432,20 +432,20 @@ export const ShopProvider = ({ children }) => {
     return newOrder;
   };
 
-  // Fetch logged in customer's personal orders from MySQL via backend API
+  // Fetch live customer/admin orders from MySQL database via backend API
   useEffect(() => {
-    const token = localStorage.getItem('sparkle_token');
-    if (token && user.isLoggedIn) {
-      apiFetch('/api/orders/my-orders')
+    if (user && user.isLoggedIn) {
+      const custId = user.id || user.user_id || user.email || user.phone || '';
+      apiFetch(`/api/orders/user/${encodeURIComponent(custId)}`)
         .then(res => res.json())
         .then(data => {
-          if (data && data.success && Array.isArray(data.orders)) {
+          if (data && Array.isArray(data.orders) && data.orders.length > 0) {
             setOrders(data.orders);
           }
         })
-        .catch(err => console.log('My orders fetch background:', err.message));
+        .catch(err => console.log('My orders fetch:', err.message));
     }
-  }, [user.isLoggedIn]);
+  }, [user.isLoggedIn, user.id, user.email, user.phone]);
 
   const loginUser = (nameInput, phoneInput, passwordInput, emailInput, roleInput) => {
     const name = nameInput || "Sparkle Customer";

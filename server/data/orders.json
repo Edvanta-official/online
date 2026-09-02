@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "orderId": "ORD-1788344076552",
+    "id": "ORD-1788344076552",
+    "customerId": "USR-1788088220734",
+    "customer_id": "USR-1788088220734",
+    "customerName": "Chenchu Koushik Pendela",
+    "customer_name": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "shippingAddress": {
+      "street": "Flat 402, Rosewood Heights, Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081"
+    },
+    "items": [
+      {
+        "id": "SPK-HC-006",
+        "name": "Pastel flower design hair claw clips",
+        "selectedSize": "Standard",
+        "selectedColor": "Pastel Blossom Pink",
+        "quantity": 1,
+        "price": 79,
+        "subtotal": 79
+      }
+    ],
+    "subtotal": 79,
+    "discountAmount": 0,
+    "shippingFee": 49,
+    "finalPaidAmount": 128,
+    "totalAmount": 128,
+    "paymentMethod": "PayU Hosted Gateway",
+    "paymentStatus": "pending",
+    "payment_status": "pending",
+    "orderStatus": "payment_pending",
+    "order_status": "payment_pending",
+    "payuTxnid": "SPK-20260902-822204",
+    "payu_txnid": "SPK-20260902-822204",
+    "mihpayid": "",
+    "paymentHash": "16d3253a13b6b18b9642d47a88957ab8374c10ac86a6f79be8cda2be8c5d4c8776ffba6a61159c7c2358f5411c95337417816853982a8dab5cc4c1a3c907d5b5",
+    "createdAt": "2026-09-02T10:15:26.977Z"
+  },
+  {
+    "orderId": "ORD-1788344067221",
+    "id": "ORD-1788344067221",
+    "customerId": "USR-1788088220734",
+    "customer_id": "USR-1788088220734",
+    "customerName": "Chenchu Koushik Pendela",
+    "customer_name": "Chenchu Koushik Pendela",
+    "email": "chenchukoushik@gmail.com",
+    "phone": "7780660803",
+    "shippingAddress": {
+      "street": "Flat 402, Rosewood Heights, Madhapur",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081"
+    },
+    "items": [
+      {
+        "id": "SPK-HC-006",
+        "name": "Pastel flower design hair claw clips",
+        "selectedSize": "Standard",
+        "selectedColor": "Pastel Blossom Pink",
+        "quantity": 1,
+        "price": 79,
+        "subtotal": 79
+      }
+    ],
+    "subtotal": 79,
+    "discountAmount": 0,
+    "shippingFee": 49,
+    "finalPaidAmount": 128,
+    "totalAmount": 128,
+    "paymentMethod": "PayU Hosted Gateway",
+    "paymentStatus": "pending",
+    "payment_status": "pending",
+    "orderStatus": "payment_pending",
+    "order_status": "payment_pending",
+    "payuTxnid": "SPK-20260902-811783",
+    "payu_txnid": "SPK-20260902-811783",
+    "mihpayid": "",
+    "paymentHash": "eade4a5cd697ba34377e6c9bc8ac91286b93c15eafffff93d2ae45490a80fd6bbd8c7ea8808d9894cc7e1f7f7ca1f61bae04f9eeb4bd9753159d038862b4d566",
+    "createdAt": "2026-09-02T10:14:27.254Z"
+  }
+]

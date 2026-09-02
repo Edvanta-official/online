@@ -90,29 +90,29 @@ export const CheckoutModal = () => {
   const handlePayUPayment = async () => {
     setPaymentError('');
     setIsPayULoading(true);
+    showToast('🔒 Connecting to PayU Secure Payment Gateway...');
+
     try {
       let params = null;
       let payuUrl = 'https://secure.payu.in/_payment';
-      const cleanAmount = Number(cartTotal || 0).toFixed(2);
-      const cleanFirstName = (shippingForm.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
-      const cleanEmail = (shippingForm.email || 'customer@sparklekkv.com').trim();
-      const cleanPhone = (shippingForm.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+      const cleanFirstName = (shippingForm.fullName || user?.name || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
+      const cleanEmail = (shippingForm.email || user?.email || 'customer@sparklekkv.com').trim();
+      const cleanPhone = (shippingForm.phone || user?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
       const cleanProductInfo = `SparkleAccessories${cart.length}items`;
-      const txnId = `SPK-${Date.now()}`;
 
-      // 1. Try Backend API Hash Generator
+      // 1. Call Backend Order Creation & SHA-512 PayU Hash API
       try {
-        const response = await apiFetch('/payments/payu/hash', {
+        const response = await apiFetch('/payment/payu/create', {
           method: 'POST',
           body: JSON.stringify({
-            amount: cleanAmount,
+            amount: cartTotal,
             firstname: cleanFirstName,
             email: cleanEmail,
             phone: cleanPhone,
             productinfo: cleanProductInfo,
-            txnid: txnId,
             cartItems: cart,
-            shippingAddress: shippingForm
+            shippingAddress: shippingForm,
+            customerId: user?.id || user?.user_id
           })
         });
 
@@ -121,12 +121,16 @@ export const CheckoutModal = () => {
           params = data.params;
           if (data.payuUrl) payuUrl = data.payuUrl;
         }
-      } catch (err) {}
+      } catch (err) {
+        console.warn('Backend payu/create fetch warning:', err.message);
+      }
 
-      // 2. Pure JS SHA-512 Fallback (Ensures 100% connection success even if backend is sleeping or offline)
+      // 2. Pure JS SHA-512 Fallback if backend API endpoint not reached
       if (!params) {
         const key = '8izKVp';
         const salt = 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+        const txnId = `SPK-${Date.now()}`;
+        const cleanAmount = Number(cartTotal || 0).toFixed(2);
         const hashString = `${key}|${txnId}|${cleanAmount}|${cleanProductInfo}|${cleanFirstName}|${cleanEmail}|||||||||||${salt}`;
         const hash = sha512(hashString);
 
@@ -167,7 +171,7 @@ export const CheckoutModal = () => {
       form.submit();
     } catch (err) {
       console.error('PayU Submit Error:', err);
-      setPaymentError('❌ Connection error with PayU Gateway.');
+      setPaymentError('❌ Connection error with PayU Gateway. Please try again.');
       setIsPayULoading(false);
     }
   };

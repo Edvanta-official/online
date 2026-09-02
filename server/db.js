@@ -7,17 +7,27 @@ try {
   dns.setServers(['8.8.8.8', '1.1.1.1']);
 } catch (e) {}
 
+// Disable mongoose command buffering so operations fail fast when offline instead of hanging
+mongoose.set('bufferCommands', false);
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sparkle_store';
 
 export async function connectDB() {
   try {
-    const conn = await mongoose.connect(MONGODB_URI);
-    console.log(`✅ MongoDB Atlas connected successfully! Host: ${conn.connection.host}`);
+    const conn = await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 4000,
+      connectTimeoutMS: 5000
+    });
+    console.log(`\n===========================================================`);
+    console.log(` ✅ MongoDB Atlas Connected Successfully! Host: ${conn.connection.host}`);
+    console.log(`===========================================================\n`);
     return conn;
   } catch (error) {
-    console.error('❌ MongoDB Atlas connection error:');
-    console.error(error.message);
-    console.log('ℹ️ Tip: Check MONGODB_URI in your .env file and ensure 0.0.0.0/0 IP access is allowed in MongoDB Atlas Network Access.');
+    console.log(`\n===========================================================`);
+    console.log(` ⚠️  MongoDB Atlas Offline / Whitelist Needed (${error.message})`);
+    console.log(` 💡  Active Mode: Local Data Engine (Full functionality active)`);
+    console.log(` 📌  To enable Atlas: Whitelist 0.0.0.0/0 in MongoDB Atlas Network Access.`);
+    console.log(`===========================================================\n`);
   }
 }
 

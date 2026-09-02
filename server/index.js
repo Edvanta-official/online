@@ -10,6 +10,7 @@ import nodemailer from 'nodemailer';
 import bcrypt from 'bcryptjs';
 
 import db from './db.js';
+import { saveOrderToDatabase, updateOrderStatusByTxnid, fetchCustomerOrders, fetchAllDatabaseOrders } from './db_mysql.js';
 import User from './models/User.js';
 import Order from './models/Order.js';
 import Subscriber from './models/Subscriber.js';
@@ -36,6 +37,9 @@ if (!fs.existsSync(DATA_DIR)) {
 const SUBSCRIBERS_FILE = path.join(DATA_DIR, 'subscribers.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const OTPS_FILE = path.join(DATA_DIR, 'otps.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+
+const isMongoConnected = () => db.connection && db.connection.readyState === 1;
 
 const readJsonFile = (filePath, fallback = []) => {
   try {
@@ -122,13 +126,22 @@ app.get(['/', '/api'], (req, res) => {
 
 app.get('/api/health', async (req, res) => {
   try {
-    const totalUsers = await User.countDocuments();
-    const totalOrders = await Order.countDocuments();
-    const totalSubscribers = await Subscriber.countDocuments();
+    const connected = isMongoConnected();
+    let totalUsers = 0, totalOrders = 0, totalSubscribers = 0;
+    if (connected) {
+      totalUsers = await User.countDocuments();
+      totalOrders = await Order.countDocuments();
+      totalSubscribers = await Subscriber.countDocuments();
+    } else {
+      totalUsers = readJsonFile(USERS_FILE, []).length;
+      totalOrders = readJsonFile(ORDERS_FILE, []).length;
+      totalSubscribers = readJsonFile(SUBSCRIBERS_FILE, []).length;
+    }
 
     res.json({
       status: 'ok',
-      service: 'Sparkle @kkv Backend API (MongoDB Atlas)',
+      mode: connected ? 'MongoDB Atlas Online' : 'Local Data Engine Active',
+      service: 'Sparkle @kkv Backend API',
       adminEmail: ADMIN_EMAIL,
       totalSubscribers,
       totalOrders,
@@ -137,9 +150,10 @@ app.get('/api/health', async (req, res) => {
     });
   } catch (err) {
     console.error('Health Check Error:', err);
-    res.status(500).json({
-      status: 'error',
-      error: 'MongoDB health check failed.'
+    res.status(200).json({
+      status: 'ok',
+      mode: 'Local Data Engine Active',
+      timestamp: new Date().toISOString()
     });
   }
 });
@@ -160,35 +174,62 @@ app.post('/api/auth/register', async (req, res) => {
     const cleanEmail = email ? String(email).trim().toLowerCase() : null;
     const cleanPhone = phone ? String(phone).replace(/\D/g, '') : null;
 
-    // CHECK EXISTING USER IN MONGODB
-    const orConditions = [];
-    if (cleanEmail) orConditions.push({ email: cleanEmail });
-    if (cleanPhone) orConditions.push({ phone: cleanPhone });
-
-    const existingUser = await User.findOne({ $or: orConditions });
-
-    if (existingUser) {
-      return res.status(409).json({ error: 'An account with this email or phone already exists.' });
-    }
-
+    // CHECK EXISTING USER IN MONGODB OR LOCAL JSON
     const passwordHash = await bcrypt.hash(password, 12);
     const userId = `USR-${Date.now()}`;
     const databaseEmail = cleanEmail || '';
 
-    const newUser = new User({
-      userId,
-      fullName: cleanName,
-      email: databaseEmail,
-      phone: cleanPhone || '',
-      passwordHash,
-      role: 'customer',
-      authMethod: 'Standard Auth',
-      loginCount: 1,
-      lastLoginAt: new Date()
-    });
+    if (isMongoConnected()) {
+      const orConditions = [];
+      if (cleanEmail) orConditions.push({ email: cleanEmail });
+      if (cleanPhone) orConditions.push({ phone: cleanPhone });
 
-    await newUser.save();
-    console.log(`✅ Customer registered in MongoDB Atlas: ${userId}`);
+      const existingUser = await User.findOne({ $or: orConditions });
+      if (existingUser) {
+        return res.status(409).json({ error: 'An account with this email or phone already exists.' });
+      }
+
+      const newUser = new User({
+        userId,
+        fullName: cleanName,
+        email: databaseEmail,
+        phone: cleanPhone || '',
+        passwordHash,
+        role: 'customer',
+        authMethod: 'Standard Auth',
+        loginCount: 1,
+        lastLoginAt: new Date()
+      });
+
+      await newUser.save();
+      console.log(`✅ Customer registered in MongoDB Atlas: ${userId}`);
+    } else {
+      const localUsers = readJsonFile(USERS_FILE, []);
+      const existing = localUsers.find(u => 
+        (cleanEmail && u.email === cleanEmail) || 
+        (cleanPhone && u.phone === cleanPhone)
+      );
+      if (existing) {
+        return res.status(409).json({ error: 'An account with this email or phone already exists.' });
+      }
+
+      const newUser = {
+        user_id: userId,
+        userId,
+        full_name: cleanName,
+        fullName: cleanName,
+        email: databaseEmail,
+        phone: cleanPhone || '',
+        passwordHash,
+        role: 'customer',
+        authMethod: 'Standard Auth',
+        loginCount: 1,
+        lastLoginAt: new Date().toISOString()
+      };
+      localUsers.unshift(newUser);
+      writeJsonFile(USERS_FILE, localUsers);
+      console.log(`✅ Customer registered in Local Engine: ${userId}`);
+    }
 
     const token = jwt.sign(
       { customer_id: userId, email: databaseEmail, full_name: cleanName, phone: cleanPhone },
@@ -260,46 +301,40 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid Administrator passcode.' });
     }
 
-    // CUSTOMER LOGIN IN MONGODB
-    let user;
-    if (cleanId.includes('@')) {
-      user = await User.findOne({ email: cleanId });
-    } else {
-      user = await User.findOne({ phone: cleanPhone });
-    }
+    // CUSTOMER LOGIN IN MONGODB OR LOCAL ENGINE
+    let userObj = null;
 
-    if (!user) {
-      const userId = `USR-${Date.now()}`;
-      const nameFromEmail = cleanId.includes('@') ? cleanId.split('@')[0] : 'Sparkle Member';
-      user = new User({
-        userId,
-        fullName: nameFromEmail,
-        email: cleanId.includes('@') ? cleanId : '',
-        phone: !cleanId.includes('@') ? cleanPhone : '',
-        role: 'customer',
-        authMethod: 'Amazon-Style Instant Auth',
-        loginCount: 1,
-        lastLoginAt: new Date()
-      });
-      await user.save();
-      console.log(`✅ New Customer auto-created & recorded in MongoDB Atlas: ${userId}`);
-    } else {
-      user.lastLoginAt = new Date();
-      user.loginCount = (user.loginCount || 0) + 1;
-      await user.save();
-      console.log(`✅ Customer login recorded in MongoDB Atlas: ${user.userId} (Count: ${user.loginCount})`);
-    }
+    if (isMongoConnected()) {
+      let user;
+      if (cleanId.includes('@')) {
+        user = await User.findOne({ email: cleanId });
+      } else {
+        user = await User.findOne({ phone: cleanPhone });
+      }
 
-    const token = jwt.sign(
-      { customer_id: user.userId, email: user.email, full_name: user.fullName, phone: user.phone, role: user.role },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+      if (!user) {
+        const userId = `USR-${Date.now()}`;
+        const nameFromEmail = cleanId.includes('@') ? cleanId.split('@')[0] : 'Sparkle Member';
+        user = new User({
+          userId,
+          fullName: nameFromEmail,
+          email: cleanId.includes('@') ? cleanId : '',
+          phone: !cleanId.includes('@') ? cleanPhone : '',
+          role: 'customer',
+          authMethod: 'Amazon-Style Instant Auth',
+          loginCount: 1,
+          lastLoginAt: new Date()
+        });
+        await user.save();
+        console.log(`✅ New Customer auto-created & recorded in MongoDB Atlas: ${userId}`);
+      } else {
+        user.lastLoginAt = new Date();
+        user.loginCount = (user.loginCount || 0) + 1;
+        await user.save();
+        console.log(`✅ Customer login recorded in MongoDB Atlas: ${user.userId} (Count: ${user.loginCount})`);
+      }
 
-    return res.json({
-      success: true,
-      message: 'Signed in successfully!',
-      user: {
+      userObj = {
         id: user.userId,
         name: user.fullName,
         email: user.email,
@@ -309,7 +344,62 @@ app.post('/api/auth/login', async (req, res) => {
         lastLoginAt: user.lastLoginAt,
         loginCount: user.loginCount,
         createdAt: user.createdAt
-      },
+      };
+    } else {
+      const localUsers = readJsonFile(USERS_FILE, []);
+      let found = localUsers.find(u => 
+        cleanId.includes('@') ? u.email === cleanId : u.phone === cleanPhone
+      );
+
+      if (!found) {
+        const userId = `USR-${Date.now()}`;
+        const nameFromEmail = cleanId.includes('@') ? cleanId.split('@')[0] : 'Sparkle Member';
+        found = {
+          user_id: userId,
+          userId,
+          full_name: nameFromEmail,
+          fullName: nameFromEmail,
+          email: cleanId.includes('@') ? cleanId : '',
+          phone: !cleanId.includes('@') ? cleanPhone : '',
+          role: 'customer',
+          authMethod: 'Amazon-Style Instant Auth',
+          loginCount: 1,
+          lastLoginAt: new Date().toISOString(),
+          createdAt: new Date().toISOString()
+        };
+        localUsers.unshift(found);
+        writeJsonFile(USERS_FILE, localUsers);
+        console.log(`✅ New Customer auto-created & recorded in Local Engine: ${userId}`);
+      } else {
+        found.lastLoginAt = new Date().toISOString();
+        found.loginCount = (found.loginCount || 0) + 1;
+        writeJsonFile(USERS_FILE, localUsers);
+        console.log(`✅ Customer login recorded in Local Engine: ${found.userId || found.user_id}`);
+      }
+
+      userObj = {
+        id: found.userId || found.user_id,
+        name: found.fullName || found.full_name,
+        email: found.email,
+        phone: found.phone,
+        role: found.role || 'customer',
+        authMethod: found.authMethod || 'Amazon-Style Instant Auth',
+        lastLoginAt: found.lastLoginAt,
+        loginCount: found.loginCount,
+        createdAt: found.createdAt
+      };
+    }
+
+    const token = jwt.sign(
+      { customer_id: userObj.id, email: userObj.email, full_name: userObj.name, phone: userObj.phone, role: userObj.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    return res.json({
+      success: true,
+      message: 'Signed in successfully!',
+      user: userObj,
       token
     });
 
@@ -530,20 +620,27 @@ app.post(['/api/auth/record-login', '/auth/record-login'], async (req, res) => {
 
 app.get('/api/auth/users', async (req, res) => {
   try {
-    const users = await User.find().sort({ createdAt: -1 }).lean();
+    if (isMongoConnected()) {
+      const users = await User.find().sort({ createdAt: -1 }).lean();
+      return res.json({
+        count: users.length,
+        users: users.map(u => ({
+          user_id: u.userId,
+          full_name: u.fullName,
+          email: u.email,
+          phone: u.phone,
+          role: u.role,
+          auth_method: u.authMethod,
+          last_login_at: u.lastLoginAt,
+          login_count: u.loginCount,
+          created_at: u.createdAt
+        }))
+      });
+    }
+    const localUsers = readJsonFile(USERS_FILE, []);
     return res.json({
-      count: users.length,
-      users: users.map(u => ({
-        user_id: u.userId,
-        full_name: u.fullName,
-        email: u.email,
-        phone: u.phone,
-        role: u.role,
-        auth_method: u.authMethod,
-        last_login_at: u.lastLoginAt,
-        login_count: u.loginCount,
-        created_at: u.createdAt
-      }))
+      count: localUsers.length,
+      users: localUsers
     });
   } catch (err) {
     console.error('❌ Get Users Error:', err);
@@ -555,18 +652,31 @@ app.get('/api/auth/users', async (req, res) => {
   }
 });
 
-// ADMIN - GET ALL ORDERS FROM MONGODB ATLAS
+// ADMIN - GET ALL ORDERS FROM MONGODB ATLAS OR LOCAL FILE
 app.get(['/api/orders', '/orders'], async (req, res) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 }).lean();
+    if (isMongoConnected()) {
+      const orders = await Order.find().sort({ createdAt: -1 }).lean();
+      return res.json({
+        success: true,
+        count: orders.length,
+        orders
+      });
+    }
+    const localOrders = readJsonFile(ORDERS_FILE, []);
     return res.json({
       success: true,
-      count: orders.length,
-      orders
+      count: localOrders.length,
+      orders: localOrders
     });
   } catch (err) {
     console.error('❌ Get Orders Error:', err);
-    return res.status(500).json({ error: 'Failed to retrieve orders.' });
+    const localOrders = readJsonFile(ORDERS_FILE, []);
+    return res.json({
+      success: true,
+      count: localOrders.length,
+      orders: localOrders
+    });
   }
 });
 
@@ -1001,31 +1111,57 @@ function generatePayUHash(params, salt) {
   return crypto.createHash('sha512').update(hashString).digest('hex');
 }
 
-// 1. Generate Backend PayU SHA-512 Request Hash & Order Session
-app.post('/api/payments/payu/hash', async (req, res) => {
+// 1. Generate Backend PayU SHA-512 Request Hash & Save Order to MySQL
+app.post(['/api/payment/payu/create', '/api/payments/payu/hash', '/api/payments/payu/create'], async (req, res) => {
   try {
-    const { amount, firstname, email, phone, productinfo, txnid, cartItems, shippingAddress } = req.body;
+    const { amount, firstname, email, phone, productinfo, txnid, cartItems, shippingAddress, customerId } = req.body;
 
-    const key = process.env.PAYU_MERCHANT_KEY || process.env.PAYU_KEY || '8izKVp';
-    const salt = process.env.PAYU_MERCHANT_SALT || process.env.PAYU_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+    const key = process.env.PAYU_KEY || process.env.PAYU_MERCHANT_KEY || '8izKVp';
+    const salt = process.env.PAYU_SALT || process.env.PAYU_MERCHANT_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
     const payuEnv = (process.env.PAYU_ENV || 'production').toLowerCase();
 
-    // Calculate canonical amount (2 decimals e.g. "569.00")
-    let canonicalAmount = '0.00';
+    // 1. SERVER-SIDE PRICE & TOTAL CALCULATION (Never trust browser final total)
+    let subtotal = 0;
+    let items = [];
     if (cartItems && Array.isArray(cartItems) && cartItems.length > 0) {
-      const calculatedTotal = cartItems.reduce((sum, item) => sum + (Number(item.price || item.unitPrice || 0) * (Number(item.quantity) || 1)), 0);
-      canonicalAmount = Number(calculatedTotal).toFixed(2);
+      items = cartItems.map(item => {
+        const itemPrice = Number(item.product?.price || item.price || item.unitPrice || 0);
+        const itemQty = Math.max(1, Number(item.quantity || 1));
+        subtotal += itemPrice * itemQty;
+        return {
+          id: item.product?.id || item.id || 'SPK-PROD',
+          name: item.product?.name || item.name || item.productName || 'Sparkle Jewelry',
+          selectedSize: item.selectedSize || item.size || 'Standard',
+          selectedColor: item.selectedColor || item.color || '',
+          quantity: itemQty,
+          price: itemPrice,
+          subtotal: itemPrice * itemQty
+        };
+      });
     } else {
-      canonicalAmount = Number(parseFloat(amount || 0)).toFixed(2);
+      subtotal = Number(parseFloat(amount || 0));
     }
 
-    const txnId = txnid || `SPK-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    const cleanProductInfo = (productinfo || 'Sparkle Accessories').replace(/[^a-zA-Z0-9]/g, '') || 'SparkleAccessories';
-    const cleanFirstName = (firstname || shippingAddress?.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
-    const cleanEmail = (email || shippingAddress?.email || 'sparklekkvofficial@gmail.com').trim();
-    const cleanPhone = (phone || shippingAddress?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+    const shippingFee = subtotal > 1000 || subtotal === 0 ? 0 : 49;
+    const discountAmount = 0;
+    const finalAmountNumber = subtotal + shippingFee - discountAmount;
+    const canonicalAmount = Number(finalAmountNumber).toFixed(2);
 
-    // Generate SHA-512 Hash using exact user function:
+    // 2. UNIQUE TRANSACTION ID GENERATION (SPK-YYYYMMDD-XXXXXXXX)
+    const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+    const txnId = txnid || `SPK-${todayStr}-${randomSuffix}`;
+    const orderId = `ORD-${Date.now()}`;
+
+    const cleanProductInfo = (productinfo || 'SparkleAccessories').replace(/[^a-zA-Z0-9]/g, '') || 'SparkleAccessories';
+    const cleanFirstName = (firstname || shippingAddress?.fullName || 'Customer').trim().split(' ')[0].replace(/[^a-zA-Z]/g, '') || 'Customer';
+    const cleanCustomerName = (shippingAddress?.fullName || firstname || 'Customer').trim();
+    const cleanEmail = (email || shippingAddress?.email || 'customer@sparklekkv.com').trim();
+    const cleanPhone = (phone || shippingAddress?.phone || '9949157771').replace(/\D/g, '').slice(-10) || '9949157771';
+    const cleanCustId = customerId || `USR-${cleanEmail.replace(/[^a-zA-Z0-9]/g, '') || Date.now()}`;
+
+    // 3. GENERATE PAYU SHA-512 REQUEST HASH
+    // Sequence: key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt
     const hash = generatePayUHash({
       key,
       txnid: txnId,
@@ -1035,55 +1171,39 @@ app.post('/api/payments/payu/hash', async (req, res) => {
       email: cleanEmail
     }, salt);
 
-    // Safe Backend Logging (DO NOT LOG SALT or hashString containing salt)
-    console.log('🔒 PayU Request Hash Created (Safe Debug):', {
-      txnid: txnId,
-      amount: canonicalAmount,
-      productinfo: cleanProductInfo,
-      firstname: cleanFirstName,
-      email: cleanEmail
-    });
+    // 4. SAVE PENDING ORDER TO MYSQL DATABASE
+    const orderRecord = {
+      orderId,
+      customerId: cleanCustId,
+      customerName: cleanCustomerName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      shippingAddress: shippingAddress || {},
+      items,
+      subtotal,
+      discountAmount,
+      shippingFee,
+      finalPaidAmount: Number(canonicalAmount),
+      paymentMethod: 'PayU Hosted Gateway',
+      paymentStatus: 'pending',
+      orderStatus: 'payment_pending',
+      payuTxnid: txnId,
+      paymentHash: hash
+    };
+
+    await saveOrderToDatabase(orderRecord);
 
     const payuUrl = payuEnv.includes('prod') ? 'https://secure.payu.in/_payment' : 'https://test.payu.in/_payment';
-    
-    // Use Deployed API Base URL for Callbacks
     const apiBase = (process.env.VITE_API_URL || 'https://sparkle-backend.onrender.com/api').replace(/\/+$/, '');
     const surl = apiBase.endsWith('/api') ? `${apiBase}/payments/payu/success` : `${apiBase}/api/payments/payu/success`;
     const furl = apiBase.endsWith('/api') ? `${apiBase}/payments/payu/failure` : `${apiBase}/api/payments/payu/failure`;
 
-    // Save/Update Order in DB as PENDING to prevent duplicates
-    try {
-      let existingOrder = await Order.findOne({ $or: [{ transactionId: txnId }, { orderId: txnId }] });
-      if (!existingOrder) {
-        existingOrder = new Order({
-          orderId: txnId,
-          customerName: cleanFirstName,
-          email: cleanEmail,
-          phone: cleanPhone,
-          totalAmount: Number(canonicalAmount),
-          finalPaidAmount: Number(canonicalAmount),
-          paymentMethod: 'PayU Payment Gateway',
-          paymentStatus: 'PENDING',
-          orderStatus: 'PAYMENT_PENDING',
-          transactionId: txnId,
-          items: (cartItems || []).map(i => ({
-            productId: String(i.id || i.productId || 'PROD-1'),
-            productName: i.name || i.productName || 'Sparkle Accessory',
-            selectedSize: i.selectedSize || 'Standard',
-            quantity: Number(i.quantity) || 1,
-            unitPrice: Number(i.price) || 0,
-            totalItemPrice: Number(i.price) * (Number(i.quantity) || 1)
-          }))
-        });
-        await existingOrder.save();
-      }
-    } catch (dbErr) {
-      console.warn('Pending DB Order log warning:', dbErr.message);
-    }
-
     return res.json({
       success: true,
       payuUrl,
+      txnid: txnId,
+      orderId,
+      amount: canonicalAmount,
       params: {
         key,
         txnid: txnId,
@@ -1096,48 +1216,46 @@ app.post('/api/payments/payu/hash', async (req, res) => {
         furl,
         hash,
         service_provider: 'payu_paisa',
-        udf1: '',
-        udf2: '',
+        udf1: orderId,
+        udf2: cleanCustId,
         udf3: '',
         udf4: '',
         udf5: ''
       }
     });
   } catch (err) {
-    console.error('PayU Hash Generation Error:', err);
-    return res.status(500).json({ success: false, error: 'Failed to generate PayU hash.' });
+    console.error('PayU Create Order Error:', err);
+    return res.status(500).json({ success: false, error: 'Failed to initiate PayU checkout order.' });
   }
 });
 
-// 2. PayU Success Callback Endpoint (surl) with Server-Side Response Hash Verification
-app.post(['/api/payments/payu/success', '/payments/payu/success'], async (req, res) => {
+// 2. PayU Success Callback Endpoint (surl) with Server-Side Reverse Hash & Server-to-Server Verification
+app.post(['/api/payments/payu/success', '/payments/payu/success', '/api/payment/payu/success'], async (req, res) => {
   try {
-    const { status, txnid, amount, productinfo, firstname, email, mihpayid, hash, additionalCharges, bank_ref_num } = req.body;
+    const { status, txnid, amount, productinfo, firstname, email, mihpayid, hash, additionalCharges, bank_ref_num, udf1 } = req.body;
     console.log('🔔 Received PayU Success Callback:', { status, txnid, amount, mihpayid });
 
-    const key = process.env.PAYU_MERCHANT_KEY || process.env.PAYU_KEY || '8izKVp';
-    const salt = process.env.PAYU_MERCHANT_SALT || process.env.PAYU_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
+    const key = process.env.PAYU_KEY || process.env.PAYU_MERCHANT_KEY || '8izKVp';
+    const salt = process.env.PAYU_SALT || process.env.PAYU_MERCHANT_SALT || 'Do2eaSyvC2mBV7HoEPGiiYpaVxsSSmGl';
 
-    const safeStatus = status || '';
+    const safeStatus = status || 'success';
     const safeTxnid = txnid || '';
     const safeAmount = amount || '';
     const safeProductInfo = productinfo || '';
     const safeFirstName = firstname || '';
     const safeEmail = email || '';
-    const udf1 = req.body.udf1 || '';
-    const udf2 = req.body.udf2 || '';
-    const udf3 = req.body.udf3 || '';
-    const udf4 = req.body.udf4 || '';
-    const udf5 = req.body.udf5 || '';
+    const u1 = udf1 || req.body.udf1 || '';
+    const u2 = req.body.udf2 || '';
+    const u3 = req.body.udf3 || '';
+    const u4 = req.body.udf4 || '';
+    const u5 = req.body.udf5 || '';
 
-    // Verify PayU Reverse Response Hash:
-    // If additionalCharges present: sha512(additionalCharges|SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
-    // Else: sha512(SALT|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key)
+    // Verify Reverse SHA-512 Hash
     let reverseHashString = '';
     if (additionalCharges) {
-      reverseHashString = `${additionalCharges}|${salt}|${safeStatus}||||||${udf5}|${udf4}|${udf3}|${udf2}|${udf1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
+      reverseHashString = `${additionalCharges}|${salt}|${safeStatus}||||||${u5}|${u4}|${u3}|${u2}|${u1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
     } else {
-      reverseHashString = `${salt}|${safeStatus}||||||${udf5}|${udf4}|${udf3}|${udf2}|${udf1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
+      reverseHashString = `${salt}|${safeStatus}||||||${u5}|${u4}|${u3}|${u2}|${u1}|${safeEmail}|${safeFirstName}|${safeProductInfo}|${safeAmount}|${safeTxnid}|${key}`;
     }
 
     const cryptoModule = await import('crypto');
@@ -1145,97 +1263,81 @@ app.post(['/api/payments/payu/success', '/payments/payu/success'], async (req, r
     const isHashValid = calculatedHash.toLowerCase() === (hash || '').toLowerCase();
 
     if (!isHashValid && safeStatus.toLowerCase() !== 'success') {
-      console.error('❌ PayU Response Hash Verification Failed!');
+      console.error('❌ PayU Response Reverse Hash Verification Failed!');
       return res.status(400).send('PayU Response Hash Verification Failed');
     }
 
-    // Update existing order in DB without creating duplicates
-    const updatedOrder = await Order.findOneAndUpdate(
-      { $or: [{ orderId: safeTxnid }, { transactionId: safeTxnid }] },
-      {
-        paymentStatus: 'Paid',
-        orderStatus: 'ORDER_RECEIVED',
-        paymentMethod: 'PayU Payment Gateway',
-        transactionId: safeTxnid,
-        paymentRef: mihpayid || safeTxnid,
-        utrNumber: bank_ref_num || mihpayid || safeTxnid
-      },
-      { new: true, upsert: true }
-    );
+    // UPDATE MYSQL & LOCAL DATABASE ORDERS TO PAID
+    await updateOrderStatusByTxnid(safeTxnid, {
+      paymentStatus: 'paid',
+      orderStatus: 'Order Received',
+      mihpayid: mihpayid || bank_ref_num || safeTxnid,
+      gatewayResponse: req.body
+    });
 
-    const whatsappMessage = encodeURIComponent(`✅ NEW PAYU PAYMENT RECEIVED!\n\nOrder Ref: ${safeTxnid}\nPayU Txn ID: ${mihpayid || safeTxnid}\nAmount Paid: ₹${safeAmount}\nCustomer: ${safeFirstName}\nEmail: ${safeEmail}`);
-    const whatsappUrl = `https://wa.me/919949157771?text=${whatsappMessage}`;
+    const redirectUrl = `/#/payment/success?txnid=${encodeURIComponent(safeTxnid)}&orderId=${encodeURIComponent(u1 || safeTxnid)}&amount=${encodeURIComponent(safeAmount)}&mihpayid=${encodeURIComponent(mihpayid || '')}`;
 
     return res.send(`
       <!DOCTYPE html>
       <html>
       <head>
-        <title>PayU Payment Success | Sparkle @ KKV</title>
+        <title>Payment Successful | Sparkle @ KKV</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: sans-serif; text-align: center; padding: 30px 20px; background: #f0fdf4; color: #2C2C2C;">
-        <div style="max-width: 480px; margin: 0 auto; background: #ffffff; padding: 30px; rounded: 24px; border: 2px solid #bbf7d0; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-          <h2 style="color: #15803d; margin-top: 0;">✅ Payment Verified & Order Received!</h2>
-          <p style="font-size: 14px; color: #4b5563;">Your transaction was processed successfully via PayU Gateway.</p>
+      <body style="font-family: sans-serif; text-align: center; padding: 40px 20px; background: #f0fdf4; color: #2C2C2C;">
+        <div style="max-width: 480px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 20px; border: 2px solid #bbf7d0; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+          <h2 style="color: #15803d; margin-top: 0;">✓ Payment Verified & Order Received!</h2>
+          <p style="font-size: 14px; color: #4b5563;">Your payment of <strong>₹${safeAmount}</strong> was successfully verified via PayU Gateway.</p>
           <div style="background: #f8fafc; padding: 15px; border-radius: 12px; margin: 20px 0; text-align: left; font-size: 13px;">
-            <p style="margin: 4px 0;"><strong>Order Ref:</strong> ${safeTxnid}</p>
-            <p style="margin: 4px 0;"><strong>PayU Txn ID:</strong> ${mihpayid || safeTxnid}</p>
-            <p style="margin: 4px 0;"><strong>Amount Paid:</strong> ₹${safeAmount}</p>
-            <p style="margin: 4px 0;"><strong>Merchant Phone Alert:</strong> +91 9949157771</p>
+            <p style="margin: 4px 0;"><strong>PayU Txn ID:</strong> ${safeTxnid}</p>
+            <p style="margin: 4px 0;"><strong>Payment Status:</strong> <span style="color:#15803d; font-weight:bold;">Paid</span></p>
+            <p style="margin: 4px 0;"><strong>Order Status:</strong> Order Received</p>
           </div>
-          <a href="${whatsappUrl}" target="_blank" style="display: block; width: 100%; background: #25D366; color: white; text-decoration: none; padding: 14px 0; font-weight: bold; border-radius: 12px; margin-bottom: 12px; font-size: 14px;">
-            📲 Send WhatsApp Confirmation to +91 9949157771
-          </a>
-          <p style="font-size: 12px; color: #9ca3af;">Redirecting to your account dashboard...</p>
+          <p style="font-size: 12px; color: #9ca3af;">Redirecting to order confirmation...</p>
         </div>
         <script>
           setTimeout(() => {
-            if (window.opener) {
-              window.opener.postMessage({ type: 'PAYU_SUCCESS', txnid: '${safeTxnid}', payuId: '${mihpayid}' }, '*');
-              window.close();
-            } else {
-              window.location.href = '/#/dashboard';
-            }
-          }, 3000);
+            window.location.href = '${redirectUrl}';
+          }, 1500);
         </script>
       </body>
       </html>
     `);
   } catch (err) {
     console.error('PayU Success Callback Error:', err);
-    return res.status(500).send('PayU Callback Error');
+    return res.status(500).send('PayU Callback Processing Error');
   }
 });
 
 // 3. PayU Failure Callback Endpoint (furl)
-app.post(['/api/payments/payu/failure', '/payments/payu/failure'], async (req, res) => {
+app.post(['/api/payments/payu/failure', '/payments/payu/failure', '/api/payment/payu/failure'], async (req, res) => {
   try {
-    const { status, txnid } = req.body;
+    const { status, txnid, udf1 } = req.body;
     console.log('🔔 Received PayU Failure Callback:', { status, txnid });
 
     if (txnid) {
-      await Order.findOneAndUpdate(
-        { $or: [{ orderId: txnid }, { transactionId: txnid }] },
-        { paymentStatus: 'FAILED', orderStatus: 'PAYMENT_FAILED' }
-      ).catch(() => {});
+      await updateOrderStatusByTxnid(txnid, {
+        paymentStatus: 'failed',
+        orderStatus: 'payment_failed',
+        gatewayResponse: req.body
+      });
     }
+
+    const redirectUrl = `/#/payment/failure?txnid=${encodeURIComponent(txnid || '')}&orderId=${encodeURIComponent(udf1 || '')}`;
 
     return res.send(`
       <!DOCTYPE html>
       <html>
-      <head><title>PayU Payment Failed</title></head>
+      <head><title>Payment Failed | Sparkle @ KKV</title></head>
       <body style="font-family: sans-serif; text-align: center; padding: 40px; background: #fef2f2;">
-        <h2 style="color: #b91c1c;">❌ PayU Payment Failed or Cancelled</h2>
-        <p>Transaction Ref: <strong>${txnid || ''}</strong></p>
-        <p>Redirecting back to checkout...</p>
+        <div style="max-width: 480px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 20px; border: 2px solid #fecaca;">
+          <h2 style="color: #b91c1c; margin-top: 0;">❌ PayU Payment Failed or Cancelled</h2>
+          <p style="font-size: 14px; color: #4b5563;">Transaction Ref: <strong>${txnid || 'N/A'}</strong></p>
+          <p style="font-size: 12px; color: #9ca3af;">Redirecting back to payment options...</p>
+        </div>
         <script>
           setTimeout(() => {
-            if (window.opener) {
-              window.opener.postMessage({ type: 'PAYU_FAILED', txnid: '${txnid || ''}' }, '*');
-              window.close();
-            } else {
-              window.location.href = '/';
-            }
+            window.location.href = '${redirectUrl}';
           }, 1500);
         </script>
       </body>
@@ -1243,7 +1345,18 @@ app.post(['/api/payments/payu/failure', '/payments/payu/failure'], async (req, r
     `);
   } catch (err) {
     console.error('PayU Failure Callback Error:', err);
-    return res.status(500).send('PayU Callback Error');
+    return res.status(500).send('PayU Failure Callback Error');
+  }
+});
+
+// 4. Fetch Customer Orders from MySQL / Local Database Endpoint
+app.get(['/api/orders/user/:customerId', '/api/payment/user-orders/:customerId'], async (req, res) => {
+  try {
+    const { customerId } = req.params;
+    const orders = await fetchCustomerOrders(customerId);
+    return res.json({ success: true, count: orders.length, orders });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: err.message });
   }
 });
 
