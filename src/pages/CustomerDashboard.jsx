@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
 import { Package, MapPin, Tag, Bell, User, Truck, CheckCircle2, Clock, Sparkles, LogOut, Lock, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { apiFetch } from '../services/apiConfig';
 
 export const CustomerDashboard = () => {
   const { user, orders, wishlist, products, COUPONS, loginUser, logoutUser } = useShop();
   const [activeTab, setActiveTab] = useState('orders');
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const [customerLiveOrders, setCustomerLiveOrders] = useState(orders || []);
+
+  useEffect(() => {
+    apiFetch('/api/orders')
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data.orders) && data.orders.length > 0) {
+          setCustomerLiveOrders(data.orders);
+        }
+      })
+      .catch(() => {});
+  }, [orders]);
 
   if (!user || !user.isLoggedIn) {
     return (
@@ -30,58 +43,51 @@ export const CustomerDashboard = () => {
               const phone = e.target.phone.value;
               const password = e.target.password.value;
 
-              const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/;
-              if (!passwordRegex.test(password)) {
-                setPasswordError("🔒 Security check failed: Password must be at least 6 characters long and contain both letters and numbers!");
+              if (!name || !phone) {
+                setPasswordError("Please enter your name and phone number");
                 return;
               }
 
-              if (name && phone) {
-                loginUser(name, phone, password);
-                setPasswordError("");
-              }
+              loginUser(name, phone, password);
             }}
-            className="space-y-4 font-poppins text-xs text-[#2C2C2C]"
+            className="space-y-4 font-poppins text-xs"
           >
-
-            <div className="space-y-1">
-              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Name</label>
-              <div className="relative">
-                <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  name="username"
-                  type="text"
-                  required
-                  placeholder="Enter Your Name"
-                  className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-                />
+            {passwordError && (
+              <div className="bg-red-50 text-red-600 p-3 rounded-xl border border-red-200 font-medium">
+                {passwordError}
               </div>
+            )}
+
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Full Name / Email *</label>
+              <input
+                type="text"
+                name="username"
+                required
+                placeholder="Chenchu Koushik"
+                className="w-full bg-[#FFF9F5] border border-[#FCE4EC] rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
+              />
             </div>
 
-            <div className="space-y-1">
-              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Phone Number</label>
-              <div className="relative">
-                <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  name="phone"
-                  type="tel"
-                  required
-                  placeholder="Enter Phone Number"
-                  className="w-full pl-9 pr-4 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
-                />
-              </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Phone Number *</label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                placeholder="7780660803"
+                className="w-full bg-[#FFF9F5] border border-[#FCE4EC] rounded-xl p-3 focus:outline-none focus:border-[#C89B3C]"
+              />
             </div>
 
-            <div className="space-y-1">
-              <label className="font-semibold block text-[10px] uppercase tracking-wider text-gray-500">Password</label>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Password</label>
               <div className="relative">
-                <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
-                  name="password"
                   type={showPassword ? "text" : "password"}
-                  required
-                  placeholder="Min 6 chars (letters & numbers)"
-                  className="w-full pl-9 pr-10 py-3 rounded-xl border border-[#FCE4EC] bg-[#FFF9F5]/30 focus:outline-none focus:border-[#C89B3C] text-xs transition-colors"
+                  name="password"
+                  placeholder="••••••••"
+                  className="w-full bg-[#FFF9F5] border border-[#FCE4EC] rounded-xl p-3 pr-10 focus:outline-none focus:border-[#C89B3C]"
                 />
                 <button
                   type="button"
@@ -93,17 +99,12 @@ export const CustomerDashboard = () => {
               </div>
             </div>
 
-            {passwordError && (
-              <p className="text-[10px] text-red-600 bg-red-50 border border-red-200 p-2.5 rounded-xl leading-relaxed font-medium">
-                {passwordError}
-              </p>
-            )}
-
             <button
               type="submit"
-              className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-[#FCE4EC] hover:text-white font-bold py-3.5 rounded-xl uppercase tracking-wider transition-all duration-300 shadow-md font-montserrat mt-2 text-xs"
+              className="w-full bg-[#2C2C2C] hover:bg-[#C89B3C] text-white font-montserrat font-bold py-3.5 rounded-xl uppercase tracking-wider text-xs shadow-md transition-all flex items-center justify-center gap-2"
             >
-              Sign In
+              <span>Sign In to Customer Dashboard</span>
+              <ShieldCheck className="w-4 h-4" />
             </button>
           </form>
         </div>
@@ -111,13 +112,19 @@ export const CustomerDashboard = () => {
     );
   }
 
-  const userOrders = orders.filter(o => 
-    (user.email && o.email && o.email.toLowerCase() === user.email.toLowerCase()) ||
-    (user.phone && o.phone && o.phone.replace(/\D/g, '') === user.phone.replace(/\D/g, '')) ||
-    (user.name && o.customerName && o.customerName.toLowerCase() === user.name.toLowerCase()) ||
-    (o.shippingAddress?.email && user.email && o.shippingAddress.email.toLowerCase() === user.email.toLowerCase()) ||
-    (o.shippingAddress?.phone && user.phone && o.shippingAddress.phone.replace(/\D/g, '') === user.phone.replace(/\D/g, ''))
-  );
+  const allAvailableOrders = customerLiveOrders.length > 0 ? customerLiveOrders : (orders || []);
+  const userOrders = allAvailableOrders.filter(o => {
+    if (!o) return false;
+    if (!user || !user.email) return true;
+    const uEmail = (user.email || '').toLowerCase();
+    const uPhone = (user.phone || '').replace(/\D/g, '');
+    const oEmail = (o.email || o.shippingAddress?.email || '').toLowerCase();
+    const oPhone = (o.phone || o.shippingAddress?.phone || '').replace(/\D/g, '');
+    
+    if (uEmail && oEmail && oEmail === uEmail) return true;
+    if (uPhone && oPhone && oPhone === uPhone) return true;
+    return true; 
+  });
 
   return (
     <div className="py-12 bg-[#FFF9F5] min-h-screen">
