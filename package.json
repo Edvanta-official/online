@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "server": "node server/index.js",
     "start": "node scripts/start-all.js",
+    "view-db": "node scripts/view_database.js",
     "inspect:db": "node scripts/inspect_mongodb.js",
     "migrate:db": "node scripts/migrate_to_mongodb.js",
     "db:users": "node scripts/sync_mysql_users.js"
@@ -29,6 +30,7 @@
     "mongoose": "^9.9.4",
     "mysql2": "^3.24.2",
     "nodemailer": "^9.0.5",
+    "pg": "^8.23.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5"

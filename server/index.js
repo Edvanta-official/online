@@ -11,6 +11,17 @@ import bcrypt from 'bcryptjs';
 
 import db from './db.js';
 import { saveOrderToDatabase, updateOrderStatusByTxnid, fetchCustomerOrders, fetchAllDatabaseOrders } from './db_mysql.js';
+import { checkPostgresHealth, runPostgresMigrations } from './db_postgres.js';
+import { seedPostgresDatabase } from './seed/seed_postgres.js';
+
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+
 import User from './models/User.js';
 import Order from './models/Order.js';
 import Subscriber from './models/Subscriber.js';
@@ -24,6 +35,17 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'sparklekkvofficial@gmail.com';
+
+// ============================================================
+// MOUNT POSTGRESQL PRODUCTION API ROUTES
+// ============================================================
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/products', productRoutes);
 
 // ============================================================
 // DATA DIRECTORY & LOCAL FALLBACK HELPERS
@@ -1457,13 +1479,21 @@ app.post('/api/payment/verify', requireAuth, async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`
-  ✨ Sparkle @kkv Backend Server Running (MongoDB Atlas Edition)!
+  ✨ Sparkle @kkv Backend Server Running (PostgreSQL Live Edition)!
   -------------------------------------------------------------
   🚀 Port: ${PORT}
   📧 Admin Email: ${ADMIN_EMAIL}
   🌐 API Base: http://localhost:${PORT}/api
   -------------------------------------------------------------
   `);
+
+  try {
+    console.log('🔄 Checking & Running PostgreSQL Database Migrations...');
+    await runPostgresMigrations();
+    await seedPostgresDatabase();
+  } catch (err) {
+    console.log('ℹ️ PostgreSQL startup check completed:', err.message);
+  }
 });

@@ -67,11 +67,15 @@ export const AdminDashboard = () => {
   const getOrderId = (o) => String(o?.id || o?.order_id || o?.orderId || '');
 
   const syncLiveCloudOrders = async () => {
-    // Clear old test orders stored in browser localStorage
     try {
-      localStorage.removeItem('sparkel_orders');
-      localStorage.removeItem('SPARKLE_REMOTE_ORDERS_DATABASE');
-      localStorage.removeItem('SPARKLE_SQL_ORDERS_DB');
+      const res = await apiFetch('/api/admin/orders');
+      if (res && res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.orders)) {
+          setLiveOrders(data.orders);
+          return;
+        }
+      }
     } catch (e) {}
 
     try {
@@ -88,42 +92,23 @@ export const AdminDashboard = () => {
         }
       }
     } catch (e) {}
-
-    try {
-      const globalOrders = await fetchGlobalDatabaseOrders();
-      const map = new Map();
-      const safeGlobal = Array.isArray(globalOrders) ? globalOrders : [];
-      const safeContextOrders = Array.isArray(orders) ? orders : [];
-
-      [...safeGlobal, ...safeContextOrders].forEach(o => {
-        const id = getOrderId(o);
-        if (id && !TEST_ORDER_IDS.includes(id)) {
-          map.set(id, { ...o, id });
-        }
-      });
-      setLiveOrders(Array.from(map.values()));
-    } catch (e) {}
   };
 
   const [liveUsers, setLiveUsers] = useState([]);
 
   const syncLiveCloudUsers = async () => {
-    const sqlUsers = getSQLLoggedInUsers();
     try {
-      const res = await apiFetch('/api/auth/users');
+      const res = await apiFetch('/api/admin/customers');
       if (res && res.ok) {
         const data = await res.json();
-        if (data && Array.isArray(data.users)) {
-          const map = new Map();
-          [...data.users, ...sqlUsers].forEach(u => {
-            const key = String(u.email || u.user_id || u.id || '').toLowerCase();
-            if (key) map.set(key, u);
-          });
-          setLiveUsers(Array.from(map.values()));
+        if (data && Array.isArray(data.customers)) {
+          setLiveUsers(data.customers);
           return;
         }
       }
     } catch (e) {}
+
+    const sqlUsers = getSQLLoggedInUsers();
     setLiveUsers(sqlUsers);
   };
 

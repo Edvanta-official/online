@@ -11,11 +11,19 @@ export const CustomerDashboard = () => {
   const [customerLiveOrders, setCustomerLiveOrders] = useState(orders || []);
 
   useEffect(() => {
-    apiFetch('/api/orders')
+    apiFetch('/api/orders/my-orders')
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.orders) && data.orders.length > 0) {
           setCustomerLiveOrders(data.orders);
+        } else {
+          apiFetch('/api/orders')
+            .then(res => res.json())
+            .then(d => {
+              if (d && Array.isArray(d.orders)) {
+                setCustomerLiveOrders(d.orders);
+              }
+            }).catch(() => {});
         }
       })
       .catch(() => {});
