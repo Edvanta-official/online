@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://edvanta-official.github.io/online/",
+  "homepage": "https://sparklekkv.com",
   "scripts": {
     "dev": "node scripts/start-all.js",
     "dev:single": "vite",
